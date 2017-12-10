@@ -9,6 +9,10 @@
       "outDir": "dist",
       "assets": [
         "assets",
+        "css",
+        "revolution",
+        "js",
+        "fonts",
         "favicon.ico",
 		"images"
       ],

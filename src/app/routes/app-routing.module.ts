@@ -30,7 +30,7 @@ const appRoutes: Routes = [
   //   loadChildren: 'app/crisis-center/crisis-center.module#CrisisCenterModule',
   //   data: { preload: true }
   // },
-  { path: '',   redirectTo: '/superheroes', pathMatch: 'full' },
+  { path: '',   redirectTo: '/home', pathMatch: 'full' },
   { path: '**', component: NotFoundComponent }
 ];
 
