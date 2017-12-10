@@ -39,8 +39,10 @@ import { AuthService } from "angular2-social-login";
     )
   }
 
-  ngOnDestroy(){
-    this.sub.unsubscribe();
+  ngOnDestroy() {
+    if (!this.sub) {
+      this.sub.unsubscribe();
+    }
   }
 
 }
