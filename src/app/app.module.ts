@@ -16,7 +16,8 @@ import { HtmlNodeComponent }  from './cursuri/javascript/components/htmlnode.com
 import { EscapeHtmlPipe } from './pipes/keep-html.pipe'
 import { CodeExecutionService } from './services/code/codeExecution'
 import { Angular2SocialLoginModule } from 'angular2-social-login';
-import { LoginComponent } from './login/login.component'
+import { LoginComponent } from './login/login.component';
+import { HeaderComponent } from './ui/header/header.component';
 
 let providers = {
   // "google": {
@@ -41,7 +42,8 @@ let providers = {
     ObjectKeysPipe,
     HtmlNodeComponent,
     EscapeHtmlPipe,
-    LoginComponent
+    LoginComponent,
+    HeaderComponent
   ],
   imports: [
     AceEditorModule,

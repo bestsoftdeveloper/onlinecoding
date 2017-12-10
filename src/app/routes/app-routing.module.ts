@@ -5,7 +5,7 @@ import { HomeComponent }  from '../home/home.component';
 import { NotFoundComponent }    from '../not-found/notfound.component';
 import { AboutComponent }  from '../about/about.component';
 import { JavascriptComponent }  from '../cursuri/javascript/javascript.component';
-
+import { LoginComponent }  from '../login/login.component';
 
 
 const appRoutes: Routes = [
@@ -20,6 +20,10 @@ const appRoutes: Routes = [
   {
     path:'js',
     component:JavascriptComponent
+  },
+  {
+    path:'login',
+    component:LoginComponent
   },
   // {
   //   path: 'admin',
