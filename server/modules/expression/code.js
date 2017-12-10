@@ -56,7 +56,7 @@ var executor = {
   },
 
   executeWithPromise: async function(code) {
-     console.log('ddddddddddddddsssss');
+     console.log('executeWithPromise');
     var promise = new Promise((resolve, reject) => {
       var s = new Sandbox();
       s.run(code, function(output) {

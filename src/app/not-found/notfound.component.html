@@ -1,0 +1,22 @@
+<p>
+  coding works!
+</p>
+<div ace-editor
+[(text)]="text"
+     [mode]="javascript"
+     [theme]="eclipse"
+     (textChanged)="onChange($event)"
+style="min-height: 200px; width:100%; overflow: auto;"></div>
+
+<button (click)="executeCodeOnServer($event)">test</button>
+
+
+
+<ul *ngIf="codeResult">
+  {{codeResult.success}}
+  {{codeResult.data.result}}
+  <li *ngFor="let comment of codeResult.data.console; let i = index">
+    {{i}} {{comment}}
+  </li>
+</ul>
+

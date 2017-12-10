@@ -1,0 +1,43 @@
+<ul *ngFor="let o of node | keysToArray">
+  <li *ngIf="o.key == 'title'" (click)="titleClick(node)" [ngClass]="getClases(node)">
+    {{o.value}}
+  </li>
+
+  <ul *ngIf="node.expanded" >
+    <span *ngIf="o.key == 'desc'">
+      {{o.value}}
+    </span>
+
+    <span *ngIf="o.key == 'descHtml'">
+      <div [innerHTML]="o.value | keepHtml"></div>
+    </span>
+
+    <div *ngIf="o.key == 'ex'">
+      <li  *ngFor="let im of o.value.files">
+        <!--<span>{{im}}</span>-->
+        <img src="images/{{im}}"/>
+      </li>
+    </div>
+
+    <div *ngIf="o.key == 'info'">
+      <div [innerHTML]="o.value.syntax | keepHtml"></div>
+      <div [innerHTML]="o.value.parameters | keepHtml"></div>
+      <div [innerHTML]="o.value.example | keepHtml"></div>
+    </div>
+
+    <div *ngIf="o.key == 'code'">
+      <app-coding  [code]=o.value></app-coding>
+    </div>
+  <!--<div *ngIf="(o.value | json) != '{}'">-->
+    <ul *ngIf="o.key == 'el'">
+      <li *ngFor="let el of o.value">
+        <app-htmlnode [node]=el></app-htmlnode>
+      </li>
+    </ul>
+
+
+
+  </ul>
+
+
+</ul>

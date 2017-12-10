@@ -7,8 +7,8 @@ import 'rxjs/add/operator/toPromise';
 export class HttpWrapperService {
 
     url = 'http://localhost:4200/assets/data/books.json';
-
     constructor(private http: Http) { }
+
 
     async getJson(url): Promise<any> {
       try {

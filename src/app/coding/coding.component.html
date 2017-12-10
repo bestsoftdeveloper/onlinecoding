@@ -1,9 +1,44 @@
-<p>
-  coding works!
-</p>
-<div ace-editor
-[(text)]="text"
-(textChanged)="onChange($event)"
-style="min-height: 200px; width:100%; overflow: auto;"></div>
 
-<button (click)="executeCodeOnServer($event)">test</button>
+<div class="row">
+  <div class="col-md-6 brd1">
+      <div ace-editor
+          [(text)]="text"
+          [mode]="'javascript'"
+          [theme]="'eclipse'"
+          (textChanged)="onChange($event)"
+           style="min-height: 200px; width:100%; overflow: auto;">
+      </div>
+    <button class="col-md-6 btn-primary" (click)="executeCodeLocally($event)">Test</button>
+    <button class="col-md-6 btn-success" (click)="executeCodeOnServer($event)">Send To Server</button>
+  </div>
+  <div class="col-md-6">
+    <div class="row">
+      <label>Results</label>
+    </div>
+    <div class="row">
+    <ul *ngIf="codeResult">
+      <li>
+      Success:{{codeResult.success}}
+        <span class="error">{{codeResult.errorInfo}}</span>
+      </li>
+      <li>
+      Result:  {{codeResult.data.result}}
+      </li>
+      Console:
+      <li *ngFor="let comment of codeResult.data.console; let i = index">
+         {{comment}}
+      </li>
+    </ul>
+      </div>
+  </div>
+
+
+</div>
+
+
+
+
+
+
+
+
