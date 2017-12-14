@@ -1,1 +1,4 @@
 npm install @angular/core@4.4.6
+
+Typed.js
+https://stackoverflow.com/questions/36198785/how-do-i-create-a-singleton-service-in-angular-2
