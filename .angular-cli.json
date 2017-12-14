@@ -10,6 +10,7 @@
       "assets": [
         "assets",
         "css",
+        "img",
         "revolution",
         "js",
         "fonts",
@@ -25,13 +26,17 @@
       "prefix": "app",
       "styles": [
         "styles.css",
-		  "../node_modules/bootstrap/dist/css/bootstrap.min.css"
+		  "../node_modules/bootstrap/dist/css/bootstrap.min.css",
+		  "../node_modules/swiper/dist/css/swiper.min.css"
       ],
       "scripts": [
+        "../node_modules/jquery/dist/jquery.js",
 		  "../node_modules/ace-builds/src-min/ace.js",
 		  "../node_modules/ace-builds/src-min/theme-eclipse.js",
-        "../node_modules/angular2-social-login/dist/bundles/angular2-social-login.min.js"
-	  ],
+        "../node_modules/angular2-social-login/dist/bundles/angular2-social-login.min.js",
+		  "../node_modules/swiper/dist/js/swiper.min.js",
+        "../node_modules/swiper/dist/js/test.min.js"
+      ],
       "environmentSource": "environments/environment.ts",
       "environments": {
         "dev": "environments/environment.ts",

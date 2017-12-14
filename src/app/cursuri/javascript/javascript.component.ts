@@ -1,7 +1,5 @@
-import { Component, OnInit, Pipe } from '@angular/core';
-import { AceEditorComponent } from 'ng2-ace-editor';
+import { Component, OnInit } from '@angular/core';
 import { HttpWrapperService } from '../../services/http/httpService'
-// import { ObjectKeysPipe } from '../../pipes/objectKeys.pipe';
 
 @Component({
   selector: 'app-javascript',

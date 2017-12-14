@@ -6,6 +6,7 @@ import { NotFoundComponent }    from '../not-found/notfound.component';
 import { AboutComponent }  from '../about/about.component';
 import { JavascriptComponent }  from '../cursuri/javascript/javascript.component';
 import { LoginComponent }  from '../login/login.component';
+import {SwipperComponent} from "../ui/swipper/swipper.component";
 
 
 const appRoutes: Routes = [
@@ -26,6 +27,10 @@ const appRoutes: Routes = [
     component:LoginComponent
   },
   // {
+  //   path:'swipper',
+  //   component:SwipperComponent
+  // },
+  // {
   //   path: 'admin',
   //   loadChildren: 'app/admin/admin.module#AdminModule',
   // },
@@ -43,7 +48,7 @@ const appRoutes: Routes = [
     RouterModule.forRoot(
       appRoutes,
       {
-        enableTracing: false, // <-- debugging purposes only
+        enableTracing: true, // <-- debugging purposes only
         // preloadingStrategy: SelectivePreloadingStrategy,
 
       }

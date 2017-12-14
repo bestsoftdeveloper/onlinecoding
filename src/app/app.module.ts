@@ -18,7 +18,13 @@ import { CodeExecutionService } from './services/code/codeExecution'
 import { Angular2SocialLoginModule } from 'angular2-social-login';
 import { LoginComponent } from './login/login.component';
 import { HeaderComponent } from './ui/header/header.component';
+import  { MainSliderComponent } from './ui/mainSlider/mainSlider.component';
 
+
+import { SwiperModule } from 'angular2-useful-swiper';
+// import { SwiperModule } from '../node_modules/angular2-useful-swiper';
+
+import  { SwipperComponent } from './ui/swipper/swipper.component';
 let providers = {
   // "google": {
   //   "clientId": "GOOGLE_CLIENT_ID"
@@ -43,14 +49,17 @@ let providers = {
     HtmlNodeComponent,
     EscapeHtmlPipe,
     LoginComponent,
-    HeaderComponent
+    HeaderComponent,
+    MainSliderComponent,
+    SwipperComponent
   ],
   imports: [
     AceEditorModule,
     BrowserModule,
     HttpModule,
     AppRoutingModule,
-    Angular2SocialLoginModule
+    Angular2SocialLoginModule,
+    SwiperModule
   ],
   providers: [HttpWrapperService,CodeExecutionService],
   bootstrap: [AppComponent]
