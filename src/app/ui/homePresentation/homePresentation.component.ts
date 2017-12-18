@@ -27,8 +27,14 @@ import {
 
 export class HomePresentationComponent implements OnInit {
 
-  images = ['images/slider-1.jpg','images/slider-2.jpg','images/slider-3.jpg'];
-  bkImageUrl= 'images/slider-1.jpg';
+  //images = ['images/slider-1.jpg','images/slider-2.jpg','images/slider-3.jpg'];
+
+  images = [
+    'images/slider-1.jpg',
+    //'images/slider-2.jpg',
+    'images/slider-3.png'];
+
+  bkImageUrl= this.images[0];
   timeoutId=null;
   imageIndex = 0;
   counter=0;
