@@ -1,76 +1,12 @@
 
 
-    <h1>Swiper</h1>
+<!--<p [@myAwesomeAnimation]='state' (click)="animateMe()">I will animate</p>-->
 
-    <!--<script src="./Swiper - Most Modern Mobile Touch Slider_files/jquery-1.11.0.min.js.download"></script>-->
-    <!--<script src="./Swiper - Most Modern Mobile Touch Slider_files/plugins.js.download"></script>-->
-    <!--<script src="./Swiper - Most Modern Mobile Touch Slider_files/swiper.js.download"></script>-->
-    <!--<script src="./Swiper - Most Modern Mobile Touch Slider_files/main.js.download"></script>-->
-
-    <div class="element"></div>
-    <div id="typed-strings">
-      <p>Typed.js is a ^1000 <strong>JavaScript</strong> library.</p>
-      <p>It <em>types</em> out sentences.</p>
-      <p>My strings are: <i>strings</i> with</p>
-      <p>My strings are: <strong>HTML</strong></p>
-      <p>My strings are: Chars &times; &copy;</p>
-    </div>
-    <span id="typed"></span>
+<app-home-presentation></app-home-presentation>
+    <!--<app-typo></app-typo>-->
 
 
-    <div class="swiper-container">
-<swiper [config]="config">
-  <div class="swiper-wrapper">
-    <div class="swiper-slide">Slide 1</div>
-    <div class="swiper-slide">Slide 2</div>
-    <div class="swiper-slide">Slide 3</div>
-    <div class="swiper-slide">Slide 4</div>
-    <div class="swiper-slide">Slide 5</div>
-    <div class="swiper-slide">Slide 6</div>
-    <div class="swiper-slide">Slide 7</div>
-    <div class="swiper-slide">Slide 8</div>
-    <div class="swiper-slide">Slide 9</div>
-    <div class="swiper-slide">Slide 10</div>
-  </div>
-  <!-- Add Pagination -->
-  <div class="swiper-pagination"></div>
-  <!-- Add Arrows -->
-  <div class="swiper-button-next"></div>
-  <div class="swiper-button-prev"></div>
-</swiper>
-    </div>
 
-    <!--<div class="swiper-container">-->
-      <!--<div class="swiper-wrapper">-->
-        <!--<div class="swiper-slide" style="background-image:url(img/2.jpg)">-->
-          <!--<a href="http://www.idangero.us/sliders/moover/" target="_blank"></a>-->
-        <!--</div>-->
-        <!--<div class="swiper-slide" style="background-image:url(img/1.jpg)">-->
-          <!--<a href="http://www.idangero.us/" target="_blank"></a>-->
-        <!--</div>-->
-        <!--<div class="swiper-slide" style="background-image:url(img/4.jpg)">-->
-          <!--<a href="http://www.idangero.us/sliders/" target="_blank"></a>-->
-        <!--</div>-->
-        <!--<div class="swiper-slide" style="background-image:url(img/7.jpg)">-->
-          <!--<a href="http://www.idangero.us/cs/" target="_blank"></a>-->
-        <!--</div>-->
-        <!--<div class="swiper-slide" style="background-image:url(img/6.jpg)">-->
-          <!--<a href="http://www.idangero.us/sliders/s6/" target="_blank"></a>-->
-        <!--</div>-->
-      <!--</div>-->
-    <!--</div>-->
-    <!--<script>-->
-      <!--debugger;-->
-      <!--var mySwiper = new Swiper('.swiper-container',{-->
-        <!--slidesPerView:3,-->
-        <!--loop:true,-->
-        <!--//Enable 3D Flow-->
-        <!--tdFlow: {-->
-          <!--rotate : 30,-->
-          <!--stretch :10,-->
-          <!--depth: 150,-->
-          <!--modifier : 1,-->
-          <!--shadows:true-->
-        <!--}-->
-      <!--})-->
-    <!--</script>-->
+<div class = "row">
+    <app-mainslider></app-mainslider>
+</div>

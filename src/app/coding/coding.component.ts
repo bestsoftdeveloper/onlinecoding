@@ -15,6 +15,7 @@ export class CodingComponent implements OnInit {
   private codeExecutionService: CodeExecutionService;
   public codeResult : any;
   @Input() code: string;
+
   constructor(httpService: HttpWrapperService,codeExecutionService : CodeExecutionService)
   {
     this.httpService = httpService;

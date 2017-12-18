@@ -1,7 +1,9 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
-
+import { FormsModule }   from '@angular/forms';
+// import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AceEditorModule } from 'ng2-ace-editor';
 import { AppComponent } from './app.component';
 import { CodingComponent } from './coding/coding.component';
@@ -19,12 +21,16 @@ import { Angular2SocialLoginModule } from 'angular2-social-login';
 import { LoginComponent } from './login/login.component';
 import { HeaderComponent } from './ui/header/header.component';
 import  { MainSliderComponent } from './ui/mainSlider/mainSlider.component';
-
-
+import  { TypoComponent } from './ui/type/typo.component';
+import  { HomePresentationComponent } from './ui/homePresentation/homePresentation.component';
+import { TooltipDirective } from 'ng2-tooltip-directive/components';
 import { SwiperModule } from 'angular2-useful-swiper';
 // import { SwiperModule } from '../node_modules/angular2-useful-swiper';
+import {Component} from "@angular/core";
+import { LocalStorageModule } from 'angular-2-local-storage';
 
 import  { SwipperComponent } from './ui/swipper/swipper.component';
+import {DropdownModule} from "ngx-dropdown";
 let providers = {
   // "google": {
   //   "clientId": "GOOGLE_CLIENT_ID"
@@ -51,7 +57,10 @@ let providers = {
     LoginComponent,
     HeaderComponent,
     MainSliderComponent,
-    SwipperComponent
+    SwipperComponent,
+    TypoComponent,
+    HomePresentationComponent,
+    TooltipDirective
   ],
   imports: [
     AceEditorModule,
@@ -59,7 +68,14 @@ let providers = {
     HttpModule,
     AppRoutingModule,
     Angular2SocialLoginModule,
-    SwiperModule
+    SwiperModule,
+    FormsModule,
+    LocalStorageModule.withConfig({
+      prefix: 'my-app',
+      storageType: 'localStorage'
+    }),
+    DropdownModule,
+    BrowserAnimationsModule
   ],
   providers: [HttpWrapperService,CodeExecutionService],
   bootstrap: [AppComponent]

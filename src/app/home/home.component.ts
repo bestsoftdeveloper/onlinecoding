@@ -1,14 +1,31 @@
 import { Component, OnInit, Injectable, ViewChild  } from '@angular/core';
 import { HttpWrapperService } from '../services/http/httpService'
-import  { SwipperComponent } from '../ui/swipper/swipper.component';
-import * as Typed from 'typed.js';
+import {
+  trigger,
+  state,
+  style,
+  animate,
+  transition, query, stagger
+} from '@angular/animations';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  styleUrls: ['./home.component.css'],
+  animations: [
+    trigger('myAwesomeAnimation', [
+      state('small', style({
+        transform: 'scale(1)',
+      })),
+      state('large', style({
+        transform: 'scale(1.2)',
+      })),
+      transition('small => large', animate('100ms ease-in')),
+    ]),
+  ]
 })
 
+//https://angularfirebase.com/lessons/animation-examples-in-angular-4-3/
 @Injectable()
 
 // @ViewChild('usefulSwiper') usefulSwiper: SwipperComponent;
@@ -61,19 +78,20 @@ import * as Typed from 'typed.js';
     this.text = 'console.log("start");';
   }
 
+  state: string = 'small';
+
+  animateMe() {
+    this.state = (this.state === 'small' ? 'large' : 'small');
+  }
+
   onChange(code) {
     console.log('new code', code);
   }
 
   ngOnInit() {
 
-   // https://github.com/mattboldt/typed.js/
-    var typed = new Typed(".element", {
-      stringsElement: '#typed-strings',
-      //smartBackspace: true, // Default value
-      loop: true,
-      typeSpeed: 80
-    });
+
+
   }
 
   async executeCodeOnServer(event)

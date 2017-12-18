@@ -6,7 +6,40 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./mainSlider.component.css']
 })
 
-export class MainSliderComponent {
+export class MainSliderComponent implements OnInit {
+  config: Object = {
+    pagination: '.swiper-pagination',
+    paginationClickable: true,
+    nextButton: '.swiper-button-next',
+    prevButton: '.swiper-button-prev',
+    spaceBetween: 30,
+    slidesPerView:3,
+    loop:true,
+    on: {
+      init: function () {
+        console.log('swiper initialized');
+      },
+    },
+    effect:'coverflow',//"slide", "fade", "cube", "coverflow" or "flip"
+    // coverflow: {
+    //   rotate: 0,
+    //   stretch: 0,
+    //   depth: 250,
+    //   modifier: 1,
+    //   slideShadows : false,
+    // },
+    //tdFlow: {
+    // rotate : 30,
+    // stretch :10,
+    // depth: 150,
+    // modifier : 1,
+    // shadows:true
 
+    //},
+
+  };
+
+  ngOnInit() {
+  }
 
 }
