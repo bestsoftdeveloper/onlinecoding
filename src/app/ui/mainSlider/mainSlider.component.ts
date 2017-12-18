@@ -12,8 +12,8 @@ export class MainSliderComponent implements OnInit {
     paginationClickable: true,
     nextButton: '.swiper-button-next',
     prevButton: '.swiper-button-prev',
-    spaceBetween: 30,
-    slidesPerView:3,
+    spaceBetween: 0,
+    slidesPerView:1,
     loop:true,
     on: {
       init: function () {
