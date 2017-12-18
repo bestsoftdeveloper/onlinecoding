@@ -1,0 +1,134 @@
+.center
+{
+  text-align: center;
+}
+
+.form-signin {
+  /*max-width: 400px;*/
+  display:block;
+  background-color: #f7f7f7;
+  -moz-box-shadow: 0 0 3px 3px #888;
+  -webkit-box-shadow: 0 0 3px 3px #888;
+  box-shadow: 0 0 3px 3px #888;
+  border-radius:2px;
+}
+.main{
+  padding: 38px;
+}
+.social-box{
+  margin: 0 auto;
+  padding: 38px;
+  border-bottom:1px #ccc solid;
+}
+.social-box a{
+  font-weight:bold;
+  font-size:18px;
+  padding:8px;
+}
+.social-box a i{
+  font-weight:bold;
+  font-size:20px;
+}
+.heading-desc{
+  font-size:20px;
+  font-weight:bold;
+  padding:38px 38px 0px 38px;
+
+}
+.form-signin .form-signin-heading,
+.form-signin .checkbox {
+  margin-bottom: 10px;
+}
+.form-signin .checkbox {
+  font-weight: normal;
+}
+.form-signin .form-control {
+  /*position: relative;*/
+  /*font-size: 16px;*/
+  height: 20px;
+  padding: 20px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.form-signin .form-control:focus {
+  /*z-index: 2;*/
+}
+.form-signin input[type="text"] {
+  margin-bottom: 10px;
+  border-radius: 5px;
+
+}
+.form-signin input[type="password"] {
+  margin-bottom: 10px;
+  border-radius: 5px;
+}
+.login-footer{
+  background:#f0f0f0;
+  margin: 0 auto;
+  border-top: 1px solid #dadada;
+  padding:20px;
+}
+.login-footer .left-section a{
+  font-weight:bold;
+  color:#8a8a8a;
+  line-height:19px;
+}
+.mg-btm{
+  margin-bottom:20px;
+}
+
+
+
+.ng-tooltip {
+  max-width: 200px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 8px;
+  position: absolute;
+  z-index: 1000;
+  display: block;
+  opacity: 0;
+  -webkit-transition: opacity 300ms;
+  -moz-transition: opacity 300ms;
+  -o-transition: opacity 300ms;
+  transition: opacity 300ms;
+}
+.ng-tooltip-show {
+  opacity: 1;
+}
+.ng-tooltip::after {
+  content: "";
+  position: absolute;
+  border-style: solid;
+}
+.ng-tooltip-top::after {
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-color: black transparent transparent transparent;
+}
+.ng-tooltip-bottom::after {
+  bottom: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-color: transparent transparent black transparent;
+}
+.ng-tooltip-left::after {
+  top: 50%;
+  left: 100%;
+  margin-top: -5px;
+  border-width: 5px;
+  border-color: transparent transparent transparent black;
+}
+.ng-tooltip-right::after {
+  top: 50%;
+  right: 100%;
+  margin-top: -5px;
+  border-width: 5px;
+  border-color: transparent black transparent transparent;
+}

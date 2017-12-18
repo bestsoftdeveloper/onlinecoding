@@ -1,0 +1,118 @@
+<div class="header-wrapper1">
+  <!-- most top information -->
+  <header id="top">
+    <div class="container">
+      <div class="form-element hidden-xs pull-left">
+        <form action="#" method="get" class="form-inline">
+          <input type="text" name="search" class="form-control" placeholder="Search">
+          <button type="submit" class="search-btn">
+            <i class="icon-magnifier"></i>
+          </button>
+        </form>
+      </div>
+      <!-- End of .form-element -->
+      <div class="contact-info clearfix">
+        <ul class="pull-right list-inline">
+          <li>
+            <a href="tel:012.345.1234">
+              <i class="icon-telephone"></i>012.345.1234</a>
+          </li>
+          <li>
+            <a href="mailto:info@company.com">
+              <i class="icon-envelope"></i>info@company.com</a>
+          </li>
+        </ul>
+      </div>
+      <!-- End of .contact-info -->
+    </div>
+  </header>
+  <!-- end most top information -->
+  <!--navigation-->
+  <div class="container no-padding">
+    <nav id="navbar-main" class="navbar main-menu">
+      <!--Brand and toggle get grouped for better mobile display-->
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-1" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="index.html">
+          <img src="images/logo.png" alt="Brand" class="img-responsive" />
+        </a>
+      </div>
+      <!--Collect the nav links, and other content for toggling-->
+      <div class="collapse navbar-collapse" id="navbar-collapse-1">
+        <ul class="nav navbar-nav navbar-right">
+          <li>
+            <a routerLink="/home" routerLinkActive="active">Home</a>
+          </li>
+
+
+          <li>
+            <a routerLink="/js" routerLinkActive="active">js</a>
+          </li>
+          <li>
+            <a routerLink="/about" routerLinkActive="active">about</a>
+          </li>
+
+          <li>
+            <a [routerLink]="[{ outlets: { popup: ['compose'] } }]">Contact</a>
+          </li>
+
+          <li class="menu-btn" data-toggle="modal" data-target="#getAQuoteModal">
+            <!--<span *ngIf="user">{{user.name}}</span>-->
+            <a *ngIf="user" href="#">{{user.name}}</a>
+            <a *ngIf="!user" routerLink="/login" routerLinkActive="active">Login</a>
+          </li>
+
+          <!--<li class="dropdown dropdown-user open">-->
+            <!--<a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">-->
+              <!--<img src="assets/images/placeholder.jpg" alt="">-->
+              <!--<span>Victoria</span>-->
+              <!--<i class="caret"></i>-->
+            <!--</a>-->
+
+            <!--<ul class="dropdown-menu dropdown-menu-right">-->
+              <!--<li><a href="#"><i class="icon-user-plus"></i> My profile</a></li>-->
+              <!--<li><a href="#"><i class="icon-coins"></i> My balance</a></li>-->
+              <!--<li><a href="#"><span class="badge bg-blue pull-right">58</span> <i class="icon-comment-discussion"></i> Messages</a></li>-->
+              <!--<li class="divider"></li>-->
+              <!--<li><a href="#"><i class="icon-cog5"></i> Account settings</a></li>-->
+              <!--<li><a href="#"><i class="icon-switch2"></i> Logout</a></li>-->
+            <!--</ul>-->
+          <!--</li>-->
+<li>
+  <div class="dropdown" dropdown>
+    <a dropdown-open>My Heroes</a>
+    <ul class="dropdown-menu">
+      <li><a href="#">Badman</a></li>
+      <li><a href="#">Sadman</a></li>
+      <li><a href="#" (click)="logout()"><i class="icon-switch2"></i> Logout</a></li>
+    </ul>
+  </div>
+</li>
+
+        </ul>
+
+      </div>
+
+      <!--<nav>-->
+        <!--<a routerLink="/superheroes" routerLinkActive="active">Heroes</a>-->
+        <!--<a routerLink="/admin" routerLinkActive="active">Admin</a>-->
+        <!--<a routerLink="/login" routerLinkActive="active">Login</a>-->
+        <!--<a routerLink="/home" routerLinkActive="active">Home</a>-->
+
+        <!--<a routerLink="/js" routerLinkActive="active">js</a>-->
+      <!--<a [routerLink]="[{ outlets: { popup: ['compose'] } }]">Contact</a>-->
+      <!--<a routerLink="/login" routerLinkActive="active">login</a>-->
+
+
+      <!--</nav>-->
+
+
+    </nav>
+    <!--end navigation-->
+  </div>
+</div>

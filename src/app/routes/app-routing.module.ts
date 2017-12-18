@@ -5,7 +5,8 @@ import { HomeComponent }  from '../home/home.component';
 import { NotFoundComponent }    from '../not-found/notfound.component';
 import { AboutComponent }  from '../about/about.component';
 import { JavascriptComponent }  from '../cursuri/javascript/javascript.component';
-
+import { LoginComponent }  from '../login/login.component';
+import {SwipperComponent} from "../ui/swipper/swipper.component";
 
 
 const appRoutes: Routes = [
@@ -21,6 +22,14 @@ const appRoutes: Routes = [
     path:'js',
     component:JavascriptComponent
   },
+  {
+    path:'login',
+    component:LoginComponent
+  },
+  // {
+  //   path:'swipper',
+  //   component:SwipperComponent
+  // },
   // {
   //   path: 'admin',
   //   loadChildren: 'app/admin/admin.module#AdminModule',
@@ -30,7 +39,7 @@ const appRoutes: Routes = [
   //   loadChildren: 'app/crisis-center/crisis-center.module#CrisisCenterModule',
   //   data: { preload: true }
   // },
-  { path: '',   redirectTo: '/superheroes', pathMatch: 'full' },
+  { path: '',   redirectTo: '/home', pathMatch: 'full' },
   { path: '**', component: NotFoundComponent }
 ];
 
@@ -39,7 +48,7 @@ const appRoutes: Routes = [
     RouterModule.forRoot(
       appRoutes,
       {
-        enableTracing: false, // <-- debugging purposes only
+        enableTracing: true, // <-- debugging purposes only
         // preloadingStrategy: SelectivePreloadingStrategy,
 
       }

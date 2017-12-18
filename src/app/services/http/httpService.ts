@@ -27,8 +27,11 @@ export class HttpWrapperService {
       }
     }
 
+    serverUrl = 'localhost:3200/';
+
     async postJson(url, body): Promise<any> {
       try {
+        const apiUrl = this.serverUrl + url;
         const response = await this.http.post(url, body).toPromise();
         return{
           data: response.json(),
