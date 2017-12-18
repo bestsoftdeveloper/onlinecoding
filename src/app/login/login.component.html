@@ -12,9 +12,8 @@
     <div class="social-box">
       <div class="row mg-btm">
         <div class="col-md-12">
-          <a href="#" class="btn btn-primary btn-block" (click)="loginWithFB()">
-            <i class="icon-facebook"></i>    Login with Facebook
-          </a>
+          <span class="btn btn-primary btn-block" (click)="loginWithFB()">
+            <i class="icon-facebook"></i>    Login with Facebook</span>
         </div>
       </div>
       <div class="row">
@@ -26,6 +25,17 @@
       </div>
     </div>
     <div class="main">
+
+      <div class="form-group has-feedback has-feedback-left">
+        <input type="text" class="form-control" placeholder="Username" name="username" required="required"
+               aria-required="true" aria-invalid="true">
+        <div class="form-control-feedback">
+          <i class="icon-user text-muted"></i>
+        </div>
+        <label id="username-error" class="validation-error-label" for="username">Enter your username</label>
+      </div>
+
+
 
       <div class="row">
         <label>Email:</label>

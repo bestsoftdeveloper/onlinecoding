@@ -31,6 +31,9 @@ import { LocalStorageModule } from 'angular-2-local-storage';
 
 import  { SwipperComponent } from './ui/swipper/swipper.component';
 import {DropdownModule} from "ngx-dropdown";
+
+import { FacebookModule } from 'ngx-facebook';
+
 let providers = {
   // "google": {
   //   "clientId": "GOOGLE_CLIENT_ID"
@@ -75,7 +78,8 @@ let providers = {
       storageType: 'localStorage'
     }),
     DropdownModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    FacebookModule.forRoot()
   ],
   providers: [HttpWrapperService,CodeExecutionService],
   bootstrap: [AppComponent]
