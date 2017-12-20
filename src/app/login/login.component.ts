@@ -48,6 +48,11 @@ export class LoginComponent implements OnDestroy  {
 
   validateEmail(emailValue)
   {
+    // var controls = this.currentForm.form.controls;
+    // if(!controls.email.isDirty)
+    // {
+    //   return true;
+    // }
     if(!emailValue)
     {
       this.formErrors.email = "Email";
@@ -81,7 +86,7 @@ export class LoginComponent implements OnDestroy  {
     this.sub = this._auth.login(provider)
       .subscribe((data:any) => {
         // debugger;
-        console.log(data);
+        // console.log(data);
         self.email = data.email;
         //user data
         //name, image, uid, provider, uid, email, token (accessToken for Facebook & google, no token for linkedIn), idToken(only for google)

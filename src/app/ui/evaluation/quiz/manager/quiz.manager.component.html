@@ -1,0 +1,6 @@
+<p>
+  quiz.manager works!
+</p>
+<button (click)="next()">next</button>
+<button (click)="prev()">prev</button>
+<app-quiz-question [question]="question" (onMessageFromQuestionControl)=onMessageFromQuestionControl($event)></app-quiz-question>

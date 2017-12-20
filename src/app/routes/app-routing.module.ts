@@ -7,6 +7,9 @@ import { AboutComponent }  from '../about/about.component';
 import { JavascriptComponent }  from '../cursuri/javascript/javascript.component';
 import { LoginComponent }  from '../login/login.component';
 import {SwipperComponent} from "../ui/swipper/swipper.component";
+import {ResetPasswordComponent} from "../login/resetpassword/resetpassword.component";
+import {AuthGuard} from "./auth-guard.service";
+import {EvaluationComponent} from "../ui/evaluation/evaluation.component";
 
 
 const appRoutes: Routes = [
@@ -24,8 +27,24 @@ const appRoutes: Routes = [
   },
   {
     path:'login',
-    component:LoginComponent
+    component:LoginComponent,
+    // children: [
+    //   {
+    //     path: 'resetpassword',
+    //     component: ResetPasswordComponent
+    //   },
+    // ]
   },
+  {
+    path:'resetpassword',
+    component:ResetPasswordComponent,
+    canActivate:[AuthGuard]
+  },
+  {
+    path:'evaluation',
+    component:EvaluationComponent,
+  },
+
   // {
   //   path:'swipper',
   //   component:SwipperComponent

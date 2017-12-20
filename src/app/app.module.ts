@@ -25,6 +25,8 @@ import  { TypoComponent } from './ui/type/typo.component';
 import  { HomePresentationComponent } from './ui/homePresentation/homePresentation.component';
 import { TooltipDirective } from 'ng2-tooltip-directive/components';
 import { SwiperModule } from 'angular2-useful-swiper';
+import { ResetPasswordComponent } from './login/resetpassword/resetpassword.component';
+import { FooterComponent } from './ui/footer/footer.component';
 // import { SwiperModule } from '../node_modules/angular2-useful-swiper';
 import {Component} from "@angular/core";
 import { LocalStorageModule } from 'angular-2-local-storage';
@@ -33,6 +35,15 @@ import  { SwipperComponent } from './ui/swipper/swipper.component';
 import {DropdownModule} from "ngx-dropdown";
 
 import { FacebookModule } from 'ngx-facebook';
+import {AuthGuard} from "./routes/auth-guard.service";
+
+import { EvaluationComponent } from './ui/evaluation/evaluation.component';
+import { QuizAddComponent } from './ui/evaluation/quiz/add/quiz.add.component';
+import { QuizFooterComponent } from './ui/evaluation/quiz/footer/quiz.footer.component';
+import { QuizHeaderComponent } from './ui/evaluation/quiz/header/quiz.header.component';
+import { QuizManagerComponent } from './ui/evaluation/quiz/manager/quiz.manager.component';
+import { QuizQuestionComponent } from './ui/evaluation/quiz/question/quiz.question.component';
+import { ServicesComponent } from './ui/services/services.component';
 
 let providers = {
   // "google": {
@@ -63,7 +74,16 @@ let providers = {
     SwipperComponent,
     TypoComponent,
     HomePresentationComponent,
-    TooltipDirective
+    TooltipDirective,
+    ResetPasswordComponent,
+    FooterComponent,
+    EvaluationComponent,
+    QuizAddComponent,
+    QuizFooterComponent,
+    QuizHeaderComponent,
+    QuizManagerComponent,
+    QuizQuestionComponent,
+    ServicesComponent
   ],
   imports: [
     AceEditorModule,
@@ -81,7 +101,7 @@ let providers = {
     BrowserAnimationsModule,
     FacebookModule.forRoot()
   ],
-  providers: [HttpWrapperService,CodeExecutionService],
+  providers: [HttpWrapperService,CodeExecutionService, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

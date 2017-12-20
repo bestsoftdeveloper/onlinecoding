@@ -1,0 +1,24 @@
+<p>
+  quiz.question works!
+</p>
+
+<div class="container">
+<div class="row">
+{{question.question}}
+</div>
+
+<div class="row">
+<tr *ngFor="let entry of question.answers">
+  <td> <label for="{{entry.id}}">{{ entry.answer }} </label> </td>
+  <td>
+
+    <input type="radio"
+           id="{{entry.id}}"
+           name="radiogroup"
+           [checked]="idx === 0"
+           [value]="entry.id"
+           (change)="onSelectionChange(entry)">
+  </td>
+</tr>
+  </div>
+  </div>
