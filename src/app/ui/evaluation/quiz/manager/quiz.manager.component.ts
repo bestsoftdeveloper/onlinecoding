@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {IQuestion} from "../facade/IQuestion";
+import {ITimerConfig} from "../../../../timer/ITimerConfig";
 
 @Component({
   selector: 'app-quiz-manager',
@@ -13,6 +14,20 @@ export class QuizManagerComponent implements OnInit {
     SingleAnswer:0,
     MultipleAswers:1
   };
+
+  onstop = ()=>{console.log('dddddddddddddddddddd');}
+
+  timerConfig:ITimerConfig = {
+    secStart: 0,
+  seconds: 10,
+  countUp: true,
+  onStart: null,
+  onStop: this.onstop.bind(this),
+  start: true,
+  stop: false
+};
+
+
 
   private questions = {
     list:[{

@@ -44,7 +44,10 @@ import { QuizHeaderComponent } from './ui/evaluation/quiz/header/quiz.header.com
 import { QuizManagerComponent } from './ui/evaluation/quiz/manager/quiz.manager.component';
 import { QuizQuestionComponent } from './ui/evaluation/quiz/question/quiz.question.component';
 import { ServicesComponent } from './ui/services/services.component';
-
+import { SimpleTimer } from 'ng2-simple-timer';
+import { TimerComponent } from './timer/timer.component';
+import { MomentModule } from 'angular2-moment';
+import * as moment from 'moment';
 let providers = {
   // "google": {
   //   "clientId": "GOOGLE_CLIENT_ID"
@@ -83,7 +86,8 @@ let providers = {
     QuizHeaderComponent,
     QuizManagerComponent,
     QuizQuestionComponent,
-    ServicesComponent
+    ServicesComponent,
+    TimerComponent
   ],
   imports: [
     AceEditorModule,
@@ -99,9 +103,10 @@ let providers = {
     }),
     DropdownModule,
     BrowserAnimationsModule,
+    MomentModule,
     FacebookModule.forRoot()
   ],
-  providers: [HttpWrapperService,CodeExecutionService, AuthGuard],
+  providers: [HttpWrapperService,CodeExecutionService, AuthGuard, SimpleTimer],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
