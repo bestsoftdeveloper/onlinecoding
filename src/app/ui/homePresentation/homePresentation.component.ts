@@ -65,7 +65,7 @@ export class HomePresentationComponent implements OnInit {
       setTimeout(() => {
         console.log('hello11');
         this.state = (this.state === 'small' ? 'large' : 'small');
-        if(this.counter==4)
+        if(this.counter<2)
         {
           clearTimeout(this.timeoutId);
         }
