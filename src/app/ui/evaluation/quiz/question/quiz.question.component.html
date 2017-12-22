@@ -1,0 +1,89 @@
+<p>
+  quiz.question works!
+</p>
+
+
+<div class="container">
+
+  <div class="row center">
+    {{question.question}}
+  </div>
+
+  <hr/>
+  <div class="row">
+    <div class="col-md-12">
+      <tr *ngFor="let entry of question.answers">
+        <td>
+          <!--<input type="radio"-->
+          <!--id="{{entry.id}}"-->
+          <!--name="radiogroup"-->
+          <!--[checked]="idx === 0"-->
+          <!--[value]="entry.id"-->
+          <!--(change)="onSelectionChange(entry)">-->
+          <div class="radio">
+            <label>
+              <input type="radio" [value]="entry.id" name="radiogroup">
+              <span class="cr"><i class="cr-icon glyphicon glyphicon-ok-sign"></i></span>
+              {{ entry.answer }}
+            </label>
+          </div>
+
+          <!--<i class="fa fa-circle-o fa-2x"></i>-->
+          <!--<i class="fa fa-dot-circle-o fa-2x"></i>-->
+        </td>
+      </tr>
+    </div>
+  </div>
+
+
+</div>
+
+
+<!--<div class="col-sm-12">-->
+  <!--<div class="checkbox">-->
+    <!--<label>-->
+      <!--<input type="checkbox" value="">-->
+      <!--<span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>-->
+      <!--Option one is this and that — be sure to include why it's great-->
+    <!--</label>-->
+  <!--</div>-->
+  <!--<div class="checkbox">-->
+    <!--<label>-->
+      <!--<input type="checkbox" value="" checked>-->
+      <!--<span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>-->
+      <!--Option two is checked by default-->
+    <!--</label>-->
+  <!--</div>-->
+  <!--<div class="checkbox disabled">-->
+    <!--<label>-->
+      <!--<input type="checkbox" value="" disabled>-->
+      <!--<span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>-->
+      <!--Option three is disabled-->
+    <!--</label>-->
+  <!--</div>-->
+<!--</div>-->
+
+
+<!--<div class="col-sm-12">-->
+  <!--<div class="radio">-->
+    <!--<label>-->
+      <!--<input type="radio" name="o1" value="">-->
+      <!--<span class="cr"><i class="cr-icon glyphicon glyphicon-ok-sign"></i></span>-->
+      <!--Option one is this and that — be sure to include why it's great-->
+    <!--</label>-->
+  <!--</div>-->
+  <!--<div class="radio">-->
+    <!--<label>-->
+      <!--<input type="radio" name="o1" value="" checked>-->
+      <!--<span class="cr"><i class="cr-icon glyphicon glyphicon-ok-sign"></i></span>-->
+      <!--Option two is checked by default-->
+    <!--</label>-->
+  <!--</div>-->
+  <!--<div class="radio disabled">-->
+    <!--<label>-->
+      <!--<input type="radio" name="o1" value="" disabled>-->
+      <!--<span class="cr"><i class="cr-icon glyphicon glyphicon-ok-sign"></i></span>-->
+      <!--Option three is disabled-->
+    <!--</label>-->
+  <!--</div>-->
+<!--</div>-->

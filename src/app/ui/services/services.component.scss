@@ -1,0 +1,196 @@
+
+/* ===================================
+    home page -- services
+    ====================================== */
+
+.services {
+  padding-top: 55px;
+}
+
+.services h2 {
+  margin: 0;
+  padding-top: 30px;
+}
+
+.services .row,
+.portfolio-p.portfolio,
+.long-box-wrapper .row {
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+  flex-wrap: wrap;
+}
+
+.case-studies-content.long-box-wrapper .row [class^="col-"]:not(.col-xs-12) {
+  margin-bottom: 90px;
+}
+
+.services_single .service_sections {
+  margin-bottom: 36px;
+}
+
+.service_sections .box-green-border a {
+  text-transform: none;
+}
+
+.banner {
+  background-position: center center;
+}
+
+.banner .banner-txt {
+  padding: 80px 0 90px;
+  color: #fff;
+}
+
+.banner .banner-txt h1 {
+  margin: 0 0 30px;
+}
+
+.banner .banner-txt p {
+  font-size: 18px;
+  margin: 30px 0;
+}
+
+.services hr {
+  margin-bottom: 40px;
+}
+
+.services .box-green-border {
+  position: relative;
+  padding-top: 33px;
+  margin-bottom: 0;
+}
+
+.services .box-green-border {
+  height: 100%;
+}
+
+.services [class^="col-"] {
+  overflow: hidden;
+  margin-bottom: 30px;
+}
+
+.services .box-green-border .service-overlay {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 110%;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -ms-border-radius: 4px;
+  border-radius: 4px;
+  transition: all .5s;
+}
+
+.services .box-green-border:hover .service-overlay {
+  top: 0;
+}
+
+.services .box-green-border .service-overlay ul {
+  width: 100%;
+  height: 100%;
+  background: #f5f6f7;
+  padding: 30px 40px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -ms-border-radius: 4px;
+  border-radius: 4px;
+}
+
+.services .box-green-border .service-overlay ul li a {
+  font-size: 16px;
+  line-height: 36px;
+  color: #444444;
+  font-weight: 400;
+  padding: 0;
+  margin: 0;
+  text-transform: none;
+}
+
+.services .box-green-border .service-overlay ul li a i {
+  font-size: 18px;
+  line-height: 36px;
+  color: #1a252b;
+  margin-right: 20px;
+}
+
+.services .box-green-border .service-overlay ul li a:hover,
+.services .box-green-border .service-overlay ul li a:hover i {
+  color: #90c404;
+}
+
+
+
+/*bottom green border  box*/
+
+.box-green-border {
+  padding: 58px 10px 24px 30px;
+  border-bottom: 2px solid #008ccb;
+}
+
+.margin-top-15 {
+  margin-top: 15px;
+}
+
+.margin-top-5 {
+  margin-top: 5px;
+}
+
+.margin-top-40 {
+  margin-top: 40px;
+}
+
+.box-green-border a {
+  font-size: 24px;
+  display: block;
+  color: #1a252b;
+  font-weight: 600;
+  margin-bottom: 16px;
+  text-decoration: none!important;
+  text-transform: capitalize;
+}
+
+.box-green-border:hover a,
+.box-green-border a:focus,
+.box-green-border:hover span {
+  color: #90c404;
+  text-decoration: none;
+}
+
+//  todo  #1C1F8F
+
+.box-green-border p {
+  font-size: 16px;
+  color: #444444;
+  line-height: 26px;
+}
+
+.box-green-border span {
+  font-size: 68px;
+  color: #1a252b;
+  -webkit-transition-duration: 0.2s;
+  transition-duration: 0.2s;
+  -webkit-transition-timing-function: ease-in-out;
+  transition-timing-function: ease-in-out;
+}
+
+.box-green-border a span {
+  display: block;
+  margin: 0 0 38px;
+  line-height: 53px;
+}
+
+.clearlist,
+.clearlist li {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  background: none;
+}
+
+.service-overlay1
+{
+  display: none;
+
+}

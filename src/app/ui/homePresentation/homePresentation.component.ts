@@ -27,16 +27,33 @@ import {
 
 export class HomePresentationComponent implements OnInit {
 
-  images = ['images/slider-1.jpg','images/slider-2.jpg','images/slider-3.jpg'];
-  bkImageUrl= 'images/slider-1.jpg';
+  //images = ['images/slider-1.jpg','images/slider-2.jpg','images/slider-3.jpg'];
+
+  images = [
+    'images/slider-1.jpg',
+    //'images/slider-2.jpg',
+    'images/slider-3.png',
+    'images/c1.jpeg',
+    'images/c2.jpeg',
+    'images/c3.jpeg',
+    'images/c4.jpeg',
+    'images/c5.jpeg',
+    'images/c6.jpeg',
+    'images/c7.jpeg',
+    'images/c8.jpeg',
+    // 'images/big-data-banner.jpg',
+  ];
+
+  bkImageUrl= this.images[0];
   timeoutId=null;
-  imageIndex = 0;
+  imageIndex = 1;
   counter=0;
 
   constructor()
   {
     this.timeoutId = setInterval(() => {
-      console.log('hello');
+      // console.log('hello');
+
       this.bkImageUrl = this.images[this.imageIndex];
       this.imageIndex ++;
       if(this.imageIndex === this.images.length)
@@ -48,7 +65,7 @@ export class HomePresentationComponent implements OnInit {
       setTimeout(() => {
         console.log('hello11');
         this.state = (this.state === 'small' ? 'large' : 'small');
-        if(this.counter==2)
+        if(this.counter<2)
         {
           clearTimeout(this.timeoutId);
         }

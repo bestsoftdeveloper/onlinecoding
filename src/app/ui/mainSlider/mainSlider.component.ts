@@ -12,7 +12,7 @@ export class MainSliderComponent implements OnInit {
     paginationClickable: true,
     nextButton: '.swiper-button-next',
     prevButton: '.swiper-button-prev',
-    spaceBetween: 30,
+    spaceBetween: 10,
     slidesPerView:3,
     loop:true,
     on: {

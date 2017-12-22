@@ -4,7 +4,7 @@
 }
 .swiper-slide {
   width:auto;
-  height:300px;
+  height:400px;
   background-size:cover;
   background-repeat:no-repeat;
   background-position:center;
@@ -35,8 +35,10 @@
 
 .imgslider
 {
-  width: 200px;
-  height: inherit;
+  margin-left: 7%;
+  /*width: 200px;*/
+  /*height: inherit;*/
+  /*border: 1px solid red;*/
 }
 
 /*.swiper-slide-next*/
@@ -64,4 +66,10 @@
 /*}*/
 
 
+}
+
+.b-clor
+{
+  text-align: center;
+  color: #1C1F8F;
 }

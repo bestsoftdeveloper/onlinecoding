@@ -1,0 +1,16 @@
+<p>
+  quiz.manager works!
+</p>
+<app-timer [config]="timerConfig" ></app-timer>
+<app-quiz-question [question]="question"
+                   (onMessageFromQuestionControl)=onMessageFromQuestionControl($event)></app-quiz-question>
+
+
+<div class="row center bordered">
+  <hr/>
+
+  1/50
+  <button class="btn" (click)="prev()">prev</button>
+  <button class="btn" (click)="next()">next</button>
+
+</div>

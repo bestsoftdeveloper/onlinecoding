@@ -25,12 +25,38 @@ import  { TypoComponent } from './ui/type/typo.component';
 import  { HomePresentationComponent } from './ui/homePresentation/homePresentation.component';
 import { TooltipDirective } from 'ng2-tooltip-directive/components';
 import { SwiperModule } from 'angular2-useful-swiper';
+import { ResetPasswordComponent } from './login/resetpassword/resetpassword.component';
+import { FooterComponent } from './ui/footer/footer.component';
 // import { SwiperModule } from '../node_modules/angular2-useful-swiper';
 import {Component} from "@angular/core";
 import { LocalStorageModule } from 'angular-2-local-storage';
 
 import  { SwipperComponent } from './ui/swipper/swipper.component';
 import {DropdownModule} from "ngx-dropdown";
+
+import { FacebookModule } from 'ngx-facebook';
+import {AuthGuard} from "./routes/auth-guard.service";
+
+import { EvaluationComponent } from './ui/evaluation/evaluation.component';
+import { QuizAddComponent } from './ui/evaluation/quiz/add/quiz.add.component';
+import { QuizFooterComponent } from './ui/evaluation/quiz/footer/quiz.footer.component';
+import { QuizHeaderComponent } from './ui/evaluation/quiz/header/quiz.header.component';
+import { QuizManagerComponent } from './ui/evaluation/quiz/manager/quiz.manager.component';
+import { QuizQuestionComponent } from './ui/evaluation/quiz/question/quiz.question.component';
+import { ServicesComponent } from './ui/services/services.component';
+import { SimpleTimer } from 'ng2-simple-timer';
+import { TimerComponent } from './timer/timer.component';
+import { MomentModule } from 'angular2-moment';
+import * as moment from 'moment';
+
+import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
+import "froala-editor/js/froala_editor.pkgd.min.js";
+import * as $ from 'jquery';
+import { WysEditorComponent } from './wys-editor/wys-editor.component';
+window["$"] = $;
+window["jQuery"] = $;
+
+
 let providers = {
   // "google": {
   //   "clientId": "GOOGLE_CLIENT_ID"
@@ -60,7 +86,18 @@ let providers = {
     SwipperComponent,
     TypoComponent,
     HomePresentationComponent,
-    TooltipDirective
+    TooltipDirective,
+    ResetPasswordComponent,
+    FooterComponent,
+    EvaluationComponent,
+    QuizAddComponent,
+    QuizFooterComponent,
+    QuizHeaderComponent,
+    QuizManagerComponent,
+    QuizQuestionComponent,
+    ServicesComponent,
+    TimerComponent,
+    WysEditorComponent
   ],
   imports: [
     AceEditorModule,
@@ -75,9 +112,12 @@ let providers = {
       storageType: 'localStorage'
     }),
     DropdownModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MomentModule,
+    FacebookModule.forRoot(),
+    FroalaEditorModule.forRoot(), FroalaViewModule.forRoot()
   ],
-  providers: [HttpWrapperService,CodeExecutionService],
+  providers: [HttpWrapperService,CodeExecutionService, AuthGuard, SimpleTimer],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

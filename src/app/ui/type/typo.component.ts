@@ -9,10 +9,11 @@ import * as Typed from 'typed.js';
 
 export class TypoComponent implements OnInit {
 
+  typed: null;
 
   ngOnInit() {
     // https://github.com/mattboldt/typed.js/
-    var typed = new Typed(".element", {
+    this.typed = new Typed(".element", {
       stringsElement: '#typed-strings',
       //smartBackspace: true, // Default value
       loop: true,

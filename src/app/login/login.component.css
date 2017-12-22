@@ -11,13 +11,18 @@
   -webkit-box-shadow: 0 0 3px 3px #888;
   box-shadow: 0 0 3px 3px #888;
   border-radius:2px;
+  margin-top: 30px;
 }
 .main{
   padding: 38px;
 }
 .social-box{
   margin: 0 auto;
-  padding: 38px;
+  padding-left: 38px;
+  padding-right: 38px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+
   border-bottom:1px #ccc solid;
 }
 .social-box a{
@@ -80,55 +85,55 @@
 
 
 
-.ng-tooltip {
-  max-width: 200px;
-  background-color: black;
-  color: #fff;
+
+
+.icon-object {
+  border-radius: 50%;
   text-align: center;
-  border-radius: 6px;
-  padding: 5px 8px;
-  position: absolute;
-  z-index: 1000;
-  display: block;
-  opacity: 0;
-  -webkit-transition: opacity 300ms;
-  -moz-transition: opacity 300ms;
-  -o-transition: opacity 300ms;
-  transition: opacity 300ms;
-}
-.ng-tooltip-show {
-  opacity: 1;
-}
-.ng-tooltip::after {
-  content: "";
-  position: absolute;
+  margin: 10px;
+  border-width: 3px;
   border-style: solid;
+  padding: 20px;
+  display: inline-block;
 }
-.ng-tooltip-top::after {
-  top: 100%;
-  left: 50%;
-  margin-left: -5px;
-  border-width: 5px;
-  border-color: black transparent transparent transparent;
+
+.has-feedback-left .form-control-feedback {
+  /* right: auto; */
+  left: 0;
 }
-.ng-tooltip-bottom::after {
-  bottom: 100%;
-  left: 50%;
-  margin-left: -5px;
-  border-width: 5px;
-  border-color: transparent transparent black transparent;
+
+
+element.style {
 }
-.ng-tooltip-left::after {
-  top: 50%;
-  left: 100%;
-  margin-top: -5px;
-  border-width: 5px;
-  border-color: transparent transparent transparent black;
+
+.has-feedback-left .form-control-feedback {
+  /* right: auto; */
+  left: 0;
 }
-.ng-tooltip-right::after {
-  top: 50%;
-  right: 100%;
-  margin-top: -5px;
-  border-width: 5px;
-  border-color: transparent black transparent transparent;
+
+.form-control-feedback {
+  width: 38px;
+  color: #333333;
+
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 2;
+  display: block;
+  width: 36px;
+  height: 36px;
+  line-height: 36px;
+  text-align: center;
+  pointer-events: none;
+}
+
+.has-feedback-left .form-control {
+  padding-right: 12px;
+  padding-left: 36px;
+}
+
+.error
+{
+  color: red;
+  margin-left: 15px;
 }

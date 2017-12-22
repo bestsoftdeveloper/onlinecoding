@@ -5,6 +5,7 @@ import { HttpWrapperService } from '../services/http/httpService'
 import { AuthService } from "angular2-social-login";
 import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { LocalStorageService } from 'angular-2-local-storage';
+// import { FacebookService, LoginResponse, LoginOptions, UIResponse, UIParams, FBVideoComponent } from 'ngx-facebook';
 
 @Component({
   selector: 'app-login',
@@ -32,14 +33,26 @@ export class LoginComponent implements OnDestroy  {
 
   constructor(public _auth: AuthService, httpService: HttpWrapperService,
               private router: Router,
-              private localStorageService: LocalStorageService)
+              private localStorageService: LocalStorageService,
+              //private fb: FacebookService
+  )
   {
     this.httpService = httpService;
     this.text = 'console.log("start");';
+
+    // fb.init({
+    //   appId: '1123667347736940',
+    //   version: 'v2.11'
+    // });
   }
 
   validateEmail(emailValue)
   {
+    // var controls = this.currentForm.form.controls;
+    // if(!controls.email.isDirty)
+    // {
+    //   return true;
+    // }
     if(!emailValue)
     {
       this.formErrors.email = "Email";
@@ -61,17 +74,29 @@ export class LoginComponent implements OnDestroy  {
   }
 
   loginWithFB(){
-    debugger;
+    // this.fb.login()
+    //   .then((res: LoginResponse) => {
+    //     console.log('Logged in', res);
+    //   })
+    //   .catch(this.handleError);
+
+    // debugger;
+    const self = this;
     const provider = 'facebook';
-    this.sub = this._auth.login(provider).subscribe(
-      (data) => {
-        debugger;
-        console.log(data);
+    this.sub = this._auth.login(provider)
+      .subscribe((data:any) => {
+        // debugger;
+        // console.log(data);
+        self.email = data.email;
         //user data
         //name, image, uid, provider, uid, email, token (accessToken for Facebook & google, no token for linkedIn), idToken(only for google)
       }
     )
   }
+
+  // private handleError(error) {
+  //   console.error('Error processing action', error);
+  // }
 
   logoutFB(){
 
@@ -109,9 +134,10 @@ export class LoginComponent implements OnDestroy  {
 
   }
 
-  ngOnDestroy() {
-      this.sub.unsubscribe();
-    }
+  ngOnDestroy(){
+    // if(this.sub) {
+    //   this.sub.unsubscribe();
+    // }
   }
 
 }
