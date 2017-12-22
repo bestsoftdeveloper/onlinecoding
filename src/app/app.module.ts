@@ -48,6 +48,15 @@ import { SimpleTimer } from 'ng2-simple-timer';
 import { TimerComponent } from './timer/timer.component';
 import { MomentModule } from 'angular2-moment';
 import * as moment from 'moment';
+
+import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
+import "froala-editor/js/froala_editor.pkgd.min.js";
+import * as $ from 'jquery';
+import { WysEditorComponent } from './wys-editor/wys-editor.component';
+window["$"] = $;
+window["jQuery"] = $;
+
+
 let providers = {
   // "google": {
   //   "clientId": "GOOGLE_CLIENT_ID"
@@ -87,7 +96,8 @@ let providers = {
     QuizManagerComponent,
     QuizQuestionComponent,
     ServicesComponent,
-    TimerComponent
+    TimerComponent,
+    WysEditorComponent
   ],
   imports: [
     AceEditorModule,
@@ -104,7 +114,8 @@ let providers = {
     DropdownModule,
     BrowserAnimationsModule,
     MomentModule,
-    FacebookModule.forRoot()
+    FacebookModule.forRoot(),
+    FroalaEditorModule.forRoot(), FroalaViewModule.forRoot()
   ],
   providers: [HttpWrapperService,CodeExecutionService, AuthGuard, SimpleTimer],
   bootstrap: [AppComponent]
