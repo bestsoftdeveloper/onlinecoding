@@ -15,6 +15,7 @@ export class CodingComponent implements OnInit {
   private codeExecutionService: CodeExecutionService;
   public codeResult : any;
   @Input() code: string;
+  @Input() testCases: any;
 
   constructor(httpService: HttpWrapperService,codeExecutionService : CodeExecutionService)
   {
@@ -52,11 +53,42 @@ export class CodingComponent implements OnInit {
 
   async executeCodeLocally(event)
   {
-    const resp = await this.codeExecutionService.executeCode(
+    if(this.testCases)
+    {
+      let testCode = this.text;
+
+      for(var i = 0;i<this.testCases.list.length;i++)
       {
-        text:this.text
-      });
-    this.codeResult = resp;
+        debugger;
+        const testCase = this.testCases.list[i];
+
+        testCode = this.text + " return " + this.testCases.mainFunctionName + "(" + testCase.param  +");";
+        let resp = await this.codeExecutionService.executeCode(
+          {
+            text:testCode
+          });
+        if(testCase.expected != undefined)
+        {
+          if(testCase.expected != resp.data.result)
+          {
+            resp.param = testCase.param;
+            resp.expected = testCase.expected;
+            resp.success = false;
+          }
+        }
+        this.codeResult = resp;
+        if(!resp.success)
+        {
+          break;
+        }
+      }
+    }else {
+      const resp = await this.codeExecutionService.executeCode(
+        {
+          text:this.text
+        });
+      this.codeResult = resp;
+    }
 
 
     // const xxx = await this.httpService.postJson('http://localhost:3001/api/funcp',

@@ -56,10 +56,23 @@
           <li>
             <a routerLink="/about" routerLinkActive="active">about</a>
           </li>
-
+          <li>
+            <a routerLink="/addquestions" routerLinkActive="active">add</a>
+          </li>
           <li>
             <a [routerLink]="[{ outlets: { popup: ['compose'] } }]">Contact</a>
           </li>
+
+          <li>
+            <div class="dropdown" dropdown>
+              <a dropdown-open>Adaugare</a>
+              <ul class="dropdown-menu">
+                <a routerLink="evaluation/add" routerLinkActive="active">Adaugare intrebare</a>
+              </ul>
+            </div>
+          </li>
+
+
 
           <li class="menu-btn" data-toggle="modal" data-target="#getAQuoteModal">
             <!--<span *ngIf="user">{{user.name}}</span>-->

@@ -27,4 +27,9 @@ export class HeaderComponent {
     }
   }
 
+  addQuestion()
+  {
+
+  }
+
 }

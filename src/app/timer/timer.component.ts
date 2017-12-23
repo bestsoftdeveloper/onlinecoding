@@ -31,9 +31,19 @@ export class TimerComponent implements OnInit {
   hour = '';
 
   timercallback() {
-    this.counter++;
-    this.toMoment(this.counter);
+    if(this.config.countUp)
+    {
+      this.counter++;
+    }else{
+      this.counter--;
+    }
+
+
+    console.log('counter val' + this.counter);
+
     this.checkForStop(this.counter);
+    this.toMoment(this.counter);
+
   }
 
   toMoment(secs) {
@@ -48,8 +58,10 @@ export class TimerComponent implements OnInit {
   }
 
   start() {
-    if (!this.config.start)
+    console.log('start 1');
+    if (!this.config.running)
       return;
+    console.log('start OK');
 
     this.counter = 0;
     this.timerId = this.st.subscribe('1sec', this.timercallback.bind(this));
@@ -60,15 +72,72 @@ export class TimerComponent implements OnInit {
     // }
   }
 
-  stop() {
-    if (!this.config.stop)
+  reset(data:any) {
+    // return;
+    debugger;
+    console.log('reset');
+    this.counter = 0;
+    if(!data)
+    {
       return;
+    }
+
+    if(!data.seconds)
+    {
+      return;
+    }
+    if(data.countUp === false)
+    {
+      this.counter = data.seconds;
+    }
+
+    this.config.seconds = data.seconds;
+    this.config.countUp = data.countUp;
+    this.config.running = true;
+    this.timerId = this.st.subscribe('1sec', this.timercallback.bind(this));
+    //
+    this.config.onStart? this.config.onStart() : null;
+
+  }
+
+  stop() {
+    // if (!this.config.running)
+    //   return;
+    // debugger;
+    if(!this.config)
+    {
+      return;
+    }
+    console.log('stop');
+
+    this.config.running = false;
 
     this.counter = 0;
-    this.st.unsubscribe(this.timerId);
+    if(this.timerId) {
+      this.st.unsubscribe(this.timerId);
+      this.timerId = null;
+      if (this.config.onStop) {
+        this.config.onStop();
+      }
+    }
+  }
 
-    if (this.config.onStop) {
-      this.config.onStop();
+  stopCalled() {
+    // if (!this.config.running)
+    //   return;
+    // debugger;
+    if(!this.config)
+    {
+      return;
+    }
+    console.log('stop');
+
+    this.config.running = false;
+
+    this.counter = 0;
+    if(this.timerId) {
+      this.st.unsubscribe(this.timerId);
+      this.timerId = null;
     }
   }
 
@@ -80,9 +149,13 @@ export class TimerComponent implements OnInit {
       {
         return;
       }
-      if(secconds === this.config.seconds)
+      if(secconds >= this.config.seconds+1)
       {
-        this.config.stop = true;
+        this.stop();
+      }
+    }else{
+      if(secconds === 0)
+      {
         this.stop();
       }
     }

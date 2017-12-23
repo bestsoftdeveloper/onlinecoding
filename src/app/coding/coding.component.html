@@ -1,35 +1,52 @@
-
 <div class="row">
   <div class="col-md-6 brd1">
-      <div ace-editor
-          [(text)]="text"
-          [mode]="'javascript'"
-          [theme]="'eclipse'"
-          (textChanged)="onChange($event)"
-           style="min-height: 200px; width:100%; overflow: auto;">
-      </div>
-    <button class="col-md-6 btn-primary" (click)="executeCodeLocally($event)">Test</button>
-    <button class="col-md-6 btn-success" (click)="executeCodeOnServer($event)">Send To Server</button>
+    <div ace-editor
+         [(text)]="text"
+         [mode]="'javascript'"
+         [theme]="'eclipse'"
+         (textChanged)="onChange($event)"
+         style="min-height: 200px; width:100%; overflow: auto;">
+    </div>
+    <button class="col-md-6 btn-primary test-button" (click)="executeCodeLocally($event)">Test</button>
+    <!--<button class="col-md-6 btn-success" (click)="executeCodeOnServer($event)">Send To Server</button>-->
   </div>
   <div class="col-md-6">
     <div class="row">
-      <label>Results</label>
+      <ul>
+        <li>
+          <label>Results</label>
+        </li>
+        </ul>
+
     </div>
     <div class="row">
-    <ul *ngIf="codeResult">
-      <li>
-      Success:{{codeResult.success}}
-        <span class="error">{{codeResult.errorInfo}}</span>
-      </li>
-      <li>
-      Result:  {{codeResult.data.result}}
-      </li>
-      Console:
-      <li *ngFor="let comment of codeResult.data.console; let i = index">
-         {{comment}}
-      </li>
-    </ul>
-      </div>
+      <ul *ngIf="codeResult">
+        <li>
+          Success:{{codeResult.success}}
+          <span class="error">{{codeResult.errorInfo}}</span>
+        </li>
+        <li *ngIf="codeResult.param">
+          Input:{{codeResult.param}}
+          Expected:{{codeResult.expected}}
+        </li>
+        <li>
+          Result: {{codeResult.data.result}}
+        </li>
+
+
+        <li *ngIf="codeResult.data.console && codeResult.data.console.length>0">
+          <span> Console:</span>
+          <ul>
+            <li *ngFor="let comment of codeResult.data.console; let i = index">
+            </li>
+            </ul>
+          {{comment}}
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="row">
+
   </div>
 
 

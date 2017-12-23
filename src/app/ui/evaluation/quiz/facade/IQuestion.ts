@@ -4,5 +4,8 @@
 
 export interface IQuestion
 {
-  question:string
+  id:string,
+  question:string,
+  time:any,
+  qtype:number
 }

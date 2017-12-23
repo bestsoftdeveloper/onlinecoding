@@ -6,32 +6,57 @@
 <div class="container">
 
   <div class="row center">
-    {{question.question}}
+    <div [innerHTML]="question.question | keepHtml"></div>
   </div>
 
   <hr/>
   <div class="row">
-    <div class="col-md-12">
+    <div *ngIf="question.qtype === 0" class="col-md-12">
       <tr *ngFor="let entry of question.answers">
         <td>
-          <!--<input type="radio"-->
-          <!--id="{{entry.id}}"-->
-          <!--name="radiogroup"-->
-          <!--[checked]="idx === 0"-->
-          <!--[value]="entry.id"-->
-          <!--(change)="onSelectionChange(entry)">-->
+
           <div class="radio">
             <label>
-              <input type="radio" [value]="entry.id" name="radiogroup">
+              <input type="radio" [value]="entry.id" name="radiogroup" [(ngModel)]="question.rdValue">
               <span class="cr"><i class="cr-icon glyphicon glyphicon-ok-sign"></i></span>
               {{ entry.answer }}
             </label>
           </div>
-
-          <!--<i class="fa fa-circle-o fa-2x"></i>-->
-          <!--<i class="fa fa-dot-circle-o fa-2x"></i>-->
         </td>
       </tr>
+    </div>
+
+    <div *ngIf="question.qtype === 1" class="col-md-12">
+      <tr *ngFor="let entry of question.answers">
+        <td>
+
+          <div class="checkbox">
+            <label>
+              <input type="checkbox" [value]="entry.id" name="radiogroup" [(ngModel)]="entry.value">
+              <span class="cr"><i class="cr-icon glyphicon glyphicon-ok-sign"></i></span>
+              {{ entry.answer }}
+            </label>
+          </div>
+        </td>
+      </tr>
+    </div>
+
+    <div *ngIf="question.qtype === 2" class="col-md-12">
+      <app-coding [code]=question.code [testCases]=question.testCases></app-coding>
+
+      <tr *ngFor="let entry of question.answers">
+        <td>
+          <div class="checkbox">
+            <label>
+              <input type="checkbox" [value]="entry.id" name="radiogroup" [(ngModel)]="entry.value">
+              <span class="cr"><i class="cr-icon glyphicon glyphicon-ok-sign"></i></span>
+              {{ entry.answer }}
+            </label>
+          </div>
+        </td>
+      </tr>
+
+
     </div>
   </div>
 

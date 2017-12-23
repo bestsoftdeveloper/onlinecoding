@@ -10,6 +10,7 @@ import {SwipperComponent} from "../ui/swipper/swipper.component";
 import {ResetPasswordComponent} from "../login/resetpassword/resetpassword.component";
 import {AuthGuard} from "./auth-guard.service";
 import {EvaluationComponent} from "../ui/evaluation/evaluation.component";
+import {QuizAddComponent} from "../ui/evaluation/quiz/add/quiz.add.component";
 
 
 const appRoutes: Routes = [
@@ -43,12 +44,18 @@ const appRoutes: Routes = [
   {
     path:'evaluation',
     component:EvaluationComponent,
+    children:[
+      {
+        path: 'add',
+        component: QuizAddComponent
+      }
+    ]
   },
 
-  // {
-  //   path:'swipper',
-  //   component:SwipperComponent
-  // },
+  {
+    path:'addquestions',
+    component:QuizAddComponent
+  },
   // {
   //   path: 'admin',
   //   loadChildren: 'app/admin/admin.module#AdminModule',
