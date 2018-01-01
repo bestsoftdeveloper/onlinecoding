@@ -6,11 +6,11 @@ const Promise = require('promise');
 
 
 const sandboxQExecutor = {
-  execute: function(code) {
+  execute: function (code) {
     var deferred = q.defer()
 
     var s = new Sandbox();
-    s.run(code, function(output) {
+    s.run(code, function (output) {
       console.log(output);
       deferred.resolve(output);
     });
@@ -20,11 +20,11 @@ const sandboxQExecutor = {
 };
 
 const sandboxPromiseExecutor = {
-  execute: function(code) {
+  execute: function (code) {
     var deferred = q.defer()
 
     var s = new Sandbox();
-    s.run(code, function(output) {
+    s.run(code, function (output) {
       console.log(output);
       deferred.resolve(output);
     });
@@ -35,13 +35,12 @@ const sandboxPromiseExecutor = {
 
 
 var executor = {
-  test0: function(code) {
+  test0: function (code) {
     //safe eval
     console.log("sdf");
     var evaluated = safeEval(code);
     console.log(evaluated);
   },
-
 
 
   executeAsync: async function(code) {
@@ -56,22 +55,22 @@ var executor = {
   },
 
   executeWithPromise: async function(code) {
-     console.log('executeWithPromise');
+    console.log('executeWithPromise');
     var promise = new Promise((resolve, reject) => {
-      var s = new Sandbox();
-      s.run(code, function(output) {
-        console.log(output);
-         resolve(output);
-      });
+        var s = new Sandbox();
+    s.run(code, function (output) {
+      console.log(output);
+      resolve(output);
     });
+  });
 
     // promise.then(function(r){
     //   return r;
     // });
 
-    promise.then((r) =>{
+    promise.then((r) => {
       return r;
-    })
+  })
 
 
     return promise;

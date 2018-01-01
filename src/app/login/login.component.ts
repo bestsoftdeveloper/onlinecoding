@@ -5,6 +5,7 @@ import { HttpWrapperService } from '../services/http/httpService'
 import { AuthService } from "angular2-social-login";
 import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { LocalStorageService } from 'angular-2-local-storage';
+import {PubSubService} from "../services/pubsub/pubsub";
 // import { FacebookService, LoginResponse, LoginOptions, UIResponse, UIParams, FBVideoComponent } from 'ngx-facebook';
 
 @Component({
@@ -34,6 +35,7 @@ export class LoginComponent implements OnDestroy  {
   constructor(public _auth: AuthService, httpService: HttpWrapperService,
               private router: Router,
               private localStorageService: LocalStorageService,
+              private pubSubService: PubSubService
               //private fb: FacebookService
   )
   {
@@ -73,6 +75,19 @@ export class LoginComponent implements OnDestroy  {
     return true;
   }
 
+  loginOk(resp)
+  {
+    this.localStorageService.add('user',resp.data);
+   this.pubSubService.publish("login", resp.data);
+    this.router.navigate(['/home']);
+    // this.router.navigate(['/home'], { queryParams: { returnUrl: 'sd' }});
+  }
+
+  loginFailure()
+  {
+
+  }
+
   loginWithFB(){
     // this.fb.login()
     //   .then((res: LoginResponse) => {
@@ -90,7 +105,16 @@ export class LoginComponent implements OnDestroy  {
         self.email = data.email;
         //user data
         //name, image, uid, provider, uid, email, token (accessToken for Facebook & google, no token for linkedIn), idToken(only for google)
-      }
+          const loginRequest = {
+            email:self.email,
+            //password: this.password
+          };
+          const loginResponsePromise  = this.httpService.postJson("api/security/loginfb",loginRequest);
+          loginResponsePromise.then(function (resp) {
+            console.log(resp);
+            self.loginOk(resp);
+          });
+    }
     )
   }
 
@@ -126,11 +150,10 @@ export class LoginComponent implements OnDestroy  {
       password: this.password
     };
 
-    const loginResponse  = await this.httpService.postJson("login",loginRequest);
+    const loginResponse  = await this.httpService.postJson("api/security/login",loginRequest);
 
     debugger;
-    this.localStorageService.add('user',loginResponse);
-    this.router.navigate(['/home'], { queryParams: { returnUrl: 'sd' }});
+    this.loginOk(loginResponse);
 
   }
 

@@ -53,6 +53,7 @@ import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
 import "froala-editor/js/froala_editor.pkgd.min.js";
 import * as $ from 'jquery';
 import { WysEditorComponent } from './wys-editor/wys-editor.component';
+import {PubSubService} from "./services/pubsub/pubsub";
 window["$"] = $;
 window["jQuery"] = $;
 
@@ -97,7 +98,8 @@ let providers = {
     QuizQuestionComponent,
     ServicesComponent,
     TimerComponent,
-    WysEditorComponent
+    WysEditorComponent,
+    //
   ],
   imports: [
     AceEditorModule,
@@ -117,7 +119,7 @@ let providers = {
     FacebookModule.forRoot(),
     FroalaEditorModule.forRoot(), FroalaViewModule.forRoot()
   ],
-  providers: [HttpWrapperService,CodeExecutionService, AuthGuard, SimpleTimer],
+  providers: [HttpWrapperService,CodeExecutionService, AuthGuard, SimpleTimer,PubSubService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

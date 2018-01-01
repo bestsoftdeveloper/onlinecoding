@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { LocalStorageService } from 'angular-2-local-storage';
+import {PubSubService} from "../../services/pubsub/pubsub";
 
 @Component({
   selector: 'app-header',
@@ -8,13 +9,14 @@ import { LocalStorageService } from 'angular-2-local-storage';
 })
 export class HeaderComponent {
   private user: any;
-  constructor (private localStorageService: LocalStorageService)
+  constructor (private localStorageService: LocalStorageService,
+               private pubSubService: PubSubService)
   {
     this.user = localStorageService.get('user');
-    // if(!this.user)
-    // {
-    //   this.user = {name: 'john'};
-    // }
+    this.pubSubService.subscribe("login", (userData)=>{
+      console.log("LOGIN EVENT rECEIVED");
+      this.user  = userData.data;
+    });
   }
 
   logout()

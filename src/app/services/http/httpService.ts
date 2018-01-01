@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Response } from '@angular/http';
+import {Http, Headers, Response, RequestOptions} from '@angular/http';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
 
@@ -27,12 +27,14 @@ export class HttpWrapperService {
       }
     }
 
-    serverUrl = 'localhost:3200/';
+    serverUrl = 'http://localhost:6002/';
 
     async postJson(url, body): Promise<any> {
       try {
+        let headers = new Headers({ 'Content-Type': 'application/json' });
+        let options = new RequestOptions({ headers: headers });
         const apiUrl = this.serverUrl + url;
-        const response = await this.http.post(url, body).toPromise();
+        const response = await this.http.post(apiUrl, body, options).toPromise();
         return{
           data: response.json(),
           success: true
