@@ -3,13 +3,14 @@ import {Http, Headers, Response, RequestOptions} from '@angular/http';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
 import {Observable} from "rxjs";
+import {LocalStorageService} from "angular-2-local-storage";
 
 @Injectable()
 export class HttpWrapperService {
 
   url = 'http://localhost:4200/assets/data/books.json';
 
-  constructor(private http: Http) {
+  constructor(private http: Http,private localStorageService: LocalStorageService) {
   }
 
 
@@ -33,7 +34,11 @@ export class HttpWrapperService {
 
   async postJson(url, body): Promise<any> {
     try {
+      let user : any = this.localStorageService.get('user');
+      console.log(user);
+
       let headers = new Headers({'Content-Type': 'application/json'});
+      headers.append('Authorization', user == null ? "" : user.data.token);
       let options = new RequestOptions({headers: headers});
       const apiUrl = this.serverUrl + url;
       const response = await this.http.post(apiUrl, body, options).toPromise();
@@ -52,9 +57,12 @@ export class HttpWrapperService {
 
   async postFormData(url, formData) {
     try {
+      let user : any = this.localStorageService.get('user');
+      console.log(user);
+
       const apiUrl = this.serverUrl + url;
       let headers = new Headers();
-
+      headers.append('Authorization', user == null ? "" : user.data.token);
 
       /** No need to include Content-Type in Angular 4 */
         //fu..

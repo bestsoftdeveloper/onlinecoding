@@ -1,6 +1,5 @@
-<p>
-  quiz.manager works!
-</p>
+
+{{question | json}}
 
 <app-quiz-question [question]="question"
                    (onMessageFromQuestionControl)=onMessageFromQuestionControl($event)></app-quiz-question>
@@ -14,6 +13,8 @@
   <button class="btn" (click)="next()" [disabled]="isNextDisabled()">next</button>
   <app-timer #timerComponent [config]="timerConfig" ></app-timer>
 </div>
+
+<button class="btn" (click)="editQuestion()" >edit</button>
 <!--{{questions | json}}-->
 
 

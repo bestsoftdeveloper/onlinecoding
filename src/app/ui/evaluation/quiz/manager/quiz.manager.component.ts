@@ -3,6 +3,8 @@ import {IQuestion} from "../facade/IQuestion";
 import {ITimerConfig} from "../../../../timer/ITimerConfig";
 import {TimerComponent} from "../../../../timer/timer.component";
 import {HttpWrapperService} from "../../../../services/http/httpService";
+import {PubSubService} from "../../../../services/pubsub/pubsub";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-quiz-manager',
@@ -13,7 +15,7 @@ export class QuizManagerComponent implements OnInit {
 
   @ViewChild(TimerComponent) timerComponent: TimerComponent;
 
-  constructor(private httpService: HttpWrapperService) { }
+  constructor(private httpService: HttpWrapperService,private router: Router,private pubSub:PubSubService) { }
 
   private pageCriteria = {
     itemsOnPage:1,
@@ -28,8 +30,34 @@ export class QuizManagerComponent implements OnInit {
     Code:2
   };
 
+  editQuestion()
+  {
+    this.pubSub.setKeyValue('q', this.question);
+    this.router.navigate(['/addquestions']);
+  }
+
+  sendAnswerForQuestion()
+  {
+    if(!this.question || !this.question._id)
+    {
+      return;
+    }
+    const req: any = {
+      proxy:{
+        module: 'question',
+        method: 'storeAnswerForQuestion',
+      },
+      data:{
+        qid:this.question._id,
+        rdValue:this.question.rdValue
+      }
+    };
+    req.data.checkedAnswers = this.question.answers.filter(el=>el.rdValue).map(el=>({index:el.index}));
+    this.httpService.postJson('api/question',req);
+  }
   onstop = ()=>{
     console.log('dddddddddddddddddddd');
+
     this.next();
   }
 
@@ -80,6 +108,7 @@ export class QuizManagerComponent implements OnInit {
               expected:true
             }]
         },
+        rdValue:1,
         time:{
           seconds:5,
           countUp:false
@@ -108,6 +137,7 @@ export class QuizManagerComponent implements OnInit {
         _id:"b26e7462-ebb0-44d5-aa83-0b1470139130",
         question:"Ce ai vrea sa inveti?",
         time:10,
+        rdValue:1,
         answers:[
           {
             id:1,
@@ -123,7 +153,6 @@ export class QuizManagerComponent implements OnInit {
           }
 
         ],
-        rdValue:1,
         questionType: this.QuestionType.MultipleAswers
       },
       {
@@ -154,6 +183,7 @@ export class QuizManagerComponent implements OnInit {
         _id:"966f856f-e545-4ef7-8871-aca5a7e019a2",
         question:"hello1",
         time:0,
+        rdValue:1,
         answers:[
           {
             id:1,
@@ -176,7 +206,7 @@ export class QuizManagerComponent implements OnInit {
       }]
   };
 
-  public question:IQuestion = null;
+  public question:any = null;
 
   questionIndex = -1;
 
@@ -185,6 +215,7 @@ export class QuizManagerComponent implements OnInit {
 
   next()
   {
+    this.sendAnswerForQuestion();
     this.timerComponent.stopCalled();
 
     if(this.isNextDisabled())
@@ -194,8 +225,11 @@ export class QuizManagerComponent implements OnInit {
     //debugger;
     this.questionIndex++;
     this.question = this.questions.list[this.questionIndex];
-
-    this.timerComponent.reset(this.question.time);
+    if(this.question.timer) {
+      this.timerConfig.countUp = this.question.timer.countUp;
+      this.timerConfig.running = this.question.timer.enabled;
+      this.timerComponent.reset(this.question.timer);
+    }
   }
 
   prev()
@@ -229,8 +263,10 @@ export class QuizManagerComponent implements OnInit {
   {
     const self = this;
     const data = {
-      module:"",
-      method:"evaluation",
+      proxy:{
+        module: 'question',
+        method: 'evaluation',
+      },
       data:{
         //pager:this.pageCriteria
       }

@@ -1,5 +1,5 @@
 const router = require('koa-router')();
-const authMiddleware = require('../shared/auth/auth.middleware').tokenParserMidleware();
+ // const authMiddleware = require('../shared/auth/auth.middleware').errorHandler();
 const securityModule = require('../modules/security/security')();
 const parse = require('co-body');
 const fs = require('fs-extra');
@@ -18,7 +18,8 @@ var formidable = require('formidable');
 //const asyncBusboy = require('async-busboy');
 const uuidv4 = require('uuid/v4');
 const questionService = require('../modules/question/questionService');
-
+const jwt = require('jsonwebtoken');
+const config = require('../config/development');
 
 function getModule(name) {
     switch (name) {
@@ -79,16 +80,36 @@ function formidablePromise (req, opts) {
 
 router
   .prefix('/api/question')
+.use(async function(ctx, next){
+  console.log("1111111111111111111111111111111");
+  var authHeader = ctx.req.headers.authorization;
+  console.log(authHeader);
+  var r = await jwt.verify(authHeader, config.tokenPassword);
+  ctx.request.body.tokenObj = r;
+
+  return next().catch((err) => {
+      console.log(err);
+      console.log("333333333333333333");
+      if (401 == err.status) {
+    ctx.status = 401;
+    ctx.body = 'Protected resource, use Authorization header to get access\n';
+  } else {
+    throw err;
+  }
+});
+})
   .post("/", async function (ctx) {
+  console.log("OOOOOOOOOOOOOOOOOOOOO");
     const body = ctx.request.body;
-    const data = body.data;
-    const method = body.method;
     console.log(body);
+    const data = body.data;
+    const method = body.proxy.method;
+
 
     // questionService
     // ctx.body = {message: "Hellome1me1me1me1me1me1me1me1me1me1me1me1me1!"}
 
-    ctx.body = await questionService[method](ctx,data);
+    ctx.body = await questionService[method](ctx,data, body.tokenObj);
   })
 
   .post("/form", async function (ctx) {
@@ -101,11 +122,25 @@ router
     const data = JSON.parse(resp.fields.q);
     const answerType = JSON.parse(resp.fields.answerType);
     const timer = JSON.parse(resp.fields.timer);
+  const answers = JSON.parse(resp.fields.answers);
+  let testCases = null;
+  if(resp.fields.testCases)
+  {
+    testCases = JSON.parse(resp.fields.testCases);
+  }
 
     data.answers = resp.newFileNames;
     data.answerType = answerType;
     data.timer = timer;
-
+  data.answers = answers;
+  if(testCases)
+  {
+    data.testCases = testCases;
+  }
+  if(resp.fields.code)
+  {
+    data.code = resp.fields.code;
+  }
     console.log(resp.newFileNames);
 
     ctx.body = await questionService[proxy.method](ctx,data);
@@ -127,6 +162,9 @@ router
 
 
   })
+
+
+
 
   .post('/evaluation', async function(ctx) {
     const body = ctx.request.body;

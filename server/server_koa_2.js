@@ -17,6 +17,8 @@ const fs = require('fs');
 const colors = require('colors');
 const utils = require('./shared/utils');
 var io = require('socket.io');
+const path = require('path');
+const send = require('koa-send');
 const asyncBusboy = require('async-busboy');
 
 const logger = require('koa-logger');
@@ -28,6 +30,7 @@ const serve = require('koa2-static-middleware');
 const cors = require('@koa/cors');
 const app = new koa();
 
+//import serve from 'koa-static-folder';
 var formidable = require('koa2-formidable');
 
 
@@ -45,31 +48,6 @@ app.use(errorCatcher);
 app.use(BodyParser());
 app.use(cors());
 
-// app.use(koaBody({
-//   multipart: true,
-//   formidable: {
-//     uploadDir: __dirname + '/uploads',
-//     onFileBegin: function(name, file) {
-//       console.log("sssssssssssssssssssssssssssssssssssssssss" + name);
-//       console.log(file);
-//     }
-//   }
-// }));
-
-// app.use(async function(ctx, next) {
-//   debugger;
-//   try {
-//     const {files, fields} = await asyncBusboy(ctx.req);
-//     console.log(files);
-//     console.log(fields)
-//   }
-//   catch (ex)
-//   {
-//     console.log(ex);
-//   }
-//   console.log("fffs");
-//
-// });
 
 
 // app.use(function *(){
@@ -89,8 +67,7 @@ app.use(cors());
 
 const mongoQuery = require('./utils/mongoQuery')();
 
-// app.use(serve(path.join(__dirname, '/public'))); it should work
-
+//app.use(serve(path.join(__dirname, '/uploads')));// it should work
 // lcRouter.use('/api', lcPrivateRoutes);
 lcRouter.use(lcPublicRoutes.routes());
 lcRouter.use(routesQuestion.routes());
@@ -106,6 +83,14 @@ lcRouter.post("/people", async (ctx) => {
 // });
 
 lcRouter.get('/', serve('../src', { index: 'index.html' }));
+// lcRouter.get('/uploads', serve('uploads'));
+
+lcRouter.get("/uploads/:id", async function (ctx) {
+  //console.log("uploads"+ctx.params.id + " " +ctx.path);
+  // serve("uploads/"+ctx.params.id);
+  await send(ctx, ctx.path);
+});
+
 
 console.log(lcRouter.stack.map(i => i.path));
 

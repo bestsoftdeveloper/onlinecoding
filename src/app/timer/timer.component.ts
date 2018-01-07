@@ -113,6 +113,7 @@ export class TimerComponent implements OnInit {
     this.config.running = false;
 
     this.counter = 0;
+    this.toMoment(this.counter);
     if(this.timerId) {
       this.st.unsubscribe(this.timerId);
       this.timerId = null;
@@ -135,6 +136,7 @@ export class TimerComponent implements OnInit {
     this.config.running = false;
 
     this.counter = 0;
+    this.toMoment(this.counter);
     if(this.timerId) {
       this.st.unsubscribe(this.timerId);
       this.timerId = null;

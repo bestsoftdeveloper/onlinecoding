@@ -60,6 +60,7 @@
     "koa-sendfile": "^2.0.0",
     "koa-static-folder": "^0.1.6",
     "koa2-static-middleware": "^1.0.3",
+    "logger": "0.0.1",
     "lz-string": "^1.4.4",
     "moment": "^2.20.1",
     "mongodb": "^3.0.0",

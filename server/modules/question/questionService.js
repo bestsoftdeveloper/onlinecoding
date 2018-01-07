@@ -11,6 +11,11 @@ class QuestionService {
 
     return {_id: question.ops[0]._id};
   }
+  async storeAnswerForQuestion(ctx, data, tokenObj) {
+    data.userId = tokenObj.id;
+    const questionResponse  = await mongoQuery.collection('questionResponses').insert(data);
+    return {od:"da"};
+  }
 
   async form(ctx, data, query={}) {
     console.log("YZZZZZZZZZZ");

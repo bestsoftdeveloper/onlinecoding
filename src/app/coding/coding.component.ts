@@ -62,7 +62,7 @@ export class CodingComponent implements OnInit {
         debugger;
         const testCase = this.testCases.list[i];
 
-        testCode = this.text + " return " + this.testCases.mainFunctionName + "(" + testCase.param  +");";
+        testCode = this.text + " return " + "run" + "(" + testCase.param  +");";
         let resp = await this.codeExecutionService.executeCode(
           {
             text:testCode

@@ -7,5 +7,8 @@ export interface IQuestion
   _id:string,
   question:string,
   time:any,
-  questionType:number
+  questionType:number,
+  // timer:any,
+  rdValue:number,
+  testCases:any
 }

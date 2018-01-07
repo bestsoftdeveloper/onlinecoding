@@ -9,7 +9,7 @@
   <div *ngFor="let item of obj.timeOptions; let i = index">
     <!--{{i}} {{item}}-->
     <label>
-      <input name="timer"  type="radio" [value]="item.time" [(ngModel)]="obj.time">
+      <input name="timer"  type="radio" [value]="item.time" [(ngModel)]="obj.seconds">
       <span>{{item.desc}}</span>
     </label>
   </div>
@@ -17,7 +17,7 @@
 
 <div class="row">
   <label>
-    <input [(ngModel)]="obj.up" type="checkbox"/>
+    <input [(ngModel)]="obj.countUp" type="checkbox"/>
     <span>Increasing</span>
   </label>
 </div>

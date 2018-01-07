@@ -2,12 +2,15 @@
 const express = require('express');
 const path = require('path');
 const http = require('http');
+const logger = require('logger');
 const bodyParser = require('body-parser');
 
 // Get our API routes
 const api = require('./server/routes/api');
 
 const app = express();
+
+var request = require('request');
 
 // Parsers for POST data
 app.use(bodyParser.json());
@@ -19,9 +22,31 @@ app.use(express.static(path.join(__dirname, 'dist')));
 // Set our api routes
 app.use('/api', api);
 
+const proxiedURL = "http://localhost:6002";
+
 // Catch all other routes and return the index file
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'dist/index.html'));
+  console.log(req.path);
+  if (req.path.startsWith('/uploads')) {
+    var url = proxiedURL + "/uploads/" + req.params.id;
+    //logger.info('/fileThumbnail going to url', url); 
+    url=proxiedURL+req.path;
+    console.log(url);
+    
+    request.get(url).pipe(res);
+  } else {
+    res.sendFile(path.join(__dirname, 'dist/index.html'));
+  }
+});
+
+
+app.get('/uploads/:id', function(req, res) {
+  //console.log(req.params.id);
+
+  var url = proxiedURL + "/uploads/" + req.params.id;
+  console.log(url);
+  //logger.info('/fileThumbnail going to url', url); 
+  request.get(url).pipe(res);
 });
 
 /**

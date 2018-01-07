@@ -1,6 +1,6 @@
 <div *ngIf="question" class="container">
 
-  {{question | json}}
+  <!--{{question | json}}-->
   <div class="row center">
     <div [innerHTML]="question.question | keepHtml"></div>
   </div>
@@ -23,32 +23,73 @@
     </div>
 
 
-    <div *ngIf="question.questionType === 1" class="col-md-12">
+    <div *ngIf="question.questionType === QuestionType.Text" class="col-md-12">
       <tr *ngFor="let entry of question.answers">
-        <td>
 
-          <div class="checkbox">
+        <td *ngIf="question.answerType.type === AnswerType.SingleAnswer">
+          <div class="radio">
             <label>
-              <input type="checkbox" [value]="entry.id" name="radiogroup" [(ngModel)]="entry.value">
+              <input type="radio" [value]="entry.index" name="radiogroup" [(ngModel)]="question.rdValue">
               <span class="cr"><i class="cr-icon glyphicon glyphicon-ok-sign"></i></span>
-              {{ entry.answer }}
+              <div [innerHTML]="entry.content | keepHtml"></div>
             </label>
           </div>
         </td>
+
+        <td *ngIf="question.answerType.type === AnswerType.MultipleAnswers">
+
+          <div class="checkbox">
+            <label>
+              <input type="checkbox" [value]="entry.index" name="chkText" [(ngModel)]="entry.rdValue">
+              <span class="cr"><i class="cr-icon glyphicon glyphicon-ok-sign"></i></span>
+              <div [innerHTML]="entry.content | keepHtml"></div>
+            </label>
+          </div>
+        </td>
+
       </tr>
     </div>
 
-    <div *ngIf="question.questionType === 2" class="col-md-12">
-      <app-coding [code]=question.code [testCases]=question.testCases></app-coding>
+    <!--<div *ngIf="question.questionType === 2" class="col-md-12">-->
+      <!--<app-coding [code]=question.code [testCases]=question.testCases></app-coding>-->
+
+      <!--<tr *ngFor="let entry of question.answers">-->
+        <!--{{entry | json}}-->
+        <!--<td *ngIf="question.answerType === 2">-->
+          <!--<div class="checkbox">-->
+            <!--<label>-->
+              <!--<input type="checkbox" [value]="entry.id" name="radiogroup" [(ngModel)]="entry.value">-->
+              <!--<span class="cr"><i class="cr-icon glyphicon glyphicon-ok-sign"></i></span>-->
+              <!--{{ entry.answer }}-->
+            <!--</label>-->
+          <!--</div>-->
+        <!--</td>-->
+      <!--</tr>-->
+    <!--</div>-->
+
+    <div *ngIf="question.questionType === QuestionType.Images" class="col-md-12">
 
       <tr *ngFor="let entry of question.answers">
-        {{entry | json}}
-        <td *ngIf="question.answerType === 2">
+        <!--{{entry | json}}-->
+
+        {{question.answerType}} ---
+
+        <td *ngIf="question.answerType.type === AnswerType.SingleAnswer">
+          <div class="radio">
+            <label>
+              <input type="radio" [value]="entry.index" name="radiogroup" [(ngModel)]="question.rdValue">
+              <span class="cr"><i class="cr-icon glyphicon glyphicon-ok-sign"></i></span>
+              <img src="{{entry.filePath}}"/>
+            </label>
+          </div>
+        </td>
+
+        <td *ngIf="question.answerType.type === AnswerType.MultipleAnswers">
           <div class="checkbox">
             <label>
-              <input type="checkbox" [value]="entry.id" name="radiogroup" [(ngModel)]="entry.value">
+              <input type="checkbox" [value]="entry.index" name="chkImg" [(ngModel)]="entry.rdValue">
               <span class="cr"><i class="cr-icon glyphicon glyphicon-ok-sign"></i></span>
-              {{ entry.answer }}
+              <img src="{{entry.filePath}}"/>
             </label>
           </div>
         </td>
@@ -57,21 +98,6 @@
 
     <div *ngIf="question.questionType === 3" class="col-md-12">
       <app-coding [code]=question.code [testCases]=question.testCases></app-coding>
-
-      <tr *ngFor="let entry of question.answers">
-        {{entry | json}}
-        <td>
-          <div class="checkbox">
-            <label>
-              <input type="checkbox" [value]="entry.id" name="radiogroup" [(ngModel)]="entry.value">
-              <span class="cr"><i class="cr-icon glyphicon glyphicon-ok-sign"></i></span>
-              {{ entry.answer }}
-            </label>
-          </div>
-        </td>
-      </tr>
-
-
     </div>
 
   </div>

@@ -1,17 +1,24 @@
 <div class="container">
   <div class="row">
-    {{questionType | json}}
+    {{question | json}}
     <ul>
       <li>
         <label>
-          <input name="options" ng-control="options" type="radio" [value]="1" [(ngModel)]="questionType">
+          <input name="options" ng-control="options" type="radio" [value]="1" [(ngModel)]="question.questionType">
           <span>Text</span>
         </label>
       </li>
       <li>
         <label>
-          <input name="options" ng-control="options" type="radio" [value]="2" [(ngModel)]="questionType">
+          <input name="options" ng-control="options" type="radio" [value]="2" [(ngModel)]="question.questionType">
           <span>Images</span>
+        </label>
+      </li>
+
+      <li>
+        <label>
+          <input name="options" ng-control="options" type="radio" [value]="3" [(ngModel)]="question.questionType">
+          <span>Code</span>
         </label>
       </li>
     </ul>
@@ -49,13 +56,13 @@
 
   <div class="row">
     <div class="col-md-6">
-      <app-quiz-wys-editor *ngIf="questionType===1" [(obj)]="question.answers[0]" prop="content" [(answerType)]="answerType"></app-quiz-wys-editor>
-      <app-quiz-image *ngIf="questionType===2" [(obj)]="question.answers[0]" prop="content" [(answerType)]="answerType"></app-quiz-image>
+      <app-quiz-wys-editor *ngIf="question.questionType===1" [(obj)]="question.answers[0]" prop="content" [(answerType)]="answerType"></app-quiz-wys-editor>
+      <app-quiz-image *ngIf="question.questionType===2" [(obj)]="question.answers[0]" prop="content" [(answerType)]="answerType"></app-quiz-image>
 
     </div>
     <div class="col-md-6">
-      <app-quiz-wys-editor *ngIf="questionType===1" [(obj)]="question.answers[1]" prop="content" [(answerType)]="answerType"></app-quiz-wys-editor>
-      <app-quiz-image *ngIf="questionType===2" [(obj)]="question.answers[1]" prop="content" [(answerType)]="answerType"></app-quiz-image>
+      <app-quiz-wys-editor *ngIf="question.questionType===1" [(obj)]="question.answers[1]" prop="content" [(answerType)]="answerType"></app-quiz-wys-editor>
+      <app-quiz-image *ngIf="question.questionType===2" [(obj)]="question.answers[1]" prop="content" [(answerType)]="answerType"></app-quiz-image>
 
     </div>
   </div>
@@ -63,15 +70,41 @@
 
   <div class="row">
     <div class="col-md-6">
-      <app-quiz-wys-editor *ngIf="questionType===1" [(obj)]="question.answers[2]" prop="content" [(answerType)]="answerType"></app-quiz-wys-editor>
-      <app-quiz-image *ngIf="questionType===2" [(obj)]="question.answers[2]" prop="content" [(answerType)]="answerType"></app-quiz-image>
+      <app-quiz-wys-editor *ngIf="question.questionType===1" [(obj)]="question.answers[2]" prop="content" [(answerType)]="answerType"></app-quiz-wys-editor>
+      <app-quiz-image *ngIf="question.questionType===2" [(obj)]="question.answers[2]" prop="content" [(answerType)]="answerType"></app-quiz-image>
 
     </div>
     <div class="col-md-6">
-      <app-quiz-wys-editor *ngIf="questionType===1" [(obj)]="question.answers[3]" prop="content" [(answerType)]="answerType"></app-quiz-wys-editor>
-      <app-quiz-image *ngIf="questionType===2" [(obj)]="question.answers[3]" prop="content" [(answerType)]="answerType"></app-quiz-image>
+      <app-quiz-wys-editor *ngIf="question.questionType===QuestionType.Text" [(obj)]="question.answers[3]" prop="content" [(answerType)]="answerType"></app-quiz-wys-editor>
+      <app-quiz-image *ngIf="question.questionType===QuestionType.Image" [(obj)]="question.answers[3]" prop="content" [(answerType)]="answerType"></app-quiz-image>
 
     </div>
+  </div>
+
+  <div class="row" *ngIf="question.questionType===QuestionType.Code">
+    <div class="col-md-6">
+      <div class="row">
+        <span>Code</span>
+      </div>
+      <div class="row">
+        <textarea cols="77" rows="20" [(ngModel)]="question.code"></textarea>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="row">
+        <span>Test cases</span>
+      </div>
+      <div class="row">
+        <textarea cols="77" rows="20" [(ngModel)]="question.testCases"></textarea>
+      </div>
+    </div>
+
+
+  </div>
+
+  <div class="row">
+
   </div>
 
   <div class="row">

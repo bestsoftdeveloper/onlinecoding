@@ -12,6 +12,17 @@ export class QuizQuestionComponent implements OnInit {
   @Output() onMessageFromQuestionControl: EventEmitter<any> = new EventEmitter<any>();
   constructor() { }
 
+   QuestionType: any = {
+    Text:1,
+    Images:2,
+    Code:3
+  };
+
+  AnswerType: any = {
+    SingleAnswer:1,
+    MultipleAnswers:2
+  };
+
   ngOnInit() {
     this.onMessageFromQuestionControl.emit({a:5});
   }
