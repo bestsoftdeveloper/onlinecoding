@@ -4,6 +4,7 @@ const https = require('https');
 var forceSSL = require('koa-force-ssl');
 const lcPrivateRoutes = require('./routes/private.routes');
 const lcPublicRoutes = require('./routes/public.routes');
+const routesQuestion = require('./routes/routes.question');
 
 const lcRouter = require('koa-router')();
 
@@ -16,6 +17,7 @@ const fs = require('fs');
 const colors = require('colors');
 const utils = require('./shared/utils');
 var io = require('socket.io');
+const asyncBusboy = require('async-busboy');
 
 const logger = require('koa-logger');
 const ObjectID = require("mongodb").ObjectID;
@@ -26,6 +28,9 @@ const serve = require('koa2-static-middleware');
 const cors = require('@koa/cors');
 const app = new koa();
 
+var formidable = require('koa2-formidable');
+
+
 require("./mongo/mongo")(app);
 
 var originsWhitelist = [
@@ -34,11 +39,39 @@ var originsWhitelist = [
 ];
 
 app.use(cors());
-
+  //app.use(koaBody({ multipart: true }));
 app.use(logger());
 app.use(errorCatcher);
 app.use(BodyParser());
 app.use(cors());
+
+// app.use(koaBody({
+//   multipart: true,
+//   formidable: {
+//     uploadDir: __dirname + '/uploads',
+//     onFileBegin: function(name, file) {
+//       console.log("sssssssssssssssssssssssssssssssssssssssss" + name);
+//       console.log(file);
+//     }
+//   }
+// }));
+
+// app.use(async function(ctx, next) {
+//   debugger;
+//   try {
+//     const {files, fields} = await asyncBusboy(ctx.req);
+//     console.log(files);
+//     console.log(fields)
+//   }
+//   catch (ex)
+//   {
+//     console.log(ex);
+//   }
+//   console.log("fffs");
+//
+// });
+
+
 // app.use(function *(){
 //   this.set('Access-Control-Allow-Origin', '*');
 // });
@@ -56,9 +89,11 @@ app.use(cors());
 
 const mongoQuery = require('./utils/mongoQuery')();
 
+// app.use(serve(path.join(__dirname, '/public'))); it should work
 
 // lcRouter.use('/api', lcPrivateRoutes);
 lcRouter.use(lcPublicRoutes.routes());
+lcRouter.use(routesQuestion.routes());
 
 app.use(lcRouter.routes()).use(lcRouter.allowedMethods());
 

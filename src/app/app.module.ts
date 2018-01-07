@@ -54,6 +54,10 @@ import "froala-editor/js/froala_editor.pkgd.min.js";
 import * as $ from 'jquery';
 import { WysEditorComponent } from './wys-editor/wys-editor.component';
 import {PubSubService} from "./services/pubsub/pubsub";
+import { FileComponentComponent } from './file-component/file-component.component';
+import { QuizImageComponent } from './ui/evaluation/quiz/quiz-image/quiz-image.component';
+import { QuizWysEditorComponent } from './ui/evaluation/quiz/quiz-wys-editor/quiz-wys-editor.component';
+import { QuizTimerComponent } from './ui/evaluation/quiz/quiz-timer/quiz-timer.component';
 window["$"] = $;
 window["jQuery"] = $;
 
@@ -99,6 +103,10 @@ let providers = {
     ServicesComponent,
     TimerComponent,
     WysEditorComponent,
+    FileComponentComponent,
+    QuizImageComponent,
+    QuizWysEditorComponent,
+    QuizTimerComponent,
     //
   ],
   imports: [

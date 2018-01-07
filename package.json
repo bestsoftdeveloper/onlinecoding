@@ -10,7 +10,7 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "testserver": "jest",
-	"starts": "node ./server/server_koa_2.js"
+    "starts": "node ./server/server_koa_2.js"
   },
   "jest": {
     "testEnvironment": "node"
@@ -39,6 +39,7 @@
     "angular2-social-login": "^3.1.1",
     "angular2-swiper": "^0.8.1",
     "angular2-useful-swiper": "git+https://github.com/tanoy009/angular4-swiper.git",
+    "angular2-uuid": "^1.1.1",
     "body-parser": "^1.18.2",
     "bootstrap": "^3.3.7",
     "co-body": "^5.1.1",

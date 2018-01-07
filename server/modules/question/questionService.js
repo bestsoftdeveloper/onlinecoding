@@ -1,0 +1,62 @@
+
+const mongoQuery = require('../../utils/mongoQuery')();
+
+class QuestionService {
+
+  async add_edit(ctx, data, query={}) {
+    console.log("YEEEEEEEEEEEEEEEEEEE");
+
+    const question  = await mongoQuery.collection('question').insert(data);
+    // question._id = question.ops[0]._id;
+
+    return {_id: question.ops[0]._id};
+  }
+
+  async form(ctx, data, query={}) {
+    console.log("YZZZZZZZZZZ");
+
+    const question  = await mongoQuery.collection('question').insert(data);
+    // question._id = question.ops[0]._id;
+
+    return {_id: question.ops[0]._id};
+  }
+
+  async evaluation(ctx, obj, query={}) {
+    console.log(obj.pager);
+  debugger;
+    var filter = mongoQuery.collection('question').find({});
+
+    if (obj.pager) {
+      obj.pager.itemsOnPage = parseInt(obj.pager.itemsOnPage);
+      obj.pager.pageNo--;
+      filter = filter.limit(obj.pager.itemsOnPage)
+      .skip(obj.pager.itemsOnPage * obj.pager.pageNo)
+      // query = query.sort({
+      //   dateAdded: -1
+      // });
+  }
+debugger;
+  const questions  = await filter.toArray();
+  console.log(questions);
+  const count = await mongoQuery.collection('question').count(query);
+  return {
+    items: questions,
+    count
+  };
+}
+
+  * add_edit1(ctx, data, query={}) {
+    console.log("YEEEEEEEEEEEEEEEEEEE");
+    const dataResponse = yield ctx.app.question.insert(data);
+
+    return dataResponse;
+  }
+
+  * getCustomers(tenant,query={}) {
+    query.tenantId = tenant.tenantId;
+    query.active=true;
+    return query;
+  }
+}
+
+module.exports = new QuestionService();

@@ -1,6 +1,85 @@
-<p>
-  quiz.add works!
-</p>
+<div class="container">
+  <div class="row">
+    {{questionType | json}}
+    <ul>
+      <li>
+        <label>
+          <input name="options" ng-control="options" type="radio" [value]="1" [(ngModel)]="questionType">
+          <span>Text</span>
+        </label>
+      </li>
+      <li>
+        <label>
+          <input name="options" ng-control="options" type="radio" [value]="2" [(ngModel)]="questionType">
+          <span>Images</span>
+        </label>
+      </li>
+    </ul>
+  </div>
+
+  <div class="row">
+    {{answerType | json}}
+    <ul>
+      <li>
+        <label>
+          <input name="answerType"  type="radio" [value]="1" [(ngModel)]="answerType.type">
+          <span>One Answer</span>
+        </label>
+      </li>
+      <li>
+        <label>
+          <input name="answerType"  type="radio" [value]="2" [(ngModel)]="answerType.type">
+          <span>Multiple answers</span>
+        </label>
+      </li>
+    </ul>
+  </div>
+
+  <div class="row1">
+    <app-quiz-timer [(obj)]="question.timer"></app-quiz-timer>
+
+  </div>
+
+  <div class="row">
+    <p>
+      Enunt! {{question.question}} ---
+    </p>
+    <app-wys-editor [(obj)]="question" prop="question"></app-wys-editor>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6">
+      <app-quiz-wys-editor *ngIf="questionType===1" [(obj)]="question.answers[0]" prop="content" [(answerType)]="answerType"></app-quiz-wys-editor>
+      <app-quiz-image *ngIf="questionType===2" [(obj)]="question.answers[0]" prop="content" [(answerType)]="answerType"></app-quiz-image>
+
+    </div>
+    <div class="col-md-6">
+      <app-quiz-wys-editor *ngIf="questionType===1" [(obj)]="question.answers[1]" prop="content" [(answerType)]="answerType"></app-quiz-wys-editor>
+      <app-quiz-image *ngIf="questionType===2" [(obj)]="question.answers[1]" prop="content" [(answerType)]="answerType"></app-quiz-image>
+
+    </div>
+  </div>
 
 
-<app-wys-editor></app-wys-editor>
+  <div class="row">
+    <div class="col-md-6">
+      <app-quiz-wys-editor *ngIf="questionType===1" [(obj)]="question.answers[2]" prop="content" [(answerType)]="answerType"></app-quiz-wys-editor>
+      <app-quiz-image *ngIf="questionType===2" [(obj)]="question.answers[2]" prop="content" [(answerType)]="answerType"></app-quiz-image>
+
+    </div>
+    <div class="col-md-6">
+      <app-quiz-wys-editor *ngIf="questionType===1" [(obj)]="question.answers[3]" prop="content" [(answerType)]="answerType"></app-quiz-wys-editor>
+      <app-quiz-image *ngIf="questionType===2" [(obj)]="question.answers[3]" prop="content" [(answerType)]="answerType"></app-quiz-image>
+
+    </div>
+  </div>
+
+  <div class="row">
+    <button type="button" class="btn" (click)="saveQuestion()">Save</button>
+  </div>
+
+<!--{{answerType | json}}-->
+
+</div>
+
+

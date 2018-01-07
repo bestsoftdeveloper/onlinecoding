@@ -2,6 +2,7 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {IQuestion} from "../facade/IQuestion";
 import {ITimerConfig} from "../../../../timer/ITimerConfig";
 import {TimerComponent} from "../../../../timer/timer.component";
+import {HttpWrapperService} from "../../../../services/http/httpService";
 
 @Component({
   selector: 'app-quiz-manager',
@@ -11,6 +12,14 @@ import {TimerComponent} from "../../../../timer/timer.component";
 export class QuizManagerComponent implements OnInit {
 
   @ViewChild(TimerComponent) timerComponent: TimerComponent;
+
+  constructor(private httpService: HttpWrapperService) { }
+
+  private pageCriteria = {
+    itemsOnPage:1,
+    pageNo:1,
+    count:0
+  };
 
   private QuestionType =
   {
@@ -38,7 +47,7 @@ export class QuizManagerComponent implements OnInit {
   private questions = {
     list:[
       {
-        id:"b0420298-7cca-4f3d-b95b-3a1eb3a29493",
+        _id:"b0420298-7cca-4f3d-b95b-3a1eb3a29493",
         question:"Ai folosit javascript",
         time:0,
         answers:[
@@ -53,10 +62,10 @@ export class QuizManagerComponent implements OnInit {
 
         ],
         rdValue:1,
-        qtype: this.QuestionType.SingleAnswer
+        questionType: this.QuestionType.SingleAnswer
       },
       {
-        id:"a88f261f-29bd-4435-a1d4-0d236c10b9b6",
+        _id:"a88f261f-29bd-4435-a1d4-0d236c10b9b6",
         question:"<label>scrie o functie care returneaza daca un numar este par</label>",
         code:"function  isPar(n)\n{\n//write the code here\n};\n\nisPar(5);",
         testCases:{
@@ -93,11 +102,10 @@ export class QuizManagerComponent implements OnInit {
             answer:"1asdafa",
           }
         ],
-        qtype: this.QuestionType.Code
+        questionType: this.QuestionType.Code
       },
-
       {
-        id:"b26e7462-ebb0-44d5-aa83-0b1470139130",
+        _id:"b26e7462-ebb0-44d5-aa83-0b1470139130",
         question:"Ce ai vrea sa inveti?",
         time:10,
         answers:[
@@ -116,10 +124,10 @@ export class QuizManagerComponent implements OnInit {
 
         ],
         rdValue:1,
-        qtype: this.QuestionType.MultipleAswers
+        questionType: this.QuestionType.MultipleAswers
       },
       {
-        id:"bda49d4a-37de-45b2-8a87-005e56183e93",
+        _id:"bda49d4a-37de-45b2-8a87-005e56183e93",
       question:"hello",
       time:0,
       answers:[
@@ -140,10 +148,10 @@ export class QuizManagerComponent implements OnInit {
           answer:"1asdafa",
         }
       ],
-      qtype: this.QuestionType.SingleAnswer
+        questionType: this.QuestionType.SingleAnswer
     },
       {
-        id:"966f856f-e545-4ef7-8871-aca5a7e019a2",
+        _id:"966f856f-e545-4ef7-8871-aca5a7e019a2",
         question:"hello1",
         time:0,
         answers:[
@@ -164,7 +172,7 @@ export class QuizManagerComponent implements OnInit {
             answer:"1asdafa1",
           }
         ],
-        qtype: this.QuestionType.SingleAnswer
+        questionType: this.QuestionType.SingleAnswer
       }]
   };
 
@@ -172,10 +180,7 @@ export class QuizManagerComponent implements OnInit {
 
   questionIndex = -1;
 
-  constructor() {
-    //this.question = this.questions.list[this.questionIndex];
 
-  }
 
 
   next()
@@ -220,9 +225,32 @@ export class QuizManagerComponent implements OnInit {
     console.log('Picked date: ', date);
   }
 
-  ngOnInit() {
-    this.next();
+  async getNextQuestionsFomDatabase()
+  {
+    const self = this;
+    const data = {
+      module:"",
+      method:"evaluation",
+      data:{
+        //pager:this.pageCriteria
+      }
+    };
+    let questionsResponsePromise = await this.httpService.postJson('api/question',data);
 
+    return questionsResponsePromise;
+    // questionsResponsePromise.then(function (resp) {
+    //   debugger;
+    //   self.questions.list = resp.data.items;
+    //   self.pageCriteria.count =resp.data.count;
+    //   this.next();
+    // });
+  }
+
+  async ngOnInit() {
+    debugger;
+    const response = await this.getNextQuestionsFomDatabase();
+    this.questions.list = response.data.items;
+    this.next();
   }
 
 }
