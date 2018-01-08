@@ -119,29 +119,30 @@ router
 
     console.log("gggggggggggggggggggpppppppppppppppp");
     const proxy = JSON.parse(resp.fields.proxy);
-    const data = JSON.parse(resp.fields.q);
-    const answerType = JSON.parse(resp.fields.answerType);
-    const timer = JSON.parse(resp.fields.timer);
-  const answers = JSON.parse(resp.fields.answers);
-  let testCases = null;
-  if(resp.fields.testCases)
-  {
-    testCases = JSON.parse(resp.fields.testCases);
-  }
 
-    data.answers = resp.newFileNames;
-    data.answerType = answerType;
-    data.timer = timer;
-  data.answers = answers;
+    //const data = JSON.parse(resp.fields.q);
+    const data= JSON.parse(resp.fields.question);
+    delete data.timer.timeOptions;
+
+    let testCases = null;
+    if(resp.fields.testCases)
+    {
+      testCases = JSON.parse(resp.fields.testCases);
+    }
+    if(data.questionType == 2) {
+      data.answers = resp.newFileNames;
+    }
+  //data. answers = answers;
   if(testCases)
   {
     data.testCases = testCases;
   }
+    console.log(resp.newFileNames);
   if(resp.fields.code)
   {
     data.code = resp.fields.code;
   }
-    console.log(resp.newFileNames);
+
 
     ctx.body = await questionService[proxy.method](ctx,data);
 

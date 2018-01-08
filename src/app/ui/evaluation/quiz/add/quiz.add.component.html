@@ -25,17 +25,17 @@
   </div>
 
   <div class="row">
-    {{answerType | json}}
+    <!--{{question.answerType | json}}-->
     <ul>
       <li>
         <label>
-          <input name="answerType"  type="radio" [value]="1" [(ngModel)]="answerType.type">
+          <input name="answerType"  type="radio" [value]="1" [(ngModel)]="question.answerType.type">
           <span>One Answer</span>
         </label>
       </li>
       <li>
         <label>
-          <input name="answerType"  type="radio" [value]="2" [(ngModel)]="answerType.type">
+          <input name="answerType"  type="radio" [value]="2" [(ngModel)]="question.answerType.type">
           <span>Multiple answers</span>
         </label>
       </li>
@@ -56,13 +56,13 @@
 
   <div class="row">
     <div class="col-md-6">
-      <app-quiz-wys-editor *ngIf="question.questionType===1" [(obj)]="question.answers[0]" prop="content" [(answerType)]="answerType"></app-quiz-wys-editor>
-      <app-quiz-image *ngIf="question.questionType===2" [(obj)]="question.answers[0]" prop="content" [(answerType)]="answerType"></app-quiz-image>
+      <app-quiz-wys-editor *ngIf="question.questionType===1" [(obj)]="question.answers[0]" prop="content" [(answerType)]="question.answerType"></app-quiz-wys-editor>
+      <app-quiz-image *ngIf="question.questionType===2" [(obj)]="question.answers[0]" prop="content" [(answerType)]="question.answerType"></app-quiz-image>
 
     </div>
     <div class="col-md-6">
-      <app-quiz-wys-editor *ngIf="question.questionType===1" [(obj)]="question.answers[1]" prop="content" [(answerType)]="answerType"></app-quiz-wys-editor>
-      <app-quiz-image *ngIf="question.questionType===2" [(obj)]="question.answers[1]" prop="content" [(answerType)]="answerType"></app-quiz-image>
+      <app-quiz-wys-editor *ngIf="question.questionType===1" [(obj)]="question.answers[1]" prop="content" [(answerType)]="question.answerType"></app-quiz-wys-editor>
+      <app-quiz-image *ngIf="question.questionType===2" [(obj)]="question.answers[1]" prop="content" [(answerType)]="question.answerType"></app-quiz-image>
 
     </div>
   </div>
@@ -70,13 +70,13 @@
 
   <div class="row">
     <div class="col-md-6">
-      <app-quiz-wys-editor *ngIf="question.questionType===1" [(obj)]="question.answers[2]" prop="content" [(answerType)]="answerType"></app-quiz-wys-editor>
-      <app-quiz-image *ngIf="question.questionType===2" [(obj)]="question.answers[2]" prop="content" [(answerType)]="answerType"></app-quiz-image>
+      <app-quiz-wys-editor *ngIf="question.questionType===1" [(obj)]="question.answers[2]" prop="content" [(answerType)]="question.answerType"></app-quiz-wys-editor>
+      <app-quiz-image *ngIf="question.questionType===2" [(obj)]="question.answers[2]" prop="content" [(answerType)]="question.answerType"></app-quiz-image>
 
     </div>
     <div class="col-md-6">
-      <app-quiz-wys-editor *ngIf="question.questionType===QuestionType.Text" [(obj)]="question.answers[3]" prop="content" [(answerType)]="answerType"></app-quiz-wys-editor>
-      <app-quiz-image *ngIf="question.questionType===QuestionType.Image" [(obj)]="question.answers[3]" prop="content" [(answerType)]="answerType"></app-quiz-image>
+      <app-quiz-wys-editor *ngIf="question.questionType===QuestionType.Text" [(obj)]="question.answers[3]" prop="content" [(answerType)]="question.answerType"></app-quiz-wys-editor>
+      <app-quiz-image *ngIf="question.questionType===QuestionType.Image" [(obj)]="question.answers[3]" prop="content" [(answerType)]="question.answerType"></app-quiz-image>
 
     </div>
   </div>
@@ -96,7 +96,7 @@
         <span>Test cases</span>
       </div>
       <div class="row">
-        <textarea cols="77" rows="20" [(ngModel)]="question.testCases"></textarea>
+        <textarea cols="77" rows="20" [(ngModel)]="question.testCasesStr"></textarea>
       </div>
     </div>
 

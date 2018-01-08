@@ -11,23 +11,37 @@ import {PubSubService} from "../../../../services/pubsub/pubsub";
 })
 export class QuizAddComponent implements OnInit {
 
-  sub:any;
+  // sub:any;
 
   constructor(private httpService: HttpWrapperService, route: ActivatedRoute, pubSub:PubSubService) {
     debugger;
     let q = pubSub.getKeyValue('q');
     if(q)
     {
+      q.timer.timeOptions = this.timeOptions;
+      if(q.questionType === this.QuestionType.Image)
+      {
+        if(q.answerType.type == this.AnswerType.MultipleAnswers)
+        {
+          const correctAnswers = q.answerType.correctAnswers;
+          for(var i=0;i<q.answers.length;i++)
+          {
+            const ans = q.answers[i];
+            ans.index = i;
+            ans.isCorrect = correctAnswers.indexOf(i)>-1;
+          }
+        }
+      }
       this.question = q;
       pubSub.setKeyValue('q',null);
     }
-    let aaaa = route.snapshot.params['id']; // 3
-    this.sub = route
-      .data
-      .subscribe(v => console.log(v));
+    // let aaaa = route.snapshot.params['id']; // 3
+    // this.sub = route
+    //   .data
+    //   .subscribe(v => console.log(v));
   }
   ngOnDestroy() {
-    this.sub.unsubscribe();
+    // this.sub.unsubscribe();
   }
 
   defaultCode: any = "\n\n\nfunction run()\n{\n//write the code...\n}"
@@ -37,6 +51,13 @@ export class QuizAddComponent implements OnInit {
     Image:2,
     Code:3
   };
+
+  private AnswerType =
+  {
+    SingleAnswer:1,
+    MultipleAnswers:2,
+  };
+
   defaultTestCase: any = {
     list: [
       {
@@ -49,6 +70,15 @@ export class QuizAddComponent implements OnInit {
       }]
   };
 
+  timeOptions: any = [
+    {time: 0, desc: "No limit"},
+    {time: 1, desc: "1 min"},
+    {time: 5, desc: "5 min"},
+    {time: 10, desc: "10 min"},
+    {time: 15, desc: "15 min"},
+    {time: 30, desc: "30 min"},
+    {time: 60, desc: "1 h"}
+    ];
   question: any = {
     question: 'ddd',
     questionType:1,
@@ -87,16 +117,18 @@ export class QuizAddComponent implements OnInit {
       ],
       up: true
     },
-    testCases: JSON.stringify(this.defaultTestCase),
-    code:this.defaultCode
+    testCasesStr:JSON.stringify(this.defaultTestCase),
+    testCases: null,
+    code:this.defaultCode,
+    answerType:  {
+      type: 1,
+      isCorrect: -1,
+      correctAnswers: []
+    }
   };
 
   //questionType: number = 1;
-  answerType: any = {
-    type: 1,
-    isCorrect: -1,
-    correctAnswers: []
-  };//radio
+  //radio
 
 
   async saveQuestion() {
@@ -112,51 +144,52 @@ export class QuizAddComponent implements OnInit {
       method: 'add_edit',
     };
 
-    let q: any = {
-      question: this.question.question,
-      questionType: this.question.questionType
-    };
+    // let q: any = {
+    //   question: this.question.question,
+    //   questionType: this.question.questionType
+    // };
 
-    this.answerType.correctAnswers = [];
+    this.question.answerType.correctAnswers = [];
 
     let formData: FormData = new FormData();
-    formData.append('proxy', JSON.stringify(proxy));
-    formData.append('q', JSON.stringify(q));
-    formData.append('timer', JSON.stringify(this.question.timer));
 
-    if (this.question.code) {
-      formData.append('code', this.question.code);
+    if (this.question.questionType == 2) {//image
+      for (var i = 0; i < this.question.answers.length; i++) {
+        const ans = this.question.answers[i];
+        if (ans.isCorrect) {
+          this.question.answerType.correctAnswers.push(ans.index);
+        }
+
+        if(ans.content) {
+          let fileName = ans.content.name;
+          if (fileName) {
+            formData.append(i.toString(), ans.content, fileName);
+            ans.content = "";
+          }
+        }
+      }
     }
-    if (this.question.testCases) {
+
+    if (this.question.testCasesStr) {
       try {
-        let tc = JSON.parse(this.question.testCases);
-        formData.append('testCases', JSON.stringify(tc));
+        let tc = JSON.parse(this.question.testCasesStr);
+        this.question.testCases = JSON.parse(this.question.testCasesStr);
       }
       catch (e) {
 
       }
-
     }
+    formData.append('question', JSON.stringify(this.question));
 
-    if (this.question.questionType == 2) {
-      for (var i = 0; i < this.question.answers.length; i++) {
-        const ans = this.question.answers[i];
-        if (ans.isCorrect) {
-          this.answerType.correctAnswers.push(ans.index);
-        }
+    formData.append('proxy', JSON.stringify(proxy));
+    //formData.append('q', JSON.stringify(q));
+    //formData.append('timer', JSON.stringify(this.question.timer));
 
-        let fileName = ans.content.name;
-        if (fileName) {
-          formData.append(i.toString(), ans.content, fileName);
-        } else {
-          formData.append(i.toString(), ans.content);
-        }
-      }
-    } else {
-      formData.append('answers', JSON.stringify(this.question.answers));
-    }
+    // if (this.question.code) {
+    //   formData.append('code', this.question.code);
+    // }
 
-    formData.append('answerType', JSON.stringify(this.answerType));
+
 
     const resp = await this.httpService.postFormData("api/question/form", formData);
     console.log(resp);
