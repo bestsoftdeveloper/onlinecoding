@@ -129,8 +129,20 @@ router
     {
       testCases = JSON.parse(resp.fields.testCases);
     }
-    if(data.questionType == 2) {
-      data.answers = resp.newFileNames;
+    if(data.questionType == 2 && resp.newFileNames) {
+      let newFile = null;
+      for(var i=0;i<resp.newFileNames.length;i++)
+      {
+        newFile = resp.newFileNames[i];
+        var existentFile = data.answers.find(it=>it.index == newFile.index);
+        if(existentFile) {
+          data.answers[existentFile.index] = newFile;
+        }else
+        {
+          data.answers.push(newFile);
+        }
+      }
+      // data.answers = resp.newFileNames;
     }
   //data. answers = answers;
   if(testCases)

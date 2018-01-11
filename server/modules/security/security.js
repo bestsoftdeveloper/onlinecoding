@@ -670,7 +670,7 @@ module.exports = function() {
                 id: obj._id
             };
             var token = jwt.sign(tokenObj, config.tokenPassword, {
-                expiresIn: '24h'
+                expiresIn: '245h'
             });
             var result = {
                 id: obj._id,

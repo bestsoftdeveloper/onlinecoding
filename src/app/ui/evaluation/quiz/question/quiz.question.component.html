@@ -7,21 +7,6 @@
 
   <hr/>
   <div class="row">
-    <div *ngIf="question.questionType === 0" class="col-md-12">
-      <tr *ngFor="let entry of question.answers">
-        <td>
-
-          <div class="radio">
-            <label>
-              <input type="radio" [value]="entry.id" name="radiogroup" [(ngModel)]="question.rdValue">
-              <span class="cr"><i class="cr-icon glyphicon glyphicon-ok-sign"></i></span>
-              {{ entry.answer }}
-            </label>
-          </div>
-        </td>
-      </tr>
-    </div>
-
 
     <div *ngIf="question.questionType === QuestionType.Text" class="col-md-12">
       <tr *ngFor="let entry of question.answers">
@@ -32,6 +17,7 @@
               <input type="radio" [value]="entry.index" name="radiogroup" [(ngModel)]="question.rdValue">
               <span class="cr"><i class="cr-icon glyphicon glyphicon-ok-sign"></i></span>
               <div [innerHTML]="entry.content | keepHtml"></div>
+              <div *ngIf="entry.isCorrect"> <i class="glyphicon glyphicon-ok"></i> icon-ok</div>
             </label>
           </div>
         </td>
@@ -43,6 +29,7 @@
               <input type="checkbox" [value]="entry.index" name="chkText" [(ngModel)]="entry.rdValue">
               <span class="cr"><i class="cr-icon glyphicon glyphicon-ok-sign"></i></span>
               <div [innerHTML]="entry.content | keepHtml"></div>
+              <div *ngIf="entry.isCorrect && question.showAnswers"> <i class="glyphicon glyphicon-ok"></i> icon-ok</div>
             </label>
           </div>
         </td>

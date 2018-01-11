@@ -25,11 +25,97 @@ export class QuizManagerComponent implements OnInit {
 
   private QuestionType =
   {
-    SingleAnswer:0,
-    MultipleAswers:1,
-    Code:2
+    Text:1,
+    Image:2,
+    Code:3
+  };
+  private AnswerType =
+  {
+    SingleAnswer:1,
+    MultipleAswers:2,
   };
 
+  checkAnswers()
+  {
+    if(!this.question)
+    {
+      return;
+    }
+
+    this.question.showAnswers = true;
+
+    const answerTypeObj = this.question.answerType;
+    debugger;
+
+    switch(this.question.questionType)
+    {
+      case this.QuestionType.Text:
+      case this.QuestionType.Image:
+      {
+        this.question.answers.forEach(it=> delete it.correctAswered);
+
+        switch(this.question.answerType.type)
+        {
+          case this.AnswerType.SingleAnswer:{
+            const selectedOption = this.question.rdValue;
+            this.question.answers[answerTypeObj.isCorrect].isCorrect = true;
+            this.question.correctAswered = selectedOption == answerTypeObj.isCorrect;
+
+            const selectedAnswer = this.question.answers.find(it => it.index === selectedOption);
+            selectedAnswer.correctAswered = answerTypeObj.isCorrect == selectedAnswer.index;
+
+            break;
+          }
+          case this.AnswerType.MultipleAswers:{
+
+            let correctAswered = true;
+            for(var i=0;i<this.question.answers.length;i++)
+            {
+              let ans = this.question.answers[i];
+              if(ans.isCorrect && !ans.rdValue)
+              {
+                correctAswered = false;
+                break;
+              }
+
+              if(!ans.isCorrect && ans.rdValue)
+              {
+                correctAswered = false;
+                break;
+              }
+            }
+
+            this.question.correctAswered = correctAswered;
+
+            break;
+          }
+        }
+
+        break;
+      }
+      case this.QuestionType.Code:
+      {
+        break;
+      }
+    }
+    for(var i=0;i<this.question.answers.length;i++)
+    {
+      let ans = this.question.answers[i];
+
+      switch(this.question.answerType)
+      {
+        case this.AnswerType.SingleAnswer:{
+          const selectedOption = answerTypeObj.rdValue;
+          this.question.correctAswered = selectedOption == answerTypeObj.isCorrect;
+
+          break;
+        }
+        case this.AnswerType.MultipleAswers:{
+          break;
+        }
+      }
+    }
+  }
   editQuestion()
   {
     this.pubSub.setKeyValue('q', this.question);
@@ -90,7 +176,6 @@ export class QuizManagerComponent implements OnInit {
 
         ],
         rdValue:1,
-        questionType: this.QuestionType.SingleAnswer
       },
       {
         _id:"a88f261f-29bd-4435-a1d4-0d236c10b9b6",
@@ -153,7 +238,6 @@ export class QuizManagerComponent implements OnInit {
           }
 
         ],
-        questionType: this.QuestionType.MultipleAswers
       },
       {
         _id:"bda49d4a-37de-45b2-8a87-005e56183e93",
@@ -177,7 +261,6 @@ export class QuizManagerComponent implements OnInit {
           answer:"1asdafa",
         }
       ],
-        questionType: this.QuestionType.SingleAnswer
     },
       {
         _id:"966f856f-e545-4ef7-8871-aca5a7e019a2",
@@ -202,7 +285,6 @@ export class QuizManagerComponent implements OnInit {
             answer:"1asdafa1",
           }
         ],
-        questionType: this.QuestionType.SingleAnswer
       }]
   };
 
