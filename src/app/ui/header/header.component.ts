@@ -19,6 +19,13 @@ export class HeaderComponent {
     });
   }
 
+  title:"asfasf";
+  isCollapsed = true;
+  toggleCollapsed(): void {
+    this.isCollapsed = !this.isCollapsed;
+  }
+
+
   logout()
   {
     debugger;

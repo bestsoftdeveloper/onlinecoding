@@ -58,6 +58,7 @@ import { FileComponentComponent } from './file-component/file-component.componen
 import { QuizImageComponent } from './ui/evaluation/quiz/quiz-image/quiz-image.component';
 import { QuizWysEditorComponent } from './ui/evaluation/quiz/quiz-wys-editor/quiz-wys-editor.component';
 import { QuizTimerComponent } from './ui/evaluation/quiz/quiz-timer/quiz-timer.component';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 window["$"] = $;
 window["jQuery"] = $;
 
@@ -124,12 +125,15 @@ let providers = {
     DropdownModule,
     BrowserAnimationsModule,
     MomentModule,
+    NgbModule.forRoot(),
     FacebookModule.forRoot(),
     FroalaEditorModule.forRoot(), FroalaViewModule.forRoot()
   ],
   providers: [HttpWrapperService,CodeExecutionService, AuthGuard, SimpleTimer,PubSubService],
   bootstrap: [AppComponent]
 })
+
+
 export class AppModule { }
 
 Angular2SocialLoginModule.loadProvidersScripts(providers);
