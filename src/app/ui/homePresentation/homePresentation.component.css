@@ -18,7 +18,7 @@
 
 .verif
 {
-  margin-top: 80px;
+  margin-top: 3vh;
 }
 
 .mh1
@@ -28,7 +28,12 @@
 
 .mh2
 {
-  font-size:3vw;
+  font-size:2vw;
+}
+
+.vwdesc
+{
+  font-size:1vw; 
 }
 
 .verif ul
