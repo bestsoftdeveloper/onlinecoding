@@ -1,6 +1,17 @@
 const mongoQuery = require('../../utils/mongoQuery')();
 const ObjectID = require("mongodb").ObjectID;
 
+QuestionType =
+{
+  Text: 1,
+  Image: 2,
+  Code: 3
+};
+AnswerType =
+{
+  SingleAnswer: 1,
+  MultipleAswers: 2,
+};
 class QuestionService {
 
   async add_edit(ctx, data, query = {}) {
@@ -113,12 +124,15 @@ class QuestionService {
   }
 
   async getQuestion(ctx, data, tokenObj) {
+  if(!data.userId) {
     data.userId = tokenObj.id;
+  }
+
     // console.log(data);
     const doc = mongoQuery.collection('questions');
     const question = await doc.findOne(data.filter,
     {categoryId:1,question:1,questionType:1,answerCount:1,answers:1,timer:1,testCasesStr:1,
-      testCases:1,code:1,answerType:1,guid:1,userId:1,userAnswers:{$elemMatch: {userId: tokenObj.id}}}
+      testCases:1,code:1,answerType:1,guid:1,userId:1,userAnswers:{$elemMatch: {userId: data.userId}}}
     );
   // console.log(question);
     return question;
@@ -189,6 +203,110 @@ class QuestionService {
       count: count,
       pageNo: obj.pager ? obj.pager.pageNo + 1 : 0
     };
+  }
+
+
+  async checkAnswersForQuestion(ctx, data, tokenObj) {
+  // console.log(data);
+  // data.userId = tokenObj.id;
+  // data.questionId
+
+  let  question = await getQuestion(ctx,data,tokenObj);
+  let newQuestion = checkAnswers(question);
+
+  return newQuestion;
+}
+
+  checkAnswers(question) {
+
+    question.showAnswers = true;
+
+    const answerTypeObj = question.answerType;
+
+
+    switch (question.questionType) {
+      case QuestionType.Text:
+      case QuestionType.Image: {
+        question.answers.forEach(it=> delete it.correctAswered);
+
+        switch (question.answerType.type) {
+          case this.AnswerType.SingleAnswer: {
+            let selectedOption = question.rdValue;
+            if (isUndefined(selectedOption) && question.userAnswer) {
+              selectedOption = question.userAnswer.rdValue;
+            }
+            if (isUndefined(selectedOption)) {
+              break;
+            }
+            const selectedAnswer = question.answers.find(it => it.index === selectedOption);
+            if (isUndefined(question.rdValue)) {
+              question.rdValue = selectedOption;
+            }
+            if (answerTypeObj.isCorrect < 0) {
+              break;
+            }
+
+            question.answers[answerTypeObj.isCorrect].isCorrect = true;
+            question.correctAswered = selectedOption == answerTypeObj.isCorrect;
+
+            selectedAnswer.correctAswered = answerTypeObj.isCorrect == selectedAnswer.index;
+
+            break;
+          }
+
+          case this.AnswerType.MultipleAswers: {
+            debugger;
+            let correctAswered = true;
+            for (var i = 0; i < question.answers.length; i++) {
+
+              let ans = question.answers[i];
+              if (question.userAnswer) {
+                const checkedAnswers = question.userAnswer.checkedAnswers;
+                const checked = checkedAnswers.find(it=>it.index === ans.index);
+                ans.rdValue = checked != null;
+              }
+
+              if (!isUndefined(ans.isCorrect)) {
+                if (ans.isCorrect && !ans.rdValue) {
+                  correctAswered = false;
+                }
+
+                if (!ans.isCorrect && ans.rdValue) {
+                  correctAswered = false;
+                }
+              }
+
+            }
+
+            question.correctAswered = correctAswered;
+
+            break;
+          }
+        }
+
+        break;
+      }
+      case QuestionType.Code: {
+        break;
+      }
+    }
+    for (var i = 0; i < question.answers.length; i++) {
+      let ans = question.answers[i];
+
+      switch (question.answerType.type) {
+        case this.AnswerType.SingleAnswer: {
+          const selectedOption = answerTypeObj.rdValue;
+          question.correctAswered = selectedOption == answerTypeObj.isCorrect;
+
+          break;
+        }
+        case this.AnswerType.MultipleAswers: {
+          break;
+        }
+      }
+    }
+
+    question.isDisabled = true;
   }
 
 
