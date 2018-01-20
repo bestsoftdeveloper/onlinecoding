@@ -157,13 +157,19 @@ module.exports = function() {
 
           // create reusable transporter object using SMTP transport
           if (this.transporter == null) {
-           this.transporter = nodemailer.createTransport({
-               service: 'Gmail',
-               auth: {
-                   user: 'claudiu9379@gmail.com',
-                   pass: 'tarantula9379!!!'
-               }
-           });
+            const smtpConfig = {
+              host:"mail.bestdeveloper.ro",
+              port:26,
+              secure:true,
+              auth: {
+                user: 'support@bestdeveloper.ro',
+                pass: 'supportpassword'
+              },
+              tls:{
+                rejectUnauthorized: false
+              }
+            };
+           this.transporter = nodemailer.createTransport(smtpConfig);
           }
           console.log("dddddddddddddddd");
           console.log(obj);

@@ -1,23 +1,29 @@
-//input[type="radio"] ~ i.fa.fa-circle-o{
-//  color: #c8c8c8;    display: inline;
-//}
-//input[type="radio"] ~ i.fa.fa-dot-circle-o{
-//  display: none;
-//}
-//input[type="radio"]:checked ~ i.fa.fa-circle-o{
-//  display: none;
-//}
-//input[type="radio"]:checked ~ i.fa.fa-dot-circle-o{
-//  color: #7AA3CC;    display: inline;
-//}
-//label:hover input[type="radio"] ~ i.fa {
-//  color: #7AA3CC;
-//}
-
 .center
 {
   text-align: center;
 }
+
+.question
+{
+ padding: 25px;
+  //background-color: #F0F0F0;
+}
+
+.pd20
+{
+  padding-bottom: 20px;
+}
+.field
+{
+  background-color: lightgrey;
+}
+
+.quiz label
+{
+  //width: 100%;
+  color: black;
+}
+
 
 .bordered
 {
@@ -39,7 +45,7 @@
   border-radius: .25em;
   width: 1.3em;
   height: 1.3em;
-  float: left;
+  //float: left;
   margin-right: .5em;
 }
 

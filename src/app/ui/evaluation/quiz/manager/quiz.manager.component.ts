@@ -1,10 +1,11 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit, ViewChild, Input} from '@angular/core';
 import {IQuestion} from "../facade/IQuestion";
 import {ITimerConfig} from "../../../../timer/ITimerConfig";
 import {TimerComponent} from "../../../../timer/timer.component";
 import {HttpWrapperService} from "../../../../services/http/httpService";
 import {PubSubService} from "../../../../services/pubsub/pubsub";
 import {Router} from "@angular/router";
+import {isUndefined} from "util";
 
 @Component({
   selector: 'app-quiz-manager',
@@ -13,31 +14,62 @@ import {Router} from "@angular/router";
 })
 export class QuizManagerComponent implements OnInit {
 
+  private quizCriteria: any;
+  @Input()
+  set quizInfo(data: any) {
+    console.log('got name: ');
+    this.quizCriteria = data;
+  }
   @ViewChild(TimerComponent) timerComponent: TimerComponent;
 
-  constructor(private httpService: HttpWrapperService,private router: Router,private pubSub:PubSubService) { }
+  constructor(private httpService: HttpWrapperService, private router: Router, private pubSub: PubSubService) {
+  }
 
   private pageCriteria = {
-    itemsOnPage:1,
-    pageNo:1,
-    count:0
+    itemsOnPage: 1,
+    pageNo: 1,
+    count: 0
   };
 
   private QuestionType =
   {
-    Text:1,
-    Image:2,
-    Code:3
+    Text: 1,
+    Image: 2,
+    Code: 3
   };
   private AnswerType =
   {
-    SingleAnswer:1,
-    MultipleAswers:2,
+    SingleAnswer: 1,
+    MultipleAswers: 2,
   };
 
-  checkAnswers()
-  {
-    if(!this.question)
+  onBtnMouseOver(q) {
+    q.btnover = true;
+    q.btnoverclass = "btnOver";
+  }
+
+  onBtnMouseOut(q) {
+    q.btnover = false;
+    q.btnoverclass = "";
+
+  }
+
+
+  goToQuestionNumber(id) {
+    //
+    const q = this.questions.list.find(it=>it._id === id);
+    if (!q) {
+      return;
+    }
+
+    this.useQuestion(q);
+  }
+
+  checkAnswers() {
+    if (!this.question) {
+      return;
+    }
+    if(!this.question.userAnswer)
     {
       return;
     }
@@ -45,44 +77,60 @@ export class QuizManagerComponent implements OnInit {
     this.question.showAnswers = true;
 
     const answerTypeObj = this.question.answerType;
-    debugger;
 
-    switch(this.question.questionType)
-    {
+
+    switch (this.question.questionType) {
       case this.QuestionType.Text:
-      case this.QuestionType.Image:
-      {
+      case this.QuestionType.Image: {
         this.question.answers.forEach(it=> delete it.correctAswered);
 
-        switch(this.question.answerType.type)
-        {
-          case this.AnswerType.SingleAnswer:{
-            const selectedOption = this.question.rdValue;
+        switch (this.question.answerType.type) {
+          case this.AnswerType.SingleAnswer: {
+            let selectedOption = this.question.rdValue;
+            if (isUndefined(selectedOption) && this.question.userAnswer) {
+              selectedOption = this.question.userAnswer.rdValue;
+            }
+            if (isUndefined(selectedOption)) {
+              break;
+            }
+            const selectedAnswer = this.question.answers.find(it => it.index === selectedOption);
+            if (isUndefined(this.question.rdValue)) {
+              this.question.rdValue = selectedOption;
+            }
+            if (answerTypeObj.isCorrect < 0) {
+              break;
+            }
+
             this.question.answers[answerTypeObj.isCorrect].isCorrect = true;
             this.question.correctAswered = selectedOption == answerTypeObj.isCorrect;
 
-            const selectedAnswer = this.question.answers.find(it => it.index === selectedOption);
             selectedAnswer.correctAswered = answerTypeObj.isCorrect == selectedAnswer.index;
 
             break;
           }
-          case this.AnswerType.MultipleAswers:{
 
+          case this.AnswerType.MultipleAswers: {
+            debugger;
             let correctAswered = true;
-            for(var i=0;i<this.question.answers.length;i++)
-            {
+            for (var i = 0; i < this.question.answers.length; i++) {
+
               let ans = this.question.answers[i];
-              if(ans.isCorrect && !ans.rdValue)
-              {
-                correctAswered = false;
-                break;
+              if (this.question.userAnswer) {
+                const checkedAnswers = this.question.userAnswer.checkedAnswers;
+                const checked = checkedAnswers.find(it=>it.index === ans.index);
+                ans.rdValue = checked != null;
               }
 
-              if(!ans.isCorrect && ans.rdValue)
-              {
-                correctAswered = false;
-                break;
+              if (!isUndefined(ans.isCorrect)) {
+                if (ans.isCorrect && !ans.rdValue) {
+                  correctAswered = false;
+                }
+
+                if (!ans.isCorrect && ans.rdValue) {
+                  correctAswered = false;
+                }
               }
+
             }
 
             this.question.correctAswered = correctAswered;
@@ -93,61 +141,90 @@ export class QuizManagerComponent implements OnInit {
 
         break;
       }
-      case this.QuestionType.Code:
-      {
+      case this.QuestionType.Code: {
         break;
       }
     }
-    for(var i=0;i<this.question.answers.length;i++)
-    {
+    for (var i = 0; i < this.question.answers.length; i++) {
       let ans = this.question.answers[i];
 
-      switch(this.question.answerType)
-      {
-        case this.AnswerType.SingleAnswer:{
+      switch (this.question.answerType.type) {
+        case this.AnswerType.SingleAnswer: {
           const selectedOption = answerTypeObj.rdValue;
           this.question.correctAswered = selectedOption == answerTypeObj.isCorrect;
 
           break;
         }
-        case this.AnswerType.MultipleAswers:{
+        case this.AnswerType.MultipleAswers: {
           break;
         }
       }
     }
+
+    this.question.isDisabled = true;
   }
-  editQuestion()
-  {
+
+  editQuestion() {
     this.pubSub.setKeyValue('q', this.question);
     this.router.navigate(['/addquestions']);
   }
 
-  sendAnswerForQuestion()
-  {
-    if(!this.question || !this.question._id)
-    {
+  sendAnswerForQuestion() {
+    if (!this.question || !this.question._id) {
       return;
     }
     const req: any = {
-      proxy:{
+      proxy: {
         module: 'question',
         method: 'storeAnswerForQuestion',
       },
-      data:{
-        qid:this.question._id,
-        rdValue:this.question.rdValue
+      data: {
+        qid: this.question._id,
+        body: {
+          rdValue: this.question.rdValue
+        }
       }
     };
-    req.data.checkedAnswers = this.question.answers.filter(el=>el.rdValue).map(el=>({index:el.index}));
-    this.httpService.postJson('api/question',req);
+    req.data.body.checkedAnswers = this.question.answers.filter(el=>el.rdValue).map(el=>({index: el.index}));
+
+    this.httpService.postJson('api/question', req);
+
+    //this.next();
+    this.checkAnswers();
   }
-  onstop = ()=>{
+
+  // async getAnswerForQuestion() {
+  //   if (!this.question) {
+  //     return;
+  //   }
+  //   if (this.question.userAnswer) {
+  //     return;
+  //   }
+  //   const req: any = {
+  //     proxy: {
+  //       module: 'question',
+  //       method: 'getAnswerForQuestion',
+  //     },
+  //     data: {
+  //       qid: this.question._id
+  //     }
+  //   };
+  //   const resp = await this.httpService.postJson('api/question', req);
+  //   if (resp.data) {
+  //     this.question.userAnswer = resp.data;
+  //     this.checkAnswers();
+  //   }
+  //
+  // }
+
+
+  onstop = ()=> {
     console.log('dddddddddddddddddddd');
 
     this.next();
   }
 
-  timerConfig:ITimerConfig = {
+  timerConfig: ITimerConfig = {
     secStart: 0,
     seconds: 3,
     countUp: true,
@@ -157,204 +234,162 @@ export class QuizManagerComponent implements OnInit {
   };
 
 
-
   private questions = {
-    list:[
+    list: [
       {
-        _id:"b0420298-7cca-4f3d-b95b-3a1eb3a29493",
-        question:"Ai folosit javascript",
-        time:0,
-        answers:[
+        _id: "966f856f-e545-4ef7-8871-aca5a7e019a2",
+        index: 1,
+        question: "hello1",
+        time: 0,
+        rdValue: 1,
+        selectedClass: "",
+        answers: [
           {
-            id:1,
-            answer:"Da",
+            id: 1,
+            answer: "1asda1",
           },
           {
-            id:2,
-            answer:"Nu",
-          }
-
-        ],
-        rdValue:1,
-      },
-      {
-        _id:"a88f261f-29bd-4435-a1d4-0d236c10b9b6",
-        question:"<label>scrie o functie care returneaza daca un numar este par</label>",
-        code:"function  isPar(n)\n{\n//write the code here\n};\n\nisPar(5);",
-        testCases:{
-          mainFunctionName:"isPar",
-          list:[
-            {
-              param:5,
-              expected:false
-            },
-            {
-              param:8,
-              expected:true
-            }]
-        },
-        rdValue:1,
-        time:{
-          seconds:5,
-          countUp:false
-        },
-        answers:[
-          {
-            id:1,
-            answer:"1asda",
+            id: 2,
+            answer: "1asasda1",
           },
           {
-            id:2,
-            answer:"1asasda",
+            id: 3,
+            answer: "1asasfafda1",
           },
           {
-            id:3,
-            answer:"1asasfafda",
-          },
-          {
-            id:4,
-            answer:"1asdafa",
-          }
-        ],
-        questionType: this.QuestionType.Code
-      },
-      {
-        _id:"b26e7462-ebb0-44d5-aa83-0b1470139130",
-        question:"Ce ai vrea sa inveti?",
-        time:10,
-        rdValue:1,
-        answers:[
-          {
-            id:1,
-            answer:"Javascript",
-          },
-          {
-            id:2,
-            answer:".net",
-          },
-          {
-            id:4,
-            answer:"es6",
-          }
-
-        ],
-      },
-      {
-        _id:"bda49d4a-37de-45b2-8a87-005e56183e93",
-      question:"hello",
-      time:0,
-      answers:[
-        {
-          id:1,
-          answer:"1asda",
-        },
-        {
-          id:2,
-          answer:"1asasda",
-        },
-        {
-          id:3,
-          answer:"1asasfafda",
-        },
-        {
-          id:4,
-          answer:"1asdafa",
-        }
-      ],
-    },
-      {
-        _id:"966f856f-e545-4ef7-8871-aca5a7e019a2",
-        question:"hello1",
-        time:0,
-        rdValue:1,
-        answers:[
-          {
-            id:1,
-            answer:"1asda1",
-          },
-          {
-            id:2,
-            answer:"1asasda1",
-          },
-          {
-            id:3,
-            answer:"1asasfafda1",
-          },
-          {
-            id:4,
-            answer:"1asdafa1",
+            id: 4,
+            answer: "1asdafa1",
           }
         ],
       }]
   };
 
-  public question:any = null;
+  public question: any = null;
 
   questionIndex = -1;
 
+  quizFinished = false;
 
+  finishQuiz() {
+    this.question = null;
+    this.quizFinished = true;
+  }
 
-
-  next()
-  {
-    this.sendAnswerForQuestion();
-    this.timerComponent.stopCalled();
-
-    if(this.isNextDisabled())
-    {
+  useQuestion(question) {
+    if (!question) {
       return;
     }
+    this.question = question;
+    this.questionIndex = question.index;
+    this.questions.list.forEach(it=> delete it.selectedClass);
+    question.selectedClass = "selected";
+    // this.getAnswerForQuestion();
+    debugger;
+    this.checkAnswers();
+  }
+
+  nextp = 0;
+
+  next() {
+
+    this.timerComponent.stopCalled();
+
+    // if (this.isNextDisabled()) {
+    //   this.finishQuiz();
+    //   return;
+    // }
     //debugger;
+    if (this.questionIndex === this.questions.list.length - 1) {
+      this.nextPage();
+      return;
+    }
     this.questionIndex++;
-    this.question = this.questions.list[this.questionIndex];
-    if(this.question.timer) {
+
+    if (this.questionIndex === (this.pager.pageNo * this.pager.itemsOnPage)) {
+      this.viewIndex = this.viewIndex + this.pager.itemsOnPage;
+      this.pager.pageNo++;
+    }
+
+    this.useQuestion(this.questions.list[this.questionIndex]);
+
+    if (this.question.timer) {
       this.timerConfig.countUp = this.question.timer.countUp;
       this.timerConfig.running = this.question.timer.enabled;
       this.timerComponent.reset(this.question.timer);
     }
   }
 
-  prev()
-  {
+  prev() {
     this.timerComponent.stopCalled();
     //debugger;
-    if(this.isPrevDisabled())
-    {
+    if (this.isPrevDisabled()) {
       return;
     }
+    if (this.viewIndex === this.questionIndex) {
+      this.viewIndex = this.viewIndex - this.pager.itemsOnPage;
+      this.pager.pageNo--;
+    }
     this.questionIndex--;
-    this.question = this.questions.list[this.questionIndex];
+    const question = this.questions.list[this.questionIndex];
+    this.useQuestion(question);
   }
 
-  isPrevDisabled()
-  {
-    return this.questionIndex ==0;
+  isPrevDisabled() {
+    return this.questionIndex == 0;
   }
 
-  isNextDisabled()
-  {
-    return this.questionIndex === this.questions.list.length-1;
+  isNextDisabled() {
+    if(this.pager.count ==0)
+      return false;
+    //return this.questions.list.length === this.pager.count;
+
+    // if (this.questionIndex < this.questions.list.length - 1) {
+    //   return false;
+    // }
+    if (this.questionIndex < this.pager.count-1) {
+      return false;
+    }
+    return true;
+    // return this.questionIndex === this.questions.list.length-1;
   }
 
 
-  public onMessageFromQuestionControl(date: any):void {
-    console.log('Picked date: ', date);
+  public onMessageFromQuestionControl(data: any): void {
+    // console.log('Picked date: ', data);
+    switch (data.command)
+    {
+      case "sendAnswer":
+      {
+        this.sendAnswerForQuestion();
+        break;
+      }
+    }
   }
 
-  async getNextQuestionsFomDatabase()
-  {
+  pager = {
+    pageNo: 1,
+    itemsOnPage: 3,
+    pageCount: 0,
+    count: 0
+  };
+
+  async getNextQuestionsFomDatabase() {
+    //
     const self = this;
     const data = {
-      proxy:{
+      proxy: {
         module: 'question',
-        method: 'evaluation',
+        method: 'getQuestions',
       },
-      data:{
-        //pager:this.pageCriteria
+      data: {
+        pager: this.pager,
+        filter:{
+          categoryId: this.quizCriteria.categoryId
+        }
       }
     };
-    let questionsResponsePromise = await this.httpService.postJson('api/question',data);
-
+    let questionsResponsePromise = await this.httpService.postJson('api/question', data);
+    console.log(questionsResponsePromise);
     return questionsResponsePromise;
     // questionsResponsePromise.then(function (resp) {
     //   debugger;
@@ -364,11 +399,62 @@ export class QuizManagerComponent implements OnInit {
     // });
   }
 
+
   async ngOnInit() {
-    debugger;
-    const response = await this.getNextQuestionsFomDatabase();
-    this.questions.list = response.data.items;
+    this.questions.list = [];
+    this.getPage();
+  }
+
+  viewIndex = 0;
+
+  async getPage() {
+    const startIndex = (this.pager.pageNo - 1) * this.pager.itemsOnPage;
+
+    if (this.pager.count == 0 || this.questions.list.length < this.pager.count) {
+      this.nextp++;
+
+      const response = await this.getNextQuestionsFomDatabase();
+      const data = response.data;
+
+      data.items.forEach((el, i) => {
+        el.index = startIndex + i;
+        if(el.userAnswers && el.userAnswers.length)
+        {
+          el.userAnswer = el.userAnswers[0].body;
+        }
+      });
+      this.pager.count = data.count;
+      this.pager.pageCount = Math.ceil(data.count / this.pager.itemsOnPage);
+      this.questions.list = this.questions.list.concat(data.items);
+    }
+    this.questionIndex = startIndex - 1;
+    this.viewIndex = startIndex;
     this.next();
+  }
+
+  prevPage() {
+    this.pager.pageNo--;
+    const startIndex = (this.pager.pageNo - 1) * this.pager.itemsOnPage;
+    this.viewIndex = startIndex;
+    this.questionIndex = startIndex - 1;
+    this.next();
+  }
+
+  nextPage() {
+
+
+    this.pager.pageNo++;
+
+    this.getPage();
+
+  }
+
+  isPrevPageDisabled() {
+    return this.pager.pageNo <= 1;
+  }
+
+  isNextPageDisabled() {
+    return this.pager.pageNo === this.pager.pageCount;
   }
 
 }

@@ -4,6 +4,11 @@
 var mongo = require('mongodb');
 var mongoose = require("mongoose");
 var userSchemas = require('./../schemas/user.js')(mongoose);
+var questionSchemas = require('./../schemas/questionSchema.js')(mongoose);
+// var questionResponseSchemas = require('./../schemas/questionResponse.js')(mongoose);
+var questionCategorySchema = require('./../schemas/questionCategory.js')(mongoose);
+
+
 
 var config =  require('../config/development');
 
@@ -37,12 +42,12 @@ mongoose.connect(dbURI, {
 mongoose.set('debug', true);
 
 mongoose.connection.on('connected', function() {
-    console.log('Mongoose default connection open to ' + dbURI);
+  console.log('Mongoose default connection open to ' + dbURI);
 });
 
 // If the connection throws an error
 mongoose.connection.on('error', function(err) {
-    console.log(dbURI);
+  console.log(dbURI);
     console.log('Mongoose default connection error: ' + err);
 });
 
@@ -64,7 +69,24 @@ module.exports = function() {
         return  mongoose.connection.collection(collectionName)
       },
         userSchemas: userSchemas,
-        executeQuery: function(query) {
+        questionSchema:questionSchemas,
+      // questionResponseSchema:questionResponseSchemas,
+      questionCategorySchema:questionCategorySchema,
+      executeQuery: function(query) {
+        return new Promise(function (resolve, reject) {
+          query.exec(function(err, recordset) {
+            if (err)
+            {
+              console.log("EROOOOOOOOOOOOOOOOOOOOOOOOR");
+              console.log(err);
+              resolve.resolve([]);
+            }else{
+              resolve(recordset);
+            }
+          });
+        });
+      },
+        executeQuery1: function(query) {
             var deferred = q.defer();
 
             query.exec(function(err, recordset) {

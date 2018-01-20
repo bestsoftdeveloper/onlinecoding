@@ -1,5 +1,8 @@
 import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import {IQuestion} from "../facade/IQuestion";
+import {isUndefined} from "util";
+import {QuestionSettings} from "../question-settings";
+import {canChangeSeconds} from "ngx-bootstrap/timepicker/timepicker-controls.util";
 
 @Component({
   selector: 'app-quiz-question',
@@ -8,7 +11,7 @@ import {IQuestion} from "../facade/IQuestion";
 })
 export class QuizQuestionComponent implements OnInit {
 
-  @Input()  question: IQuestion = null;
+  @Input()  question: any = null;
   @Output() onMessageFromQuestionControl: EventEmitter<any> = new EventEmitter<any>();
   constructor() { }
 
@@ -24,12 +27,46 @@ export class QuizQuestionComponent implements OnInit {
   };
 
   ngOnInit() {
-    this.onMessageFromQuestionControl.emit({a:5});
+
   }
 
   onSelectionChange(entry)
   {
 
+  }
+
+  isSendAnswerDisabled()
+  {
+    return this.question.userAnswer != null;
+  }
+
+  canSendAnswer = false;
+
+  sendAnswerButtonClass = '';
+
+  chkChanged()
+  {
+    if(isUndefined(this.question.rdValue))
+    {
+      this.sendAnswerButtonClass = '';
+    }
+    const checkBoxe = this.question.answers.find(it=>it.rdValue != undefined);
+    if(checkBoxe != undefined)
+    {
+      this.sendAnswerButtonClass = '';
+    }
+    this.canSendAnswer = true;
+    this.sendAnswerButtonClass =  'btn-primary';
+  }
+
+  getSendAnswerButtonClases()
+  {
+
+  }
+  sendAnswerForQuestion()
+  {
+    this.question.userAnswer = [];
+    this.onMessageFromQuestionControl.emit({command:'sendAnswer'});
   }
 
 }

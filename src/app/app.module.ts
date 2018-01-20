@@ -59,6 +59,7 @@ import { QuizImageComponent } from './ui/evaluation/quiz/quiz-image/quiz-image.c
 import { QuizWysEditorComponent } from './ui/evaluation/quiz/quiz-wys-editor/quiz-wys-editor.component';
 import { QuizTimerComponent } from './ui/evaluation/quiz/quiz-timer/quiz-timer.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { CourseRegistrationComponent } from './ui/course-registration/course-registration.component';
 window["$"] = $;
 window["jQuery"] = $;
 
@@ -108,6 +109,7 @@ let providers = {
     QuizImageComponent,
     QuizWysEditorComponent,
     QuizTimerComponent,
+    CourseRegistrationComponent,
     //
   ],
   imports: [

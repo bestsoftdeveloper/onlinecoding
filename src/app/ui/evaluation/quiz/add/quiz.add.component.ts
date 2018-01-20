@@ -14,7 +14,7 @@ export class QuizAddComponent implements OnInit {
   // sub:any;
 
   constructor(private httpService: HttpWrapperService, route: ActivatedRoute, pubSub:PubSubService) {
-    debugger;
+    // debugger;
     let q = pubSub.getKeyValue('q');
     if(q)
     {
@@ -40,6 +40,15 @@ export class QuizAddComponent implements OnInit {
     //   .data
     //   .subscribe(v => console.log(v));
   }
+
+  onCategoryChange($event)
+  {
+    $event.preventDefault();
+    console.log('selected: ' + $event.target.value);
+  }
+
+  categories:  Array<any> = [];
+
   ngOnDestroy() {
     // this.sub.unsubscribe();
   }
@@ -82,6 +91,8 @@ export class QuizAddComponent implements OnInit {
   question: any = {
     question: 'ddd',
     questionType:1,
+    answerCount:4,
+    categoryId:"",
     answers: [
       {
         index: 0,
@@ -131,6 +142,18 @@ export class QuizAddComponent implements OnInit {
   //radio
 
 
+  decreaseNumberOfAnswers()
+  {
+    if(this.question.answers.length === 0)
+      return;
+    this.question.answers.pop();
+  }
+
+  increaseNumberOfAnswers()
+  {
+      const index = this.question.answers.length;
+      this.question.answers.push({index,content:""});
+  }
   async saveQuestion() {
 
     debugger;
@@ -195,7 +218,20 @@ export class QuizAddComponent implements OnInit {
     console.log(resp);
   }
 
-  ngOnInit() {
+  async ngOnInit() {
+    debugger;
+    const req: any = {
+      proxy: {
+        module: 'question',
+        method: 'getCategories',
+      },
+      data: {
+
+      }
+    };
+
+    const resp = await this.httpService.postJson("api/question", req);
+    this.categories = resp.data;
   }
 
 }

@@ -3,7 +3,7 @@ const router = require('koa-router')();
 const securityModule = require('../modules/security/security')();
 const parse = require('co-body');
 const fs = require('fs-extra');
-const responseWrapper = require('../utils/responseWrapper')();
+// const responseWrapper = require('../utils/responseWrapper')();
 const koabusBoy = require('co-busboy');
 const cmd = require('node-cmd');
 const testPipeline = require('pipeline-test-node');
@@ -50,7 +50,7 @@ function formidablePromise (req, opts) {
 
     form.on('fileBegin', function(name, file) {
       //file.path = __dirname + '/uploads/';
-      console.log('begin' );
+      // console.log('begin' );
       const fileExt = file.name.split('.').pop();
       const newFileName = uuidv4()+"."+fileExt;
       const index = newFileNames.length;
@@ -78,18 +78,19 @@ function formidablePromise (req, opts) {
   })
 }
 
+
 router
   .prefix('/api/question')
 .use(async function(ctx, next){
-  console.log("1111111111111111111111111111111");
+  // console.log("1111111111111111111111111111111");
   var authHeader = ctx.req.headers.authorization;
-  console.log(authHeader);
+  // console.log(ctx.req.headers);
   var r = await jwt.verify(authHeader, config.tokenPassword);
   ctx.request.body.tokenObj = r;
 
   return next().catch((err) => {
-      console.log(err);
-      console.log("333333333333333333");
+      // console.log(err);
+      // console.log("333333333333333333");
       if (401 == err.status) {
     ctx.status = 401;
     ctx.body = 'Protected resource, use Authorization header to get access\n';
@@ -99,31 +100,31 @@ router
 });
 })
   .post("/", async function (ctx) {
-  console.log("OOOOOOOOOOOOOOOOOOOOO");
+  // console.log("OOOOOOOOOOOOOOOOOOOOO");
     const body = ctx.request.body;
-    console.log(body);
+    // console.log(body);
     const data = body.data;
     const method = body.proxy.method;
 
 
-    // questionService
-    // ctx.body = {message: "Hellome1me1me1me1me1me1me1me1me1me1me1me1me1!"}
+    const resp = await questionService[method](ctx,data, body.tokenObj);
+    return resp;
 
-    ctx.body = await questionService[method](ctx,data, body.tokenObj);
+    // ctx.body = responseWrapper.success(resp);
   })
 
   .post("/form", async function (ctx) {
-    console.log('fooooooooooooooooooooorm');
     //https://stackoverflow.com/questions/8359902/how-to-rename-files-parsed-by-formidable
     const resp =  await formidablePromise(ctx.req,{});
 
-    console.log("gggggggggggggggggggpppppppppppppppp");
     const proxy = JSON.parse(resp.fields.proxy);
 
-    //const data = JSON.parse(resp.fields.q);
     const data= JSON.parse(resp.fields.question);
     delete data.timer.timeOptions;
+    const body = ctx.request.body;
 
+    //console.log(body);
+    data.userId = body.tokenObj.id;
     let testCases = null;
     if(resp.fields.testCases)
     {
@@ -142,37 +143,19 @@ router
           data.answers.push(newFile);
         }
       }
-      // data.answers = resp.newFileNames;
     }
-  //data. answers = answers;
   if(testCases)
   {
     data.testCases = testCases;
   }
-    console.log(resp.newFileNames);
+    // console.log(resp.newFileNames);
   if(resp.fields.code)
   {
     data.code = resp.fields.code;
   }
 
 
-    ctx.body = await questionService[proxy.method](ctx,data);
-
-  //   const body = ctx.request.body;
-  //
-  // const files = ctx.request.body.files;
-  // console.log(files.length);
-  //
-  // console.log(files);
-  //
-  // console.log(body);
-  //
-  //   const data = body.data;
-  //   const method = body.method;
-  //   console.log(method);
-
-     //ctx.body = {message: "Hellome1me1me1me1me1me1me1me1me1me1me1me1me1!"}
-
+  return await questionService[proxy.method](ctx,data);
 
   })
 
@@ -183,36 +166,38 @@ router
     const body = ctx.request.body;
 
 
-    ctx.body = {ok:true};
+    return {ok:true};
   })
 
   .post("/ping-me", async function (ctx) {
-    ctx.body = {message: "Hellome1me1me1me1me1me1me1me1me1me1me1me1me1!"}
+  return {message: "Hellome1me1me1me1me1me1me1me1me1me1me1me1me1!"}
   })
   .post('/ping', async function(ctx) {
-    console.log("hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh");
+    // console.log("hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh");
     const body = ctx.request.body;
-    ctx.body = {ok:true};
+  return {ok:true};
   })
   .post('/testadd', async function(ctx) {
-    console.log("hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh");
+    // console.log("hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh");
     let body = ctx.request.body;
     const ppl  = await ctx.app.people.insert(body);
     // console.log(ppl.ops);
     body._id = ppl.ops[0]._id;
-    ctx.body = responseWrapper.success(body);
+  return resp;
+    // ctx.body = responseWrapper.success(body);
   })
 .post('/testaddm', async function(ctx) {
-  console.log("hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh");
+  // console.log("hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh");
   let body = ctx.request.body;
   const ppl  = await mongoQuery.collection('ssddds').insert(body);
   //console.log(ppl.ops);
   body._id = ppl.ops[0]._id;
-   ctx.body = responseWrapper.success(body);
+  return resp;
+   // ctx.body = responseWrapper.success(body);
 })
 
     .post('/tests', function*() {
-        console.log("aaaaaaaaaaaaaaaaaa");
+        // console.log("aaaaaaaaaaaaaaaaaa");
         this.state.body = yield parse.json(this);
         const body = this.state.body;
         //this.body = yield securityModule.login(body);
@@ -235,7 +220,7 @@ fs.readdirSync(testDir).filter(function(file){
 // Run the tests.
 mocha.run(function(failures){
   process.on('exit', function () {
-    console.log("ddddddddddddddddddddddddddddddddddddddddddddddddddddddddd");
+    // console.log("ddddddddddddddddddddddddddddddddddddddddddddddddddddddddd");
     process.exit(failures);  // exit with non-zero status if there were failures
   });
 });
@@ -247,21 +232,21 @@ mocha.run(function(failures){
 
     .post('/security/login', async function(ctx) {
       let body = ctx.request.body;
-      ctx.body = await securityModule.login(body);
+  return await securityModule.login(body);
     })
   .post('/security/loginfb', async function(ctx) {
     let body = ctx.request.body;
-    ctx.body = await securityModule.loginfb(body);
+  return await securityModule.loginfb(body);
   })
 
     .post('/security/:id',async function(ctx) {
         const par = ctx.params.id;
-        console.log("vvvvvvvvvvvvvvvvvvvvv " +par);
+        // console.log("vvvvvvvvvvvvvvvvvvvvv " +par);
         let body = ctx.request.body;
 
       const resp = await securityModule[par](body);
 
-    ctx.body = resp;
+  return resp;
 })
 
 .post('/text/getLanguage', function*() {
@@ -270,21 +255,22 @@ mocha.run(function(failures){
     const path = __dirname + "/screentexts/" + body.id + "/localization.html";
     let file = fs.readFileSync(path, "utf8");
     file = file.replace(/[^\x00-\x7F]/g, "");
-    this.body = responseWrapper.sendResponse(true, file, "", "");
+  return resp;
+    // this.body = responseWrapper.sendResponse(true, file, "", "");
 })
 
 .post('/multi', function*() {
-    console.log("multi execution");
+    // console.log("multi execution");
     var parts = koabusBoy(this),
         part,
         fields = {};
-    console.log(parts);
-    console.log(this.state);
+    // console.log(parts);
+    // console.log(this.state);
     while (part = yield parts) {
-        console.log("ok");
+        // console.log("ok");
         //console.log(part);
         if (part.length) {
-            console.log(part);
+            // console.log(part);
             // arrays are busboy fields
             // console.log('key: ' + part[0]);
             // console.log('value: ' + part[1]);
@@ -294,9 +280,9 @@ mocha.run(function(failures){
             if (this.state.tokenObj) {
                 r.tokenObj = this.state.tokenObj;
             }
-            console.log('r');
+            // console.log('r');
 
-            console.log(r);
+            // console.log(r);
             var moduleAndMethod = r.method.split("/");
             var module = getModule(moduleAndMethod[0]);
             this.body = yield module[moduleAndMethod[1]](r);
@@ -304,14 +290,14 @@ mocha.run(function(failures){
 
         } else {
             // it's a stream, you can do something like:
-            console.log('rrrrr');
+            // console.log('rrrrr');
             var fInfo = {
                 fieldname: part.fieldname,
                 filename: part.filename,
                 mimeType: part.mimeType
             };
 
-            console.log(fInfo);
+            // console.log(fInfo);
 
             var dirPath = "public/uploads/" + fInfo.fieldname + "/";
 

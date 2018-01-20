@@ -1,21 +1,30 @@
-<div class="row">
-<label>
-  <input [(ngModel)]="obj.enabled" type="checkbox"/>
-  <span>Enabled</span>
-</label>
+<div class="row pad">
+  <label>
+    <input [(ngModel)]="obj.enabled" type="checkbox"/>
+    <span>Enabled</span>
+  </label>
 </div>
 
-<div class="row">
-  <div *ngFor="let item of obj.timeOptions; let i = index">
-    <!--{{i}} {{item}}-->
-    <label>
-      <input name="timer"  type="radio" [value]="item.time" [(ngModel)]="obj.seconds">
-      <span>{{item.desc}}</span>
-    </label>
+
+
+<div class="row pad">
+  <div class="form-inline">
+    <div class="controls-row">
+      <label class="control-label">timer</label>
+
+      <label class="radio inline" *ngFor="let item of obj.timeOptions">
+        <input type="radio"
+               name="timer"
+               [value]=item.time
+               [(ngModel)]=obj.seconds
+        />
+        {{item.desc}}
+      </label>
+    </div>
   </div>
 </div>
 
-<div class="row">
+<div class="row pad">
   <label>
     <input [(ngModel)]="obj.countUp" type="checkbox"/>
     <span>Increasing</span>

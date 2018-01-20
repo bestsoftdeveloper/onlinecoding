@@ -7,7 +7,7 @@ usersRouter.get('/mee', function *getUserHandler(){
 });
 
 usersRouter.get("/me1", async function (ctx) {
-  ctx.body = {message: "Hellome1me1me1me1me1me1me1me1me1me1me1me1me1!"}
+  return {message: "Hellome1me1me1me1me1me1me1me1me1me1me1me1me1!"}
 });
 
 module.exports = usersRouter;

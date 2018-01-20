@@ -30,7 +30,8 @@
 		  "../node_modules/swiper/dist/css/swiper.min.css",
         "../node_modules/font-awesome/css/font-awesome.css",
         "../node_modules/froala-editor/css/froala_editor.pkgd.min.css",
-        "../node_modules/froala-editor/css/froala_style.min.css"
+        "../node_modules/froala-editor/css/froala_style.min.css",
+        "../node_modules/roboto-fontface/css/roboto/roboto-fontface.css"
       ],
       "scripts": [
         "../node_modules/jquery/dist/jquery.js",

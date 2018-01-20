@@ -74,7 +74,6 @@ export class TimerComponent implements OnInit {
 
   reset(data:any) {
     // return;
-    debugger;
     console.log('reset');
     this.counter = 0;
     if(!data)

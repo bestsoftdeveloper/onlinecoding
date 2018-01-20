@@ -38,14 +38,15 @@ export class HttpWrapperService {
       console.log(user);
 
       let headers = new Headers({'Content-Type': 'application/json'});
-      headers.append('Authorization', user == null ? "" : user.data.token);
+      headers.append('Authorization', user == null ? "" : user.token);
       let options = new RequestOptions({headers: headers});
       const apiUrl = this.serverUrl + url;
       const response = await this.http.post(apiUrl, body, options).toPromise();
-      return {
-        data: response.json(),
-        success: true
-      };
+      return response.json();
+      // return {
+      //   data: response.json(),
+      //   success: true
+      // };
     }
     catch (e) {
       return {
@@ -62,7 +63,7 @@ export class HttpWrapperService {
 
       const apiUrl = this.serverUrl + url;
       let headers = new Headers();
-      headers.append('Authorization', user == null ? "" : user.data.token);
+      headers.append('Authorization', user == null ? "" : user.token);
 
       /** No need to include Content-Type in Angular 4 */
         //fu..

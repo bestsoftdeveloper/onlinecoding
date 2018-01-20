@@ -1,90 +1,86 @@
 <div *ngIf="question" class="container">
+<pre>{{question |json}}</pre>
+  <div class="row field">
+    <div class="row center question">
+      <div [innerHTML]="question.question | keepHtml"></div>
+    </div>
+    <div class="row center pd20">
+      <button class="btn  topbtn" [disabled]="isSendAnswerDisabled()" [ngClass]="sendAnswerButtonClass" (click)="sendAnswerForQuestion()"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
+    </div>
 
-  <!--{{question | json}}-->
-  <div class="row center">
-    <div [innerHTML]="question.question | keepHtml"></div>
   </div>
 
   <hr/>
-  <div class="row">
-
+  <div class="row quiz">
+    <!--<pre>{{question | json}}</pre>-->
     <div *ngIf="question.questionType === QuestionType.Text" class="col-md-12">
-      <tr *ngFor="let entry of question.answers">
+      <div class="col-md-6 col-xs-12" *ngFor="let entry of question.answers">
 
-        <td *ngIf="question.answerType.type === AnswerType.SingleAnswer">
-          <div class="radio">
+        <div *ngIf="question.answerType.type === AnswerType.SingleAnswer" class="">
+          <div class="radio center">
             <label>
-              <input type="radio" [value]="entry.index" name="radiogroup" [(ngModel)]="question.rdValue">
+              <span *ngIf="entry.isCorrect"> <i class="glyphicon glyphicon-ok"></i> </span>
+              <input type="radio" [value]="entry.index" name="radiogroup" [(ngModel)]="question.rdValue"
+                     class="btn-group"
+                     [disabled]="question.isDisabled">
               <span class="cr"><i class="cr-icon glyphicon glyphicon-ok-sign"></i></span>
-              <div [innerHTML]="entry.content | keepHtml"></div>
-              <div *ngIf="entry.isCorrect"> <i class="glyphicon glyphicon-ok"></i> icon-ok</div>
+              <span class="btn-group" [innerHTML]="entry.content | keepHtml"></span>
+
             </label>
           </div>
-        </td>
+        </div>
 
-        <td *ngIf="question.answerType.type === AnswerType.MultipleAnswers">
+        <div *ngIf="question.answerType.type === AnswerType.MultipleAnswers" class="">
 
-          <div class="checkbox">
+          <div class="checkbox center">
             <label>
-              <input type="checkbox" [value]="entry.index" name="chkText" [(ngModel)]="entry.rdValue">
+              <span *ngIf="entry.isCorrect && question.showAnswers"> <i class="glyphicon glyphicon-ok"></i> </span>
+              <input type="checkbox" class="btn-group"
+                     [value]="entry.index"
+                     name="chkText" [(ngModel)]="entry.rdValue" [disabled]="question.isDisabled" (change)="chkChanged()">
               <span class="cr"><i class="cr-icon glyphicon glyphicon-ok-sign"></i></span>
-              <div [innerHTML]="entry.content | keepHtml"></div>
-              <div *ngIf="entry.isCorrect && question.showAnswers"> <i class="glyphicon glyphicon-ok"></i> icon-ok</div>
+              <span class="btn-group" [innerHTML]="entry.content | keepHtml"></span>
+
             </label>
           </div>
-        </td>
+        </div>
 
-      </tr>
+      </div>
     </div>
-
-    <!--<div *ngIf="question.questionType === 2" class="col-md-12">-->
-      <!--<app-coding [code]=question.code [testCases]=question.testCases></app-coding>-->
-
-      <!--<tr *ngFor="let entry of question.answers">-->
-        <!--{{entry | json}}-->
-        <!--<td *ngIf="question.answerType === 2">-->
-          <!--<div class="checkbox">-->
-            <!--<label>-->
-              <!--<input type="checkbox" [value]="entry.id" name="radiogroup" [(ngModel)]="entry.value">-->
-              <!--<span class="cr"><i class="cr-icon glyphicon glyphicon-ok-sign"></i></span>-->
-              <!--{{ entry.answer }}-->
-            <!--</label>-->
-          <!--</div>-->
-        <!--</td>-->
-      <!--</tr>-->
-    <!--</div>-->
 
     <div *ngIf="question.questionType === QuestionType.Images" class="col-md-12">
 
-      <tr *ngFor="let entry of question.answers">
+      <div class="col-md-6 col-xs-12" *ngFor="let entry of question.answers">
         <!--{{entry | json}}-->
 
-        {{question.answerType}} ---
+        <!--{{question.answerType}} -&#45;&#45;-->
 
-        <td *ngIf="question.answerType.type === AnswerType.SingleAnswer">
+        <div *ngIf="question.answerType.type === AnswerType.SingleAnswer">
           <div class="radio">
             <label>
-              <input type="radio" [value]="entry.index" name="radiogroup" [(ngModel)]="question.rdValue">
               <span class="cr"><i class="cr-icon glyphicon glyphicon-ok-sign"></i></span>
+              <input type="radio" [value]="entry.index" name="radiogroup" [(ngModel)]="question.rdValue">
+
               <img src="{{entry.filePath}}"/>
             </label>
           </div>
-        </td>
+        </div>
 
-        <td *ngIf="question.answerType.type === AnswerType.MultipleAnswers">
+        <div *ngIf="question.answerType.type === AnswerType.MultipleAnswers">
           <div class="checkbox">
             <label>
-              <input type="checkbox" [value]="entry.index" name="chkImg" [(ngModel)]="entry.rdValue">
               <span class="cr"><i class="cr-icon glyphicon glyphicon-ok-sign"></i></span>
+              <input type="checkbox" [value]="entry.index" name="chkImg" [(ngModel)]="entry.rdValue">
+
               <img src="{{entry.filePath}}"/>
             </label>
           </div>
-        </td>
-      </tr>
+        </div>
+      </div>
     </div>
 
     <div *ngIf="question.questionType === 3" class="col-md-12">
-      <app-coding [code]=question.code [testCases]=question.testCases></app-coding>
+      <app-coding [obj]=question [code]=question.code [testCases]=question.testCases></app-coding>
     </div>
 
   </div>
@@ -93,51 +89,3 @@
 </div>
 
 
-<!--<div class="col-sm-12">-->
-<!--<div class="checkbox">-->
-<!--<label>-->
-<!--<input type="checkbox" value="">-->
-<!--<span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>-->
-<!--Option one is this and that — be sure to include why it's great-->
-<!--</label>-->
-<!--</div>-->
-<!--<div class="checkbox">-->
-<!--<label>-->
-<!--<input type="checkbox" value="" checked>-->
-<!--<span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>-->
-<!--Option two is checked by default-->
-<!--</label>-->
-<!--</div>-->
-<!--<div class="checkbox disabled">-->
-<!--<label>-->
-<!--<input type="checkbox" value="" disabled>-->
-<!--<span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>-->
-<!--Option three is disabled-->
-<!--</label>-->
-<!--</div>-->
-<!--</div>-->
-
-
-<!--<div class="col-sm-12">-->
-<!--<div class="radio">-->
-<!--<label>-->
-<!--<input type="radio" name="o1" value="">-->
-<!--<span class="cr"><i class="cr-icon glyphicon glyphicon-ok-sign"></i></span>-->
-<!--Option one is this and that — be sure to include why it's great-->
-<!--</label>-->
-<!--</div>-->
-<!--<div class="radio">-->
-<!--<label>-->
-<!--<input type="radio" name="o1" value="" checked>-->
-<!--<span class="cr"><i class="cr-icon glyphicon glyphicon-ok-sign"></i></span>-->
-<!--Option two is checked by default-->
-<!--</label>-->
-<!--</div>-->
-<!--<div class="radio disabled">-->
-<!--<label>-->
-<!--<input type="radio" name="o1" value="" disabled>-->
-<!--<span class="cr"><i class="cr-icon glyphicon glyphicon-ok-sign"></i></span>-->
-<!--Option three is disabled-->
-<!--</label>-->
-<!--</div>-->
-<!--</div>-->

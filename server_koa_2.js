@@ -58,7 +58,7 @@ var originsWhitelist = [
 app.use(cors());
 
 app.use(logger());
-app.use(errorCatcher);
+// app.use(errorCatcher);
 app.use(BodyParser());
 //app.use(staticServe(config.staticPath));
 
@@ -71,7 +71,7 @@ lcRouter.use(lcPublicRoutes.routes());
 app.use(lcRouter.routes()).use(lcRouter.allowedMethods());
 
 lcRouter.post("/people", async (ctx) => {
-  ctx.body = await ctx.app.people.insert(ctx.request.body);
+  return await ctx.app.people.insert(ctx.request.body);
 });
 
 // lcRouter.get("/", async function (ctx) {

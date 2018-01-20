@@ -14,6 +14,7 @@ export class CodingComponent implements OnInit {
   private  httpService: HttpWrapperService;
   private codeExecutionService: CodeExecutionService;
   public codeResult : any;
+  @Input() obj: any;
   @Input() code: string;
   @Input() testCases: any;
 

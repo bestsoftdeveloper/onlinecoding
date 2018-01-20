@@ -2,13 +2,14 @@ const koa = require('koa');
 const http = require('http');
 const https = require('https');
 var forceSSL = require('koa-force-ssl');
-const lcPrivateRoutes = require('./routes/private.routes');
+// const lcPrivateRoutes = require('./routes/private.routes');
 const lcPublicRoutes = require('./routes/public.routes');
 const routesQuestion = require('./routes/routes.question');
 
 const lcRouter = require('koa-router')();
 
-const errorCatcher = require('./shared/error-handling/errorCatcher');
+const responseWrapper = require('./utils/responseWrapper')();
+// const errorCatcher = require('./shared/error-handling/errorCatcher');
 
 const parse = require('co-body');
 const koaBody = require('koa-body');
@@ -16,7 +17,7 @@ const co = require('co');
 const fs = require('fs');
 const colors = require('colors');
 const utils = require('./shared/utils');
-var io = require('socket.io');
+// var io = require('socket.io');
 const path = require('path');
 const send = require('koa-send');
 const asyncBusboy = require('async-busboy');
@@ -42,26 +43,45 @@ var originsWhitelist = [
 ];
 
 app.use(cors());
-  //app.use(koaBody({ multipart: true }));
 app.use(logger());
-app.use(errorCatcher);
+// app.use(errorCatcher);
 app.use(BodyParser());
 app.use(cors());
 
+app.use(async (ctx, next) => {
+  let response = null;
+  try {
+    response = await next() // next is now a function
+    ctx.body = responseWrapper.success(response);
+  } catch (err) {
+    ctx.body = responseWrapper.failure(err);
+  }
+})
 
 
 // app.use(function *(){
 //   this.set('Access-Control-Allow-Origin', '*');
 // });
 
-// app.use(async (ctx, next) => {
-//   try {
+// app.use(async function(ctx, next){
+//   var promise = next();
+//   promise.then((response) => {
+//     ctx.status = 200;
+//   ctx.body = response;
 //
-//     await next() // next is now a function
-//   } catch (err) {
-//     ctx.body = { message: err.message }
-//     ctx.status = err.status || 500
-//   }
+// })
+//   return promise.catch((err) => {
+//     ctx.status = 401;
+//   ctx.body = 'Protected resource, use Authorization header to get access\n';
+//
+// })
+// })
+
+
+// Middleware 2
+// app.use((ctx) => {
+//   console.log('Setting body')
+// ctx.body = 'Hello from Koa'
 // })
 
 
@@ -98,4 +118,28 @@ const port =  6002;
 const server = app.listen(port).on("error", err => {
     console.error(err);
 });
+// console.log("socket");
+
+const ioSocket = require("./modules/socket/ioSocket")();
+ioSocket.connect(server);
+// var io = require('socket.io').listen(server);
+// io.set("log level", 0);
+// const io = require('socket.io')(server, {
+//   path: '/test',
+//   serveClient: false,
+//   // below are engine.IO options
+//   pingInterval: 10000,
+//   pingTimeout: 5000,
+//   cookie: false
+// });
+
+// Socket.io
+// io.on('connection', function(socket){
+//   console.log("new connection");
+//   socket.emit('news', { hello: 'world' });
+//   socket.on('my other event', function (data) {
+//     console.log(data);
+//   });
+// });
+
 module.exports = server;

@@ -26,6 +26,16 @@ module.exports = function() {
           message: null,
           text:text
         };
+        // console.log(response);
+        return response;
+      },
+      failure: function(obj) {
+        var response = {
+          success: false,
+          data: null,
+          message: obj.message,
+          text:obj.text
+        };
         return response;
       },
 

@@ -1,21 +1,45 @@
+<!--<pre>{{pager | json}}</pre>-->
+<!--questionIndex {{questionIndex}}-->
+<!--viewIndex {{viewIndex}}-->
+<!--questions.list.length {{questions.list.length}}-->
+<!--nextp{{nextp}}-->
 
-{{question | json}}
-
-<app-quiz-question [question]="question"
-                   (onMessageFromQuestionControl)=onMessageFromQuestionControl($event)></app-quiz-question>
 
 
-<div class="row center bordered">
-  <hr/>
+<div *ngIf="!quizFinished">
+  <div class="row">
+    <div class=" col-sm-12 text-center">
+      <div class="btn-group center text-center">
+        <button class="btn topbtn" (click)="prevPage()" [disabled]="isPrevPageDisabled()"><i class="fa fa fa-angle-double-left" aria-hidden="true"></i></button>
+        <button class="btn topbtn" (click)="prev()" [disabled]="isPrevDisabled()"><i class="fa fa-arrow-left" aria-hidden="true"></i></button>
+        <button class="btn topbtn"   *ngFor="let q of questions.list | slice:viewIndex: viewIndex + pager.itemsOnPage; let i = index;"
+                (click)="goToQuestionNumber(q._id)"
+                (mouseover)="onBtnMouseOver(q)"
+                (mouseout)="onBtnMouseOut(q)"
+                [ngClass]="q.btnoverclass + ' ' + q.selectedClass"
+        >{{q.index+1}}</button>
+        <button class="btn topbtn" (click)="next()" [disabled]="isNextDisabled()"><i class="fa fa-arrow-right" aria-hidden="true"></i></button>
+        <button class="btn topbtn" (click)="nextPage()" [disabled]="isNextPageDisabled()"><i class="fa fa fa-angle-double-right" aria-hidden="true"></i></button>
+      </div>
+    </div>
+  </div>
 
-  {{questionIndex+1}}/{{questions.list.length}}
-  <button class="btn" (click)="prev()" [disabled]="isPrevDisabled()">prev</button>
-  <button class="btn" (click)="next()" [disabled]="isNextDisabled()">next</button>
-  <app-timer #timerComponent [config]="timerConfig" ></app-timer>
+
+  <app-timer #timerComponent [config]="timerConfig"></app-timer>
+  <app-quiz-question [question]="question"
+                     (onMessageFromQuestionControl)=onMessageFromQuestionControl($event)></app-quiz-question>
+
+  <div class="row center bordered">
+    <hr/>
+    <!--<button class="btn" (click)="sendAnswerForQuestion()">Send</button>-->
+  </div>
+
+  <button class="btn" (click)="editQuestion()">edit</button>
+  <!--<button class="btn" (click)="checkAnswers()">check answer</button>-->
+  <!--{{questions | json}}-->
 </div>
 
-<button class="btn" (click)="editQuestion()" >edit</button>
-<button class="btn" (click)="checkAnswers()" >check answer</button>
-<!--{{questions | json}}-->
-
+<div *ngIf="quizFinished">
+  Multumu
+</div>
 

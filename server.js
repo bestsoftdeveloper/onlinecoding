@@ -24,6 +24,26 @@ app.use('/api', api);
 
 const proxiedURL = "http://localhost:6002";
 
+
+// http://tattoocoder.com/angular2-giving-your-cli-server/
+
+app.use(function(req, res, next){  
+    // if the request is not html then move along
+    var accept = req.accepts('html', 'json', 'xml');
+    if(accept !== 'html'){
+        return next();
+    }
+
+    // if the request has a '.' assume that it's for a file, move along
+    var ext = path.extname(req.path);
+    if (ext !== ''){
+        return next();
+    }
+    fs.createReadStream(staticRoot + 'index.html').pipe(res);
+});
+
+
+
 // Catch all other routes and return the index file
 app.get('*', (req, res) => {
   console.log(req.path);

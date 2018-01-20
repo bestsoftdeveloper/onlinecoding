@@ -22,11 +22,11 @@ const  config =  require('../../config/development');
 module.exports = function() {
     var models = {
          async login(obj) {
-            console.log("fffffffffffffffffff");
-            console.log(obj);
+            // console.log(obj);
             if(!obj || !obj.login || !obj.password)
             {
-                return responseWrapper.sendResponse(false, null, "invalid_password", "");
+                throw {message:"invalid_password"};
+                //return responseWrapper.sendResponse(false, null, "invalid_password", "");
             }
             //logger.log(mongoQuery);
             logger.log(JSON.stringify(obj).green);
@@ -40,17 +40,19 @@ module.exports = function() {
             var userCrit =  mongoQuery.userSchemas.Users.findOne({
                 email: obj.login.toLowerCase()
             });
-            console.log("user8888888888888888888888");
+            // console.log("user8888888888888888888888");
             var user = await mongoQuery.executeQuery(userCrit);
-            console.log("u");
-            console.log(user);
+            // console.log("u");
+            // console.log(user);
             if(!user)
             {
-                return responseWrapper.sendResponse(false, null, "invalid_password1", "");
+              throw {message:"invalid_password1"};
+                //return responseWrapper.sendResponse(false, null, "invalid_password1", "");
             }
             if(!obj.password)
             {
-                return responseWrapper.sendResponse(false, null, "invalid_password2", "");
+              throw {message:"invalid_password2"};
+                //return responseWrapper.sendResponse(false, null, "invalid_password2", "");
             }
 
             var password = encryption.encrypt(obj.password, user.salt);
@@ -58,19 +60,22 @@ module.exports = function() {
             //logger.log(password + " -- " + user.password);
 
             if (password != user.password) {
-                return responseWrapper.sendResponse(false, null, "invalid_password3", "");
+              throw {message:"invalid_password3"};
+                // return responseWrapper.sendResponse(false, null, "invalid_password3", "");
             }
 
             var userResponse = models.createUserResponse(user);
+    return userResponse;
 
-            return responseWrapper.sendResponse(true, userResponse, "", "");
+            //return responseWrapper.sendResponse(true, userResponse, "", "");
         },
 
          getUserFromToken(obj) {
-            console.log("fffffffffffffffffff");
+            // console.log("fffffffffffffffffff");
             if(!obj)
             {
-                return responseWrapper.sendResponse(false, null, "invalid_request", "");
+              throw {message:"invalid_request"};
+                // return responseWrapper.sendResponse(false, null, "invalid_request", "");
             }
 
             var user =  mongoQuery.userSchemas.Users.findOne({
@@ -81,19 +86,20 @@ module.exports = function() {
         },
   async loginfb(obj) {
     debugger;
-    console.log("ddddddddddddd");
-    console.log(JSON.stringify(obj));
+    // console.log("ddddddddddddd");
+    // console.log(JSON.stringify(obj));
     if(!obj || !obj.email)
     {
-      return responseWrapper.sendResponse(false, null, "no_email", "");
+      throw {message:"invalid_request"};
+      //return responseWrapper.sendResponse(false, null, "no_email", "");
     }
     if(!obj.password)
     {
       obj.password = "fromfb";
     }
     //
-    console.log("dddddddddddddddddddddd");
-    console.log(obj);
+    // console.log("dddddddddddddddddddddd");
+    // console.log(obj);
     obj.email = obj.email.toLowerCase();
 
     // console.log(mongoQuery.userSchemas.Users);
@@ -104,12 +110,12 @@ module.exports = function() {
     const existentUser = await  mongoQuery.executeQuery(existentUserCriteria);
     if (existentUser) {
       var userResponse = models.createUserResponse(existentUser);
-      return responseWrapper.sendResponse(true, userResponse, "email_used", "");
+      return userResponse;
     }
 
     var salt = encryption.salt();
     var encryptedPassword = encryption.encrypt(obj.password, salt);
-    console.log("4");
+    // console.log("4");
     var dbUser = new mongoQuery.userSchemas.Users({
       name: obj.login,
       email: obj.email,
@@ -123,9 +129,9 @@ module.exports = function() {
         value: 10
       }
     });
-    console.log("5");
+    // console.log("5");
 
-    console.log("aici " + JSON.stringify(dbUser));
+    // console.log("aici " + JSON.stringify(dbUser));
 
     await dbUser.save();
     logger.log('User saved successfully!');
@@ -140,33 +146,28 @@ module.exports = function() {
   },
          async createUser(obj) {
             debugger;
-            console.log(JSON.stringify(obj));
+            // console.log(JSON.stringify(obj));
             if(!obj || !obj.email)
             {
-                return responseWrapper.sendResponse(false, null, "no_email", "");
+              throw {message:"no_email"};
             }
             if(!obj.password)
             {
-                return responseWrapper.sendResponse(false, null, "no_password", "");
+              throw {message:"no_password"};
             }
-            //
-            console.log("dddddddddddddddddddddd");
-            console.log(obj);
             obj.email = obj.email.toLowerCase();
 
-              // console.log(mongoQuery.userSchemas.Users);
               var existentUserCriteria = mongoQuery.userSchemas.Users.findOne({
                 'email': obj.email
               });
 
              const existentUser = await  mongoQuery.executeQuery(existentUserCriteria);
               if (existentUser) {
-                return responseWrapper.sendResponse(false, null, "email_used", "");
+                throw {message:"email_used"};
               }
 
             var salt = encryption.salt();
             var encryptedPassword = encryption.encrypt(obj.password, salt);
-            console.log("4");
             var dbUser = new mongoQuery.userSchemas.Users({
                 name: obj.login,
                 email: obj.email,
@@ -180,16 +181,14 @@ module.exports = function() {
                     value: 10
                 }
             });
-            console.log("5");
-
-            console.log("aici " + JSON.stringify(dbUser));
 
             await dbUser.save();
-            logger.log('User saved successfully!');
 
             dbUser.langId = obj.langId;
-            email.emailCreateUser(dbUser);
-
+            if(obj.sendEmail == undefined)
+            {
+                email.emailCreateUser(dbUser);
+            }
             return await models.login({
                 login: obj.email,
                 password: obj.password
@@ -199,14 +198,14 @@ module.exports = function() {
         forgotPassword(obj){
             if(!obj || !obj.Email)
             {
-                return responseWrapper.sendResponse(false, null, "user_not_found", "");
+              throw {message:"user_not_found"};
             }
             var dbUser =  mongoQuery.userSchemas.Users.findOne({
                 'email': obj.Email.toLowerCase()
             });
             if(!dbUser)
             {
-                return responseWrapper.sendResponse(false, null, "user_not_found", "");
+              throw {message:"user_not_found"};
             }
             dbUser.reset = encryption.guid();
             obj.reset = dbUser.reset;
@@ -214,7 +213,7 @@ module.exports = function() {
             var r =  dbUser.save();
             // console.log(r);
             email.emailForgotPassword(obj, obj.Email);
-            return responseWrapper.sendResponse(true, null, "check_forgot_password", "");
+            return   "check_forgot_password";
         },
 
         confirm(obj) {
@@ -224,13 +223,13 @@ module.exports = function() {
             });
             if(!dbUser)
             {
-                return responseWrapper.sendResponse(false, null, "user_not_found", "");
+              throw {message:"user_not_found"};
             }
             dbUser.confirmed = true;
 
              dbUser.save();
 
-            return responseWrapper.sendResponse(true, null, "", "");
+            return  "";
         },
 
         setUserCurrencyAddress(obj) {
@@ -251,13 +250,13 @@ module.exports = function() {
             });
             if(!dbUser)
             {
-                return responseWrapper.sendResponse(false, null, "user_not_found", "");
+              throw {message:"user_not_found"};
             }
             dbUser.confirmed = true;
 
              dbUser.save();
 
-            return responseWrapper.sendResponse(true, null, "", "");
+            return "";
         },
 
          resetPassword(obj) {
@@ -267,7 +266,7 @@ module.exports = function() {
             });
             if(!dbUser)
             {
-                return responseWrapper.sendResponse(false, null, "user_not_found", "");
+              throw {message:"user_not_found"};
             }
 
             var salt = encryption.salt();
@@ -280,27 +279,27 @@ module.exports = function() {
 
              dbUser.save();
 
-            return responseWrapper.sendResponse(true, null, "password_changed", "");
+            return "password_changed";
         },
 
          changePassword(obj) {
-            console.log("change pass");
-            console.log(obj);
+            // console.log("change pass");
+            // console.log(obj);
             if (!obj.tokenObj) {
-                return responseWrapper.sendResponse(false, null, "invalid_token", "")
+              throw {message:"invalid_token"};
             }
             var dbUser =  mongoQuery.userSchemas.Users.findOne({
                 _id: obj.tokenObj.id
             });
             if(!dbUser)
             {
-                return responseWrapper.sendResponse(false, null, "invalid_password", "");
+              throw {message:"invalid_password"};
             }
 
             var password = encryption.encrypt(obj.OldPassword, dbUser.salt);
 
             if (password != dbUser.password) {
-                return responseWrapper.sendResponse(false, null, "old_password_not_match", "");
+              throw {message:"old_password_not_match"};
             }
 
 
@@ -313,8 +312,7 @@ module.exports = function() {
 
             var r =  dbUser.save();
 
-            console.log(r);
-            return responseWrapper.sendResponse(true, null, "password_changed", "");
+            return  "password_changed";
         },
 
          updateProfile(obj) {
@@ -322,22 +320,22 @@ module.exports = function() {
 
             if (!obj.tokenObj) {
                 logger.log(" invalid_token");
-                console.log('1');
-                return responseWrapper.sendResponse(false, null, "invalid_token", "")
+                // console.log('1');
+              throw {message:"invalid_token"};
             }
-            console.log('2');
+            // console.log('2');
             var dbUser =  mongoQuery.userSchemas.Users.findOne({
                 _id: obj.tokenObj.id
             });
 
-            console.log('3');
+            // console.log('3');
             if(!dbUser)
             {
-                console.log('4');
-                return responseWrapper.sendResponse(false, null, "invalid_password", "");
+                // console.log('4');
+              throw {message:"invalid_password"};
             }
 
-            console.log('5');
+            // console.log('5');
             let hasName = false;
             if(obj.firstName)
             {
@@ -383,9 +381,8 @@ module.exports = function() {
             }
 
             var r =  dbUser.save();
-            var resp = responseWrapper.sendResponse(true, null, "profile_updated", "");
+            var resp = "profile_updated";
 
-            console.log(resp);
             return resp;
         },
 
@@ -398,8 +395,9 @@ module.exports = function() {
 
             if (!obj.tokenObj) {
                 logger.log(" invalid_token");
-                console.log('1');
-                return responseWrapper.sendResponse(false, null, "invalid_token", "");
+                // console.log('1');
+              throw {message:"invalid_token"};
+              //return responseWrapper.sendResponse(false, null, "invalid_token", "");
             }
 
             const updateCriteria = {
@@ -413,11 +411,11 @@ module.exports = function() {
             }, {
                 $set: updateCriteria
             })
+            return "profile_updated";
+            // var resp = responseWrapper.sendResponse(true, null, "profile_updated", "");
 
-            var resp = responseWrapper.sendResponse(true, null, "profile_updated", "");
-
-            console.log(resp);
-            return resp;
+            // console.log(resp);
+            // return resp;
         },
 
          denyBuletin(obj) {
@@ -429,8 +427,9 @@ module.exports = function() {
 
             if (!obj.tokenObj) {
                 logger.log(" invalid_token");
-                console.log('1');
-                return responseWrapper.sendResponse(false, null, "invalid_token", "")
+                // console.log('1');
+              throw {message:"invalid_token"};
+                // return responseWrapper.sendResponse(false, null, "invalid_token", "")
             }
 
             const updateCriteria = {
@@ -445,17 +444,18 @@ module.exports = function() {
             }, {
                 $set: updateCriteria
             })
+            return "profile_updated";
+            // var resp = responseWrapper.sendResponse(true, null, "profile_updated", "");
 
-            var resp = responseWrapper.sendResponse(true, null, "profile_updated", "");
-
-            console.log(resp);
-            return resp;
+            // console.log(resp);
+            // return resp;
         },
 
          checkToken(obj) {
-            console.log(obj);
+            // console.log(obj);
             if (!obj.tokenObj) {
-                return responseWrapper.sendResponse(true, null, "", "");
+              return "";
+                // return responseWrapper.sendResponse(true, null, "", "");
             }
 
             var r =  mongoQuery.userSchemas.Users.update({
@@ -468,13 +468,11 @@ module.exports = function() {
                 }
             );
 
-            return responseWrapper.sendResponse(true, recordset, "amt", "");
+    return recordset;
+            // return responseWrapper.sendResponse(true, recordset, "amt", "");
 
         },
 
-         logout(obj) {
-            return responseWrapper.sendResponse(true, null, "logout", "");
-        },
 
 
 
@@ -497,7 +495,7 @@ module.exports = function() {
             // }
             var inst = this;
             co(function* getResults() {
-                console.log('getUsersByIds');
+                // console.log('getUsersByIds');
                 var resp = [];
                 if (obj.ids) {
                     var objectIds = [];
@@ -519,7 +517,7 @@ module.exports = function() {
             // }
 
             //mongoQuery.userSchemas.Users.findOne({'email':obj.email});
-            console.log(obj);
+            // console.log(obj);
             mongoQuery.userSchemas.Users.findOne({
                     email: obj.email
                 }, "name email firstName lastName phone",
@@ -702,8 +700,8 @@ module.exports = function() {
             //logger.log(mongoQuery);
             var fbTokenUrl = "https://graph.facebook.com/me?fields=email&access_token=" + obj.token;
             models.download(fbTokenUrl).then(function (fbTokenResult) {
-                console.log("fbTokenResult");
-                console.log(fbTokenResult);
+                // console.log("fbTokenResult");
+                // console.log(fbTokenResult);
 
                 logger.log("loginfb");
                 if (fbTokenResult.error) {
@@ -714,9 +712,9 @@ module.exports = function() {
                     return response.sendResponse(res, false, failFbLogin, "", "");
                 }
                 if (fbTokenResult.email != obj.email) {
-                    console.log("!++++++++++++++++");
-                    console.log(fbTokenResult.email);
-                    console.log(obj.email);
+                    // console.log("!++++++++++++++++");
+                    // console.log(fbTokenResult.email);
+                    // console.log(obj.email);
                     var failFbEmailLogin = {
                         invalid_token: true,
                         message: "invalid_fb_email"
@@ -735,7 +733,7 @@ module.exports = function() {
                         if (recordset.length > 0) {
                             logger.log(recordset);
                             var user = models.createUserResponse(recordset[0]);
-                            console.log(user);
+                            // console.log(user);
                             return response.sendResponse(res, true, user, "", "");
 
                         } else {

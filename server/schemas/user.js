@@ -51,7 +51,7 @@ module.exports = function(mongoose) {
     });
 
     // declare seat covers here too
-    //privacy:int, --//0 public, 1 private (just for me), 2 (shared with my friends), 4 (shared with a list of my friends), 8 (shared with a list of public persons) 
+    //privacy:int, --//0 public, 1 private (just for me), 2 (shared with my friends), 4 (shared with a list of my friends), 8 (shared with a list of public persons)
     //country:[], --//0 all
     var models = {
         Users: mongoose.model('User', userSchema)
