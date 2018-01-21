@@ -164,6 +164,33 @@ export class QuizManagerComponent implements OnInit {
     this.question.isDisabled = true;
   }
 
+  async checkQuestionAnswers()
+  {
+   //  const body : any = {};
+   //
+   // body.proxy = {
+   //    module: 'question',
+   //    method: 'checkAnswersForQuestion',
+   //  };
+   //  body.data = {
+   //    filter:{
+   //      _id:"5a63c69f1e6dbf2888ae293c"
+   //    }
+   //  };
+    const body :any = {};
+    body.proxy = {
+      module: 'question',
+      method: 'checkAnswersForCategory',
+    };
+    body.data = {
+      filter:{
+        categoryId:"5a6043ecb26e4c27c08f57de"
+      }
+    };
+    await this.httpService.postJson('api/question', body);
+
+  }
+
   editQuestion() {
     this.pubSub.setKeyValue('q', this.question);
     this.router.navigate(['/addquestions']);

@@ -14,7 +14,7 @@ AnswerType =
 };
 class QuestionService {
 
-  async add_edit(ctx, data, query = {}) {
+  async add_edit(data, query = {}) {
     // console.log("YEEEEEEEEEEEEEEEEEEE");
     // console.log(data);
 
@@ -47,7 +47,7 @@ class QuestionService {
     return dbQuestion;
   }
 
-  async addEditCategory(ctx, data, query = {}) {
+  async addEditCategory(data) {
   // console.log("YEEEEEEEEEEEEEEEEEEE");
   console.log(data);
 
@@ -89,7 +89,7 @@ class QuestionService {
   return { _id: question.ops[0]._id };
 }
 
-  async getCategories(ctx, data, tokenObj) {
+  async getCategories(data, tokenObj) {
     //data.userId = tokenObj.id;
   const filterCriteria = data.filter || {};
   const doc = await mongoQuery.questionCategorySchema.QuestionCategory.find(filterCriteria);
@@ -97,7 +97,7 @@ class QuestionService {
 }
 
 
-  async storeAnswerForQuestion(ctx, data, tokenObj) {
+  async storeAnswerForQuestion(data, tokenObj) {
     data.userId = tokenObj.id;
     const resp = await mongoQuery.questionSchema.Question.update(
     	{ _id: data.qid },
@@ -123,9 +123,14 @@ class QuestionService {
     // return { ok: true };
   }
 
-  async getQuestion(ctx, data, tokenObj) {
+  async getQuestion(data, tokenObj) {
   if(!data.userId) {
     data.userId = tokenObj.id;
+  }
+
+  if(data.filter._id)
+  {
+    data.filter._id = ObjectID(data.filter._id);
   }
 
     // console.log(data);
@@ -141,7 +146,7 @@ class QuestionService {
 
 
 
-  async getAnswerForQuestion(ctx, data, tokenObj) {
+  async getAnswerForQuestion(data, tokenObj) {
     // console.log(data);
     data.userId = tokenObj.id;
     const doc = mongoQuery.collection('questionResponses');
@@ -155,7 +160,7 @@ class QuestionService {
 
 
 
-  async form(ctx, data, query = {}) {
+  async form(data, query = {}) {
     // console.log("YZZZZZZZZZZ");
 
     const question = await mongoQuery.collection('question').insert(data);
@@ -164,11 +169,17 @@ class QuestionService {
     return { _id: question.ops[0]._id };
   }
 
-  async getQuestions(ctx, obj, tokenObj) {
+  async getQuestions(obj, tokenObj) {
     // console.log(obj.pager);
     // debugger;
-
-  const filterCriteria = {};
+  if(!obj.userId) {
+    obj.userId = tokenObj.id;
+  }
+  if(!obj.userId)
+  {
+    throw "No user Id on getQuestions";
+  }
+    const filterCriteria = {};
   if(obj.filter)
   {
     if(obj.filter.categoryId)
@@ -178,7 +189,7 @@ class QuestionService {
   }
 
   const fields = {categoryId:1,question:1,questionType:1,answerCount:1,answers:1,timer:1,testCasesStr:1,
-    testCases:1,code:1,answerType:1,guid:1,userId:1,userAnswers:{$elemMatch: {userId: tokenObj.id}}};
+    testCases:1,code:1,answerType:1,guid:1,userId:1,userAnswers:{$elemMatch: {userId: obj.userId}}};
     var filter = mongoQuery.questionSchema.Question
       .find(filterCriteria)
       .select(fields);
@@ -193,6 +204,7 @@ class QuestionService {
       //   dateAdded: -1
       // });
     }
+    // filter = filter.toArray();
     // debugger;
     const questions = await mongoQuery.executeQuery(filter);
 
@@ -206,16 +218,36 @@ class QuestionService {
   }
 
 
-  async checkAnswersForQuestion(ctx, data, tokenObj) {
+  async checkAnswersForQuestion(data, tokenObj) {
   // console.log(data);
   // data.userId = tokenObj.id;
   // data.questionId
+  console.log("sdsdfsdfsdf");
 
-  let  question = await getQuestion(ctx,data,tokenObj);
-  let newQuestion = checkAnswers(question);
+  let  question = await this.getQuestion(data,tokenObj);
+  let newQuestion = this.checkAnswers(question);
 
   return newQuestion;
 }
+
+  async checkAnswersForCategory(data, tokenObj) {
+  // console.log(data);
+  // data.userId = tokenObj.id;
+  // data.questionId
+  const result = [];
+  const questions = await this.getQuestions(data,tokenObj);
+  for(var i=0;i<questions.items.length;i++)
+  {
+    const question = questions.items[i]._doc;
+    const checkedQuestion =  this.checkAnswers(question);
+    result.push(checkedQuestion);
+  }
+  return result;
+}
+  isUndefined(obj)
+  {
+    return obj === undefined;
+  }
 
   checkAnswers(question) {
 
@@ -230,16 +262,16 @@ class QuestionService {
         question.answers.forEach(it=> delete it.correctAswered);
 
         switch (question.answerType.type) {
-          case this.AnswerType.SingleAnswer: {
+          case AnswerType.SingleAnswer: {
             let selectedOption = question.rdValue;
-            if (isUndefined(selectedOption) && question.userAnswer) {
+            if (this.isUndefined(selectedOption) && question.userAnswer) {
               selectedOption = question.userAnswer.rdValue;
             }
-            if (isUndefined(selectedOption)) {
+            if (this.isUndefined(selectedOption)) {
               break;
             }
             const selectedAnswer = question.answers.find(it => it.index === selectedOption);
-            if (isUndefined(question.rdValue)) {
+            if (this.isUndefined(question.rdValue)) {
               question.rdValue = selectedOption;
             }
             if (answerTypeObj.isCorrect < 0) {
@@ -254,7 +286,7 @@ class QuestionService {
             break;
           }
 
-          case this.AnswerType.MultipleAswers: {
+          case AnswerType.MultipleAswers: {
             debugger;
             let correctAswered = true;
             for (var i = 0; i < question.answers.length; i++) {
@@ -266,7 +298,7 @@ class QuestionService {
                 ans.rdValue = checked != null;
               }
 
-              if (!isUndefined(ans.isCorrect)) {
+              if (!this.isUndefined(ans.isCorrect)) {
                 if (ans.isCorrect && !ans.rdValue) {
                   correctAswered = false;
                 }
@@ -294,19 +326,21 @@ class QuestionService {
       let ans = question.answers[i];
 
       switch (question.answerType.type) {
-        case this.AnswerType.SingleAnswer: {
+        case AnswerType.SingleAnswer: {
           const selectedOption = answerTypeObj.rdValue;
           question.correctAswered = selectedOption == answerTypeObj.isCorrect;
 
           break;
         }
-        case this.AnswerType.MultipleAswers: {
+        case AnswerType.MultipleAswers: {
           break;
         }
       }
     }
 
     question.isDisabled = true;
+
+    return question;
   }
 
 

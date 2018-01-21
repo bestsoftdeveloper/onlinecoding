@@ -108,7 +108,7 @@ router
     const method = body.proxy.method;
 
 
-    const resp = await questionService[method](ctx,data, body.tokenObj);
+    const resp = await questionService[method](data, body.tokenObj);
     return resp;
 
     // ctx.body = responseWrapper.success(resp);
@@ -156,7 +156,7 @@ router
   }
 
 
-  return await questionService[proxy.method](ctx,data);
+  return await questionService[proxy.method](data);
 
   })
 

@@ -2,6 +2,7 @@
 const server = require("../server_koa_2");
 // require supertest
 const request = require("supertest");
+const ObjectID = require("mongodb").ObjectID;
 // close the server after each test
 
 function getRndInteger(min, max) {
@@ -374,5 +375,56 @@ expect(response.status).toEqual(200);
 expect(response.type).toEqual("application/json");
 
 });
+
+test("get answer for question", async() => {
+  const body = {};
+body.proxy = {
+  module: 'question',
+  method: 'checkAnswersForQuestion',
+};
+body.data = {
+  filter:{
+    _id:"5a63c69f1e6dbf2888ae293c"
+  }
+};
+
+const response = await request(server).post("/api/question")
+  .set('authorization', token)
+  .send(body);
+
+console.log(response.body);
+expect(response.status).toEqual(200);
+expect(response.type).toEqual("application/json");
+expect(response.body.success).toEqual(true);
+
+});
+
+
+
+
+test("get answer for checkAnswersForCategory", async() => {
+  const body = {};
+body.proxy = {
+  module: 'question',
+  method: 'checkAnswersForCategory',
+};
+body.data = {
+  filter:{
+    categoryId:"5a6043ecb26e4c27c08f57de"
+  }
+};
+
+const response = await request(server).post("/api/question")
+  .set('authorization', token)
+  .send(body);
+
+console.log(response.body);
+expect(response.status).toEqual(200);
+expect(response.type).toEqual("application/json");
+expect(response.body.success).toEqual(true);
+
+});
+
+
 
 });
