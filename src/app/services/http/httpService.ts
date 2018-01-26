@@ -32,6 +32,13 @@ export class HttpWrapperService {
 
   serverUrl = 'http://localhost:6002/';
 
+
+  //http://www.angulartypescript.com/angular-2-http-example-typescript/
+  postObservables()
+  {
+
+  }
+
   async postJson(url, body): Promise<any> {
     try {
       let user : any = this.localStorageService.get('user');

@@ -418,6 +418,28 @@ const response = await request(server).post("/api/question")
   .set('authorization', token)
   .send(body);
 
+expect(response.status).toEqual(200);
+expect(response.type).toEqual("application/json");
+expect(response.body.success).toEqual(true);
+
+});
+
+
+test("render survey report for a specific user and category", async() => {
+  const body = {};
+body.proxy = {
+  module: 'survey',
+  method: 'createReport',
+};
+body.data = {
+  filter:{categoryId:"5a6043ecb26e4c27c08f57de"},
+  userId:"5a454e7cebcd1a42f0b70cc9"
+};
+
+const response = await request(server).post("/api/reports")
+  .set('authorization', token)
+  .send(body);
+
 console.log(response.body);
 expect(response.status).toEqual(200);
 expect(response.type).toEqual("application/json");

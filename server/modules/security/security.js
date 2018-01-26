@@ -194,6 +194,18 @@ module.exports = function() {
                 password: obj.password
             });
         },
+   async find(obj){
+    const query =  mongoQuery.userSchemas.Users.find(obj.filter);
+    const resp = await mongoQuery.executeQuery(query);
+    return resp;
+    // return query;
+  },
+  async findOne(obj){
+    const query =  mongoQuery.userSchemas.Users.findOne(obj.filter);
+    const resp = await mongoQuery.executeQuery(query);
+    return resp;
+    // return query;
+  },
 
         forgotPassword(obj){
             if(!obj || !obj.Email)

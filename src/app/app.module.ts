@@ -31,7 +31,15 @@ import { FooterComponent } from './ui/footer/footer.component';
 import {Component} from "@angular/core";
 import { LocalStorageModule } from 'angular-2-local-storage';
 
-import  { SwipperComponent } from './ui/swipper/swipper.component';
+// import  { SwipperComponent } from './ui/swipper/swipper.component';
+
+
+
+
+
+
+
+
 import {DropdownModule} from "ngx-dropdown";
 
 import { FacebookModule } from 'ngx-facebook';
@@ -60,6 +68,9 @@ import { QuizWysEditorComponent } from './ui/evaluation/quiz/quiz-wys-editor/qui
 import { QuizTimerComponent } from './ui/evaluation/quiz/quiz-timer/quiz-timer.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { CourseRegistrationComponent } from './ui/course-registration/course-registration.component';
+import { CodemirrorModule } from '@nomadreservations/ngx-codemirror';
+import { CodemirrorEditorComponent } from './coding/editors/codemirror-editor/codemirror-editor.component';
+// https://www.npmjs.com/package/@nomadreservations%2Fngx-codemirror#2-project-structure
 window["$"] = $;
 window["jQuery"] = $;
 
@@ -90,7 +101,7 @@ let providers = {
     LoginComponent,
     HeaderComponent,
     MainSliderComponent,
-    SwipperComponent,
+    // SwipperComponent,
     TypoComponent,
     HomePresentationComponent,
     TooltipDirective,
@@ -110,6 +121,7 @@ let providers = {
     QuizWysEditorComponent,
     QuizTimerComponent,
     CourseRegistrationComponent,
+    CodemirrorEditorComponent,
     //
   ],
   imports: [
@@ -129,6 +141,7 @@ let providers = {
     MomentModule,
     NgbModule.forRoot(),
     FacebookModule.forRoot(),
+    CodemirrorModule,
     FroalaEditorModule.forRoot(), FroalaViewModule.forRoot()
   ],
   providers: [HttpWrapperService,CodeExecutionService, AuthGuard, SimpleTimer,PubSubService],

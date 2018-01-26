@@ -160,7 +160,7 @@ module.exports = function() {
             const smtpConfig = {
               host:"mail.bestdeveloper.ro",
               port:26,
-              secure:true,
+              secure:false,
               auth: {
                 user: 'support@bestdeveloper.ro',
                 pass: 'supportpassword'
@@ -174,7 +174,7 @@ module.exports = function() {
           console.log("dddddddddddddddd");
           console.log(obj);
             this.transporter.sendMail({
-                from: 'office@lobbyscreen.com',
+                from: 'support@bestdeveloper.ro',
                 to: obj.to,
                 subject: obj.subject,
                 html: obj.body

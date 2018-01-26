@@ -2,9 +2,9 @@ const koa = require('koa');
 const http = require('http');
 const https = require('https');
 var forceSSL = require('koa-force-ssl');
-// const lcPrivateRoutes = require('./routes/private.routes');
 const lcPublicRoutes = require('./routes/public.routes');
 const routesQuestion = require('./routes/routes.question');
+const routesReports = require('./routes/routes.reports');
 
 const lcRouter = require('koa-router')();
 
@@ -17,7 +17,6 @@ const co = require('co');
 const fs = require('fs');
 const colors = require('colors');
 const utils = require('./shared/utils');
-// var io = require('socket.io');
 const path = require('path');
 const send = require('koa-send');
 const asyncBusboy = require('async-busboy');
@@ -43,7 +42,7 @@ var originsWhitelist = [
 ];
 
 app.use(cors());
-app.use(logger());
+// app.use(logger());
 // app.use(errorCatcher);
 app.use(BodyParser());
 app.use(cors());
@@ -58,56 +57,17 @@ app.use(async (ctx, next) => {
   }
 })
 
-
-// app.use(function *(){
-//   this.set('Access-Control-Allow-Origin', '*');
-// });
-
-// app.use(async function(ctx, next){
-//   var promise = next();
-//   promise.then((response) => {
-//     ctx.status = 200;
-//   ctx.body = response;
-//
-// })
-//   return promise.catch((err) => {
-//     ctx.status = 401;
-//   ctx.body = 'Protected resource, use Authorization header to get access\n';
-//
-// })
-// })
-
-
-// Middleware 2
-// app.use((ctx) => {
-//   console.log('Setting body')
-// ctx.body = 'Hello from Koa'
-// })
-
-
 const mongoQuery = require('./utils/mongoQuery')();
 
-//app.use(serve(path.join(__dirname, '/uploads')));// it should work
-// lcRouter.use('/api', lcPrivateRoutes);
 lcRouter.use(lcPublicRoutes.routes());
 lcRouter.use(routesQuestion.routes());
+lcRouter.use(routesReports.routes());
 
 app.use(lcRouter.routes()).use(lcRouter.allowedMethods());
 
-lcRouter.post("/people", async (ctx) => {
-  ctx.body = await ctx.app.people.insert(ctx.request.body);
-});
-
-// lcRouter.get("/", async function (ctx) {
-//   await send(ctx, ctx.path, { root: __dirname + '/public' })
-// });
-
 lcRouter.get('/', serve('../src', { index: 'index.html' }));
-// lcRouter.get('/uploads', serve('uploads'));
 
 lcRouter.get("/uploads/:id", async function (ctx) {
-  //console.log("uploads"+ctx.params.id + " " +ctx.path);
-  // serve("uploads/"+ctx.params.id);
   await send(ctx, ctx.path);
 });
 
@@ -118,6 +78,7 @@ const port =  6002;
 const server = app.listen(port).on("error", err => {
     console.error(err);
 });
+
 // console.log("socket");
 
 const ioSocket = require("./modules/socket/ioSocket")();

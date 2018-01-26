@@ -252,6 +252,10 @@ class QuestionService {
   checkAnswers(question) {
 
     question.showAnswers = true;
+    if(question.userAnswers && question.userAnswers.length)
+    {
+      question.userAnswer = question.userAnswers[0].body;
+    }
 
     const answerTypeObj = question.answerType;
 
@@ -259,7 +263,7 @@ class QuestionService {
     switch (question.questionType) {
       case QuestionType.Text:
       case QuestionType.Image: {
-        question.answers.forEach(it=> delete it.correctAswered);
+        question.answers.forEach(it=> {delete it.correctAswered; it.class = '';});
 
         switch (question.answerType.type) {
           case AnswerType.SingleAnswer: {
@@ -277,12 +281,20 @@ class QuestionService {
             if (answerTypeObj.isCorrect < 0) {
               break;
             }
-
-            question.answers[answerTypeObj.isCorrect].isCorrect = true;
+            const correctAnswer = question.answers[answerTypeObj.isCorrect];
+            if(correctAnswer) {
+              correctAnswer.isCorrect = true;
+              correctAnswer.class += " correct fa fa-check";
+            }
             question.correctAswered = selectedOption == answerTypeObj.isCorrect;
 
             selectedAnswer.correctAswered = answerTypeObj.isCorrect == selectedAnswer.index;
-
+            if(selectedAnswer.correctAswered)
+            {
+              selectedAnswer.class += " good";
+            }else{
+              selectedAnswer.class += " notgood";
+            }
             break;
           }
 
@@ -298,15 +310,35 @@ class QuestionService {
                 ans.rdValue = checked != null;
               }
 
-              if (!this.isUndefined(ans.isCorrect)) {
-                if (ans.isCorrect && !ans.rdValue) {
+              // if (!this.isUndefined(ans.isCorrect)) {
+                if (ans.isCorrect) {
+                  ans.class += " correct fa fa-check";
+                  if(ans.rdValue)
+                  {
+                    ans.class += " good";
+                  }else{
+                    ans.class += " notgood";
+                  }
                   correctAswered = false;
+
+                }
+                if(ans.rdValue)
+                {
+                  if (!ans.isCorrect) {
+                    ans.class += " notgood";
+                    correctAswered = false;
+                  }else{
+                    ans.class += " plm";
+                  }
                 }
 
-                if (!ans.isCorrect && ans.rdValue) {
-                  correctAswered = false;
-                }
-              }
+                // if (ans.isCorrect && !ans.rdValue) {
+                //   correctAswered = false;
+                //   ans.class += " notgood";
+                // }
+
+
+              // }
 
             }
 

@@ -1,9 +1,7 @@
 const router = require('koa-router')();
- // const authMiddleware = require('../shared/auth/auth.middleware').errorHandler();
 const securityModule = require('../modules/security/security')();
 const parse = require('co-body');
 const fs = require('fs-extra');
-// const responseWrapper = require('../utils/responseWrapper')();
 const koabusBoy = require('co-busboy');
 const cmd = require('node-cmd');
 const testPipeline = require('pipeline-test-node');

@@ -95,14 +95,14 @@ module.exports = function() {
             console.log(err);
             deferred.resolve([]);
           }else{
-            var aaa = recordset;
-            try {
-              aaa = recordset.toObject();
-            }
-            catch (e)
-            {
-              console.log("EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE");
-            }
+            // var aaa = recordset;
+            // try {
+            //   aaa = recordset.toObject();
+            // }
+            // catch (e)
+            // {
+            //   console.log("EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE " +e);
+            // }
             deferred.resolve(recordset);
           }
         });
