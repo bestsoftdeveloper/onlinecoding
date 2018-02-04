@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import {Component, OnInit, ViewChild, AfterViewInit, Input} from '@angular/core';
 
 import "codemirror/lib/codemirror.js";
 import "codemirror/addon/hint/show-hint.js";
@@ -64,9 +64,10 @@ import { CodemirrorService } from '@nomadreservations/ngx-codemirror';
 })
 export class CodemirrorEditorComponent implements OnInit {
 
-  public code: string = "function asd(){return 1;}";
+  // public code: string = "function asd(){return 1;}";
   // @ViewChild('editor') editor;
-
+  @Input() code: string;
+  @Input() externalConfig: any;
 
   constructor(private _codeMirror: CodemirrorService) {
     // CodeMirror.ter
@@ -85,7 +86,8 @@ export class CodemirrorEditorComponent implements OnInit {
   // }
 
 
-  config = { lineNumbers: true,
+  config = {
+    lineNumbers: true,
     extraKeys: {
     "Ctrl-Space": "autocomplete"
   },
@@ -135,6 +137,11 @@ export class CodemirrorEditorComponent implements OnInit {
       console.log("DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD");
       // console.log(editor.state);
     });
+
+    if(this.externalConfig)
+    {
+      this.config = {...this.config, ...this.externalConfig };
+    }
 
     // this._codeMirror
     // codemirror.commands.autocomplete = function(cm) {

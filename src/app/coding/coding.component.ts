@@ -17,6 +17,7 @@ export class CodingComponent implements OnInit {
   @Input() obj: any;
   @Input() code: string;
   @Input() testCases: any;
+  @Input() prop: string;
 
   constructor(httpService: HttpWrapperService,codeExecutionService : CodeExecutionService)
   {
@@ -26,7 +27,8 @@ export class CodingComponent implements OnInit {
   }
 
   onChange(code) {
-    console.log('new code', code);
+    this.obj[this.prop] = code;
+    // console.log('new code', code);
   }
 
   getHttpService()

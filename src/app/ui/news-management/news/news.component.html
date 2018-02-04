@@ -1,0 +1,32 @@
+<p>
+  news works!
+</p>
+
+<div *ngIf="newsObject && newsObject.items">
+
+  <div class="row center title">
+    {{newsObject.title}}
+    <button *ngIf="canEditNews" class="btn btn-link" (click)="edit()">edit</button>
+  </div>
+
+
+
+  <div class="row" *ngFor="let it of newsObject.items;let i = index">
+    <div class="row" *ngIf="newsObject.items[i].ItemTypeValue == 1">
+      <span class="" [innerHTML]="newsObject.items[i].content | keepHtml"></span>
+
+    </div>
+
+    <div class="row" *ngIf="newsObject.items[i].ItemTypeValue == 2">
+      <!--html-->
+      <div>
+        <app-codemirror-editor [code]="newsObject.items[i].content"
+                               [externalConfig]=externalConfig></app-codemirror-editor>
+        <!--{{newsObject.items[i].content}}-->
+      </div>
+    </div>
+
+
+  </div>
+
+</div>

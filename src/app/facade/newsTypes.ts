@@ -2,9 +2,10 @@
 //
 // @Injectable()
 
-export default new class Permissions {
-  readonly Roles: any = {
-          EditNews:1
-  };
+export default new class NewsType {
+  readonly Items: Array<any> = [
+    {id:1, name: 'news'},
+    {id:2, name: 'exercise'},
+  ];
 }
 

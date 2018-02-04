@@ -422,7 +422,27 @@ module.exports = function() {
             longToDate:function (uNIX_Timestamp) {
                 var dateTime = new Date(uNIX_Timestamp);
                 return dateTime.toISOString(); // Returns "2013-05-31T11:54:44.000Z"
-            }
+            },
+          dateToUtcMilliSecconds: function(date)
+          {
+            return Date.UTC(date.val.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate(),
+              date.getUTCHours(), date.getUTCMinutes(), date.getUTCSeconds(), date.getUTCMilliseconds())
+          },
+          localDateToUtcMilliSecconds: function(date)
+          {
+            return  date.getTime() + (date.getTimezoneOffset() * 60000);
+          },
+
+          utcMilliSeccondsToLocalDate: function(millisecconds)
+          {
+            var now = new Date();
+            return now.setTime(millisecconds - (now.getTimezoneOffset() * 60000));
+          },
+          utcMilliSeccondsToTimeZoneDate:function(millisecconds, timezoneOffset )
+          {
+            var now = new Date();
+            return now.setTime(millisecconds - (timezoneOffset * 60000));
+          }
 
         },
         toUtc: function(val) {
@@ -450,7 +470,8 @@ module.exports = function() {
                 Minute: val.getMinutes(),
                 Seccond: val.getSeconds(),
                 Offset: val.getTimezoneOffset(),
-                date: val
+                date: val,
+                utc:Date.UTC(val)
             };
 
             return result;

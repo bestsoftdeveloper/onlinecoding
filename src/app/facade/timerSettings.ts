@@ -1,8 +1,8 @@
-import { Injectable } from '@angular/core';
+// import { Injectable } from '@angular/core';
+//
+// @Injectable()
 
-@Injectable()
-
-export default new class NewsTypes {
+export default new class TimerSettings {
   // readonly baseAppUrl: string = 'http://localhost:57431/';
   // readonly baseAPIUrl: string = 'https://api.github.com/';
 
@@ -25,9 +25,4 @@ export default new class NewsTypes {
   }
 }
 
-export default new class Permissions {
-  readonly Roles: any = {
-          EditNews:1
-  };
-}
 

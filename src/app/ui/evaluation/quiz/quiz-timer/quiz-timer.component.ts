@@ -1,4 +1,5 @@
 import {Component, OnInit, Input} from '@angular/core';
+import TimerSettings from "../../../../facade/timerSettings";
 
 @Component({
   selector: 'app-quiz-timer',
@@ -12,6 +13,10 @@ export class QuizTimerComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    if(!this.obj)
+    {
+      this.obj = TimerSettings.timer;
+    }
   }
 
 }
