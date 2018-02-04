@@ -32,7 +32,7 @@ import {Component} from "@angular/core";
 import { LocalStorageModule } from 'angular-2-local-storage';
 
 // import  { SwipperComponent } from './ui/swipper/swipper.component';
-
+import { GravatarModule } from 'ng2-gravatar-directive';
 
 
 
@@ -70,6 +70,17 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { CourseRegistrationComponent } from './ui/course-registration/course-registration.component';
 import { CodemirrorModule } from '@nomadreservations/ngx-codemirror';
 import { CodemirrorEditorComponent } from './coding/editors/codemirror-editor/codemirror-editor.component';
+import { CoursesComponent } from './ui/courses/courses.component';
+import {SocketService} from "./services/socket/socketService";
+import { NewsManagementComponent } from './ui/news-management/news-management.component';
+
+import {UtilsService} from "./services/utils/utilsService";
+import { ConsoleComponetComponent } from './console-componet/console-componet.component';
+import { PageViewerComponent } from './ui/page-viewer/page-viewer.component';
+import { MyDatePickerModule } from 'mydatepicker';
+import { DailyNewsComponent } from './ui/news-management/daily-news/daily-news.component';
+import { BsDropdownModule } from 'ngx-bootstrap';
+import { NewsComponent } from './ui/news-management/news/news.component';
 // https://www.npmjs.com/package/@nomadreservations%2Fngx-codemirror#2-project-structure
 window["$"] = $;
 window["jQuery"] = $;
@@ -122,29 +133,41 @@ let providers = {
     QuizTimerComponent,
     CourseRegistrationComponent,
     CodemirrorEditorComponent,
+    CoursesComponent,
+    NewsManagementComponent,
+    ConsoleComponetComponent,
+    PageViewerComponent,
+    DailyNewsComponent,
+    NewsComponent,
     //
   ],
   imports: [
     AceEditorModule,
-    BrowserModule,
-    HttpModule,
-    AppRoutingModule,
+
     Angular2SocialLoginModule,
-    SwiperModule,
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    BrowserModule,
+    CodemirrorModule,
+    DropdownModule,
+    FacebookModule.forRoot(),
     FormsModule,
+    FroalaEditorModule.forRoot(), FroalaViewModule.forRoot(),
+    GravatarModule,
     LocalStorageModule.withConfig({
       prefix: 'my-app',
       storageType: 'localStorage'
     }),
-    DropdownModule,
-    BrowserAnimationsModule,
+    HttpModule,
+    MyDatePickerModule,
     MomentModule,
     NgbModule.forRoot(),
-    FacebookModule.forRoot(),
-    CodemirrorModule,
-    FroalaEditorModule.forRoot(), FroalaViewModule.forRoot()
+    BsDropdownModule.forRoot(),
+
+    SwiperModule
+
   ],
-  providers: [HttpWrapperService,CodeExecutionService, AuthGuard, SimpleTimer,PubSubService],
+  providers: [HttpWrapperService,CodeExecutionService, AuthGuard, SimpleTimer,PubSubService, SocketService, UtilsService ],
   bootstrap: [AppComponent]
 })
 

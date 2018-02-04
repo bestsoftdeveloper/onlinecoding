@@ -145,6 +145,8 @@ module.exports = function() {
         },
 
         sendEmail: function(obj) {
+
+          return;
             // if (this.transporter == null) {
             //     this.transporter = nodemailer.createTransport(sesTransport({
             //         accessKeyId: config.aws.AWS_ACCESS_KEY_ID,

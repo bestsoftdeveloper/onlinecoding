@@ -3,8 +3,21 @@ header{
   border-top: 1px solid #ddd;
   margin-bottom: 0;
   /*background-color: #fcfcfc;*/
-
 }
+
+.ficon
+{
+  /*margin-left: 14px;*/
+  margin-right: 2px;
+}
+
+/*#1C1F8F;*/
+
+.navli:hover .ficon
+{
+  color: #FAAF18;
+}
+
 .header-wrapper1
 {
   border-bottom: 1px solid #ddd;

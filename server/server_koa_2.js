@@ -5,6 +5,8 @@ var forceSSL = require('koa-force-ssl');
 const lcPublicRoutes = require('./routes/public.routes');
 const routesQuestion = require('./routes/routes.question');
 const routesReports = require('./routes/routes.reports');
+const routesCategory = require('./routes/routes.category');
+const routesNews = require('./routes/routes.news');
 
 const lcRouter = require('koa-router')();
 
@@ -34,7 +36,7 @@ const app = new koa();
 var formidable = require('koa2-formidable');
 
 
-require("./mongo/mongo")(app);
+// require("./mongo/mongo")(app);
 
 var originsWhitelist = [
   'http://localhost:4200',      //this is my front-end url for development
@@ -48,20 +50,29 @@ app.use(BodyParser());
 app.use(cors());
 
 app.use(async (ctx, next) => {
+  //middleware
   let response = null;
   try {
+    // console.log("ruta applicatie");
+
     response = await next() // next is now a function
     ctx.body = responseWrapper.success(response);
   } catch (err) {
+    console.log("errrorrrrrrrrrrr");
+    console.log(err);
+    ctx.status = 401;
     ctx.body = responseWrapper.failure(err);
   }
 })
 
-const mongoQuery = require('./utils/mongoQuery')();
+const mongoQuery = require('./utils/mongoQuery')(app);
 
 lcRouter.use(lcPublicRoutes.routes());
 lcRouter.use(routesQuestion.routes());
 lcRouter.use(routesReports.routes());
+lcRouter.use(routesCategory.routes());
+lcRouter.use(routesNews.routes());
+
 
 app.use(lcRouter.routes()).use(lcRouter.allowedMethods());
 
@@ -83,24 +94,7 @@ const server = app.listen(port).on("error", err => {
 
 const ioSocket = require("./modules/socket/ioSocket")();
 ioSocket.connect(server);
-// var io = require('socket.io').listen(server);
-// io.set("log level", 0);
-// const io = require('socket.io')(server, {
-//   path: '/test',
-//   serveClient: false,
-//   // below are engine.IO options
-//   pingInterval: 10000,
-//   pingTimeout: 5000,
-//   cookie: false
-// });
 
-// Socket.io
-// io.on('connection', function(socket){
-//   console.log("new connection");
-//   socket.emit('news', { hello: 'world' });
-//   socket.on('my other event', function (data) {
-//     console.log(data);
-//   });
-// });
+
 
 module.exports = server;

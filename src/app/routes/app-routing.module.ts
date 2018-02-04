@@ -11,6 +11,10 @@ import {ResetPasswordComponent} from "../login/resetpassword/resetpassword.compo
 import {AuthGuard} from "./auth-guard.service";
 import {EvaluationComponent} from "../ui/evaluation/evaluation.component";
 import {QuizAddComponent} from "../ui/evaluation/quiz/add/quiz.add.component";
+import {CourseRegistrationComponent} from "../ui/course-registration/course-registration.component";
+import {CoursesComponent} from "../ui/courses/courses.component";
+import {NewsManagementComponent} from "../ui/news-management/news-management.component";
+import {DailyNewsComponent} from "../ui/news-management/daily-news/daily-news.component";
 
 
 const appRoutes: Routes = [
@@ -55,6 +59,22 @@ const appRoutes: Routes = [
   {
     path:'addquestions',
     component:QuizAddComponent
+  },
+  {
+    path:'addNews',
+    component:NewsManagementComponent
+  },
+  {
+    path:'dailyNews',
+    component:DailyNewsComponent
+  },
+  {
+    path:'registercourse',
+    component:CourseRegistrationComponent
+  },
+  {
+    path:'courses',
+    component:CoursesComponent
   },
   // {
   //   path: 'admin',

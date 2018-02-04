@@ -1,0 +1,105 @@
+<div class="container">
+
+
+  <div class="btn-group" dropdown>
+    <button dropdownToggle type="button" class="btn btn-primary dropdown-toggle">
+      Button dropdown <span class="caret"></span>
+    </button>
+    <ul *dropdownMenu class="dropdown-menu" role="menu">
+      <li role="menuitem"><a class="dropdown-item" href="#">Action</a></li>
+      <li role="menuitem"><a class="dropdown-item" href="#">Another action</a></li>
+      <li role="menuitem"><a class="dropdown-item" href="#">Something else here</a></li>
+      <li class="divider dropdown-divider"></li>
+      <li role="menuitem"><a class="dropdown-item" href="#">Separated link</a>
+      </li>
+    </ul>
+  </div>
+
+
+  <select class="selectpicker">
+    <option>Mustard</option>
+    <option>Ketchup</option>
+    <option>Relish</option>
+  </select>
+
+
+  <div class="row">
+    <select [(ngModel)]="newsObject.newsType">
+      <option *ngFor="let nt of newsTypes" value= {{nt.id}}>{{nt.name}}</option>
+    </select>
+  </div>
+  <!--<pre>{{newsObject | json}}</pre>-->
+
+  <div class="row">
+    <label>
+      <span>Title</span>
+      <input type="text" [(ngModel)]="newsObject.title" class="form-control">
+    </label>
+  </div>
+
+  <div class="row pad">
+    <app-quiz-timer [(obj)]="newsObject.timer"></app-quiz-timer>
+  </div>
+
+  <div class="row">
+    <button class="btn" (click)="addNewsItem()">Add news Item</button>
+  </div>
+
+  {{newsObject.selectedNewsItem | json}}
+
+  <div class="row">
+    <my-date-picker name="mydate" [options]="myDatePickerOptions"
+                    [(ngModel)]="newsObject.date" required></my-date-picker>
+  </div>
+
+
+
+  <div class="row" *ngFor="let it of newsObject.items; let i=index">
+    <!--{{newsObject.items[i] | json}}-->
+
+    <div *ngIf="newsObject.items[i].ItemTypeValue == 1">
+
+      <div class="row">
+        <app-wys-editor [(obj)]="newsObject.items[i]" prop="content"></app-wys-editor>
+      </div>
+      <div class="row">
+        <!--<button class="btn" (click)="selectNewsItem(newsObject.items[i])">Select</button>-->
+        <button class="btn" (click)="deleteNewsItem(newsObject.items[i])">Delete</button>
+
+        <select [(ngModel)]="newsObject.items[i].ItemTypeValue">
+          <option *ngFor="let itType of ItemTypes" value={{itType.id}}>{{itType.name}}</option>
+        </select>
+
+        class: <input type="text" [(ngModel)]="newsObject.items[i].class" class="form-control">
+        <button class="btn" (click)="addNewsItem()">Add news Item</button>
+
+      </div>
+    </div>
+
+    <div *ngIf="newsObject.items[i].ItemTypeValue == 2">
+      <div class="row">
+        <app-coding [obj]="newsObject.items[i]" [code]="newsObject.items[i].content" prop="content"></app-coding>
+      </div>
+
+      <div class="row">
+        <!--<button class="btn" (click)="selectNewsItem(newsObject.items[i])">Select</button>-->
+        <button class="btn" (click)="deleteNewsItem(newsObject.items[i])">Delete</button>
+        <select [(ngModel)]="newsObject.items[i].ItemTypeValue">
+          <option *ngFor="let itType of ItemTypes" value={{itType.id}}>{{itType.name}}</option>
+        </select>
+        class: <input type="text" [(ngModel)]="newsObject.items[i].class" class="form-control">
+        <button class="btn" (click)="addNewsItem()">Add news Item</button>
+      </div>
+
+    </div>
+
+    <hr/>
+  </div>
+
+
+  <button class="btn btn-primary" (click)="saveNews()">Save</button>
+
+</div>
+<!---->
+
+<!---->

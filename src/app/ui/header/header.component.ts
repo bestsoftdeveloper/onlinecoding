@@ -8,14 +8,20 @@ import {PubSubService} from "../../services/pubsub/pubsub";
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent {
+
   private user: any;
   constructor (private localStorageService: LocalStorageService,
                private pubSubService: PubSubService)
   {
     this.user = localStorageService.get('user');
     this.pubSubService.subscribe("login", (userData)=>{
-      console.log("LOGIN EVENT rECEIVED");
-      this.user  = userData.data;
+      console.log("LOGIN EVENT rECEIVED " + userData);
+      this.user  = userData;
+    });
+
+    this.pubSubService.subscribe("logout", (userData)=>{
+      console.log("LOGOUT EVENT rECEIVED ");
+      this.user  = null;
     });
   }
 
@@ -36,9 +42,5 @@ export class HeaderComponent {
     }
   }
 
-  addQuestion()
-  {
-
-  }
 
 }

@@ -275,6 +275,8 @@ describe("routes: question", () => {
   test("add answer for question", async() => {
 
   	const dbQuestion = await getQuestion({questionType:10});
+
+console.log(dbQuestion);
     const body = {
       proxy: {
         module: 'question',
@@ -447,6 +449,77 @@ expect(response.body.success).toEqual(true);
 
 });
 
+
+
+
+test("Add CAtegory", async() => {
+const body = {
+  "proxy":{
+  "method" :"addUpdateCategory"
+},
+  "data":{
+  "a":8787
+}
+}
+
+const response = await request(server).post("/api/category")
+  .set('authorization', token)
+  .send(body);
+
+expect(response.status).toEqual(200);
+expect(response.type).toEqual("application/json");
+expect(response.body.success).toEqual(true);
+
+});
+
+test("Add News", async() => {
+  const body = {
+    "proxy":{
+      "method" :"add_edit"
+    },
+    "data":{
+      "a":8787,
+      title:"test",
+      newsType:1,
+      items:[1,2,3]
+    }
+  }
+
+  const response = await request(server).post("/api/news")
+  .set('authorization', token)
+  .send(body);
+
+expect(response.status).toEqual(200);
+expect(response.type).toEqual("application/json");
+expect(response.body.success).toEqual(true);
+
+});
+
+test("Add item for news", async() => {
+  const body = {
+    proxy:{
+      method :"addItemForNews"
+    },
+    data:{
+      a:8787,
+      title:"test",
+      newsType:1,
+      items:[1,2,3]
+    }
+  };
+
+  console.log(token);
+  const response = await request(server).post("/api/news")
+  .set('authorization', token)
+  .send(body);
+
+// console.log(response);
+
+expect(response.status).toEqual(200);
+expect(response.type).toEqual("application/json");
+expect(response.body.success).toEqual(true);
+
+});
 
 
 });

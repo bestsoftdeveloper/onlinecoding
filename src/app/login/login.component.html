@@ -47,7 +47,8 @@
       <div class="form-group has-feedback has-feedback-left">
         <input type="password" class="form-control" placeholder="Password" required name="password" id="password" [(ngModel)]="password" (input)="validatePassword($event.target.value)">
         <div class="form-control-feedback">
-          <i class="icon-lock2 text-muted"></i>
+          <i class="fa fa-key text-muted" aria-hidden="true"></i>
+          <!--<i class="icon-lock2 text-muted"></i>-->
         </div>
         <div class="row">
         <span class="error" [hidden]="!formErrors.password" *ngIf="myForm.form.controls.password && myForm.form.controls.password.dirty" for="password">{{formErrors.password}}</span>

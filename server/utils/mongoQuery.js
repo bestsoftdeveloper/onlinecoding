@@ -7,6 +7,7 @@ var userSchemas = require('./../schemas/user.js')(mongoose);
 var questionSchemas = require('./../schemas/questionSchema.js')(mongoose);
 // var questionResponseSchemas = require('./../schemas/questionResponse.js')(mongoose);
 var questionCategorySchema = require('./../schemas/questionCategory.js')(mongoose);
+var newsSchema = require('./../schemas/newsSchema.js')(mongoose);
 
 
 
@@ -39,7 +40,7 @@ mongoose.connect(dbURI, {
 });
 
 
-// mongoose.set('debug', true);
+mongoose.set('debug', true);
 
 mongoose.connection.on('connected', function() {
   console.log('Mongoose default connection open to ' + dbURI);
@@ -62,8 +63,10 @@ process.on('SIGINT', function() {
         process.exit(0);
     });
 });
+// static app;
 
-module.exports = function() {
+module.exports = function(app) {
+
     var models = {
       collection: function(collectionName){
         return  mongoose.connection.collection(collectionName)
@@ -72,6 +75,7 @@ module.exports = function() {
         questionSchema:questionSchemas,
       // questionResponseSchema:questionResponseSchemas,
       questionCategorySchema:questionCategorySchema,
+      newsSchema:newsSchema,
       executeQuery: function(query) {
         // return new Promise(function (resolve, reject) {
         //   query.exec(function(err, recordset) {

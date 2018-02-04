@@ -16,9 +16,11 @@ module.exports = function (app) {
 
   mongoClient.connect(MONGO_URL,(err,database) =>{
     if (err) return console.log(err);
+  console.log("conected");
     const db = database.db('onlinecoding')
     app.db  = db;
     app.people = db.collection("people");
+  app.categoryTable = db.collection("category");
     //console.log("OKKKKKKKKKKKKKKKK");
   })
 };

@@ -16,9 +16,8 @@ var formidable = require('formidable');
 
 //const asyncBusboy = require('async-busboy');
 const uuidv4 = require('uuid/v4');
-const questionService = require('../modules/question/questionService');
+const newsService = require('../modules/news/newsService');
 
-const jwt = require('jsonwebtoken');
 const config = require('../config/development');
 
 function getModule(name) {
@@ -80,7 +79,7 @@ function formidablePromise (req, opts) {
 
 
 router
-  .prefix('/api/question')
+  .prefix('/api/news')
 // .use(async function(ctx, next){
 //   console.log("ruta question verificare token");
 //   // console.log("1111111111111111111111111111111");
@@ -102,7 +101,7 @@ router
 // })
 .use(jwtMiddleware.routeJwtMiddleware())
   .post("/", async function (ctx) {
-   console.log("ruta question");
+   console.log("ruta news");
 
     const body = ctx.request.body;
     // console.log(body);
@@ -110,7 +109,7 @@ router
     const method = body.proxy.method;
 
 
-    const resp = await questionService[method](data, body.tokenObj);
+    const resp = await newsService[method](data, body.tokenObj);
     return resp;
 
     // ctx.body = responseWrapper.success(resp);

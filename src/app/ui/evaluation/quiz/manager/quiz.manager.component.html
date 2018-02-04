@@ -5,8 +5,7 @@
 <!--nextp{{nextp}}-->
 
 
-
-<div *ngIf="!quizFinished">
+<div *ngIf="!quizFinished" class="row pager">
   <div class="row">
     <div class=" col-sm-12 text-center">
       <div class="btn-group center text-center">
@@ -25,10 +24,15 @@
   </div>
 
 
-  <app-timer #timerComponent [config]="timerConfig"></app-timer>
-  <app-quiz-question [question]="question"
+  <div class="row center">
+    <app-timer #timerComponent [config]="timerConfig"></app-timer>
+  </div>
+
+  <div class="row center pager">
+    <app-quiz-question [question]="question"
                      (onMessageFromQuestionControl)=onMessageFromQuestionControl($event)></app-quiz-question>
 
+    </div>
   <div class="row center bordered">
     <hr/>
     <!--<button class="btn" (click)="sendAnswerForQuestion()">Send</button>-->

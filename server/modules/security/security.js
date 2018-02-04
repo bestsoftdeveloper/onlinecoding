@@ -37,11 +37,11 @@ module.exports = function() {
             //         'email': obj.Login
             //     }]
             // });
-            var userCrit =  mongoQuery.userSchemas.Users.findOne({
+            var user = await mongoQuery.collection("users").findOne({
                 email: obj.login.toLowerCase()
             });
             // console.log("user8888888888888888888888");
-            var user = await mongoQuery.executeQuery(userCrit);
+            // var user = await mongoQuery.executeQuery(userCrit);
             // console.log("u");
             // console.log(user);
             if(!user)
@@ -103,11 +103,11 @@ module.exports = function() {
     obj.email = obj.email.toLowerCase();
 
     // console.log(mongoQuery.userSchemas.Users);
-    var existentUserCriteria = mongoQuery.userSchemas.Users.findOne({
+    var existentUser = await mongoQuery.collection("users").findOne({
       'email': obj.email
     });
 
-    const existentUser = await  mongoQuery.executeQuery(existentUserCriteria);
+    //const existentUser = await  mongoQuery.executeQuery(existentUserCriteria);
     if (existentUser) {
       var userResponse = models.createUserResponse(existentUser);
       return userResponse;
@@ -629,7 +629,7 @@ module.exports = function() {
 
                         dbUser.save(function (err) {
                             if (err) {
-                                logger.log(" ERRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR ");
+                                logger.log(" eroare la db user save ");
                                 logger.log(err);
                             }
                             logger.log('Owner saved successfully!');
@@ -677,14 +677,15 @@ module.exports = function() {
         createUserResponse: function (obj) {
             var tokenObj = {
                 email: obj.email,
-                id: obj._id
+                id: obj._id,
+              permission:obj.permission
             };
             var token = jwt.sign(tokenObj, config.tokenPassword, {
                 expiresIn: '245h'
             });
             var result = {
                 id: obj._id,
-                name: obj.name,
+                name: obj.firstName ? obj.firstName : obj.email,
                 email: obj.email,
                 firstName: obj.firstName,
                 lastName: obj.lastName,
@@ -697,6 +698,7 @@ module.exports = function() {
                 birth: obj.birth,
                 phone: obj.phone,
                 token: token,
+                permission:obj.permission,
                 amount: obj.amount
             };
             if (obj.t) {
