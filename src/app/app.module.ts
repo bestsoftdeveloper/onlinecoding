@@ -81,6 +81,8 @@ import { MyDatePickerModule } from 'mydatepicker';
 import { DailyNewsComponent } from './ui/news-management/daily-news/daily-news.component';
 import { BsDropdownModule } from 'ngx-bootstrap';
 import { NewsComponent } from './ui/news-management/news/news.component';
+import {NewsService} from "./ui/news-management/services/newsService";
+import { DailyChallengeComponent } from './ui/daily-challenge/daily-challenge.component';
 // https://www.npmjs.com/package/@nomadreservations%2Fngx-codemirror#2-project-structure
 window["$"] = $;
 window["jQuery"] = $;
@@ -139,6 +141,7 @@ let providers = {
     PageViewerComponent,
     DailyNewsComponent,
     NewsComponent,
+    DailyChallengeComponent,
     //
   ],
   imports: [
@@ -167,7 +170,7 @@ let providers = {
     SwiperModule
 
   ],
-  providers: [HttpWrapperService,CodeExecutionService, AuthGuard, SimpleTimer,PubSubService, SocketService, UtilsService ],
+  providers: [HttpWrapperService,CodeExecutionService, AuthGuard, SimpleTimer,PubSubService, SocketService, UtilsService,NewsService ],
   bootstrap: [AppComponent]
 })
 

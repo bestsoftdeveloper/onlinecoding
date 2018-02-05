@@ -2,19 +2,19 @@ import { Component, OnInit } from '@angular/core';
 import {utils} from "protractor";
 import {Router} from "@angular/router";
 import {LocalStorageService} from "angular-2-local-storage";
-import Permissions from "../facade/permissions";
-import NewsType from "../facade/newsTypes";
-import {HttpWrapperService} from "../services/http/httpService";
-import {UtilsService} from "../services/utils/utilsService";
-import {PubSubService} from "../services/pubsub/pubsub";
-import {NewsService} from "../ui/news-management/services/newsService";
+import Permissions from "../../facade/permissions";
+import NewsType from "../../facade/newsTypes";
+import {HttpWrapperService} from "../../services/http/httpService";
+import {UtilsService} from "../../services/utils/utilsService";
+import {PubSubService} from "../../services/pubsub/pubsub";
+import {NewsService} from "../news-management/services/newsService";
 
 @Component({
-  selector: 'app-about',
-  templateUrl: './about.component.html',
-  styleUrls: ['./about.component.css']
+  selector: 'app-daily-challenge',
+  templateUrl: './daily-challenge.component.html',
+  styleUrls: ['./daily-challenge.component.scss']
 })
-  export class AboutComponent implements OnInit {
+export class DailyChallengeComponent implements OnInit {
 
   constructor(private httpService: HttpWrapperService,
               private utilsService: UtilsService,
@@ -55,7 +55,7 @@ import {NewsService} from "../ui/news-management/services/newsService";
 
   async getNews(dateValue)
   {
-    this.newsObject = await this.newsService.getNews(NewsType.newsType.about, dateValue);
+    this.newsObject = await this.newsService.getNews(NewsType.newsType.exercise, dateValue);
   }
 
 

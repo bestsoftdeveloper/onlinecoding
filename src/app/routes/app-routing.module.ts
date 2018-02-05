@@ -15,6 +15,7 @@ import {CourseRegistrationComponent} from "../ui/course-registration/course-regi
 import {CoursesComponent} from "../ui/courses/courses.component";
 import {NewsManagementComponent} from "../ui/news-management/news-management.component";
 import {DailyNewsComponent} from "../ui/news-management/daily-news/daily-news.component";
+import {DailyChallengeComponent} from "../ui/daily-challenge/daily-challenge.component";
 
 
 const appRoutes: Routes = [
@@ -67,6 +68,10 @@ const appRoutes: Routes = [
   {
     path:'dailyNews',
     component:DailyNewsComponent
+  },
+  {
+    path:'dailyChallenge',
+    component:DailyChallengeComponent
   },
   {
     path:'registercourse',

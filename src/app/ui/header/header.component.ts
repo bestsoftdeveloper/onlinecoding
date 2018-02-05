@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { LocalStorageService } from 'angular-2-local-storage';
 import {PubSubService} from "../../services/pubsub/pubsub";
+import Permissions from "../../facade/permissions";
+
 
 @Component({
   selector: 'app-header',
@@ -10,6 +12,8 @@ import {PubSubService} from "../../services/pubsub/pubsub";
 export class HeaderComponent {
 
   private user: any;
+  canEditNews:boolean =false;
+
   constructor (private localStorageService: LocalStorageService,
                private pubSubService: PubSubService)
   {
@@ -23,6 +27,10 @@ export class HeaderComponent {
       console.log("LOGOUT EVENT rECEIVED ");
       this.user  = null;
     });
+    if(this.user) {
+      const userPermission: number = this.user.permission || 0;
+      this.canEditNews = ((userPermission & Permissions.Roles.EditNews) === Permissions.Roles.EditNews);
+    }
   }
 
   title:"asfasf";

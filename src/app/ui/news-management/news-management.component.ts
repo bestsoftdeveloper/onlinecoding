@@ -60,7 +60,11 @@ export class NewsManagementComponent implements OnInit {
 
   }
 
-
+  // newsTypeChange($event)
+  // {
+  //   $event.preventDefault();
+  //   this.newsObject.newsType = parseInt($event.target.value);
+  // }
   getDateObject(date)
   {
     return {
@@ -100,6 +104,7 @@ export class NewsManagementComponent implements OnInit {
   async saveNews()
   {
     const now = new Date();
+    this.newsObject.newsType = parseInt(this.newsObject.newsType);
 
     const dbNews: any  = { ...this.newsObject };
     // .dbNews.date = this.utilsService.date.dateToUtcMilliSecconds(new Date())

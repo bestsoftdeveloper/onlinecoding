@@ -22,10 +22,10 @@
     <option>Relish</option>
   </select>
 
-
+  <!--(input)="newsTypeChange($event)"-->
   <div class="row">
-    <select [(ngModel)]="newsObject.newsType">
-      <option *ngFor="let nt of newsTypes" value= {{nt.id}}>{{nt.name}}</option>
+    <select [(ngModel)]="newsObject.newsType" >
+      <option *ngFor="let nt of newsTypes" [value]="nt.id">{{nt.name}}</option>
     </select>
   </div>
   <!--<pre>{{newsObject | json}}</pre>-->

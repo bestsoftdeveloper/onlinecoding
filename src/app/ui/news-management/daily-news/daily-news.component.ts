@@ -6,6 +6,8 @@ import {PubSubService} from "../../../services/pubsub/pubsub";
 import {Router} from "@angular/router";
 import {LocalStorageService} from "angular-2-local-storage";
 import Permissions from "../../../facade/permissions";
+import NewsType from "../../../facade/newsTypes";
+import {NewsService} from "../services/newsService";
 
 
 @Component({
@@ -19,7 +21,8 @@ export class DailyNewsComponent implements OnInit {
               private utilsService: UtilsService,
               private pubSub: PubSubService,
               private router: Router,
-              private localStorageService: LocalStorageService
+              private localStorageService: LocalStorageService,
+              private newsService: NewsService
   ) {
     this.user = localStorageService.get('user');
   }
@@ -53,43 +56,45 @@ export class DailyNewsComponent implements OnInit {
 
   async getNews(dateValue)
   {
-    debugger;
-    if(!dateValue)
-    {
-      dateValue = new Date;
-    }
-    const body :any = {};
-    body.proxy = {
-      module: 'news',
-      method: 'getNews',
-    };
-    body.data = {
-      filter:{
-        newsType:1,
-        date: dateValue,
-        mili:this.utilsService.date.dateToUtcMilliSecconds(dateValue)
-      }
-    };
-    console.log(body);
-    const newsDbData =  await this.httpService.postJson('api/news', body);
-
-    if(!newsDbData.data)
-    {
-      this.newsObject = null;
-      return;
-    }
-
-    debugger;
-    const newsDate = new Date(newsDbData.data.date.jsdate);
-    newsDbData.data.date.date ={
-      year: newsDate.getFullYear(),
-      month:newsDate.getMonth()+1,
-      day:newsDate.getDate()
-    };
-
-
-    this.newsObject = newsDbData.data;
-    console.log(this.newsObject);
+    this.newsObject = await this.newsService.getNews(NewsType.newsType.news, dateValue);
+    // return;
+    // debugger;
+    // if(!dateValue)
+    // {
+    //   dateValue = new Date;
+    // }
+    // const body :any = {};
+    // body.proxy = {
+    //   module: 'news',
+    //   method: 'getNews',
+    // };
+    // body.data = {
+    //   filter:{
+    //     newsType:1,
+    //     date: dateValue,
+    //     mili:this.utilsService.date.dateToUtcMilliSecconds(dateValue)
+    //   }
+    // };
+    // console.log(body);
+    // const newsDbData =  await this.httpService.postJson('api/news', body);
+    //
+    // if(!newsDbData.data)
+    // {
+    //   this.newsObject = null;
+    //   return;
+    // }
+    //
+    // debugger;
+    // const newsDate = new Date(newsDbData.data.date.jsdate);
+    // newsDbData.data.date.date ={
+    //   year: newsDate.getFullYear(),
+    //   month:newsDate.getMonth()+1,
+    //   day:newsDate.getDate()
+    // };
+    //
+    //
+    // this.newsObject = newsDbData.data;
+    // console.log(this.newsObject);
   }
 
 

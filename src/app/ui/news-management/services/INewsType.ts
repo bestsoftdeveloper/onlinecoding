@@ -1,3 +1,3 @@
-/**
- * Created by Claudiu on 2/4/2018.
- */
+export interface INewsType {
+  newsType: number;
+}
