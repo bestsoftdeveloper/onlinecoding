@@ -1,0 +1,33 @@
+.newsItem
+{
+  //max-height: 100px;
+  margin: 2px;
+  border: 1px solid transparent;
+  //padding: 5px;
+
+
+  padding: 58px 10px 24px 30px;
+  //border-bottom: 2px solid #008ccb;
+
+}
+
+.btnOver
+{
+  color: green;
+  border-bottom: 1px solid blue;
+}
+
+.selected
+{
+  background-color: green;
+}
+
+.list-group-item {
+  padding: 10px;
+  margin: 3px;
+}
+
+.list-group-item:hover {
+  background-color: #f5f5f5;
+  cursor: pointer;
+}

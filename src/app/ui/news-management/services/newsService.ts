@@ -36,7 +36,7 @@ export class NewsService {
       }
     };
     console.log(body);
-    const newsDbData =  await this.httpService.postJson('api/news', body);
+    const newsDbData =  await this.httpService.postJson('api/', body);
 
     if(!newsDbData.data)
     {
@@ -57,5 +57,73 @@ export class NewsService {
     return newsObject;
 
   }
+
+  async getAllNews(option, dateValue)
+  {
+    debugger;
+    if(!dateValue)
+    {
+      dateValue = new Date;
+    }
+    const body :any = {};
+    body.proxy = {
+      module: 'news',
+      method: 'getAllNews',
+    };
+    body.data = {
+      filter:{
+        newsType:option.newsType,
+        date: dateValue,
+        mili:this.utilsService.date.dateToUtcMilliSecconds(dateValue)
+      }
+    };
+    // console.log(body);
+    const newsDbData =  await this.httpService.postJson('api/', body);
+
+    if(!newsDbData.data)
+    {
+      return null;
+    }
+
+    const newsRecords = newsDbData.data;
+    let newsObject = null;
+
+    for(var i=0;i<newsRecords.length;i++)
+    {
+      newsObject = newsRecords[i];
+
+      const newsDate = new Date(newsObject.date.jsdate);
+      newsObject.date.date ={
+        year: newsDate.getFullYear(),
+        month:newsDate.getMonth()+1,
+        day:newsDate.getDate()
+      };
+    }
+
+
+    return newsRecords;
+
+  }
+
+  async getPagedSolutionsForAExercise(option)
+  {
+    debugger;
+
+    const body :any = {};
+    body.proxy = {
+      module: 'news',
+      method: 'getPagedSolutionsForAExercise',
+    };
+    body.data = option;
+    // console.log(body);
+    const newsDbData =  await this.httpService.postJson('api/', body);
+
+
+
+    return newsDbData;
+
+  }
+
+
 
 }

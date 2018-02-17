@@ -6,7 +6,9 @@ module.exports = function(mongoose) {
             index: true
         },
       title: String,
+      titleClass:String,
       newsType: Number,
+      p:Number,
       date:{
         Year:Number,
         date:Date

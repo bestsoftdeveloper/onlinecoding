@@ -13,6 +13,7 @@ export class HeaderComponent {
 
   private user: any;
   canEditNews:boolean =false;
+  canRegisterCourse: boolean = true;
 
   constructor (private localStorageService: LocalStorageService,
                private pubSubService: PubSubService)
@@ -21,6 +22,11 @@ export class HeaderComponent {
     this.pubSubService.subscribe("login", (userData)=>{
       console.log("LOGIN EVENT rECEIVED " + userData);
       this.user  = userData;
+      if(this.user) {
+        const userPermission: number = this.user.permission || 0;
+        this.canEditNews = ((userPermission & Permissions.Roles.EditNews) === Permissions.Roles.EditNews);
+        this.canRegisterCourse = (!this.user.registered);
+      }
     });
 
     this.pubSubService.subscribe("logout", (userData)=>{
@@ -30,6 +36,7 @@ export class HeaderComponent {
     if(this.user) {
       const userPermission: number = this.user.permission || 0;
       this.canEditNews = ((userPermission & Permissions.Roles.EditNews) === Permissions.Roles.EditNews);
+      this.canRegisterCourse = (!this.user.registered);
     }
   }
 

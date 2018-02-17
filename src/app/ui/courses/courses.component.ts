@@ -36,6 +36,7 @@ export class CoursesComponent implements OnInit {
   }
 
   newsObject : any = {};
+  newsRecords: Array<any> = [];
 
   externalConfig: any = {
     lineNumbers: false
@@ -55,7 +56,7 @@ export class CoursesComponent implements OnInit {
 
   async getNews(dateValue)
   {
-    this.newsObject = await this.newsService.getNews(NewsType.newsType.course, dateValue);
+    this.newsRecords = await this.newsService.getAllNews( { newsType:NewsType.newsType.course }, dateValue);
   }
 
 

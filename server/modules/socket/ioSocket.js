@@ -7,6 +7,7 @@ module.exports = function() {
     // users:[],
     init:function () {
       //var users = [];
+      var userCount = 0;
 
       var connectedUsers = {
 
@@ -20,6 +21,7 @@ module.exports = function() {
       ioSocketServer.on('connection', function(socket){
         console.log("new connection");
         //users.push(socket);
+        userCount++;
 
         debugger;
 
@@ -36,10 +38,10 @@ module.exports = function() {
 
         });
 
-        socket.on('disconnect', function () {
+        socket.on('disconnect', function (data) {
           console.log("disconnect");
-          console.log(socket);
-
+          //console.log(socket);
+          userCount--;
           console.log(connectedUsers);
 
           delete connectedUsers[socket.id];
@@ -50,11 +52,14 @@ module.exports = function() {
           //   users.findIndex(
           //     (i) => i.id === data.id
           // ), 1 );
-
+          if(!data)
+          {
+            data={see:'this'};
+          }
           for(var connId in connectedUsers)
           {
             var sock = connectedUsers[connId];
-            sock.emit('userDisconnected', {user:data, usersCount : users.length });
+            sock.emit('userDisconnected', {user:data, usersCount : userCount });
           }
         });
 

@@ -1,26 +1,26 @@
 <div class="container">
 
 
-  <div class="btn-group" dropdown>
-    <button dropdownToggle type="button" class="btn btn-primary dropdown-toggle">
-      Button dropdown <span class="caret"></span>
-    </button>
-    <ul *dropdownMenu class="dropdown-menu" role="menu">
-      <li role="menuitem"><a class="dropdown-item" href="#">Action</a></li>
-      <li role="menuitem"><a class="dropdown-item" href="#">Another action</a></li>
-      <li role="menuitem"><a class="dropdown-item" href="#">Something else here</a></li>
-      <li class="divider dropdown-divider"></li>
-      <li role="menuitem"><a class="dropdown-item" href="#">Separated link</a>
-      </li>
-    </ul>
-  </div>
+  <!--<div class="btn-group" dropdown>-->
+    <!--<button dropdownToggle type="button" class="btn btn-primary dropdown-toggle">-->
+      <!--Button dropdown <span class="caret"></span>-->
+    <!--</button>-->
+    <!--<ul *dropdownMenu class="dropdown-menu" role="menu">-->
+      <!--<li role="menuitem"><a class="dropdown-item" href="#">Action</a></li>-->
+      <!--<li role="menuitem"><a class="dropdown-item" href="#">Another action</a></li>-->
+      <!--<li role="menuitem"><a class="dropdown-item" href="#">Something else here</a></li>-->
+      <!--<li class="divider dropdown-divider"></li>-->
+      <!--<li role="menuitem"><a class="dropdown-item" href="#">Separated link</a>-->
+      <!--</li>-->
+    <!--</ul>-->
+  <!--</div>-->
 
 
-  <select class="selectpicker">
-    <option>Mustard</option>
-    <option>Ketchup</option>
-    <option>Relish</option>
-  </select>
+  <!--<select class="selectpicker">-->
+    <!--<option>Mustard</option>-->
+    <!--<option>Ketchup</option>-->
+    <!--<option>Relish</option>-->
+  <!--</select>-->
 
   <!--(input)="newsTypeChange($event)"-->
   <div class="row">
@@ -31,10 +31,23 @@
   <!--<pre>{{newsObject | json}}</pre>-->
 
   <div class="row">
+      <!--<span>Title</span>-->
+      <!--<input type="text" [(ngModel)]="newsObject.title" class="form-control">-->
+
+      <app-wys-editor [(obj)]="newsObject" prop="title" ></app-wys-editor>
+
+    <!--<app-coding [obj]="newsObject" [code]="newsObject.title" prop="title"></app-coding>-->
+
     <label>
-      <span>Title</span>
-      <input type="text" [(ngModel)]="newsObject.title" class="form-control">
+      <span>Title Class</span>
+      <input type="text" [(ngModel)]="newsObject.titleClass" class="form-control">
     </label>
+
+    <label>
+      <span>Priority</span>
+      <input type="text" [(ngModel)]="newsObject.p" class="form-control">
+    </label>
+
   </div>
 
   <div class="row pad">
@@ -92,6 +105,10 @@
       </div>
 
     </div>
+    <label>
+      <span>Title Class</span>
+      <input type="text" [(ngModel)]="newsObject.items[i].class" class="form-control">
+    </label>
 
     <hr/>
   </div>

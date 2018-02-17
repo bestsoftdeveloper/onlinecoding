@@ -9,6 +9,8 @@ const testPipeline = require('pipeline-test-node');
 const jasmineNode = require('jasmine-node');
 var newman = require('newman');
 const mongoQuery = require('../utils/mongoQuery')();
+
+const moduleFactory = require('./moduleFactory');
 var Mocha = require('mocha'),
     path = require('path');
 
@@ -40,6 +42,37 @@ router
 //   ctx.body = responseWrapper.failure(ex);
 // }
 // })
+  .get("/", async function (ctx) {
+  console.log("ruta public");
+
+  const body = ctx.request.body;
+  // console.log(body);
+  const data = body.data;
+  const method = body.proxy.method;
+  const module = moduleFactory.getModule(body.proxy.module);
+
+
+  const resp = await module[method](data, body.tokenObj);
+  return resp;
+
+  // ctx.body = responseWrapper.success(resp);
+})
+
+.post("/", async function (ctx) {
+  console.log("ruta public");
+debugger;
+  const body = ctx.request.body;
+  // console.log(body);
+  const data = body.data;
+  const method = body.proxy.method;
+  const module = moduleFactory.getModule(body.proxy.module);
+
+
+  const resp = await module[method](data, body.tokenObj);
+  return resp;
+
+  // ctx.body = responseWrapper.success(resp);
+})
   .post("/ping-me", async function (ctx) {
     return  {message: "ping"};
   })

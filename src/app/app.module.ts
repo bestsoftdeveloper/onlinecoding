@@ -55,7 +55,7 @@ import { ServicesComponent } from './ui/services/services.component';
 import { SimpleTimer } from 'ng2-simple-timer';
 import { TimerComponent } from './timer/timer.component';
 import { MomentModule } from 'angular2-moment';
-import * as moment from 'moment';
+import * as moment from 'moment/moment';
 
 import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
 import "froala-editor/js/froala_editor.pkgd.min.js";
@@ -79,10 +79,22 @@ import { ConsoleComponetComponent } from './console-componet/console-componet.co
 import { PageViewerComponent } from './ui/page-viewer/page-viewer.component';
 import { MyDatePickerModule } from 'mydatepicker';
 import { DailyNewsComponent } from './ui/news-management/daily-news/daily-news.component';
-import { BsDropdownModule } from 'ngx-bootstrap';
+import {BsDropdownModule, TabsModule} from 'ngx-bootstrap';
 import { NewsComponent } from './ui/news-management/news/news.component';
 import {NewsService} from "./ui/news-management/services/newsService";
 import { DailyChallengeComponent } from './ui/daily-challenge/daily-challenge.component';
+import { CollapsibleNewsComponent } from './ui/news-management/collapsible-news/collapsible-news.component';
+import { CoddingMirrorComponent } from './coding/codding-mirror/codding-mirror.component';
+import { PagerWrapperComponent } from './components/pager-wrapper/pager-wrapper.component';
+
+import { PaginationModule } from 'ngx-bootstrap';
+import { NotificationWrapperComponent } from './components/notification-wrapper/notification-wrapper.component';
+
+import { SimpleNotificationsModule } from 'angular2-notifications';
+import { CreateUserComponent } from './ui/user/create-user/create-user.component';
+import { ForgotPasswordComponent } from './ui/user/forgot-password/forgot-password.component';
+import { SetNewPasswordComponent } from './ui/user/set-new-password/set-new-password.component';
+import { ChangePasswordComponent } from './ui/user/change-password/change-password.component';
 // https://www.npmjs.com/package/@nomadreservations%2Fngx-codemirror#2-project-structure
 window["$"] = $;
 window["jQuery"] = $;
@@ -142,6 +154,14 @@ let providers = {
     DailyNewsComponent,
     NewsComponent,
     DailyChallengeComponent,
+    CollapsibleNewsComponent,
+    CoddingMirrorComponent,
+    PagerWrapperComponent,
+    NotificationWrapperComponent,
+    CreateUserComponent,
+    ForgotPasswordComponent,
+    SetNewPasswordComponent,
+    ChangePasswordComponent,
     //
   ],
   imports: [
@@ -149,8 +169,9 @@ let providers = {
 
     Angular2SocialLoginModule,
     AppRoutingModule,
-    BrowserAnimationsModule,
     BrowserModule,
+    BrowserAnimationsModule,
+
     CodemirrorModule,
     DropdownModule,
     FacebookModule.forRoot(),
@@ -166,6 +187,9 @@ let providers = {
     MomentModule,
     NgbModule.forRoot(),
     BsDropdownModule.forRoot(),
+    PaginationModule.forRoot(),
+    SimpleNotificationsModule.forRoot(),
+    TabsModule.forRoot(),
 
     SwiperModule
 

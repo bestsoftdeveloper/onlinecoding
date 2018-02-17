@@ -1,7 +1,87 @@
-<p>
-  daily-challenge works!
-</p>
 <div class="container">
-  daily news
-  <app-news [newsObject]="newsObject"></app-news>
+  <!--<pre>{{newsObject | json}}</pre>-->
+
+  <button *ngIf="canEditNews" class="btn btn-link" (click)="edit()">edit</button>
+
+  <div class="row" *ngIf="newsObject.newsType == 2">
+
+    <!--<div class=" col-md-6">-->
+    <!--<div class="row center">-->
+    <!--<label>Enunt exercitiu</label>-->
+    <!--<hr>-->
+    <!--</div>-->
+
+    <!--<div class="row">-->
+
+    <!--</div>-->
+
+    <!--</div>-->
+
+
+    <div>
+      <tabset>
+        <tab heading="Enunt" id="tab1">
+          <span class="" [innerHTML]="newsObject.title | keepHtml"></span>
+        </tab>
+        <tab heading="Rezolvari">
+          <div class=" col-md-6">
+            <div *ngIf="solvedSolutions" class="row center">
+              <label>Rezolvari</label>
+
+              <!--<pre>{{solvedSolutions | json}}</pre>-->
+
+              <div class="list-group">
+                <div class="row1 "                     *ngFor="let sol of solvedSolutions; let i = index">
+                  <!--{{sol}}-->
+                  <div class="list-group-item list-group-item-action" (click)="showSolvedSolution(sol)"
+                       [class.selected]="currentSolution === sol"
+                  >
+                    <span>{{sol.items[0].userId.email}}</span>
+                    {{sol.date | amTimeAgo}}
+                    <span class="badge badge-default badge-pill">14</span>
+                  </div>
+                </div>
+              </div>
+
+              <app-pager-wrapper [pager]="pager" (onPageChanged)="pageChanged($event)"></app-pager-wrapper>
+              <hr>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div *ngIf="currentSolution">
+              <!--<pre>{{currentSolution | json}}</pre>-->
+              <!--<app-codding-mirror [obj]=currentSolution [code]="currentSolution.items[0].resp.code" [problemId]=""-->
+                                  <!--[testCases]=newsObject.testCases></app-codding-mirror>-->
+
+              <app-codemirror-editor [code]="currentSolution.items[0].resp.code"
+                                     ></app-codemirror-editor>
+            </div>
+          </div>
+
+        </tab>
+        <!--<tab heading="Static Title 2">Static content 2</tab>-->
+        <!--<tab (select)="alertMe()">-->
+        <!--<ng-template tabHeading>-->
+        <!--<span class="badge badge-secondary">Click here!</span>-->
+        <!--</ng-template>-->
+        <!--I've got an HTML heading, and a select callback. Pretty cool!-->
+        <!--</tab>-->
+      </tabset>
+    </div>
+
+    <div class="col-md-12">
+      <hr>
+      <!--<span> Codul de poate scrie -->
+    </div>
+
+    <div class="col-md-12">
+
+      <!--<pre>{{problem | json}}</pre>-->
+      <app-codding-mirror [obj]=newsObject [code]="newsObject.items[0].content" [problemId]="newsObject._id"
+                          [testCases]=newsObject.testCases></app-codding-mirror>
+    </div>
+    <!--<app-codemirror-editor [code]="newsObject.title"-->
+    <!--[externalConfig]=externalConfig></app-codemirror-editor>-->
+
+  </div>
 </div>

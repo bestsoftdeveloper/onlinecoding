@@ -8,6 +8,11 @@ var questionSchemas = require('./../schemas/questionSchema.js')(mongoose);
 // var questionResponseSchemas = require('./../schemas/questionResponse.js')(mongoose);
 var questionCategorySchema = require('./../schemas/questionCategory.js')(mongoose);
 var newsSchema = require('./../schemas/newsSchema.js')(mongoose);
+var exercisesSchema = require('./../schemas/exerciseSchema')(mongoose);
+
+var registerSchema = require('./../schemas/registerSchema')(mongoose);
+
+
 
 
 
@@ -76,6 +81,8 @@ module.exports = function(app) {
       // questionResponseSchema:questionResponseSchemas,
       questionCategorySchema:questionCategorySchema,
       newsSchema:newsSchema,
+      exercisesSchema:exercisesSchema,
+      registerSchema:registerSchema,
       executeQuery: function(query) {
         // return new Promise(function (resolve, reject) {
         //   query.exec(function(err, recordset) {

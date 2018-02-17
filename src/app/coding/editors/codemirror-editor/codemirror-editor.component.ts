@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild, AfterViewInit, Input} from '@angular/core';
+import {Component, OnInit, ViewChild, AfterViewInit, Input, Output, EventEmitter} from '@angular/core';
 
 import "codemirror/lib/codemirror.js";
 import "codemirror/addon/hint/show-hint.js";
@@ -69,11 +69,23 @@ export class CodemirrorEditorComponent implements OnInit {
   @Input() code: string;
   @Input() externalConfig: any;
 
+  @Output() onCodeChanged: EventEmitter<any> = new EventEmitter<any>();
+
   constructor(private _codeMirror: CodemirrorService) {
     // CodeMirror.ter
   }
 
-
+  onChange(event) {
+    if (typeof(event) !== 'string')
+    {
+      return;
+    }
+    // debugger;
+    // console.log('change ' +event);
+    if(this.onCodeChanged){
+      this.onCodeChanged.emit(event);
+    }
+  }
 
 
   passAndHint(cm) {

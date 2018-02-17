@@ -44,7 +44,8 @@
         "../node_modules/angular2-social-login/dist/bundles/angular2-social-login.min.js",
 		  "../node_modules/swiper/dist/js/swiper.min.js",
         "../node_modules/moment/min/moment.min.js",
-        "../node_modules/froala-editor/js/froala_editor.pkgd.min.js"
+        "../node_modules/froala-editor/js/froala_editor.pkgd.min.js",
+        "../node_modules/bootstrap/dist/js/bootstrap.js"
       ],
       "environmentSource": "environments/environment.ts",
       "environments": {

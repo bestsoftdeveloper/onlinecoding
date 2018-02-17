@@ -16,6 +16,7 @@ import {CoursesComponent} from "../ui/courses/courses.component";
 import {NewsManagementComponent} from "../ui/news-management/news-management.component";
 import {DailyNewsComponent} from "../ui/news-management/daily-news/daily-news.component";
 import {DailyChallengeComponent} from "../ui/daily-challenge/daily-challenge.component";
+import {CreateUserComponent} from "../ui/user/create-user/create-user.component";
 
 
 const appRoutes: Routes = [
@@ -42,17 +43,24 @@ const appRoutes: Routes = [
     // ]
   },
   {
+    path:'createUser',
+    component:CreateUserComponent
+  },
+
+  {
     path:'resetpassword',
     component:ResetPasswordComponent,
     canActivate:[AuthGuard]
   },
   {
-    path:'evaluation',
+    path:'survey',
     component:EvaluationComponent,
+    canActivate:[AuthGuard],
     children:[
       {
         path: 'add',
         component: QuizAddComponent
+
       }
     ]
   },
@@ -71,11 +79,13 @@ const appRoutes: Routes = [
   },
   {
     path:'dailyChallenge',
-    component:DailyChallengeComponent
+    component:DailyChallengeComponent,
+    canActivate:[AuthGuard]
   },
   {
     path:'registercourse',
-    component:CourseRegistrationComponent
+    component:CourseRegistrationComponent,
+    canActivate:[AuthGuard]
   },
   {
     path:'courses',

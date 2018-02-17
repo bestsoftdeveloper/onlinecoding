@@ -38,10 +38,12 @@ export class NewsManagementComponent implements OnInit {
   newsObject: any = {
     newsType:1,//news
     title:"",
+    titleClass:"",
     items:[],
     timer:  TimerSettings.timer,
     date:this.getDateObject(new Date()),
-    selectedNewsItem: null
+    selectedNewsItem: null,
+    p:1
   };
 
   ngOnInit() {
@@ -85,6 +87,7 @@ export class NewsManagementComponent implements OnInit {
     const newNewsItem: any = {...this.newsItem};
     newNewsItem.p = (this.newsObject.items.length) * 2 +1;
     newNewsItem.guid = this.utilsService.uuid();
+    newNewsItem.class = "";
 
 
     this.newsObject.items.push(newNewsItem);
@@ -105,6 +108,7 @@ export class NewsManagementComponent implements OnInit {
   {
     const now = new Date();
     this.newsObject.newsType = parseInt(this.newsObject.newsType);
+    this.newsObject.p = parseInt(this.newsObject.p);
 
     const dbNews: any  = { ...this.newsObject };
     // .dbNews.date = this.utilsService.date.dateToUtcMilliSecconds(new Date())
@@ -123,6 +127,8 @@ export class NewsManagementComponent implements OnInit {
 
     console.log(body);
     await this.httpService.postJson('api/news', body);
+
+    this.pubSub.setKeyValue('news',null);
   }
 
 

@@ -1,0 +1,37 @@
+
+<div *ngIf="newsObject && newsObject.items"
+     class="list-group-item">
+  <!--(mouseenter)="onBtnMouseOver($event)"-->
+  <!--(mouseleave)="onBtnMouseOut($event)"-->
+  <!--[ngClass]= "{newsItem:true,btnOver:btnover}"-->
+
+
+  <!--[ngClass]="newsObject.btnoverclass + ' ' + newsObject.selectedClass"-->
+     <!--(mouseenter)="onBtnMouseOver($event)"-->
+     <!--(mouseleave)="onBtnMouseOut($event)"-->
+     <!--[ngClass]="newsObject.btnoverclass + ' ' + newsObject.selectedClass"-->
+
+  <!--{{newsObject.p}}-->
+  <div class=" {{newsObject.titleClass}}">
+    <div class="newsObject.titleClass" [innerHTML]="newsObject.title | keepHtml"></div>
+    <button *ngIf="canEditNews" class="btn btn-link" (click)="edit()">edit</button>
+    <!--{{newsObject.btnoverclass}}-->
+  </div>
+
+
+  <div class="" *ngFor="let it of newsObject.items;let i = index">
+    <div class="" *ngIf="newsObject.items[i].ItemTypeValue == 1">
+      <span class="" [innerHTML]="newsObject.items[i].content | keepHtml"></span>
+    </div>
+
+    <div class="" *ngIf="newsObject.items[i].ItemTypeValue == 2">
+      <div>
+        <app-codemirror-editor [code]="newsObject.items[i].content"
+                               [externalConfig]=externalConfig></app-codemirror-editor>
+      </div>
+    </div>
+
+
+  </div>
+
+</div>

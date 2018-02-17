@@ -5,6 +5,7 @@
 var q = require('q');
 var logger = require("./../logger/logger.js")();
 var co = require('co');
+const ObjectID = require("mongodb").ObjectID;
 var mongo = require('mongodb');
 const jwt = require('jsonwebtoken');
 const uuid = require('uuid');
@@ -21,11 +22,28 @@ const  config =  require('../../config/development');
 
 module.exports = function() {
     var models = {
+
+      async createToken(obj) {
+    // obj.userId
+
+    var user = await mongoQuery.collection("users").findOne({
+      _id: new ObjectID(obj.userId),
+    });
+    if(!user)
+    {
+      throw {message:"user_not_found"};
+    }
+
+    var userResponse = models.createUserResponse(user);
+    return userResponse;
+
+    //return responseWrapper.sendResponse(true, userResponse, "", "");
+  },
          async login(obj) {
-            // console.log(obj);
+             console.log(obj);
             if(!obj || !obj.login || !obj.password)
             {
-                throw {message:"invalid_password"};
+                throw {message:"invalid_password1"};
                 //return responseWrapper.sendResponse(false, null, "invalid_password", "");
             }
             //logger.log(mongoQuery);
@@ -146,7 +164,7 @@ module.exports = function() {
   },
          async createUser(obj) {
             debugger;
-            // console.log(JSON.stringify(obj));
+             console.log(obj);
             if(!obj || !obj.email)
             {
               throw {message:"no_email"};
@@ -203,6 +221,14 @@ module.exports = function() {
   async findOne(obj){
     const query =  mongoQuery.userSchemas.Users.findOne(obj.filter);
     const resp = await mongoQuery.executeQuery(query);
+    return resp;
+    // return query;
+  },
+
+  async registerToCourse(obj){
+    const query =  mongoQuery.userSchemas.Users.update({_id:obj.userId},{$set:{registered:1}});
+    await mongoQuery.executeQuery(query);
+    const resp = models.createToken(obj);
     return resp;
     // return query;
   },
@@ -678,14 +704,14 @@ module.exports = function() {
             var tokenObj = {
                 email: obj.email,
                 id: obj._id,
-              permission:obj.permission
+                permission:obj.permission
             };
             var token = jwt.sign(tokenObj, config.tokenPassword, {
                 expiresIn: '245h'
             });
             var result = {
                 id: obj._id,
-                name: obj.firstName ? obj.firstName : obj.email,
+                name: obj.firstName ? obj.firstName : obj.email.split("@")[0],
                 email: obj.email,
                 firstName: obj.firstName,
                 lastName: obj.lastName,
@@ -697,6 +723,7 @@ module.exports = function() {
                 genre: obj.genre,
                 birth: obj.birth,
                 phone: obj.phone,
+                registered:obj.registered,
                 token: token,
                 permission:obj.permission,
                 amount: obj.amount

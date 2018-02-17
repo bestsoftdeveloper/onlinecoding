@@ -1,19 +1,18 @@
-
 <div class="header-wrapper1">
   <!-- most top information -->
   <header id="top">
     <div class="container">
       <!--<div class="form-element hidden-xs pull-left">-->
-        <!--<form action="#" method="get" class="form-inline">-->
-          <!--<input type="text" name="search" class="form-control" placeholder="Search">-->
-          <!--<button type="submit" class="search-btn">-->
-            <!--<i class="icon-magnifier"></i>-->
-          <!--</button>-->
-        <!--</form>-->
+      <!--<form action="#" method="get" class="form-inline">-->
+      <!--<input type="text" name="search" class="form-control" placeholder="Search">-->
+      <!--<button type="submit" class="search-btn">-->
+      <!--<i class="icon-magnifier"></i>-->
+      <!--</button>-->
+      <!--</form>-->
       <!--</div>-->
       <!-- End of .form-element -->
       <div class="contact-info clearfix">
-        <div *ngIf="user">
+        <div *ngIf="user" class="pull-left list-inline ">
           <label> {{user.name}} </label>
           <img gravatar [email]="user.email" [size]="16">
         </div>
@@ -39,13 +38,14 @@
       <!--Brand and toggle get grouped for better mobile display-->
       <div class="navbar-header">
         <!--<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-1"-->
-                <!--aria-expanded="false">-->
-          <!--<span class="sr-only">Toggle navigation</span>-->
-          <!--<span class="icon-bar"></span>-->
-          <!--<span class="icon-bar"></span>-->
-          <!--<span class="icon-bar"></span>-->
+        <!--aria-expanded="false">-->
+        <!--<span class="sr-only">Toggle navigation</span>-->
+        <!--<span class="icon-bar"></span>-->
+        <!--<span class="icon-bar"></span>-->
+        <!--<span class="icon-bar"></span>-->
         <!--</button>-->
-        <button class="navbar-toggler navbar-toggle collapsed" type="button" (click)="toggleCollapsed()" data-toggle="collapse" data-target="#navbar-collapse-1"
+        <button class="navbar-toggler navbar-toggle collapsed" type="button" (click)="toggleCollapsed()"
+                data-toggle="collapse" data-target="#navbar-collapse-1"
                 aria-controls="navbar-collapse-1" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon" ngToggler></span>
           <i class="fa fa-bars d-icon d-icon-bars" aria-hidden="true"></i>
@@ -55,95 +55,101 @@
         </a>
       </div>
       <!--Collect the nav links, and other content for toggling-->
-      <div class="collapse navbar-collapse" id="navbar-collapse-1" [ngbCollapse]="isCollapsed">
+      <ul class="collapse navbar-collapse" id="navbar-collapse-1" [ngbCollapse]="isCollapsed">
         <ul class="nav navbar-nav navbar-right">
           <li class="navli">
-            <a  routerLink="/home" routerLinkActive="active"><span><i class="ficon fa fa-home" aria-hidden="true"></i>Home</span></a>
+            <a routerLink="/home" routerLinkActive="active"><span><i class="ficon fa fa-home" aria-hidden="true"></i>Home</span></a>
           </li>
 
 
           <li class="navli">
-            <a routerLink="/js" routerLinkActive="active">js 111</a>
-          </li>
-
-          <li class="navli" *ngIf="canEditNews">
-            <a routerLink="/addquestions" routerLinkActive="active"><i class="ficon fa fa-question" aria-hidden="true"></i> Adaugare intrebare</a>
+            <a routerLink="/dailyNews" routerLinkActive="active"><i class="ficon fa fa-newspaper-o"
+                                                                    aria-hidden="true"></i>Stirea zilei</a>
           </li>
           <li class="navli">
-          <a routerLink="/dailyNews" routerLinkActive="active"><i class="ficon fa fa-newspaper-o" aria-hidden="true"></i>Stirea zilei</a>
-        </li>
-
-          <li class="navli">
-            <a routerLink="/dailyChallenge" routerLinkActive="active"><i class="ficon fa fa-trophy" aria-hidden="true"></i>Exercitiu</a>
+            <a routerLink="/dailyChallenge" routerLinkActive="active"><i class="ficon fa fa-trophy"
+                                                                         aria-hidden="true"></i>Exercitiu</a>
           </li>
-
           <li class="navli">
-            <a routerLink="/evaluation/add" routerLinkActive="active"><i class="ficon fa fa-pencil-square-o" aria-hidden="true"></i>Sondaj</a>
+            <a routerLink="/survey" routerLinkActive="active"><i class="ficon fa fa-pencil-square-o"
+                                                                 aria-hidden="true"></i>Sondaj</a>
           </li>
-
           <li class="navli">
             <a routerLink="/courses" routerLinkActive="active"><i class="ficon fa fa-book" aria-hidden="true"></i>Cursuri</a>
           </li>
-
-          <li class="navli">
-            <a routerLink="/registercourse" routerLinkActive="active"><i class="ficon fa fa-handshake-o" aria-hidden="true"></i>Inscriere</a>
+          <li class="navli" *ngIf="canRegisterCourse">
+            <a routerLink="/registercourse" routerLinkActive="active"><i class="ficon fa fa-handshake-o"
+                                                                         aria-hidden="true"></i>Inscriere</a>
           </li>
           <li class="navli">
             <a routerLink="/about" routerLinkActive="active"><i class="ficon fa fa-file-text" aria-hidden="true"></i>Despre</a>
           </li>
-
           <li class="navli" *ngIf="canEditNews">
-            <a routerLink="/addNews" routerLinkActive="active"><i class="ficon fa fa-file-text" aria-hidden="true"></i>add news</a>
+            <a routerLink="/addNews" routerLinkActive="active"><i class="ficon fa fa-file-text" aria-hidden="true"></i>add
+              news</a>
           </li>
 
           <!--<li>-->
-            <!--<a [routerLink]="[{ outlets: { popup: ['compose'] } }]">Contact</a>-->
+          <!--<a [routerLink]="[{ outlets: { popup: ['compose'] } }]">Contact</a>-->
           <!--</li>-->
 
           <!--<li>-->
-            <!--<div class="dropdown" dropdown>-->
-              <!--<a dropdown-open>Adaugare</a>-->
-              <!--<ul class="dropdown-menu">-->
-                <!--<li><a routerLink="evaluation/add" routerLinkActive="active">Adaugare intrebare</a></li>-->
-              <!--</ul>-->
-            <!--</div>-->
+          <!--<div class="dropdown" dropdown>-->
+          <!--<a dropdown-open>Adaugare</a>-->
+          <!--<ul class="dropdown-menu">-->
+          <!--<li><a routerLink="evaluation/add" routerLinkActive="active">Adaugare intrebare</a></li>-->
+          <!--</ul>-->
+          <!--</div>-->
           <!--</li>-->
-
-
           <li class="menu-btn navli" data-toggle="modal">
             <!--<span *ngIf="user">{{user.name}}</span>-->
-            <a *ngIf="!user" routerLink="/login" routerLinkActive="active"><i class="ficon fa fa-sign-in" aria-hidden="true"></i>Login</a>
+            <a *ngIf="!user" routerLink="/login" routerLinkActive="active"><i class="ficon fa fa-sign-in"
+                                                                              aria-hidden="true"></i>Login</a>
           </li>
+          <li class="menu-btn1 navli" *ngIf="user">
+            <!--<div class="dropdown" dropdown>-->
+            <!--<a dropdown-open><i class="ficon fa fa-cog" aria-hidden="true"></i> Setari</a>-->
+            <!--<ul class="dropdown-menu">-->
+            <!---->
+            <!--<li class="navli"><a href="#" (click)="logout()"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a></li>-->
+            <!--<li  class="navli"><a href="#" (click)="logout()"><i class="fa fa-sign-out" aria-hidden="true"></i> Datele mele</a></li>-->
+            <!--</ul>-->
+            <!--</div>-->
+            <a ngbDropdown class="d-inline-block1 dropdown1">
+              <a class="btn1 btn-outline-primary1 cp" id="dropdownBasic1" ngbDropdownToggle><i class="ficon fa fa-cog"
+                                                                                          aria-hidden="true"></i>Setari</a>
+              <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                <ul class="nob">
+                  <li class="navli"><a href="#" (click)="logout()"><i class="fa fa-sign-out" aria-hidden="true"></i>
+                    Logout</a></li>
+                  <li class="navli"><a routerLink="/js" routerLinkActive="active">js 111</a></li>
 
+                  <li class="navli" *ngIf="canEditNews">
+                    <a routerLink="/addquestions" routerLinkActive="active"><i class="ficon fa fa-question"
+                                                                               aria-hidden="true"></i> Adaugare intrebare</a>
+                  </li>
+                </ul>
+              </div>
 
-          <li class="navli" *ngIf="user">
-            <div class="dropdown" dropdown>
-              <a dropdown-open><i class="ficon fa fa-cog" aria-hidden="true"></i> Setari</a>
-              <ul class="dropdown-menu">
-                <!--<li><a href="#">Badman</a></li>-->
-                <!--<li><a href="#">Sadman</a></li>-->
-                <li class="navli"><a href="#" (click)="logout()"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a></li>
-                <li  class="navli"><a href="#" (click)="logout()"><i class="fa fa-sign-out" aria-hidden="true"></i> Datele mele</a></li>
-              </ul>
-            </div>
+            </a>
           </li>
 
         </ul>
-
-      </div>
-
-      <!--<nav>-->
-      <!--<a routerLink="/superheroes" routerLinkActive="active">Heroes</a>-->
-      <!--<a routerLink="/admin" routerLinkActive="active">Admin</a>-->
-      <!--<a routerLink="/login" routerLinkActive="active">Login</a>-->
-      <!--<a routerLink="/home" routerLinkActive="active">Home</a>-->
-
-      <!--<a routerLink="/js" routerLinkActive="active">js</a>-->
-      <!--<a [routerLink]="[{ outlets: { popup: ['compose'] } }]">Contact</a>-->
-      <!--<a routerLink="/login" routerLinkActive="active">login</a>-->
+        </ul>
 
 
-      <!--</nav>-->
+        <!--<nav>-->
+        <!--<a routerLink="/superheroes" routerLinkActive="active">Heroes</a>-->
+        <!--<a routerLink="/admin" routerLinkActive="active">Admin</a>-->
+        <!--<a routerLink="/login" routerLinkActive="active">Login</a>-->
+        <!--<a routerLink="/home" routerLinkActive="active">Home</a>-->
+
+        <!--<a routerLink="/js" routerLinkActive="active">js</a>-->
+        <!--<a [routerLink]="[{ outlets: { popup: ['compose'] } }]">Contact</a>-->
+        <!--<a routerLink="/login" routerLinkActive="active">login</a>-->
+
+
+        <!--</nav>-->
 
 
     </nav>
@@ -152,37 +158,35 @@
 </div>
 
 
-
-
 <!--<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">-->
-  <!--<a class="navbar-brand" href="#">{{title}}</a>-->
-  <!--<button class="navbar-toggler" type="button" (click)="toggleCollapsed()" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">-->
-    <!--<span class="navbar-toggler-icon" ngToggler></span>-->
-  <!--</button>-->
-  <!--<div class="collapse navbar-collapse" id="navbarsExampleDefault"  [ngbCollapse]="isCollapsed" >-->
-    <!--<ul class="navbar-nav mr-auto">-->
-      <!--<li class="nav-item active">-->
-        <!--<a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>-->
-        <!--<a routerLink="/home" routerLinkActive="active">Home</a>-->
-      <!--</li>-->
-      <!--<li class="nav-item">-->
-        <!--<a class="nav-link" href="#">Link</a>-->
-      <!--</li>-->
-      <!--<li class="nav-item">-->
-        <!--<a class="nav-link disabled" href="#">Disabled</a>-->
-      <!--</li>-->
-      <!--<li class="nav-item dropdown" ngbDropdown>-->
-        <!--<a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" ngbDropdownToggle>Dropdown</a>-->
-        <!--<div class="dropdown-menu" aria-labelledby="dropdown01" ngbDropdownMenu>-->
-          <!--<a class="dropdown-item" href="#">Action</a>-->
-          <!--<a class="dropdown-item" href="#">Another action</a>-->
-          <!--<a class="dropdown-item" href="#">Something else here</a>-->
-        <!--</div>-->
-      <!--</li>-->
-    <!--</ul>-->
-    <!--<form class="form-inline my-2 my-lg-0">-->
-      <!--<input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">-->
-      <!--<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>-->
-    <!--</form>-->
-  <!--</div>-->
+<!--<a class="navbar-brand" href="#">{{title}}</a>-->
+<!--<button class="navbar-toggler" type="button" (click)="toggleCollapsed()" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">-->
+<!--<span class="navbar-toggler-icon" ngToggler></span>-->
+<!--</button>-->
+<!--<div class="collapse navbar-collapse" id="navbarsExampleDefault"  [ngbCollapse]="isCollapsed" >-->
+<!--<ul class="navbar-nav mr-auto">-->
+<!--<li class="nav-item active">-->
+<!--<a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>-->
+<!--<a routerLink="/home" routerLinkActive="active">Home</a>-->
+<!--</li>-->
+<!--<li class="nav-item">-->
+<!--<a class="nav-link" href="#">Link</a>-->
+<!--</li>-->
+<!--<li class="nav-item">-->
+<!--<a class="nav-link disabled" href="#">Disabled</a>-->
+<!--</li>-->
+<!--<li class="nav-item dropdown" ngbDropdown>-->
+<!--<a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" ngbDropdownToggle>Dropdown</a>-->
+<!--<div class="dropdown-menu" aria-labelledby="dropdown01" ngbDropdownMenu>-->
+<!--<a class="dropdown-item" href="#">Action</a>-->
+<!--<a class="dropdown-item" href="#">Another action</a>-->
+<!--<a class="dropdown-item" href="#">Something else here</a>-->
+<!--</div>-->
+<!--</li>-->
+<!--</ul>-->
+<!--<form class="form-inline my-2 my-lg-0">-->
+<!--<input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">-->
+<!--<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>-->
+<!--</form>-->
+<!--</div>-->
 <!--</nav>-->

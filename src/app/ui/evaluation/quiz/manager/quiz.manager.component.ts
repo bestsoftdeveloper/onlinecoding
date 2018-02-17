@@ -51,7 +51,6 @@ export class QuizManagerComponent implements OnInit {
   onBtnMouseOut(q) {
     q.btnover = false;
     q.btnoverclass = "";
-
   }
 
 

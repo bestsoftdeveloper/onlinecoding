@@ -22,12 +22,14 @@ class NewsService {
     '$set': {
       // categoryId:data.categoryId,
       title: data.title,
+      titleClass:data.titleClass,
       newsType: data.newsType,
       date: data.date,
       items: data.items,
       timer: data.timer,
       userId: data.userId,
-      parent: data.parent
+      parent: data.parent,
+      p:data.p
     }
   }
 
@@ -76,6 +78,139 @@ class NewsService {
 
   console.log(resp);
   return resp;
+}
+
+  async getAllNews(data, tokenObj) {
+  console.log(data);
+
+  const filterCriteria = {};
+  if(data.filter)
+  {
+    filterCriteria.newsType = {$eq:data.filter.newsType};
+    if(data.filter.date)
+    {
+      // const filterDate = new Date(data.filter.date);
+      // const isoDate = new Date(filterDate.toISOString());
+
+      //filterCriteria["date.jsdate"]= { $lte: data.filter.date};
+      // filterCriteria["date.mili"]= { $lte: data.filter.mili};
+    }
+
+  }
+  // data.userId = tokenObj.id;
+  const query = mongoQuery.newsSchema.News
+  //const query = mongoQuery.collection('news')
+    .find(filterCriteria).sort({ p:1 });//
+  // .populate('title');
+
+  const resp = await query; //mongoQuery.executeQuery(query);
+
+  console.log(resp);
+  return resp;
+}
+
+
+  async solveExercise(data, tokenObj) {
+  debugger;
+  console.log(data);
+  data.userId = tokenObj.id;
+  data.date = new Date();
+
+  const updateCriteria = {
+    'items.resp': data.resp,
+    date:new Date()
+  };
+
+  const resp = await mongoQuery.collection('exercises').update(
+    {
+      problemId: data._id,
+      'items.userId': tokenObj.id
+    },
+    {
+      $set:  updateCriteria
+    },
+    {
+      upsert:true
+    });
+
+  console.log(resp);
+  return resp;
+}
+
+  async getSolvedUsersCount(data, tokenObj) {
+  debugger;
+  console.log(tokenObj);
+  data.userId = tokenObj.id;
+  data.date = new Date();
+
+  const updateCriteria = {
+    'items.resp': data.resp
+  };
+
+  const resp = await mongoQuery.collection('exercises').count(
+    {
+      problemId: data._id
+    });
+
+  console.log(resp);
+  return resp;
+}
+
+  async getSolvedSolutionForAUser(data, tokenObj) {
+  debugger;
+  console.log(tokenObj);
+  data.userId = tokenObj.id;
+  data.date = new Date();
+
+  const updateCriteria = {
+    'items.resp': data.resp
+  };
+
+  const resp = await mongoQuery.collection('exercises').find(
+    {
+      problemId: data._id,
+      'items.userId': data.userId
+    });
+
+  console.log(resp);
+  return resp;
+}
+
+  async getPagedSolutionsForAExercise(obj, tokenObj) {
+  debugger;
+  console.log(obj);
+  const filterCriteria = {
+    problemId: obj.filter.problemId,
+  };
+
+
+  const fields = {problemId:1,'userId.email':1};
+  var filter = mongoQuery.exercisesSchema.Exercises
+    .find(filterCriteria)
+    .populate('items.userId', 'email')
+    // .select(fields);
+
+
+  if (obj.pager) {
+    obj.pager.itemsOnPage = parseInt(obj.pager.itemsOnPage);
+    obj.pager.pageNo--;
+    filter = filter.limit(obj.pager.itemsOnPage)
+      .skip(obj.pager.itemsOnPage * obj.pager.pageNo)
+    // query = query.sort({
+    //   dateAdded: -1
+    // });
+  }
+  // filter = filter.toArray();
+  // debugger;
+  const solvedQuestions = await mongoQuery.executeQuery(filter);
+
+  console.log(JSON.stringify(solvedQuestions));
+  const count = await mongoQuery.collection('exercises').count(filterCriteria);
+  return {
+    items: solvedQuestions,
+    count: count,
+    pageNo: obj.pager ? obj.pager.pageNo + 1 : 0
+  };
 }
 
 }

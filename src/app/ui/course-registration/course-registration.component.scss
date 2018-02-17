@@ -1,0 +1,61 @@
+.list-group-item:hover {
+  background-color: #f5f5f5;
+  cursor: pointer;
+}
+.check{
+  color: green;
+  font-size: 24px;
+  //background-color: transparent;
+}
+.center{
+  text-align: center;
+}
+.inregistrarebtn
+{
+  text-align: center;
+}
+
+.info{
+  font-size: 28px;
+}
+
+.Page-Content {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding-left: 48px;
+  padding-right: 48px;
+}
+.QuestionHeader-Title {
+  font-size: 48px;
+  font-weight: 900;
+  line-height: 48px;
+  text-align: center;
+  color: #0d0d0d;
+}
+.CardList-Container {
+  background-color: #fafbfb;
+}
+.Contributors-StatBar {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+  justify-content: space-around;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  text-align: center;
+}
+
+.CardList-Container .Sidebar.right~.Sidebar-Target {
+  padding-right: 27px;
+  box-shadow: none;
+}
+.Sidebar.right~.Sidebar-Target {
+  margin-right: 300px;
+  padding-right: 39px;
+}
+.Sidebar-Target {
+  padding-top: 54px;
+  padding-bottom: 48px;
+}

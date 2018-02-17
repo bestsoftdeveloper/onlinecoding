@@ -1,0 +1,113 @@
+
+<div class="container1">
+
+  <div class="row">
+    <div class="col-md-4">
+
+    </div>
+    <div class="col-md-4">
+      <!---->
+
+
+
+      <form class="form-signin mg-btm" #createUserForm="ngForm" (ngSubmit)="submitForm()">
+
+        <div class="text-center">
+          <div class="icon-object border-slate-300 text-slate-300"><i class="icon-reading"></i></div>
+          <h5 class="content-group">Login to your account <small class="display-block">Your credentials</small></h5>
+        </div>
+
+        <div class="social-box">
+          <div class="row mg-btm">
+            <div class="col-md-12">
+          <span class="btn btn-primary btn-block" (click)="loginWithFB()">
+            <i class="icon-facebook"></i>    Login with Facebook</span>
+            </div>
+          </div>
+          <!--<div class="row">-->
+          <!--<div class="col-md-12">-->
+          <!--<a href="#" class="btn btn-info btn-block" >-->
+          <!--<i class="icon-twitter"></i>    Login with Twitter-->
+          <!--</a>-->
+          <!--</div>-->
+          <!--</div>-->
+        </div>
+        <div class="main">
+          <div class="form-group has-feedback has-feedback-left">
+            <input type="text" class="form-control" placeholder="Email" autofocus email required name="email" id="email" [(ngModel)]="email"
+                   (input)="validateEmail($event.target.value)" tooltip="Tooltip" placement="top">
+            <div class="form-control-feedback">
+              <i class="icon-user text-muted"></i>
+            </div>
+            <div class="row">
+              <span class="error"  [hidden]="!formErrors.email" *ngIf="createUserForm.form.controls.email && createUserForm.form.controls.email.dirty" for="email">{{formErrors.email}}</span>
+            </div>
+          </div>
+
+          <div class="form-group has-feedback has-feedback-left">
+            <input type="password" class="form-control" placeholder="Password" required name="password" id="password" [(ngModel)]="password" (input)="validatePassword($event.target.value)">
+            <div class="form-control-feedback">
+              <i class="fa fa-key text-muted" aria-hidden="true"></i>
+              <!--<i class="icon-lock2 text-muted"></i>-->
+            </div>
+            <div class="row">
+              <span class="error" [hidden]="!formErrors.password" *ngIf="createUserForm.form.controls.password && createUserForm.form.controls.password.dirty" for="password">{{formErrors.password}}</span>
+            </div>
+          </div>
+
+          <div class="form-group login-options">
+            <div class="row">
+              <div class="col-sm-6">
+                <!--<label class="checkbox-inline">-->
+                <!--<div class="checker"><span class="checked"><input type="checkbox" class="styled" checked="checked"></span></div>-->
+                <!--Remember-->
+                <!--</label>-->
+              </div>
+
+              <div class="col-sm-6 text-right">
+                <!--<a href="#" (click)="gotoResetPassword()">Resetare parola?</a>-->
+                <a [routerLink]="['/resetpassword']">Resetare parola</a>
+              </div>
+            </div>
+          </div>
+
+
+          <div class="form-group">
+            <button type="submit" class="btn bg-blue btn-block">Login <i class="icon-arrow-right14 position-right"></i></button>
+            <span> {{uiMessage}}</span>
+          </div>
+
+          <!--#######################################-->
+
+
+
+
+          <!--<span class="clearfix"></span>-->
+          <!--Are you a business? <a href=""> Get started here</a>-->
+          <!--<span class="clearfix"></span>-->
+        </div>
+        <!--<div class="login-footer">-->
+        <!--<div class="row">-->
+        <!--<div class="col-xs-7 col-md-7">-->
+        <!--<div class="left-section">-->
+        <!--<a href="#" (click)="gotoResetPassword()">Resetare parola?</a>-->
+        <!--<span class="clearfix"></span>-->
+        <!--&lt;!&ndash;<a href="">Sign up now</a>&ndash;&gt;-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--<div class="col-xs-5 col-md-5 pull-right">-->
+        <!--<button type="submit" class="btn btn-large btn-danger pull-right">Login</button>-->
+        <!--</div>-->
+        <!--</div>-->
+
+        <!--</div>-->
+      </form>
+    </div>
+
+    <div class="col-md-4">
+    </div>
+  </div>
+
+
+
+</div>

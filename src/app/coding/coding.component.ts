@@ -54,7 +54,7 @@ export class CodingComponent implements OnInit {
     this.codeResult = serverResponse;
   }
 
-  async executeCodeLocally(event)
+  executeCodeLocally(event)
   {
     if(this.testCases)
     {
@@ -66,7 +66,7 @@ export class CodingComponent implements OnInit {
         const testCase = this.testCases.list[i];
 
         testCode = this.text + " return " + "run" + "(" + testCase.param  +");";
-        let resp = await this.codeExecutionService.executeCode(
+        let resp = this.codeExecutionService.executeCode(
           {
             text:testCode
           });
@@ -86,7 +86,7 @@ export class CodingComponent implements OnInit {
         }
       }
     }else {
-      const resp = await this.codeExecutionService.executeCode(
+      const resp = this.codeExecutionService.executeCode(
         {
           text:this.text
         });

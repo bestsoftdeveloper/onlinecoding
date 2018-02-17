@@ -40,6 +40,11 @@ module.exports = function(mongoose) {
             msg:String,
             expirationDate:Date
         },
+      registered:Number,
+      firstName:String,
+      lastName:String,
+      phone:String,
+      name:String,
         currency:[{name:String,address:String}],
         t:Number//owner, user normal
 

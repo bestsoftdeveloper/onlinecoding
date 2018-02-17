@@ -31,6 +31,7 @@ export class LoginComponent implements OnDestroy  {
 
   email: string = '';
   password: string = '';
+  uiMessage: string = '';
 
   constructor(public _auth: AuthService, httpService: HttpWrapperService,
               private router: Router,
@@ -135,6 +136,7 @@ export class LoginComponent implements OnDestroy  {
 
   async submitForm()
   {
+    this.uiMessage = '';
     debugger;
     if(!this.validateEmail(this.email))
     {
@@ -146,12 +148,17 @@ export class LoginComponent implements OnDestroy  {
     }
 
     const loginRequest = {
-      email:this.email,
+      login:this.email,
       password: this.password
     };
 
     const loginResponse  = await this.httpService.postJson("api/security/login",loginRequest);
 
+    if(loginResponse.success === false)
+    {
+      this.uiMessage = 'Invalid login ';
+      return;
+    }
     debugger;
     this.loginOk(loginResponse);
 
