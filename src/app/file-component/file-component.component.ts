@@ -9,6 +9,11 @@ export class FileComponentComponent  {
 
   @Input() obj: Object;
   @Input() prop: string;
+  @Input() extraClass: string;
+  @Input() isDisabled: any;
+
+
+  fileClass: string ='uploader';
 
   constructor() { }
 
@@ -24,14 +29,24 @@ export class FileComponentComponent  {
   imageSrc: string = '';
 
   handleDragEnter() {
+    if(this.isDisabled){
+      return;
+    }
     this.dragging = true;
   }
 
   handleDragLeave() {
+    if(this.isDisabled)
+    {
+      return;
+    }
     this.dragging = false;
   }
 
   handleDrop(e) {
+    if(this.isDisabled){
+      return;
+    }
     e.preventDefault();
     this.dragging = false;
     this.handleInputChange(e);
@@ -42,6 +57,14 @@ export class FileComponentComponent  {
     this.iconColor = this.overlayColor;
   }
 
+  handleClick(e){
+    if(this.isDisabled == true || this.isDisabled == 'true' )
+    {
+      e.preventDefault();
+      return;
+    }
+
+  }
   handleInputChange(e) {
     var file = e.dataTransfer ? e.dataTransfer.files[0] : e.target.files[0];
     this.obj[this.prop] =  file;
@@ -82,6 +105,12 @@ export class FileComponentComponent  {
   }
 
   ngOnInit() {
+    if (this.extraClass) {
+      this.fileClass = `uploader ${this.extraClass}`;
+    }
+    // if(this.isDisabled){
+    //   this.fileClass = `uploader isDisabled ${this.extraClass}`;
+    // }
   }
 
 }

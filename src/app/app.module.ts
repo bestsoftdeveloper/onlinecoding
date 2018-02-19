@@ -95,6 +95,9 @@ import { CreateUserComponent } from './ui/user/create-user/create-user.component
 import { ForgotPasswordComponent } from './ui/user/forgot-password/forgot-password.component';
 import { SetNewPasswordComponent } from './ui/user/set-new-password/set-new-password.component';
 import { ChangePasswordComponent } from './ui/user/change-password/change-password.component';
+import { TextMaskModule } from 'angular2-text-mask';
+
+
 // https://www.npmjs.com/package/@nomadreservations%2Fngx-codemirror#2-project-structure
 window["$"] = $;
 window["jQuery"] = $;
@@ -191,7 +194,8 @@ let providers = {
     SimpleNotificationsModule.forRoot(),
     TabsModule.forRoot(),
 
-    SwiperModule
+    SwiperModule,
+    TextMaskModule
 
   ],
   providers: [HttpWrapperService,CodeExecutionService, AuthGuard, SimpleTimer,PubSubService, SocketService, UtilsService,NewsService ],

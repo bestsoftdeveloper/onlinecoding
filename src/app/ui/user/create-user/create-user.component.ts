@@ -19,10 +19,24 @@ export class CreateUserComponent implements OnInit {
   private  httpService: HttpWrapperService;
   public user;
   sub: any;
+  public mask = ['(', /[0-9]/, /\d/, /\d/, /\d/,')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/,  /\d/];
+// /^\d{4}-\d{3}-\d{3}/;
+//  public mask = /^\d{4}-\d{3}-\d{3}/;
+
+  ui:any={
+    companyLogo:null,
+    companyName:'',
+    phone:'',
+    firstName:'',
+    lastName:'',
+    email:'',
+    userOrCompany:0,
+    allowLogo:false
+  };
 
   formErrors = {
-    'email': 'ddd',
-    'password': 'sss'
+    'email': '',
+    'password': ''
   };
 
   // createUserForm: NgForm;
@@ -92,11 +106,47 @@ export class CreateUserComponent implements OnInit {
   //   console.error('Error processing action', error);
   // }
 
+  markAsDirty(ctrlName, dirty = true){
+    this.currentForm.controls[ctrlName].markAsDirty({onlySelf:dirty});
+  }
+
+  validateInput(ctrlName){
+    this.currentForm.controls[ctrlName].markAsDirty();
+    return this.currentForm.controls[ctrlName].valid;
+  }
 
   async submitForm()
   {
+    debugger;
+    var isCtrlValid  =false;
+    isCtrlValid = this.validateInput('firstName');
+    isCtrlValid = this.validateInput('lastName');
+    isCtrlValid = this.validateInput('phone');
+    if(this.ui.userOrCompany == 0){
+      this.markAsDirty('numeFirma',false);
+      this.markAsDirty('allowLogo',false);
+    }else{
+      this.markAsDirty('numeFirma');
+      this.markAsDirty('allowLogo');
+    }
+
+    isCtrlValid = this.validateInput('emailu');
+    isCtrlValid = this.validateInput('password');
+
+
+    var isValid =  this.currentForm.valid;
+    if(!isValid){
+      return;
+    }
+
     this.uiMessage = '';
     debugger;
+
+    // if(!this.validateEmail(this.email))
+    // {
+    //   return;
+    // }
+
     if(!this.validateEmail(this.email))
     {
       return;

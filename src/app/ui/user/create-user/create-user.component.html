@@ -1,4 +1,3 @@
-
 <div class="container1">
 
   <div class="row">
@@ -9,49 +8,208 @@
       <!---->
 
 
-
-      <form class="form-signin mg-btm" #createUserForm="ngForm" (ngSubmit)="submitForm()">
+      <form class="form-signin mg-btm" #createUserForm="ngForm" (ngSubmit)="submitForm()" autocomplete="false">
 
         <div class="text-center">
           <div class="icon-object border-slate-300 text-slate-300"><i class="icon-reading"></i></div>
-          <h5 class="content-group">Login to your account <small class="display-block">Your credentials</small></h5>
+          <h5 class="content-group">Login to your account
+            <small class="display-block">Your credentials</small>
+          </h5>
         </div>
 
-        <div class="social-box">
-          <div class="row mg-btm">
-            <div class="col-md-12">
-          <span class="btn btn-primary btn-block" (click)="loginWithFB()">
-            <i class="icon-facebook"></i>    Login with Facebook</span>
-            </div>
-          </div>
-          <!--<div class="row">-->
-          <!--<div class="col-md-12">-->
-          <!--<a href="#" class="btn btn-info btn-block" >-->
-          <!--<i class="icon-twitter"></i>    Login with Twitter-->
-          <!--</a>-->
-          <!--</div>-->
-          <!--</div>-->
-        </div>
+
         <div class="main">
-          <div class="form-group has-feedback has-feedback-left">
-            <input type="text" class="form-control" placeholder="Email" autofocus email required name="email" id="email" [(ngModel)]="email"
-                   (input)="validateEmail($event.target.value)" tooltip="Tooltip" placement="top">
-            <div class="form-control-feedback">
-              <i class="icon-user text-muted"></i>
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="firstName">Nume</label>
+                <input type="text"
+                       class="form-control"
+                       placeholder="Nume" autofocus required
+                       name="firstName"
+                       id="firstName"
+                       [(ngModel)]="ui.firstName"
+                       maxlength="50"
+                >
+
+                <div class="row col-md-12 error">
+                  <!--{{ createUserForm.form.controls.firstName.errors | json}}-->
+                  <div class="form-control-feedback1"  *ngIf="createUserForm.form.controls.firstName.errors &&
+              (createUserForm.form.controls.firstName.dirty)">
+
+                    <p *ngIf="createUserForm.form.controls.firstName.errors.required">Introduceti numele</p>
+                    <p *ngIf="createUserForm.form.controls.firstName.errors.maxLength">Lungimea numelui este prea mare</p>
+                  </div>
+                </div>
+
+
+              </div>
+              </div>
+
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="lastName">Prenume</label>
+                <input type="text"
+                       class="form-control"
+                       placeholder="Prenume" required
+                       name="lastName"
+                       id="lastName"
+                       [(ngModel)]="ui.lastName"
+                       maxlength="50"
+                >
+                <div class="row col-md-12 error">
+                  <!--{{ createUserForm.form.controls.firstName.errors | json}}-->
+                  <div class="form-control-feedback1"  *ngIf="createUserForm.form.controls.lastName.errors &&
+              (createUserForm.form.controls.lastName.dirty)">
+
+                    <p *ngIf="createUserForm.form.controls.lastName.errors.required">Introduceti prenumele</p>
+                    <p *ngIf="createUserForm.form.controls.lastName.errors.maxLength">Lungimea numelui este prea mare</p>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div class="row">
-              <span class="error"  [hidden]="!formErrors.email" *ngIf="createUserForm.form.controls.email && createUserForm.form.controls.email.dirty" for="email">{{formErrors.email}}</span>
+
+          </div>
+
+
+
+
+
+
+          <div class="form-group">
+            <label for="phone">Telefon</label>
+            <input type="text"
+                   class="form-control"
+                     name="phone"
+                   required
+                   id="phone"
+                   [textMask]="{mask: mask}"
+                   pattern="\(\d{4}\) \d{3}-\d{3}"
+                   [(ngModel)]="ui.phone"
+            >
+            <div class="row1 col-mdt-12 error">
+              <div class="form-control-feedback1"  *ngIf="createUserForm.form.controls.phone.errors &&
+              (createUserForm.form.controls.phone.dirty)">
+
+                <p *ngIf="createUserForm.form.controls.phone.errors.required">Introduceti telefonul</p>
+                <p *ngIf="createUserForm.form.controls.phone.errors.pattern">Telefonul nu este complet</p>
+                <!--<p *ngIf="createUserForm.form.controls.phone.errors.required">Lungimea numelui este prea mare</p>-->
+              </div>
             </div>
           </div>
 
-          <div class="form-group has-feedback has-feedback-left">
-            <input type="password" class="form-control" placeholder="Password" required name="password" id="password" [(ngModel)]="password" (input)="validatePassword($event.target.value)">
-            <div class="form-control-feedback">
-              <i class="fa fa-key text-muted" aria-hidden="true"></i>
-              <!--<i class="icon-lock2 text-muted"></i>-->
+          <!--<pre>{{ui | json}}</pre>-->
+          <div class="form-group">
+          <section class="customRadio">
+            <div>
+              <input type="radio" id="control_01" name="select"
+                     [value]=0
+                     [(ngModel)]=ui.userOrCompany>
+              <label for="control_01">
+                <h2>Persoana fizica</h2>
+                <p>Inregistrare cu scopul de a participa la cursuri.</p>
+              </label>
             </div>
-            <div class="row">
-              <span class="error" [hidden]="!formErrors.password" *ngIf="createUserForm.form.controls.password && createUserForm.form.controls.password.dirty" for="password">{{formErrors.password}}</span>
+            <div>
+              <input type="radio" id="control_02" name="select" [value]=1
+                     [(ngModel)]=ui.userOrCompany>
+              <label for="control_02">
+                <h2>Firma</h2>
+                <p>Inregistare ca reprezentant a unei firme IT.</p>
+              </label>
+            </div>
+          </section>
+          </div>
+
+          <div class="form-group" >
+              <div class="col-md-6">
+                <div class="row">
+              <label for="numeFirma">Nume firma</label>
+              <input type="text"
+                     name="numeFirma"
+                     id="numeFirma"
+                     disabled="{{ui.userOrCompany == 0}}"
+                     class="form-control"
+                     placeholder="Nume firma"
+                     required
+                     [(ngModel)]="ui.companyName"
+              >
+              <div class="row col-md-12 error">
+                <!--{{createUserForm.form.controls.numeFirma.errors | json}}-->
+                <div class="form-control-feedback1"  *ngIf="createUserForm.form.controls.numeFirma.errors &&
+              (createUserForm.form.controls.numeFirma.dirty)">
+
+                  <p *ngIf="createUserForm.form.controls.numeFirma.errors.required">Introduceti numele</p>
+                  <p *ngIf="createUserForm.form.controls.numeFirma.errors.maxLength">Lungimea numelui este prea mare</p>
+                </div>
+              </div>
+
+              </div>
+
+              <div class="row">
+              <input type="checkbox"
+                     name="allowLogo"
+                     class="mychk"
+                     id="allowLogo"
+                     [(ngModel)]="ui.allowLogo"
+                     disabled="{{ui.userOrCompany == 0}}"
+              > <label for="allowLogo"> Logo-ul poate sa apara pe site</label>
+              </div>
+
+            </div>
+
+            <div class="col-md-6">
+              <label>Logo firma</label>
+              <div class="logo">
+                <app-file-component [(obj)]="ui" prop="companyLogo" extraClass="small"
+                                    isDisabled="{{ui.userOrCompany == 0}}"></app-file-component>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="row">
+            <hr>
+          </div>
+
+
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="text"
+                   class="form-control"
+                   placeholder="Email" autofocus required
+                   name="email"
+                   id="email"
+                   [(ngModel)]="ui.email"
+                   maxlength="50"
+            >
+
+            <div class="row col-md-12 error">
+              <!--{{ createUserForm.form.controls.firstName.errors | json}}-->
+              <div class="form-control-feedback1"  *ngIf="createUserForm.form.controls.email.errors &&
+              (createUserForm.form.controls.email.dirty)">
+
+                <p *ngIf="createUserForm.form.controls.email.errors.required">Introduceti email-ul</p>
+                <p *ngIf="createUserForm.form.controls.email.errors.maxLength">Lungimea numelui este prea mare</p>
+              </div>
+            </div>
+
+
+          </div>
+
+
+          <div class="form-group">
+            <label for="password">Parola</label>
+            <input type="password" class="form-control" placeholder="Password" required name="password" id="password"
+                   maxlength="50"
+                   required
+                   [(ngModel)]="password" >
+
+            <div class="row" *ngIf="createUserForm.form.controls.password.errors &&
+              (createUserForm.form.controls.password.dirty)">
+              <p *ngIf="createUserForm.form.controls.password.errors.required">Introduceti parola</p>
+              <p *ngIf="createUserForm.form.controls.password.errors.maxLength">Lungimea numelui este prea mare</p>
             </div>
           </div>
 
@@ -73,13 +231,12 @@
 
 
           <div class="form-group">
-            <button type="submit" class="btn bg-blue btn-block">Login <i class="icon-arrow-right14 position-right"></i></button>
+            <button type="submit" class="btn bg-blue btn-block">Login <i class="icon-arrow-right14 position-right"></i>
+            </button>
             <span> {{uiMessage}}</span>
           </div>
 
           <!--#######################################-->
-
-
 
 
           <!--<span class="clearfix"></span>-->
@@ -107,7 +264,6 @@
     <div class="col-md-4">
     </div>
   </div>
-
 
 
 </div>

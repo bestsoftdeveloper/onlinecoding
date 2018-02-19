@@ -1,4 +1,5 @@
-<label class="uploader" ondragover="return false;"
+
+<label class="{{fileClass}}" ondragover="return false;"
        [class.loaded]="loaded"
        [style.outlineColor]="dragging ? activeColor : baseColor"
        (dragenter)="handleDragEnter()"
@@ -14,7 +15,7 @@
     [src]="imageSrc"
     (load)="handleImageLoad()"
     [class.loaded]="imageLoaded"/>
-
   <input type="file" name="file" accept="image/*"
+         (click)="handleClick($event)"
          (change)="handleInputChange($event)">
 </label>
