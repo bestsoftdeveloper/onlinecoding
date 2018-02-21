@@ -28,15 +28,20 @@ export class FileComponentComponent  {
   imageLoaded: boolean = false;
   imageSrc: string = '';
 
+  isCtrlDisabled()
+  {
+    return this.isDisabled === true || this.isDisabled == 'true';
+  }
+
   handleDragEnter() {
-    if(this.isDisabled){
+    if(this.isCtrlDisabled()){
       return;
     }
     this.dragging = true;
   }
 
   handleDragLeave() {
-    if(this.isDisabled)
+    if(this.isCtrlDisabled())
     {
       return;
     }
@@ -44,7 +49,7 @@ export class FileComponentComponent  {
   }
 
   handleDrop(e) {
-    if(this.isDisabled){
+    if(this.isCtrlDisabled()){
       return;
     }
     e.preventDefault();
@@ -58,7 +63,7 @@ export class FileComponentComponent  {
   }
 
   handleClick(e){
-    if(this.isDisabled == true || this.isDisabled == 'true' )
+    if(this.isCtrlDisabled() )
     {
       e.preventDefault();
       return;

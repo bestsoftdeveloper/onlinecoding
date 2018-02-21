@@ -106,10 +106,19 @@ export class LoginComponent implements OnDestroy  {
         self.email = data.email;
         //user data
         //name, image, uid, provider, uid, email, token (accessToken for Facebook & google, no token for linkedIn), idToken(only for google)
-          const loginRequest = {
+          const loginRequest: any = {
             email:self.email,
             //password: this.password
           };
+
+          try{
+            var names = data.name.match(/\w+/g);
+            loginRequest.firstName = names[0];
+            loginRequest.lastName = names[1];
+
+          }catch (e){
+
+          }
           const loginResponsePromise  = this.httpService.postJson("api/security/loginfb",loginRequest);
           loginResponsePromise.then(function (resp) {
             console.log(resp);

@@ -66,6 +66,7 @@ module.exports = function() {
             this.sendEmail(data);
         },
         emailForgotPassword: function(obj, to) {
+          debugger;
             if (!obj.langId) {
                 obj.langId = "ro";
             }
@@ -76,7 +77,7 @@ module.exports = function() {
             }
 
             var templatePath = this.mainPath + langId + "/forgotpassword.html";
-            obj.confirmation = config.appUIUrl + "/#/resetpassword?reset=" + obj.reset;
+            obj.confirmation = config.appUIUrl + "/resetpassword?reset=" + obj.reset;
             var htmlResult = renderer.render(templatePath, obj);
 
             var subject = jsonfile.readFileSync(this.mainPath + langId + "/subject.json");
@@ -146,7 +147,6 @@ module.exports = function() {
 
         sendEmail: function(obj) {
 
-          return;
             // if (this.transporter == null) {
             //     this.transporter = nodemailer.createTransport(sesTransport({
             //         accessKeyId: config.aws.AWS_ACCESS_KEY_ID,

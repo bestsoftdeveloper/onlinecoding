@@ -12,8 +12,8 @@
 
         <div class="text-center">
           <div class="icon-object border-slate-300 text-slate-300"><i class="icon-reading"></i></div>
-          <h5 class="content-group">Login to your account
-            <small class="display-block">Your credentials</small>
+          <h5 class="content-group">Creare Utilizator
+            <!--<small class="display-block">Your credentials</small>-->
           </h5>
         </div>
 
@@ -34,12 +34,13 @@
                 >
 
                 <div class="row col-md-12 error">
-                  <!--{{ createUserForm.form.controls.firstName.errors | json}}-->
-                  <div class="form-control-feedback1"  *ngIf="createUserForm.form.controls.firstName.errors &&
-              (createUserForm.form.controls.firstName.dirty)">
+                  <!--{{ currentForm.form.controls.firstName.errors | json}}-->
+                  <div class="form-control-feedback1"
+                       *ngIf="currentForm && currentForm.form.controls.firstName && currentForm.form.controls.firstName.errors &&
+              (currentForm.form.controls.firstName.dirty)">
 
-                    <p *ngIf="createUserForm.form.controls.firstName.errors.required">Introduceti numele</p>
-                    <p *ngIf="createUserForm.form.controls.firstName.errors.maxLength">Lungimea numelui este prea mare</p>
+                    <p *ngIf="currentForm.form.controls.firstName.errors.required">Introduceti numele</p>
+                    <p *ngIf="currentForm.form.controls.firstName.errors.maxLength">Lungimea numelui este prea mare</p>
                   </div>
                 </div>
 
@@ -59,12 +60,12 @@
                        maxlength="50"
                 >
                 <div class="row col-md-12 error">
-                  <!--{{ createUserForm.form.controls.firstName.errors | json}}-->
-                  <div class="form-control-feedback1"  *ngIf="createUserForm.form.controls.lastName.errors &&
-              (createUserForm.form.controls.lastName.dirty)">
+                  <!--{{ currentForm.form.controls.firstName.errors | json}}-->
+                  <div class="form-control-feedback1"  *ngIf="currentForm && currentForm.form.controls.lastName && currentForm.form.controls.lastName.errors &&
+              (currentForm.form.controls.lastName.dirty)">
 
-                    <p *ngIf="createUserForm.form.controls.lastName.errors.required">Introduceti prenumele</p>
-                    <p *ngIf="createUserForm.form.controls.lastName.errors.maxLength">Lungimea numelui este prea mare</p>
+                    <p *ngIf="currentForm.form.controls.lastName.errors.required">Introduceti prenumele</p>
+                    <p *ngIf="currentForm.form.controls.lastName.errors.maxLength">Lungimea numelui este prea mare</p>
                   </div>
                 </div>
               </div>
@@ -89,12 +90,12 @@
                    [(ngModel)]="ui.phone"
             >
             <div class="row1 col-mdt-12 error">
-              <div class="form-control-feedback1"  *ngIf="createUserForm.form.controls.phone.errors &&
-              (createUserForm.form.controls.phone.dirty)">
+              <div class="form-control-feedback1"  *ngIf="currentForm && currentForm.form.controls.phone && currentForm.form.controls.phone.errors &&
+              (currentForm.form.controls.phone.dirty)">
 
-                <p *ngIf="createUserForm.form.controls.phone.errors.required">Introduceti telefonul</p>
-                <p *ngIf="createUserForm.form.controls.phone.errors.pattern">Telefonul nu este complet</p>
-                <!--<p *ngIf="createUserForm.form.controls.phone.errors.required">Lungimea numelui este prea mare</p>-->
+                <p *ngIf="currentForm.form.controls.phone.errors.required">Introduceti telefonul</p>
+                <p *ngIf="currentForm.form.controls.phone.errors.pattern">Telefonul nu este complet</p>
+                <!--<p *ngIf="currentForm.form.controls.phone.errors.required">Lungimea numelui este prea mare</p>-->
               </div>
             </div>
           </div>
@@ -136,12 +137,12 @@
                      [(ngModel)]="ui.companyName"
               >
               <div class="row col-md-12 error">
-                <!--{{createUserForm.form.controls.numeFirma.errors | json}}-->
-                <div class="form-control-feedback1"  *ngIf="createUserForm.form.controls.numeFirma.errors &&
-              (createUserForm.form.controls.numeFirma.dirty)">
+                <!--{{currentForm.form.controls.numeFirma.errors | json}}-->
+                <div class="form-control-feedback1"  *ngIf="currentForm && currentForm.form.controls.numeFirma && currentForm.form.controls.numeFirma.errors &&
+              (currentForm.form.controls.numeFirma.dirty)">
 
-                  <p *ngIf="createUserForm.form.controls.numeFirma.errors.required">Introduceti numele</p>
-                  <p *ngIf="createUserForm.form.controls.numeFirma.errors.maxLength">Lungimea numelui este prea mare</p>
+                  <p *ngIf="currentForm.form.controls.numeFirma.errors.required">Introduceti numele</p>
+                  <p *ngIf="currentForm.form.controls.numeFirma.errors.maxLength">Lungimea numelui este prea mare</p>
                 </div>
               </div>
 
@@ -169,49 +170,59 @@
 
           </div>
 
+          <div class="clearfix"></div>
           <div class="row">
             <hr>
           </div>
 
 
-          <div class="form-group">
-            <label for="email">Email</label>
-            <input type="text"
-                   class="form-control"
-                   placeholder="Email" autofocus required
-                   name="email"
-                   id="email"
-                   [(ngModel)]="ui.email"
-                   maxlength="50"
-            >
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="email">Email</label>
+                <input type="text"
+                       class="form-control"
+                       placeholder="Email" autofocus required
+                       name="email"
+                       id="email"
+                       [(ngModel)]="ui.email"
+                       maxlength="50"
+                >
 
-            <div class="row col-md-12 error">
-              <!--{{ createUserForm.form.controls.firstName.errors | json}}-->
-              <div class="form-control-feedback1"  *ngIf="createUserForm.form.controls.email.errors &&
-              (createUserForm.form.controls.email.dirty)">
+                <div class="row col-md-12 error">
+                  <!--{{ currentForm.form.controls.firstName.errors | json}}-->
+                  <div class="form-control-feedback1"  *ngIf="currentForm && currentForm.form.controls.email && currentForm.form.controls.email.errors &&
+              (currentForm.form.controls.email.dirty)">
 
-                <p *ngIf="createUserForm.form.controls.email.errors.required">Introduceti email-ul</p>
-                <p *ngIf="createUserForm.form.controls.email.errors.maxLength">Lungimea numelui este prea mare</p>
+                    <p *ngIf="currentForm.form.controls.email.errors.required">Introduceti email-ul</p>
+                    <p *ngIf="currentForm.form.controls.email.errors.maxLength">Lungimea numelui este prea mare</p>
+                  </div>
+                </div>
+
+
               </div>
-            </div>
+              </div>
 
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="password">Parola</label>
+                <input type="password" class="form-control" placeholder="Password" required name="password" id="password"
+                       maxlength="50"
+                       required
+                       [(ngModel)]="ui.password" >
 
+                <div class="row" *ngIf="currentForm && currentForm.controls.password && currentForm.controls.password.errors &&
+              (currentForm.controls.password.dirty)">
+                  <p *ngIf="currentForm.form.controls.password.errors.required">Introduceti parola</p>
+                  <p *ngIf="currentForm.form.controls.password.errors.maxLength">Lungimea parolei este prea mare</p>
+                </div>
+              </div>
+              </div>
           </div>
 
 
-          <div class="form-group">
-            <label for="password">Parola</label>
-            <input type="password" class="form-control" placeholder="Password" required name="password" id="password"
-                   maxlength="50"
-                   required
-                   [(ngModel)]="password" >
 
-            <div class="row" *ngIf="createUserForm.form.controls.password.errors &&
-              (createUserForm.form.controls.password.dirty)">
-              <p *ngIf="createUserForm.form.controls.password.errors.required">Introduceti parola</p>
-              <p *ngIf="createUserForm.form.controls.password.errors.maxLength">Lungimea numelui este prea mare</p>
-            </div>
-          </div>
+
 
           <div class="form-group login-options">
             <div class="row">
@@ -224,16 +235,16 @@
 
               <div class="col-sm-6 text-right">
                 <!--<a href="#" (click)="gotoResetPassword()">Resetare parola?</a>-->
-                <a [routerLink]="['/resetpassword']">Resetare parola</a>
+                <a [routerLink]="['/forgotPassword']">Resetare Parola</a>
               </div>
             </div>
           </div>
 
 
-          <div class="form-group">
-            <button type="submit" class="btn bg-blue btn-block">Login <i class="icon-arrow-right14 position-right"></i>
+          <div class="row center">
+            <button type="submit" class="btn btn-primary">Creaza Utilizator
             </button>
-            <span> {{uiMessage}}</span>
+            <span class="error"> {{uiMessage}}</span>
           </div>
 
           <!--#######################################-->

@@ -7,7 +7,12 @@ import { Component, OnInit } from '@angular/core';
 })
 
 export class MainSliderComponent implements OnInit {
-  config: Object = {
+
+  selectedHero: any = {
+    name: 'ds'
+  };
+  config: any  = {
+    name:'tesstSwipper',
     pagination: '.swiper-pagination',
     paginationClickable: true,
     nextButton: '.swiper-button-next',

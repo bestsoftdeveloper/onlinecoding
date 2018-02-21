@@ -24,7 +24,7 @@ import  { MainSliderComponent } from './ui/mainSlider/mainSlider.component';
 import  { TypoComponent } from './ui/type/typo.component';
 import  { HomePresentationComponent } from './ui/homePresentation/homePresentation.component';
 import { TooltipDirective } from 'ng2-tooltip-directive/components';
-import { SwiperModule } from 'angular2-useful-swiper';
+
 import { ResetPasswordComponent } from './login/resetpassword/resetpassword.component';
 import { FooterComponent } from './ui/footer/footer.component';
 // import { SwiperModule } from '../node_modules/angular2-useful-swiper';
@@ -98,10 +98,22 @@ import { ChangePasswordComponent } from './ui/user/change-password/change-passwo
 import { TextMaskModule } from 'angular2-text-mask';
 
 
+import { SwiperModule } from 'angular2-useful-swiper';
+// import { SwiperModule } from 'ngx-swiper-wrapper';
+// import { SWIPER_CONFIG } from 'ngx-swiper-wrapper';
+// import { SwiperConfigInterface } from 'ngx-swiper-wrapper';
+//
+// const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
+//   direction: 'horizontal',
+//   slidesPerView: 'auto'
+// };
+
 // https://www.npmjs.com/package/@nomadreservations%2Fngx-codemirror#2-project-structure
 window["$"] = $;
 window["jQuery"] = $;
-
+import { MarkdownModule } from 'angular2-markdown';
+import { MermaidViewerComponent } from './components/mermaid/mermaid-viewer/mermaid-viewer.component';
+import { MarkdownViewerComponent } from './components/markdown/markdown-viewer/markdown-viewer.component';
 
 let providers = {
   // "google": {
@@ -165,6 +177,8 @@ let providers = {
     ForgotPasswordComponent,
     SetNewPasswordComponent,
     ChangePasswordComponent,
+    MermaidViewerComponent,
+    MarkdownViewerComponent,
     //
   ],
   imports: [
@@ -193,6 +207,7 @@ let providers = {
     PaginationModule.forRoot(),
     SimpleNotificationsModule.forRoot(),
     TabsModule.forRoot(),
+    MarkdownModule.forRoot(),
 
     SwiperModule,
     TextMaskModule

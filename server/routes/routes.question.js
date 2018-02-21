@@ -21,20 +21,7 @@ const questionService = require('../modules/question/questionService');
 const jwt = require('jsonwebtoken');
 const config = require('../config/development');
 
-function getModule(name) {
-    switch (name) {
-        case 'security':
-            {
-                return securityModule;
-                break;
-            }
-        case 'poloLogger':
-            {
-                return poloLoggerModule;
-                break;
-            }
-    }
-}
+
 
 function formidablePromise (req, opts) {
   return new Promise(function (resolve, reject) {

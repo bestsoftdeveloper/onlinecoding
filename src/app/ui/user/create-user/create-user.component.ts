@@ -6,6 +6,8 @@ import {LocalStorageService} from "angular-2-local-storage";
 import {PubSubService} from "../../../services/pubsub/pubsub";
 import {Router} from "@angular/router";
 
+import language from '../../../facade/language';
+
 @Component({
   selector: 'app-create-user',
   templateUrl: './create-user.component.html',
@@ -89,7 +91,7 @@ export class CreateUserComponent implements OnInit {
     return true;
   }
 
-  loginOk(resp)
+  createUserOk(resp)
   {
     this.localStorageService.add('user',resp.data);
     this.pubSubService.publish("login", resp.data);
@@ -117,11 +119,17 @@ export class CreateUserComponent implements OnInit {
 
   async submitForm()
   {
-    debugger;
+    this.uiMessage = '';
+
+    var isOk  = true;
     var isCtrlValid  =false;
     isCtrlValid = this.validateInput('firstName');
+    if(!isCtrlValid){isOk = false;}
     isCtrlValid = this.validateInput('lastName');
+    if(!isCtrlValid){isOk = false;}
     isCtrlValid = this.validateInput('phone');
+    if(!isCtrlValid){isOk = false;}
+
     if(this.ui.userOrCompany == 0){
       this.markAsDirty('numeFirma',false);
       this.markAsDirty('allowLogo',false);
@@ -130,46 +138,57 @@ export class CreateUserComponent implements OnInit {
       this.markAsDirty('allowLogo');
     }
 
-    isCtrlValid = this.validateInput('emailu');
+    isCtrlValid = this.validateInput('email');
+    if(!isCtrlValid){isOk = false;}
     isCtrlValid = this.validateInput('password');
+    if(!isCtrlValid){isOk = false;}
 
-
-    var isValid =  this.currentForm.valid;
-    if(!isValid){
+    if(!isOk){
       return;
     }
 
-    this.uiMessage = '';
-    debugger;
+    let formData: FormData = new FormData();
 
-    // if(!this.validateEmail(this.email))
-    // {
-    //   return;
-    // }
-
-    if(!this.validateEmail(this.email))
-    {
-      return;
-    }
-    if(!this.validatePassword(this.password))
-    {
-      return;
+    if(this.ui.companyLogo) {
+      let fileName = this.ui.companyLogo.name;
+      if (fileName) {
+        formData.append('1', this.ui.companyLogo, fileName);
+      }
     }
 
-    const loginRequest = {
-      email:this.email,
-      password: this.password
+    let proxy: any = {
+      module: 'security',
+      method: 'createUser',
     };
 
-    const loginResponse  = await this.httpService.postJson("api/security/createUser",loginRequest);
+    const newUI: any = { ...this.ui};
+    delete  newUI.companyLogo;
+    formData.append('data', JSON.stringify(newUI));
 
-    if(loginResponse.success === false)
-    {
-      this.uiMessage = 'Invalid login ';
+    formData.append('proxy', JSON.stringify(proxy));
+    //formData.append('q', JSON.stringify(q));
+    //formData.append('timer', JSON.stringify(this.question.timer));
+
+    // if (this.question.code) {
+    //   formData.append('code', this.question.code);
+    // }
+
+
+
+    const resp = await this.httpService.postFormData("api/form", formData);
+    console.log(resp);
+
+
+    const respData = resp.data;
+    if(!respData.success){
+
+      this.uiMessage = language.lang[respData.message];
       return;
     }
-    debugger;
-    this.loginOk(loginResponse);
+
+    this.createUserOk(respData);
+
+    // this.loginOk(loginResponse);
 
   }
 

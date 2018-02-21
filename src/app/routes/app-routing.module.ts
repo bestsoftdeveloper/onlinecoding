@@ -6,7 +6,6 @@ import { NotFoundComponent }    from '../not-found/notfound.component';
 import { AboutComponent }  from '../about/about.component';
 import { JavascriptComponent }  from '../cursuri/javascript/javascript.component';
 import { LoginComponent }  from '../login/login.component';
-import {SwipperComponent} from "../ui/swipper/swipper.component";
 import {ResetPasswordComponent} from "../login/resetpassword/resetpassword.component";
 import {AuthGuard} from "./auth-guard.service";
 import {EvaluationComponent} from "../ui/evaluation/evaluation.component";
@@ -17,6 +16,8 @@ import {NewsManagementComponent} from "../ui/news-management/news-management.com
 import {DailyNewsComponent} from "../ui/news-management/daily-news/daily-news.component";
 import {DailyChallengeComponent} from "../ui/daily-challenge/daily-challenge.component";
 import {CreateUserComponent} from "../ui/user/create-user/create-user.component";
+import {ForgotPasswordComponent} from "../ui/user/forgot-password/forgot-password.component";
+import {ChangePasswordComponent} from "../ui/user/change-password/change-password.component";
 
 
 const appRoutes: Routes = [
@@ -24,6 +25,15 @@ const appRoutes: Routes = [
     path: 'home',
     component: HomeComponent
   },
+  {
+    path: 'forgotPassword',
+    component: ForgotPasswordComponent
+  },
+  {
+    path: 'resetpassword',
+    component: ChangePasswordComponent
+  },
+
   {
     path:'about',
     component:AboutComponent

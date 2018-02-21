@@ -13,7 +13,7 @@ class AppConfig {
             //staticPath: path.resolve(__dirname, "../dist/client"),
             ipaddr: "localhost",
             appUrl: "localhost:3002",
-            appUIUrl: "https://bitcoineuropa.com",
+            appUIUrl: "https://bestdeveloper.ro",
             tokenPassword: "AkzjrKkw4Lu87^%7(&6_IApq3AgJnmaWfkEq98!eIU5vqP9L2O4c",
             mongodb: {
                 url: "mongodb://127.0.0.1/onlinecoding",

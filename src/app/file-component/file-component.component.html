@@ -6,7 +6,7 @@
        (dragleave)="handleDragLeave()"
        (drop)="handleDrop($event)">
 
-  <i class="icon icon-upload"
+  <i class="icon icon-upload" *ngIf="!loaded"
      [style.color]="dragging
             ? ((imageSrc.length > 0) ? overlayColor : activeColor)
             : ((imageSrc.length > 0) ? overlayColor : baseColor)"></i>

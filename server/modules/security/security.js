@@ -147,6 +147,14 @@ module.exports = function() {
         value: 10
       }
     });
+
+    if(obj.firstName){
+      dbUser.firstName = obj.firstName;
+    }
+    if(obj.lastName){
+      dbUser.lastName = obj.lastName;
+    }
+
     // console.log("5");
 
     // console.log("aici " + JSON.stringify(dbUser));
@@ -157,10 +165,12 @@ module.exports = function() {
     dbUser.langId = obj.langId;
     email.emailCreateUser(dbUser);
 
-    return await models.login({
-      login: obj.email,
-      password: obj.password
-    });
+    var userResponse = models.createUserResponse(dbUser);
+    return userResponse;
+    // return await models.login({
+    //   login: obj.email,
+    //   password: obj.password
+    // });
   },
          async createUser(obj) {
             debugger;
@@ -195,10 +205,21 @@ module.exports = function() {
                 langId: obj.langId,
                 confirmed: false,
                 reset: encryption.guid(),
-                amount: {
+              companyName:obj.companyName,
+              phone:obj.phone,
+              firstName:obj.firstName,
+              lastName:obj.lastName,
+              userOrCompany:obj.userOrCompany,
+              allowLogo:obj.allowLogo,
+
+              amount: {
                     value: 10
                 }
             });
+
+    if(obj.files && obj.files.length>0){
+      dbUser.companyLogo = obj.files[0].newFileName;
+    }
 
             await dbUser.save();
 
@@ -233,13 +254,13 @@ module.exports = function() {
     // return query;
   },
 
-        forgotPassword(obj){
-            if(!obj || !obj.Email)
+        async forgotPassword(obj){
+            if(!obj || !obj.email)
             {
               throw {message:"user_not_found"};
             }
             var dbUser =  mongoQuery.userSchemas.Users.findOne({
-                'email': obj.Email.toLowerCase()
+                'email': obj.email.toLowerCase()
             });
             if(!dbUser)
             {
@@ -248,9 +269,15 @@ module.exports = function() {
             dbUser.reset = encryption.guid();
             obj.reset = dbUser.reset;
 
-            var r =  dbUser.save();
+    await mongoQuery.userSchemas.Users.update({
+      'email': obj.email.toLowerCase()
+    },{
+      reset : encryption.guid()
+    });
+
+            //var r =  dbUser.save();
             // console.log(r);
-            email.emailForgotPassword(obj, obj.Email);
+            email.emailForgotPassword(obj, obj.email);
             return   "check_forgot_password";
         },
 
@@ -297,10 +324,14 @@ module.exports = function() {
             return "";
         },
 
-         resetPassword(obj) {
+         async resetPassword(obj) {
 
-            var dbUser =  mongoQuery.userSchemas.Users.findOne({
-                reset: obj.Reset
+            if(!obj.reset)
+            {
+              throw {message:"security_code"};
+            }
+            var dbUser = await mongoQuery.userSchemas.Users.findOne({
+                reset: obj.reset
             });
             if(!dbUser)
             {
@@ -308,25 +339,29 @@ module.exports = function() {
             }
 
             var salt = encryption.salt();
-            var encryptedPassword = encryption.encrypt(obj.Password, salt);
+            var encryptedPassword = encryption.encrypt(obj.password, salt);
+
+          var r = await mongoQuery.userSchemas.Users.update({
+            reset: obj.reset
+          }, {
+            $set: {
+              reset : encryption.guid(),
+              password : encryptedPassword,
+              salt:salt
+            }
+          })
 
 
-            dbUser.reset = encryption.guid();
-            dbUser.password = encryptedPassword;
-            dbUser.salt = salt;
-
-             dbUser.save();
-
-            return "password_changed";
+            return {message:"password_changed"};
         },
 
-         changePassword(obj) {
+         async changePassword(obj) {
             // console.log("change pass");
             // console.log(obj);
             if (!obj.tokenObj) {
               throw {message:"invalid_token"};
             }
-            var dbUser =  mongoQuery.userSchemas.Users.findOne({
+            var dbUser = await mongoQuery.userSchemas.Users.findOne({
                 _id: obj.tokenObj.id
             });
             if(!dbUser)
@@ -344,11 +379,19 @@ module.exports = function() {
             var salt = encryption.salt();
             var encryptedPassword = encryption.encrypt(obj.Password, salt);
 
-            dbUser.reset = encryption.guid();
-            dbUser.password = encryptedPassword;
-            dbUser.salt = salt;
+            // dbUser.reset = encryption.guid();
+            // dbUser.password = encryptedPassword;
+            // dbUser.salt = salt;
 
-            var r =  dbUser.save();
+          var r = await mongoQuery.userSchemas.Users.update({
+            _id: obj.tokenObj.id
+          }, {
+            $set: {
+              reset : encryption.guid(),
+              password : encryptedPassword,
+              salt:salt
+            }
+          })
 
             return  "password_changed";
         },

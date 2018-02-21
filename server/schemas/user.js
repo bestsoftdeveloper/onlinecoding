@@ -8,12 +8,6 @@ module.exports = function(mongoose) {
         password: String,
         email: String,
         salt: String,
-        firstName: String,
-        lastName: String,
-        name:{
-            type: String,
-            index: "text"
-        },
         unread:Number,
         webSite:String,
         avatar: {
@@ -45,6 +39,10 @@ module.exports = function(mongoose) {
       lastName:String,
       phone:String,
       name:String,
+      userOrCompany:Number,
+      allowLogo: Boolean,
+      companyName:String,
+      companyLogo:String,
         currency:[{name:String,address:String}],
         t:Number//owner, user normal
 

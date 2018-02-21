@@ -61,7 +61,7 @@ app.use(async (ctx, next) => {
   } catch (err) {
     console.log("errrorrrrrrrrrrr");
     console.log(err);
-    ctx.status = 401;
+    //ctx.status = 401;
     ctx.body = responseWrapper.failure(err);
   }
 })

@@ -13,21 +13,49 @@ const mongoQuery = require('../utils/mongoQuery')();
 const moduleFactory = require('./moduleFactory');
 var Mocha = require('mocha'),
     path = require('path');
+var formidable = require('formidable');
+const uuidv4 = require('uuid/v4');
 
+function formidablePromise (req, opts) {
+  return new Promise(function (resolve, reject) {
+    var form = new formidable.IncomingForm(opts);
+    var appDir = path.dirname(require.main.filename);
 
-function getModule(name) {
-    switch (name) {
-        case 'security':
-            {
-                return securityModule;
-                break;
-            }
-        case 'poloLogger':
-            {
-                return poloLoggerModule;
-                break;
-            }
-    }
+    const newFileNames = [];
+
+    const uploadDirectory = "uploads";
+
+    form.uploadDir = appDir + '/'+uploadDirectory;
+    form.keepExtensions = true;
+
+    form.on('fileBegin', function(name, file) {
+      //file.path = __dirname + '/uploads/';
+      // console.log('begin' );
+      const fileExt = file.name.split('.').pop();
+      const newFileName = uuidv4()+"."+fileExt;
+      const index = newFileNames.length;
+
+      newFileNames.push({index ,originalFileName:file.name, newFileName:newFileName, filePath: `${uploadDirectory}/${newFileName}` });
+
+      file.path = form.uploadDir + "/" + newFileName;
+      // var file_name = file.name;
+      // var new_location = __dirname + '/uploads';
+      // fs.exists(new_location+file_name, function(exist) {
+      //   if(exist){
+      //     console.log("alreadyExist");
+      //   }
+      //   else{
+      //     console.log('notExist');
+      //   }
+      // })
+
+    });
+
+    form.parse(req, function (err, fields, files) {
+      if (err) return reject(err)
+      resolve({ fields: fields, files: files, newFileNames:newFileNames })
+    })
+  })
 }
 
 router
@@ -62,7 +90,7 @@ router
   console.log("ruta public");
 debugger;
   const body = ctx.request.body;
-  // console.log(body);
+   console.log(body);
   const data = body.data;
   const method = body.proxy.method;
   const module = moduleFactory.getModule(body.proxy.module);
@@ -73,6 +101,34 @@ debugger;
 
   // ctx.body = responseWrapper.success(resp);
 })
+
+.post("/form", async function (ctx) {
+  //https://stackoverflow.com/questions/8359902/how-to-rename-files-parsed-by-formidable
+  const resp =  await formidablePromise(ctx.req,{});
+  console.log(resp);
+debugger;
+  const proxy = JSON.parse(resp.fields.proxy);
+
+  const data= JSON.parse(resp.fields.data);
+  const body = ctx.request.body;
+
+  console.log(body);
+  if(body.tokenObj) {
+    data.userId = body.tokenObj.id;
+  }
+  console.log(proxy);
+
+  data.files = resp.newFileNames;
+  // if(resp.newFileNames && resp.newFileNames.length>0){
+  //   data.
+  // }
+
+  const module = moduleFactory.getModule(proxy.module);
+  const response = await module[proxy.method](data, body.tokenObj);
+  return response;
+
+})
+
   .post("/ping-me", async function (ctx) {
     return  {message: "ping"};
   })

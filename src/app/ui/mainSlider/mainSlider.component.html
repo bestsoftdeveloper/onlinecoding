@@ -3,7 +3,7 @@
 
 <div class="divider">
   <div class="swiper-container">
-    <swiper [config]="config">
+    <swiper [config]="config" #usefulSwiper>
       <div class="swiper-wrapper">
         <div class="swiper-slide">
           <div><img class="imgslider" src="images/slider/javascript_200.png"></div>
@@ -89,9 +89,7 @@
           <span>Testarea automata a unei aplicatii este acoperita prin utilizarea a webdriver.io si selenium. O persoana care se ocupa de testarea aplicatiilor ar fi bine sa stie aceste abordari</span>
         </div>
       </div>
-      <!-- Add Pagination -->
       <div class="swiper-pagination"></div>
-      <!-- Add Arrows -->
       <div class="swiper-button-next"></div>
       <div class="swiper-button-prev"></div>
     </swiper>

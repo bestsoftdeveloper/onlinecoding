@@ -35,7 +35,9 @@
         "../node_modules/codemirror/lib/codemirror.css",
         "../node_modules/codemirror/theme/eclipse.css",
         "../node_modules/codemirror/addon/lint/lint.css",
-        "../node_modules/codemirror-extension/addon/hint/show-hint-eclipse.css"
+        "../node_modules/codemirror-extension/addon/hint/show-hint-eclipse.css",
+        "../node_modules/prismjs/themes/prism-okaidia.css",
+        "../node_modules/swiper/dist/css/swiper.css"
       ],
       "scripts": [
         "../node_modules/jquery/dist/jquery.js",
@@ -45,7 +47,10 @@
 		  "../node_modules/swiper/dist/js/swiper.min.js",
         "../node_modules/moment/min/moment.min.js",
         "../node_modules/froala-editor/js/froala_editor.pkgd.min.js",
-        "../node_modules/bootstrap/dist/js/bootstrap.js"
+        "../node_modules/bootstrap/dist/js/bootstrap.js",
+        "../node_modules/mermaid/dist/mermaid.core.js",
+        "../node_modules/swiper/dist/js/swiper.js"
+
       ],
       "environmentSource": "environments/environment.ts",
       "environments": {

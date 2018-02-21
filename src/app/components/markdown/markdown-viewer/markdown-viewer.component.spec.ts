@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CodingComponent } from './coding.component';
+import { MarkdownViewerComponent } from './markdown-viewer.component';
 
-describe('CodingComponent', () => {
-  let component: CodingComponent;
-  let fixture: ComponentFixture<CodingComponent>;
+describe('MarkdownViewerComponent', () => {
+  let component: MarkdownViewerComponent;
+  let fixture: ComponentFixture<MarkdownViewerComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CodingComponent ]
+      declarations: [ MarkdownViewerComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CodingComponent);
+    fixture = TestBed.createComponent(MarkdownViewerComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
