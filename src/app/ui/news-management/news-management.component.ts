@@ -131,6 +131,9 @@ export class NewsManagementComponent implements OnInit {
     this.pubSub.setKeyValue('news',null);
   }
 
-
+  ngOnDestroy() {
+    this.pubSub.setKeyValue('news',null);
+    this.newsObject = null;
+  }
 
 }

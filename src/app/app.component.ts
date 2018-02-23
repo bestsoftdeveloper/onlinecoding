@@ -18,7 +18,6 @@ export class AppComponent implements OnInit {
    rrr: any = null;
   ngOnInit(): void {
 //     mermaid.initialize({startOnLoad:true});
-// // debugger;
 //     var that = this;
 // //     var aaa = "";
 //     mermaid.render('theGraph', "sequenceDiagram    A->> B: Query    B->> C: Forward query    Note right of C: Thinking...    C->> B: Response    B->> A: Forward response", function(svgCode) {

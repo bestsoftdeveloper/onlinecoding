@@ -88,7 +88,6 @@ router
 
 .post("/", async function (ctx) {
   console.log("ruta public");
-debugger;
   const body = ctx.request.body;
    console.log(body);
   const data = body.data;
@@ -106,13 +105,13 @@ debugger;
   //https://stackoverflow.com/questions/8359902/how-to-rename-files-parsed-by-formidable
   const resp =  await formidablePromise(ctx.req,{});
   console.log(resp);
-debugger;
   const proxy = JSON.parse(resp.fields.proxy);
 
   const data= JSON.parse(resp.fields.data);
   const body = ctx.request.body;
 
   console.log(body);
+  console.log('dssssssssssssssssssss');
   if(body.tokenObj) {
     data.userId = body.tokenObj.id;
   }

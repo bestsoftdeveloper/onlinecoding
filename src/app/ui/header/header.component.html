@@ -117,16 +117,34 @@
             <!--</div>-->
             <a ngbDropdown class="d-inline-block1 dropdown1">
               <a class="btn1 btn-outline-primary1 cp" id="dropdownBasic1" ngbDropdownToggle><i class="ficon fa fa-cog"
-                                                                                          aria-hidden="true"></i>Setari</a>
+                                                                                               aria-hidden="true"></i>Setari</a>
               <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-                <ul class="nob">
-                  <li class="navli"><a href="#" (click)="logout()"><i class="fa fa-sign-out" aria-hidden="true"></i>
-                    Logout</a></li>
-                  <li class="navli"><a routerLink="/js" routerLinkActive="active">js 111</a></li>
+                <ul class="nob ulcust">
+                  <li class="navli">
+                    <button type="button" class="btn btn-link" (click)="logout()">
+                      <i class="fa fa-sign-out" aria-hidden="true"></i>
+                      Logout
+                    </button>
+                  </li>
+
+                  <li class="navli">
+                    <button class="btn btn-link" routerLink="/edituser" routerLinkActive="active">
+                      <i class="ficon fa fa-question"  aria-hidden="true"></i>
+                      Datele mele
+                    </button>
+
+                    <!--<button type="button" class="btn btn-link" (click)="logout()">-->
+                    <!--<i class="fa fa-sign-out" aria-hidden="true"></i>-->
+                    <!--Datele mele-->
+                    <!--</button>-->
+                  </li>
+
+                  <li class="navli"><button class="btn btn-link"  routerLink="/js" routerLinkActive="active">js 111</button></li>
 
                   <li class="navli" *ngIf="canEditNews">
-                    <a routerLink="/addquestions" routerLinkActive="active"><i class="ficon fa fa-question"
-                                                                               aria-hidden="true"></i> Adaugare intrebare</a>
+                    <button class="btn btn-link"  routerLink="/addquestions" routerLinkActive="active"><i class="ficon fa fa-question"
+                                                                               aria-hidden="true"></i> Adaugare
+                      intrebare</button>
                   </li>
                 </ul>
               </div>
@@ -135,21 +153,21 @@
           </li>
 
         </ul>
-        </ul>
+      </ul>
 
 
-        <!--<nav>-->
-        <!--<a routerLink="/superheroes" routerLinkActive="active">Heroes</a>-->
-        <!--<a routerLink="/admin" routerLinkActive="active">Admin</a>-->
-        <!--<a routerLink="/login" routerLinkActive="active">Login</a>-->
-        <!--<a routerLink="/home" routerLinkActive="active">Home</a>-->
+      <!--<nav>-->
+      <!--<a routerLink="/superheroes" routerLinkActive="active">Heroes</a>-->
+      <!--<a routerLink="/admin" routerLinkActive="active">Admin</a>-->
+      <!--<a routerLink="/login" routerLinkActive="active">Login</a>-->
+      <!--<a routerLink="/home" routerLinkActive="active">Home</a>-->
 
-        <!--<a routerLink="/js" routerLinkActive="active">js</a>-->
-        <!--<a [routerLink]="[{ outlets: { popup: ['compose'] } }]">Contact</a>-->
-        <!--<a routerLink="/login" routerLinkActive="active">login</a>-->
+      <!--<a routerLink="/js" routerLinkActive="active">js</a>-->
+      <!--<a [routerLink]="[{ outlets: { popup: ['compose'] } }]">Contact</a>-->
+      <!--<a routerLink="/login" routerLinkActive="active">login</a>-->
 
 
-        <!--</nav>-->
+      <!--</nav>-->
 
 
     </nav>

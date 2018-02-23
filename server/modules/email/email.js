@@ -25,7 +25,7 @@ module.exports = function() {
             }
 
             var templatePath = this.mainPath + langId + "/createuser.html";
-            obj.confirmation = config.appUIUrl + "/#/emailconfirmation?id=" + obj.guid;
+            obj.confirmation = config.appUIUrl + "/confirmemail?id=" + obj.reset;
             var htmlResult = renderer.render(templatePath, obj);
 
             var subject = jsonfile.readFileSync(this.mainPath + langId + "/subject.json");
@@ -53,7 +53,7 @@ module.exports = function() {
 
             logger.log(obj);
             var templatePath = this.mainPath + langId + "/newfbuser.html";
-            obj.confirmation = config.appUIUrl + "/#/emailconfirmation?id=" + obj.guid;
+            obj.confirmation = config.appUIUrl + "/confirmemail?id=" + obj.reset;
             var htmlResult = renderer.render(templatePath, obj);
 
             var subject = jsonfile.readFileSync(this.mainPath + langId + "/subject.json");
@@ -66,7 +66,6 @@ module.exports = function() {
             this.sendEmail(data);
         },
         emailForgotPassword: function(obj, to) {
-          debugger;
             if (!obj.langId) {
                 obj.langId = "ro";
             }

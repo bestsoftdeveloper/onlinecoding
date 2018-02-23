@@ -18,7 +18,6 @@ export class NewsService {
 
   async getNews(newsType, dateValue)
   {
-    debugger;
     if(!dateValue)
     {
       dateValue = new Date;
@@ -46,7 +45,6 @@ export class NewsService {
     const newsObject = newsDbData.data;
 
 
-    debugger;
     const newsDate = new Date(newsObject.date.jsdate);
     newsObject.date.date ={
       year: newsDate.getFullYear(),
@@ -60,7 +58,6 @@ export class NewsService {
 
   async getAllNews(option, dateValue)
   {
-    debugger;
     if(!dateValue)
     {
       dateValue = new Date;
@@ -107,7 +104,6 @@ export class NewsService {
 
   async getPagedSolutionsForAExercise(option)
   {
-    debugger;
 
     const body :any = {};
     body.proxy = {

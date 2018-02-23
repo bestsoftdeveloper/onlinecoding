@@ -23,7 +23,6 @@ module.exports = function() {
         //users.push(socket);
         userCount++;
 
-        debugger;
 
         connectedUsers[socket.id] = socket;
 

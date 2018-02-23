@@ -44,7 +44,6 @@ export class CoursesComponent implements OnInit {
 
   async previewsNews()
   {
-    debugger;
     let date: Date = new Date();
     if(this.newsObject && this.newsObject.date)
     {

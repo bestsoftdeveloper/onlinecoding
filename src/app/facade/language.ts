@@ -16,6 +16,8 @@ export default new class Language {
     "required":"Camp obligatoriu",
     "account_exists":"Acest email este deja inregistrat. Folositi ecranul de logare sau resetare parola",
     "password":"Parola",
+    "confirmation_code":"Codul de confirmare nu este corect",
+    "user_confirmed":"Contul de email a fost confirmat",
     "password_confirm":"Confirmare Parola",
     "email":"Email",
     "password_different":"Parola de confirmare nu este la fel cu parola ",

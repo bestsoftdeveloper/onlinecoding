@@ -1,9 +1,104 @@
-<p>
-  coding works!
-</p>
+
 <div class="container">
 
   <app-news [newsObject]="newsObject" [canEditNews]="canEditNews"></app-news>
+
+  <div class="row">
+    <div class="event">
+      <span>#002</span>
+      <div class="info">
+        MAY 21, 2013 <br />
+        A Non Ymous
+      </div>
+      <div class="price">
+        $6,500
+      </div>
+    </div>
+    <div class="event">
+      <span>#001</span>
+      <div class="info">
+        MAY 24, 2013 <br />
+        John Doe
+      </div>
+      <div class="price">
+        $650
+      </div>
+    </div>
+
+  </div>
+
+  <div class="row padding-bottom">
+    <div class="col-md-10 col-md-offset-1">
+      <!-- Description -->
+      <!-- modificat col-md-auto +text align -->
+      <div class="col-md-auto padkova text-align=center">
+        <p>
+          <b>Primul curs este gratuit!</b> Se vor prezenta metodele de lucru, tehnologiile, necesitatea invatarii acestora</p>
+        <div class="row">
+          <div class="col-md-12">
+            <p>Durata cursurilor va fi de 6 luni (24 de sedinte). Initial sedintel vor dura 2 ore </p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <p>Plata se poate face lunar (750 RON), pe modul (1500 RON) sau integral </p>
+          </div>
+        </div>
+        <div class="row">
+          <br>
+        </div>
+        <div class="row">
+          <div class="col-md-8">
+            <p>Algoritmica, structuri de date si server </p>
+          </div>
+          <div class="col-md-4">2 * 750 RON</div>
+        </div>
+        <div class="row">
+          <div class="col-md-8">
+            <p>Html, Css, Angular 1, Angular 4 </p>
+          </div>
+          <div class="col-md-4">2 * 750 RON</div>
+        </div>
+        <div class="row">
+          <div class="col-md-8">
+            <p>Testare, React, integrare cod automat </p>
+          </div>
+          <div class="col-md-4">2 * 750 RON</div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <i><b>Promotie:</b> Pentru primele echipe, oferim reducere de la 1800 RON la 1500 RON (oferta este activa)</i>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-auto padkova text-align=center">
+        <h3>Companie</h3>
+        <div class="row">
+          <div class="col-md-3 textr1"><b>Denumire firma:</b></div>
+          <div class="col-md-9"> BESTSOFTDEVELOPER SRL</div>
+        </div>
+        <div class="row">
+          <div class="col-md-3 textr1"><b>CUI:</b></div>
+          <div class="col-md-9">38444752</div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-3 textr1"><b>Nr Registrul Comerțului:</b></div>
+          <div class="col-md-9">J12/6298/2017</div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-3 textr1"><b>IBAN:</b></div>
+          <div class="col-md-9">RO23BTRLRONCRT0421756601</div>
+        </div>
+        <div class="row">
+        </div>
+
+
+      </div>
+      <!-- Description -->
+    </div>
+  </div>
 </div>
 
-
+<app-footer></app-footer>

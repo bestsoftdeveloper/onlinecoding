@@ -102,7 +102,6 @@ export class TimerComponent implements OnInit {
   stop() {
     // if (!this.config.running)
     //   return;
-    // debugger;
     if(!this.config)
     {
       return;
@@ -125,7 +124,6 @@ export class TimerComponent implements OnInit {
   stopCalled() {
     // if (!this.config.running)
     //   return;
-    // debugger;
     if(!this.config)
     {
       return;

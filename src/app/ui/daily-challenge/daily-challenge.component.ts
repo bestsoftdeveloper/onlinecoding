@@ -27,7 +27,6 @@ export class DailyChallengeComponent implements OnInit {
               private localStorageService: LocalStorageService,
               private newsService: NewsService) {
     this.user = localStorageService.get('user');
-debugger;
     let now = moment(); // add this 2 of 4
     console.log('hello world', now.format()); // add this 3 of 4
     console.log(now.add(7, 'days').format()); // add this 4of 4
@@ -64,7 +63,6 @@ debugger;
   }
 
   async previewsNews() {
-    debugger;
     let date: Date = new Date();
     if (this.newsObject && this.newsObject.date) {
       date = new Date(this.newsObject.date.jsdate);
@@ -88,7 +86,6 @@ debugger;
 
   async pageChanged(data)
   {
-    debugger;
     this.pager.pageNo = data.page;
     this.getPagedSolutionsForAExercise();
   }
@@ -104,11 +101,23 @@ debugger;
     };
 
     const resp = await this.newsService.getPagedSolutionsForAExercise(data);
-    debugger;
     this.pager.count = resp.data.count;
     this.pager.pageCount = 0;
     if(this.pager.count>0){
       this.pager.pageCount = Math.floor(this.pager.count / this.pager.itemsOnPage)+1;
+    }
+
+    for(var i=0;i<resp.data.items.length;i++){
+      var x = resp.data.items[i];
+      for(var j=0;j<x.items.length;j++){
+        var y = x.items[j];
+        if(!y.userId){
+          y.userId = {
+            email:''
+          };
+        }
+
+      }
     }
     this.solvedSolutions = resp.data.items;
   }

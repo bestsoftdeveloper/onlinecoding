@@ -44,7 +44,6 @@ export class DailyNewsComponent implements OnInit {
 
   async previewsNews()
   {
-    debugger;
     let date: Date = new Date();
     if(this.newsObject && this.newsObject.date)
     {
@@ -58,7 +57,6 @@ export class DailyNewsComponent implements OnInit {
   {
     this.newsObject = await this.newsService.getNews(NewsType.newsType.news, dateValue);
     // return;
-    // debugger;
     // if(!dateValue)
     // {
     //   dateValue = new Date;
@@ -84,7 +82,6 @@ export class DailyNewsComponent implements OnInit {
     //   return;
     // }
     //
-    // debugger;
     // const newsDate = new Date(newsDbData.data.date.jsdate);
     // newsDbData.data.date.date ={
     //   year: newsDate.getFullYear(),

@@ -114,6 +114,9 @@ window["jQuery"] = $;
 import { MarkdownModule } from 'angular2-markdown';
 import { MermaidViewerComponent } from './components/mermaid/mermaid-viewer/mermaid-viewer.component';
 import { MarkdownViewerComponent } from './components/markdown/markdown-viewer/markdown-viewer.component';
+import { EditUserComponent } from './ui/user/edit-user/edit-user.component';
+import { ConfirmEmailComponent } from './ui/user/confirm-email/confirm-email.component';
+import { BdRadioComponent } from './components/input/bd-radio/bd-radio.component';
 
 let providers = {
   // "google": {
@@ -179,6 +182,9 @@ let providers = {
     ChangePasswordComponent,
     MermaidViewerComponent,
     MarkdownViewerComponent,
+    EditUserComponent,
+    ConfirmEmailComponent,
+    BdRadioComponent,
     //
   ],
   imports: [

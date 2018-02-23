@@ -80,7 +80,6 @@ export class CodemirrorEditorComponent implements OnInit {
     {
       return;
     }
-    // debugger;
     // console.log('change ' +event);
     if(this.onCodeChanged){
       this.onCodeChanged.emit(event);

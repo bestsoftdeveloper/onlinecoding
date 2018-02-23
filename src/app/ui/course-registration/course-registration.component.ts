@@ -29,7 +29,7 @@ export class CourseRegistrationComponent implements OnInit {
       return;
     }
     this.showRegisterButton = false;
-    this.message = "Inregistrarea a fost inregistrata";
+    this.message = "Inregistrarea a fost efctuata cu succes";
 
     this.localStorageService.add('user',resp.data);
     this.pubSubService.publish("login", resp.data);

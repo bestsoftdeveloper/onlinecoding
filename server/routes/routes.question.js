@@ -113,7 +113,7 @@ router
     delete data.timer.timeOptions;
     const body = ctx.request.body;
 
-    //console.log(body);
+    console.log(body);
     data.userId = body.tokenObj.id;
     let testCases = null;
     if(resp.fields.testCases)

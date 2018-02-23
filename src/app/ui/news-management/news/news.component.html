@@ -1,6 +1,5 @@
 
-<div *ngIf="newsObject && newsObject.items">
-
+<div class="card" *ngIf="newsObject && newsObject.items">
   <div class="row {{newsObject.titleClass}}">
     <div class="newsObject.titleClass" [innerHTML]="newsObject.title | keepHtml"></div>
     <button *ngIf="canEditNews" class="btn btn-link" (click)="edit()">edit</button>

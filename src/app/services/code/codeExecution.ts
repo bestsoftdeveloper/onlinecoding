@@ -43,10 +43,13 @@ export class CodeExecutionService {
 
     try {
       var func = new Function(self.codeToBeExecuted.text);
+
       const funcResult = func.apply(null);
+      // const funcResult = func();
+
       self.response.data.result = funcResult;
       console.log = oldLog;
-      return (self.response);
+      // return (self.response);
     }
     catch (e) {
       self.response.success = false;

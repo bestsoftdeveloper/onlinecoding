@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {NotificationsService} from "angular2-notifications";
-import {PubSubService} from "../../services/pubsub/pubsub";
+import {NotificationsService} from 'angular2-notifications';
+import {PubSubService} from '../../services/pubsub/pubsub';
 
 @Component({
   selector: 'app-notification-wrapper',
@@ -16,7 +16,7 @@ export class NotificationWrapperComponent implements OnInit {
     position: ["bottom", "left"],
     timeOut: 5000,
     lastOnBottom: true
-  }
+  };
 
 
   ngOnInit() {

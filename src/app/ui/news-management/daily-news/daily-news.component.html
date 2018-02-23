@@ -1,11 +1,16 @@
 
-<pre>{{newsObject | json}}</pre>
+<div class="row center title">
+  <label class="">&nbsp;</label>
+</div>
+
+<!--<pre>{{newsObject | json}}</pre>-->
 <div class="container">
   <app-news [newsObject]="newsObject" [canEditNews]="canEditNews"></app-news>
+  <button class="btn" (click)="previewsNews()">Stirea precedenta</button>
 </div>
 
 
 
-<button class="btn" (click)="previewsNews()">Stirea precedenta</button>
+
 
 

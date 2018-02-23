@@ -11,7 +11,7 @@ const mongoQuery = require('../utils/mongoQuery')();
 const jwtMiddleware = require("../jwt/jwt");
 var Mocha = require('mocha'),
     path = require('path');
-
+const moduleFactory = require('./moduleFactory');
 var formidable = require('formidable');
 
 //const asyncBusboy = require('async-busboy');
@@ -67,7 +67,7 @@ function formidablePromise (req, opts) {
 
 
 router
-  .prefix('/api/question')
+  .prefix('/api/private')
 // .use(async function(ctx, next){
 //   console.log("ruta question verificare token");
 //   // console.log("1111111111111111111111111111111");
@@ -89,63 +89,46 @@ router
 // })
 .use(jwtMiddleware.routeJwtMiddleware())
   .post("/", async function (ctx) {
-   console.log("ruta question");
+   console.log("ruta private");
 
     const body = ctx.request.body;
     // console.log(body);
     const data = body.data;
+  data.tokenObj = body.tokenObj;
     const method = body.proxy.method;
 
 
-    const resp = await questionService[method](data, body.tokenObj);
-    return resp;
+  const module = moduleFactory.getModule(proxy.module);
+  const response = await module[proxy.method](data, body.tokenObj);
+  return response;
 
     // ctx.body = responseWrapper.success(resp);
   })
 
   .post("/form", async function (ctx) {
     //https://stackoverflow.com/questions/8359902/how-to-rename-files-parsed-by-formidable
-    const resp =  await formidablePromise(ctx.req,{});
+  const resp =  await formidablePromise(ctx.req,{});
+  const proxy = JSON.parse(resp.fields.proxy);
 
-    const proxy = JSON.parse(resp.fields.proxy);
+  const data= JSON.parse(resp.fields.data);
+  const body = ctx.request.body;
 
-    const data= JSON.parse(resp.fields.question);
-    delete data.timer.timeOptions;
-    const body = ctx.request.body;
-
-    console.log(body);
+  console.log(body);
+  console.log('dssssssssssssssssssss');
+  if(body.tokenObj) {
     data.userId = body.tokenObj.id;
-    let testCases = null;
-    if(resp.fields.testCases)
-    {
-      testCases = JSON.parse(resp.fields.testCases);
-    }
-    if(data.questionType == 2 && resp.newFileNames) {
-      let newFile = null;
-      for(var i=0;i<resp.newFileNames.length;i++)
-      {
-        newFile = resp.newFileNames[i];
-        var existentFile = data.answers.find(it=>it.index == newFile.index);
-        if(existentFile) {
-          data.answers[existentFile.index] = newFile;
-        }else
-        {
-          data.answers.push(newFile);
-        }
-      }
-    }
-  if(testCases)
-  {
-    data.testCases = testCases;
+    data.tokenObj = body.tokenObj;
   }
-    // console.log(resp.newFileNames);
-  if(resp.fields.code)
-  {
-    data.code = resp.fields.code;
-  }
+  console.log(proxy);
 
+  data.files = resp.newFileNames;
+  // if(resp.newFileNames && resp.newFileNames.length>0){
+  //   data.
+  // }
 
-  return await questionService[proxy.method](data);
+  const module = moduleFactory.getModule(proxy.module);
+  const response = await module[proxy.method](data, body.tokenObj);
+  return response;
 
   })
 

@@ -1,6 +1,10 @@
 <div class="container">
   <!--<pre>{{newsObject | json}}</pre>-->
 
+  <div class="row center title">
+    <label class="">Exercitiu </label>
+  </div>
+
   <button *ngIf="canEditNews" class="btn btn-link" (click)="edit()">edit</button>
 
   <div class="row" *ngIf="newsObject.newsType == 2">

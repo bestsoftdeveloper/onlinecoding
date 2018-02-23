@@ -62,7 +62,6 @@ export class CodingComponent implements OnInit {
 
       for(var i = 0;i<this.testCases.list.length;i++)
       {
-        debugger;
         const testCase = this.testCases.list[i];
 
         testCode = this.text + " return " + "run" + "(" + testCase.param  +");";

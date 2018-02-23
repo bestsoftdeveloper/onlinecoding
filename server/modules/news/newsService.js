@@ -111,7 +111,6 @@ class NewsService {
 
 
   async solveExercise(data, tokenObj) {
-  debugger;
   console.log(data);
   data.userId = tokenObj.id;
   data.date = new Date();
@@ -138,7 +137,6 @@ class NewsService {
 }
 
   async getSolvedUsersCount(data, tokenObj) {
-  debugger;
   console.log(tokenObj);
   data.userId = tokenObj.id;
   data.date = new Date();
@@ -157,7 +155,6 @@ class NewsService {
 }
 
   async getSolvedSolutionForAUser(data, tokenObj) {
-  debugger;
   console.log(tokenObj);
   data.userId = tokenObj.id;
   data.date = new Date();
@@ -177,7 +174,6 @@ class NewsService {
 }
 
   async getPagedSolutionsForAExercise(obj, tokenObj) {
-  debugger;
   console.log(obj);
   const filterCriteria = {
     problemId: obj.filter.problemId,
@@ -201,7 +197,6 @@ class NewsService {
     // });
   }
   // filter = filter.toArray();
-  // debugger;
   const solvedQuestions = await mongoQuery.executeQuery(filter);
 
   console.log(JSON.stringify(solvedQuestions));

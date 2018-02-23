@@ -103,7 +103,6 @@ module.exports = function() {
             return user;
         },
   async loginfb(obj) {
-    debugger;
     // console.log("ddddddddddddd");
     // console.log(JSON.stringify(obj));
     if(!obj || !obj.email)
@@ -173,8 +172,6 @@ module.exports = function() {
     // });
   },
          async createUser(obj) {
-            debugger;
-             console.log(obj);
             if(!obj || !obj.email)
             {
               throw {message:"no_email"};
@@ -259,7 +256,7 @@ module.exports = function() {
             {
               throw {message:"user_not_found"};
             }
-            var dbUser =  mongoQuery.userSchemas.Users.findOne({
+            var dbUser =  await mongoQuery.userSchemas.Users.findOne({
                 'email': obj.email.toLowerCase()
             });
             if(!dbUser)
@@ -272,7 +269,7 @@ module.exports = function() {
     await mongoQuery.userSchemas.Users.update({
       'email': obj.email.toLowerCase()
     },{
-      reset : encryption.guid()
+      reset : obj.reset
     });
 
             //var r =  dbUser.save();
@@ -281,21 +278,73 @@ module.exports = function() {
             return   "check_forgot_password";
         },
 
-        confirm(obj) {
-
-            var dbUser =  mongoQuery.userSchemas.Users.findOne({
-                _id: obj.id
-            });
-            if(!dbUser)
-            {
-              throw {message:"user_not_found"};
+        async confirm(obj) {
+            // console.log(obj);
+            if(!obj.code){
+              throw {message:"confirmation_code"};
             }
-            dbUser.confirmed = true;
+            var dbResult = await mongoQuery.userSchemas.Users.updateOne({
+                reset: obj.code
+            },{
+              $set:{
+                confirmed:true,
+                reset: encryption.guid()
+              }
+            });
+            // console.log(dbResult);
+            // if(!dbUser)
+            // {
+            //   throw {message:"user_not_found"};
+            // }
+            // dbUser.confirmed = true;
+            //
+            //  dbUser.save();
 
-             dbUser.save();
-
-            return  "";
+            if(dbResult.nModified == 0){
+              throw {message:"confirmation_code"};
+            }
+            return  {message:"user_confirmed"};
         },
+
+  async setuserpermission(obj) {
+
+    // http://localhost:6002/api/
+    // {
+    //   "proxy":{
+    //   "method" :"setuserpermission",
+    //     "module":"security"
+    // },
+    //   "data":{
+    //   "_id":"5a8e6e1fdd0c2d3e0c910362",
+    //     "permission":1
+    // }
+    // }
+
+    if(!obj._id){
+      throw {message:"user_not_found"};
+    }
+    var dbResult = await mongoQuery.userSchemas.Users.updateOne({
+      _id:new ObjectID(obj._id)
+    },{
+      $set:{
+        permission:obj.permission
+      }
+    });
+    // console.log(dbResult);
+    // if(!dbUser)
+    // {
+    //   throw {message:"user_not_found"};
+    // }
+    // dbUser.confirmed = true;
+    //
+    //  dbUser.save();
+    if(dbResult.nModified == 0){
+      throw {message:"not_confirmed"};
+    }
+    return  {message:"user_confirmed"};
+  },
+
+
 
         setUserCurrencyAddress(obj) {
 
@@ -396,75 +445,41 @@ module.exports = function() {
             return  "password_changed";
         },
 
-         updateProfile(obj) {
+         async updateProfile(obj, tokenObj) {
+    logger.log(tokenObj);
             logger.log("profile " + JSON.stringify(obj));
 
-            if (!obj.tokenObj) {
+            if (!tokenObj) {
                 logger.log(" invalid_token");
                 // console.log('1');
               throw {message:"invalid_token"};
             }
+
+            var setCriteria = {
+
+              email: obj.email,
+              companyName:obj.companyName,
+              phone:obj.phone,
+              firstName:obj.firstName,
+              lastName:obj.lastName,
+              userOrCompany:obj.userOrCompany,
+              allowLogo:obj.allowLogo
+            };
+            if(obj.files && obj.files.length>0){
+              setCriteria.companyLogo = obj.files[0].newFileName;
+            }
             // console.log('2');
-            var dbUser =  mongoQuery.userSchemas.Users.findOne({
+           await mongoQuery.userSchemas.Users.update({
                 _id: obj.tokenObj.id
-            });
+            },setCriteria);
 
+    var dbUser = await mongoQuery.userSchemas.Users.findOne({
+      '_id': obj.tokenObj.id
+    });
             // console.log('3');
-            if(!dbUser)
-            {
-                // console.log('4');
-              throw {message:"invalid_password"};
-            }
 
-            // console.log('5');
-            let hasName = false;
-            if(obj.firstName)
-            {
-                hasName= true;
-                dbUser.firstName = obj.firstName;
-            }
 
-            if(obj.lastName)
-            {
-                hasName = true;
-                dbUser.lastName = obj.lastName;
-            }
-            if(hasName)
-            {
-                dbUser.name = obj.firstName + " " + obj.lastName;
-            }
-
-            if(obj.nick) {
-                dbUser.nick = obj.nick;
-            }
-            if(obj.phone) {
-                dbUser.phone = obj.phone;
-            }
-
-            if(obj.genre) {
-                dbUser.genre = obj.genre;
-            }
-            if(obj.offset)
-            {
-                dbUser.offset = obj.offset;
-            }
-
-            if(obj.birth)
-            {
-                dbUser.birth = obj.birth;
-            }
-
-            if(obj.files && obj.files.length>0)
-            {
-                const fileInfo = obj.files[0];
-                dbUser.buletin.url =fileInfo.fName;
-                dbUser.buletin.status = 0;
-            }
-
-            var r =  dbUser.save();
-            var resp = "profile_updated";
-
-            return resp;
+            return models.createUserResponse(dbUser);
         },
 
          acceptBuletin(obj) {
@@ -668,7 +683,6 @@ module.exports = function() {
             } else {
                 crit.phone = obj.phone;
             }
-            debugger;
             var query = mongoQuery.userSchemas.Users.find(crit);
 
             mongoQuery.executeQuery(query)
@@ -769,7 +783,11 @@ module.exports = function() {
                 registered:obj.registered,
                 token: token,
                 permission:obj.permission,
-                amount: obj.amount
+                amount: obj.amount,
+              userOrCompany:obj.userOrCompany,
+              allowLogo:obj.allowLogo,
+              companyName:obj.companyName,
+              companyLogo:obj.companyLogo
             };
             if (obj.t) {
                 result.t = obj.t;

@@ -109,7 +109,6 @@ export class QuizManagerComponent implements OnInit {
           }
 
           case this.AnswerType.MultipleAswers: {
-            debugger;
             let correctAswered = true;
             for (var i = 0; i < this.question.answers.length; i++) {
 
@@ -310,7 +309,6 @@ export class QuizManagerComponent implements OnInit {
     this.questions.list.forEach(it=> delete it.selectedClass);
     question.selectedClass = "selected";
     // this.getAnswerForQuestion();
-    debugger;
     this.checkAnswers();
   }
 
@@ -324,7 +322,6 @@ export class QuizManagerComponent implements OnInit {
     //   this.finishQuiz();
     //   return;
     // }
-    //debugger;
     if (this.questionIndex === this.questions.list.length - 1) {
       this.nextPage();
       return;
@@ -347,7 +344,6 @@ export class QuizManagerComponent implements OnInit {
 
   prev() {
     this.timerComponent.stopCalled();
-    //debugger;
     if (this.isPrevDisabled()) {
       return;
     }
@@ -418,7 +414,6 @@ export class QuizManagerComponent implements OnInit {
     console.log(questionsResponsePromise);
     return questionsResponsePromise;
     // questionsResponsePromise.then(function (resp) {
-    //   debugger;
     //   self.questions.list = resp.data.items;
     //   self.pageCriteria.count =resp.data.count;
     //   this.next();

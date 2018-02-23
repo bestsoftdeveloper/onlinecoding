@@ -43,7 +43,6 @@ import {NewsService} from "../ui/news-management/services/newsService";
 
   async previewsNews()
   {
-    debugger;
     let date: Date = new Date();
     if(this.newsObject && this.newsObject.date)
     {

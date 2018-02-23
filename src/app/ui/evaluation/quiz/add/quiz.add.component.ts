@@ -14,7 +14,6 @@ export class QuizAddComponent implements OnInit {
   // sub:any;
 
   constructor(private httpService: HttpWrapperService, route: ActivatedRoute, pubSub:PubSubService) {
-    // debugger;
     let q = pubSub.getKeyValue('q');
     if(q)
     {
@@ -156,7 +155,6 @@ export class QuizAddComponent implements OnInit {
   }
   async saveQuestion() {
 
-    debugger;
 
     if (!this.question.guid) {
       this.question.guid = UUID.UUID();
@@ -219,7 +217,6 @@ export class QuizAddComponent implements OnInit {
   }
 
   async ngOnInit() {
-    debugger;
     const req: any = {
       proxy: {
         module: 'question',

@@ -171,7 +171,6 @@ class QuestionService {
 
   async getQuestions(obj, tokenObj) {
     // console.log(obj.pager);
-    // debugger;
   if(!obj.userId) {
     obj.userId = tokenObj.id;
   }
@@ -205,7 +204,6 @@ class QuestionService {
       // });
     }
     // filter = filter.toArray();
-    // debugger;
     const questions = await mongoQuery.executeQuery(filter);
 
     // console.log(questions);
@@ -299,7 +297,6 @@ class QuestionService {
           }
 
           case AnswerType.MultipleAswers: {
-            debugger;
             let correctAswered = true;
             for (var i = 0; i < question.answers.length; i++) {
 

@@ -24,7 +24,6 @@ export class CoddingMirrorComponent implements OnInit {
   };
 
   codeIsChanged(text){
-    debugger;
     this.text = text;
   }
 
@@ -65,14 +64,12 @@ export class CoddingMirrorComponent implements OnInit {
 
   executeCodeLocally(event)
   {
-    debugger;
     if(this.testCases)
     {
       let testCode = this.text;
 
       for(var i = 0;i<this.testCases.list.length;i++)
       {
-        debugger;
         const testCase = this.testCases.list[i];
 
         testCode = this.text + " return " + "run" + "(" + testCase.param  +");";

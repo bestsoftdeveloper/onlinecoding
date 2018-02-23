@@ -17,6 +17,7 @@ module.exports = function(mongoose) {
             url:String
         },
         confirmed: Boolean,
+        permission:Number,
         reset: String,
         address: String,
         genre:Number,

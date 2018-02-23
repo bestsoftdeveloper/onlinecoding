@@ -32,6 +32,8 @@ export class HeaderComponent {
     this.pubSubService.subscribe("logout", (userData)=>{
       console.log("LOGOUT EVENT rECEIVED ");
       this.user  = null;
+      this.localStorageService.remove('user');
+
     });
     if(this.user) {
       const userPermission: number = this.user.permission || 0;
@@ -49,12 +51,8 @@ export class HeaderComponent {
 
   logout()
   {
-    debugger;
-    if(this.user)
-    {
-      this.localStorageService.remove('user');
-      this.user = null;
-    }
+    this.pubSubService.publish("logout",null);
+
   }
 
 

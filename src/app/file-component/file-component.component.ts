@@ -88,7 +88,6 @@ export class FileComponentComponent  {
   }
 
   _handleReaderLoaded(e) {
-    // debugger;
     var reader = e.target;
     this.imageSrc = reader.result;
     this.loaded = true;

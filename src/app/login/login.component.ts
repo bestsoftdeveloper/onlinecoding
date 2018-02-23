@@ -96,12 +96,10 @@ export class LoginComponent implements OnDestroy  {
     //   })
     //   .catch(this.handleError);
 
-    // debugger;
     const self = this;
     const provider = 'facebook';
     this.sub = this._auth.login(provider)
       .subscribe((data:any) => {
-        // debugger;
         // console.log(data);
         self.email = data.email;
         //user data
@@ -146,7 +144,6 @@ export class LoginComponent implements OnDestroy  {
   async submitForm()
   {
     this.uiMessage = '';
-    debugger;
     if(!this.validateEmail(this.email))
     {
       return;
@@ -168,7 +165,6 @@ export class LoginComponent implements OnDestroy  {
       this.uiMessage = 'Invalid login ';
       return;
     }
-    debugger;
     this.loginOk(loginResponse);
 
   }

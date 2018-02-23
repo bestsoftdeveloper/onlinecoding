@@ -18,6 +18,8 @@ import {DailyChallengeComponent} from "../ui/daily-challenge/daily-challenge.com
 import {CreateUserComponent} from "../ui/user/create-user/create-user.component";
 import {ForgotPasswordComponent} from "../ui/user/forgot-password/forgot-password.component";
 import {ChangePasswordComponent} from "../ui/user/change-password/change-password.component";
+import {EditUserComponent} from "../ui/user/edit-user/edit-user.component";
+import {ConfirmEmailComponent} from "../ui/user/confirm-email/confirm-email.component";
 
 
 const appRoutes: Routes = [
@@ -28,6 +30,14 @@ const appRoutes: Routes = [
   {
     path: 'forgotPassword',
     component: ForgotPasswordComponent
+  },
+  {
+    path: 'edituser',
+    component: EditUserComponent
+  },
+  {
+    path: 'confirmemail',
+    component: ConfirmEmailComponent
   },
   {
     path: 'resetpassword',

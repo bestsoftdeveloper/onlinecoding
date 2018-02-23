@@ -1,7 +1,7 @@
 <div *ngIf="question" class="container">
 <!--<pre>{{question |json}}</pre>-->
   <div class="row field">
-    <div class="row center question">
+    <div class="row center question card">
       <div [innerHTML]="question.question | keepHtml"></div>
     </div>
     <div class="row center pd20">
@@ -17,14 +17,14 @@
       <div class="col-md-6 col-xs-12" *ngFor="let entry of question.answers">
 
         <div *ngIf="question.answerType.type === AnswerType.SingleAnswer" class="">
-          <div class="radio center">
-            <label>
+          <div class="radio1 center1">
+            <label class="hideRadio">
               <span *ngIf="entry.isCorrect"> <i class="glyphicon glyphicon-ok"></i> </span>
               <input type="radio" [value]="entry.index" name="radiogroup" [(ngModel)]="question.rdValue"
-                     class="btn-group"
+                     class="btn-group1 custrdchk custradio"
                      [disabled]="question.isDisabled">
-              <span class="cr"><i class="cr-icon glyphicon glyphicon-ok-sign"></i></span>
-              <span class="btn-group" [innerHTML]="entry.content | keepHtml"></span>
+              <!--<span class="cr"><i class="cr-icon glyphicon glyphicon-ok-sign"></i></span>-->
+              <span class="btn-group1" [innerHTML]="entry.content | keepHtml"></span>
 
             </label>
           </div>
@@ -32,13 +32,13 @@
 
         <div *ngIf="question.answerType.type === AnswerType.MultipleAnswers" class="">
 
-          <div class="checkbox center">
+          <div class="checkbox1 center">
             <label>
               <span *ngIf="entry.isCorrect && question.showAnswers"> <i class="glyphicon glyphicon-ok"></i> </span>
               <input type="checkbox" class="btn-group"
                      [value]="entry.index"
                      name="chkText" [(ngModel)]="entry.rdValue" [disabled]="question.isDisabled" (change)="chkChanged()">
-              <span class="cr"><i class="cr-icon glyphicon glyphicon-ok-sign"></i></span>
+              <!--<span class="cr"><i class="cr-icon glyphicon glyphicon-ok-sign"></i></span>-->
               <span class="btn-group" [innerHTML]="entry.content | keepHtml"></span>
 
             </label>
@@ -59,7 +59,7 @@
           <div class="radio">
             <label>
               <span class="cr"><i class="cr-icon glyphicon glyphicon-ok-sign"></i></span>
-              <input type="radio" [value]="entry.index" name="radiogroup" [(ngModel)]="question.rdValue">
+              <input type="radio" [value]="entry.index" name="radiogroup" [(ngModel)]="question.rdValue" class="custrdchk custradio">
 
               <img src="{{entry.filePath}}"/>
             </label>

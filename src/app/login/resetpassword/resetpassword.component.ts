@@ -80,12 +80,10 @@ export class ResetPasswordComponent implements OnDestroy  {
     //   })
     //   .catch(this.handleError);
 
-    // debugger;
     const self = this;
     const provider = 'facebook';
     this.sub = this._auth.login(provider)
       .subscribe((data:any) => {
-        // debugger;
         // console.log(data);
         self.email = data.email;
         //user data
@@ -111,7 +109,6 @@ export class ResetPasswordComponent implements OnDestroy  {
 
   async submitForm()
   {
-    debugger;
     if(!this.validateEmail(this.email))
     {
       return;
@@ -128,7 +125,6 @@ export class ResetPasswordComponent implements OnDestroy  {
 
     const loginResponse  = await this.httpService.postJson("login",loginRequest);
 
-    debugger;
     this.localStorageService.add('user',loginResponse);
     this.router.navigate(['/home'], { queryParams: { returnUrl: 'sd' }});
 

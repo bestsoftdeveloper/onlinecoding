@@ -47,10 +47,7 @@
 		  "../node_modules/swiper/dist/js/swiper.min.js",
         "../node_modules/moment/min/moment.min.js",
         "../node_modules/froala-editor/js/froala_editor.pkgd.min.js",
-        "../node_modules/bootstrap/dist/js/bootstrap.js",
-        "../node_modules/mermaid/dist/mermaid.core.js",
-        "../node_modules/swiper/dist/js/swiper.js"
-
+        "../node_modules/bootstrap/dist/js/bootstrap.js"
       ],
       "environmentSource": "environments/environment.ts",
       "environments": {
