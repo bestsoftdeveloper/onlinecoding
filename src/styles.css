@@ -11,9 +11,6 @@
   text-align: center;
 }
 
-label.hideRadio .custrdchk{
-content:'x'!important;
-}
 
 .custrdchk {
   -webkit-appearance: none;

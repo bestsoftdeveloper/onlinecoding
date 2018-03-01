@@ -20,12 +20,18 @@ import {ForgotPasswordComponent} from "../ui/user/forgot-password/forgot-passwor
 import {ChangePasswordComponent} from "../ui/user/change-password/change-password.component";
 import {EditUserComponent} from "../ui/user/edit-user/edit-user.component";
 import {ConfirmEmailComponent} from "../ui/user/confirm-email/confirm-email.component";
+import {UserListComponent} from "../ui/user/user-list/user-list.component";
 
 
 const appRoutes: Routes = [
   {
     path: 'home',
     component: HomeComponent
+  },
+  {
+    path:'users',
+    component: UserListComponent,
+    canActivate:[AuthGuard]
   },
   {
     path: 'forgotPassword',

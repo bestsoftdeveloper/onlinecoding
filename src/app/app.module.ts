@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
 import { FormsModule }   from '@angular/forms';
-// import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatInputModule, MatButtonModule, MatSelectModule, MatIconModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AceEditorModule } from 'ng2-ace-editor';
 import { AppComponent } from './app.component';
@@ -27,24 +27,11 @@ import { TooltipDirective } from 'ng2-tooltip-directive/components';
 
 import { ResetPasswordComponent } from './login/resetpassword/resetpassword.component';
 import { FooterComponent } from './ui/footer/footer.component';
-// import { SwiperModule } from '../node_modules/angular2-useful-swiper';
-import {Component} from "@angular/core";
 import { LocalStorageModule } from 'angular-2-local-storage';
-
-// import  { SwipperComponent } from './ui/swipper/swipper.component';
 import { GravatarModule } from 'ng2-gravatar-directive';
-
-
-
-
-
-
-
 import {DropdownModule} from "ngx-dropdown";
-
 import { FacebookModule } from 'ngx-facebook';
 import {AuthGuard} from "./routes/auth-guard.service";
-
 import { EvaluationComponent } from './ui/evaluation/evaluation.component';
 import { QuizAddComponent } from './ui/evaluation/quiz/add/quiz.add.component';
 import { QuizFooterComponent } from './ui/evaluation/quiz/footer/quiz.footer.component';
@@ -86,10 +73,8 @@ import { DailyChallengeComponent } from './ui/daily-challenge/daily-challenge.co
 import { CollapsibleNewsComponent } from './ui/news-management/collapsible-news/collapsible-news.component';
 import { CoddingMirrorComponent } from './coding/codding-mirror/codding-mirror.component';
 import { PagerWrapperComponent } from './components/pager-wrapper/pager-wrapper.component';
-
 import { PaginationModule } from 'ngx-bootstrap';
 import { NotificationWrapperComponent } from './components/notification-wrapper/notification-wrapper.component';
-
 import { SimpleNotificationsModule } from 'angular2-notifications';
 import { CreateUserComponent } from './ui/user/create-user/create-user.component';
 import { ForgotPasswordComponent } from './ui/user/forgot-password/forgot-password.component';
@@ -108,6 +93,8 @@ import { SwiperModule } from 'angular2-useful-swiper';
 //   slidesPerView: 'auto'
 // };
 
+
+
 // https://www.npmjs.com/package/@nomadreservations%2Fngx-codemirror#2-project-structure
 window["$"] = $;
 window["jQuery"] = $;
@@ -117,6 +104,7 @@ import { MarkdownViewerComponent } from './components/markdown/markdown-viewer/m
 import { EditUserComponent } from './ui/user/edit-user/edit-user.component';
 import { ConfirmEmailComponent } from './ui/user/confirm-email/confirm-email.component';
 import { BdRadioComponent } from './components/input/bd-radio/bd-radio.component';
+import { UserListComponent } from './ui/user/user-list/user-list.component';
 
 let providers = {
   // "google": {
@@ -185,6 +173,9 @@ let providers = {
     EditUserComponent,
     ConfirmEmailComponent,
     BdRadioComponent,
+    UserListComponent,
+
+
     //
   ],
   imports: [
@@ -216,7 +207,11 @@ let providers = {
     MarkdownModule.forRoot(),
 
     SwiperModule,
-    TextMaskModule
+    TextMaskModule,
+    MatInputModule,
+    MatButtonModule,
+    MatSelectModule,
+    MatIconModule
 
   ],
   providers: [HttpWrapperService,CodeExecutionService, AuthGuard, SimpleTimer,PubSubService, SocketService, UtilsService,NewsService ],

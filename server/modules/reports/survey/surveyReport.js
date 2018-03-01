@@ -12,39 +12,46 @@ module.exports = function() {
   const surveyReportTemplatePath = "./modules/reports/survey/surveyTemplate.html";
 
   var models = {
-    createReport: async function(filter) {
+    createReport: async function(filter, tokenObj) {
       // data.userId
       // data.categoryId
       // questionService
+// debugger;
+      console.log("create report");
+      // console.log(filter);
+      // console.log(tokenObj);
 
       // const question = await mongoQuery.collection('question').insert(data);
 
       const data = {};
-      data.userInfo = await securityService.findOne({filter:{_id: ObjectID(filter.userId)}});
+      data.userInfo = await securityService.findOne({filter:{_id: ObjectID(tokenObj.id)}});
+
+      // console.log("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
+      console.log(data.userInfo);
       data.userInfo.name = data.userInfo.firstName || data.userInfo.email;
 
       console.log(data.userInfo);
-      data.reportData = await questionService.checkAnswersForCategory(filter);
+      data.reportData = await questionService.checkAnswersForCategory(filter,tokenObj);
 
-      console.log("reportData");
+      // console.log("reportData");
       // console.log(reportData);
 
 
       var htmlResult = renderer.render(surveyReportTemplatePath,data);
-      fs.writeFile('message.html', htmlResult, function (err) {
+      // fs.writeFile('message.html', htmlResult, function (err) {
+      //   if (err) throw err;
+      //   console.log('It\'s saved! in same location.');
+      // });
 
-        if (err) throw err;
+        email.sendEmail(
+          {
+            to: data.userInfo.email,
+            bcc: "office@bestdeveloper.ro",
+            subject:"Survey",
+            body:htmlResult
+          }
+        );
 
-        console.log('It\'s saved! in same location.');
-
-      });
-        // email.sendEmail(
-        //   {
-        //     to:"claudiu9379@yahoo.com",
-        //     subject:"Survey",
-        //     body:htmlResult
-        //   }
-        // );
       return htmlResult;
 
     }

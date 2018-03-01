@@ -6,22 +6,7 @@
 
 
 <div *ngIf="!quizFinished" class="row pager">
-  <div class="row">
-    <div class=" col-sm-12 text-center">
-      <div class="btn-group center text-center">
-        <button class="btn topbtn" (click)="prevPage()" [disabled]="isPrevPageDisabled()"><i class="fa fa fa-angle-double-left" aria-hidden="true"></i></button>
-        <button class="btn topbtn" (click)="prev()" [disabled]="isPrevDisabled()"><i class="fa fa-arrow-left" aria-hidden="true"></i></button>
-        <button class="btn topbtn"   *ngFor="let q of questions.list | slice:viewIndex: viewIndex + pager.itemsOnPage; let i = index;"
-                (click)="goToQuestionNumber(q._id)"
-                (mouseover)="onBtnMouseOver(q)"
-                (mouseout)="onBtnMouseOut(q)"
-                [ngClass]="q.btnoverclass + ' ' + q.selectedClass"
-        >{{q.index+1}}</button>
-        <button class="btn topbtn" (click)="next()" [disabled]="isNextDisabled()"><i class="fa fa-arrow-right" aria-hidden="true"></i></button>
-        <button class="btn topbtn" (click)="nextPage()" [disabled]="isNextPageDisabled()"><i class="fa fa fa-angle-double-right" aria-hidden="true"></i></button>
-      </div>
-    </div>
-  </div>
+
 
 
   <div class="row center">
@@ -34,13 +19,37 @@
 
     </div>
   <div class="row center bordered">
+
+    <div class="row">
+      <div class=" col-sm-12 text-center">
+        <div class="btn-group center text-center">
+          <button class="btn topbtn" (click)="prevPage()" [disabled]="isPrevPageDisabled()"><i class="fa fa fa-angle-double-left" aria-hidden="true"></i></button>
+          <button class="btn topbtn" (click)="prev()" [disabled]="isPrevDisabled()"><i class="fa fa-arrow-left" aria-hidden="true"></i></button>
+          <button class="btn topbtn"   *ngFor="let q of questions.list | slice:viewIndex: viewIndex + pager.itemsOnPage; let i = index;"
+                  (click)="goToQuestionNumber(q._id)"
+                  (mouseover)="onBtnMouseOver(q)"
+                  (mouseout)="onBtnMouseOut(q)"
+                  [ngClass]="q.btnoverclass + ' ' + q.selectedClass"
+          >{{q.index+1}}</button>
+          <button class="btn topbtn" (click)="next()" [disabled]="isNextDisabled()"><i class="fa fa-arrow-right" aria-hidden="true"></i></button>
+          <button class="btn topbtn" (click)="nextPage()" [disabled]="isNextPageDisabled()"><i class="fa fa fa-angle-double-right" aria-hidden="true"></i></button>
+        </div>
+      </div>
+    </div>
+
+
     <hr/>
     <!--<button class="btn" (click)="sendAnswerForQuestion()">Send</button>-->
   </div>
 
-  <button class="btn" (click)="editQuestion()">edit</button>
+  <button *ngIf="canAddQuestion" class="btn" (click)="editQuestion()">edit</button>
   <!--<button class="btn" (click)="checkAnswers()">check answer</button>-->
-  <button class="btn" (click)="checkQuestionAnswers()">check answer</button>
+  <button *ngIf="canAddQuestion" class="btn" (click)="checkQuestionAnswers()">check answer</button>
+
+  <button *ngIf="canAddQuestion" class="btn" (click)="addquestion()">addquestions</button>
+
+
+
   <!--{{questions | json}}-->
 </div>
 

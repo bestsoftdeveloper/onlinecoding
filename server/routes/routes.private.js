@@ -92,14 +92,14 @@ router
    console.log("ruta private");
 
     const body = ctx.request.body;
-    // console.log(body);
+     console.log(body);
     const data = body.data;
   data.tokenObj = body.tokenObj;
     const method = body.proxy.method;
 
 
-  const module = moduleFactory.getModule(proxy.module);
-  const response = await module[proxy.method](data, body.tokenObj);
+  const module = moduleFactory.getModule(body.proxy.module);
+  const response = await module[method](data, body.tokenObj);
   return response;
 
     // ctx.body = responseWrapper.success(resp);

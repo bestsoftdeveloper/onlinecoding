@@ -30,16 +30,43 @@ export class QuizQuestionComponent implements OnInit {
 
   }
 
+  panelClick($event){
+    $event.stopPropagation();
+
+    let label = $($event.currentTarget).find('.qlabel');
+    label.click();
+    debugger;
+  }
+
   onSelectionChange(entry)
   {
 
   }
 
-  isSendAnswerDisabled()
-  {
-    return this.question.userAnswer != null;
+  isSendAnswerDisabled() {
+    if(this.question.isDisabled)
+    {
+      return true;
+    }
+    let isDisabled = true;
+    switch (this.question.answerType.type) {
+      case this.AnswerType.SingleAnswer: {
+        isDisabled = this.question.rdValue == undefined;
+        break;
+      }
+      case this.AnswerType.MultipleAswers: {
+        isDisabled = this.question.userAnswer != null;
+        break;
+      }
+    }
+
+    return isDisabled;
   }
 
+  tryGoNext()
+  {
+    this.onMessageFromQuestionControl.emit({command:'tryGoNext'});
+  }
   canSendAnswer = false;
 
   sendAnswerButtonClass = '';
@@ -67,6 +94,12 @@ export class QuizQuestionComponent implements OnInit {
   {
     this.question.userAnswer = [];
     this.onMessageFromQuestionControl.emit({command:'sendAnswer'});
+  }
+
+  sendSurveyAnswersToServer(){
+    this.sendAnswerForQuestion();
+
+    this.onMessageFromQuestionControl.emit({command:'sendReport'});
   }
 
 }

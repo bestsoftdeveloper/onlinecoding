@@ -7,7 +7,7 @@ const koabusBoy = require('co-busboy');
 const cmd = require('node-cmd');
 const testPipeline = require('pipeline-test-node');
 const mongoQuery = require('../utils/mongoQuery')();
-
+const jwtMiddleware = require("../jwt/jwt");
 
 const uuidv4 = require('uuid/v4');
 
@@ -27,15 +27,8 @@ function getModule(name) {
 
 router
   .prefix('/api/reports')
-  .use(async function (ctx, next) {
-  // var authHeader = ctx.req.headers.authorization;
-  // var r = await jwt.verify(authHeader, config.tokenPassword);
-  // ctx.request.body.tokenObj = r;
+  .use(jwtMiddleware.routeJwtMiddleware())
 
-  return next().catch((err) => {
-      throw err;
-});
-})
 .post("/", async function (ctx) {
   // console.log("OOOOOOOOOOOOOOOOOOOOO");
   const body = ctx.request.body;

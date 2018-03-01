@@ -88,6 +88,41 @@ module.exports = function() {
             //return responseWrapper.sendResponse(true, userResponse, "", "");
         },
 
+  async getUsers(obj, tokenObj) {
+
+    console.log("GET USERS");
+    console.log(obj);
+    const filterCriteria = {
+    };
+
+
+    const fields = {password:-1,'salt':-1};
+
+    var filter =  mongoQuery.userSchemas.Users
+      .find(filterCriteria);
+
+
+    if (obj.pager) {
+      obj.pager.itemsOnPage = parseInt(obj.pager.itemsOnPage);
+      obj.pager.pageNo--;
+      filter = filter.limit(obj.pager.itemsOnPage)
+        .skip(obj.pager.itemsOnPage * obj.pager.pageNo)
+      // query = query.sort({
+      //   dateAdded: -1
+      // });
+    }
+    // filter = filter.toArray();
+    const list = await mongoQuery.executeQuery(filter);
+
+    const count = await mongoQuery.collection('users').count(filterCriteria);
+    return {
+      items: list,
+      count: count,
+      pageNo: obj.pager ? obj.pager.pageNo + 1 : 0
+    };
+  },
+
+
          getUserFromToken(obj) {
             // console.log("fffffffffffffffffff");
             if(!obj)

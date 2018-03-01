@@ -170,6 +170,7 @@ class QuestionService {
   }
 
   async getQuestions(obj, tokenObj) {
+  debugger;
     // console.log(obj.pager);
   if(!obj.userId) {
     obj.userId = tokenObj.id;
@@ -314,7 +315,7 @@ class QuestionService {
                   {
                     ans.class += " good";
                   }else{
-                    ans.class += " notgood";
+                    //ans.class += " notgood";
                   }
                   correctAswered = false;
 

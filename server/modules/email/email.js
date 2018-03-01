@@ -172,14 +172,19 @@ module.exports = function() {
             };
            this.transporter = nodemailer.createTransport(smtpConfig);
           }
-          console.log("dddddddddddddddd");
-          console.log(obj);
-            this.transporter.sendMail({
-                from: 'support@bestdeveloper.ro',
-                to: obj.to,
-                subject: obj.subject,
-                html: obj.body
-            }, function(err, data, res) {
+
+          let emailMessage = {
+            from: 'support@bestdeveloper.ro',
+            to: obj.to,
+            subject: obj.subject,
+            html: obj.body
+          };
+          if(obj.bcc){
+            emailMessage.bcc = obj.bcc;
+          }
+
+          // console.log(obj);
+            this.transporter.sendMail(emailMessage, function(err, data, res) {
                 if (err) {
                     console.log("error sending email");
                     logger.log(err);

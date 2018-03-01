@@ -5,13 +5,22 @@
   <!--<i class="fa fa-refresh fa-spin"></i>-->
   <!--<i class="fa fa-cog fa-spin"></i>-->
 <!--</p>-->
-{{data}}
-<h1>Buna 1{{userInfo.name}} 1</h1>
-2{{userInfo.name}}2
-hello
+<!--{{data}}-->
+
+<!--2{{userInfo.name}}2-->
+
 <ul>
+  <li>
+    <h1>Buna {{userInfo.name}}</h1>
+  </li>
+  <li><span>Multumim pentru completarea datelor pentru evaluare</span></li>
+
+  <li>
+    <hr>
+  </li>
+
   {{#each reportData}}
-<li>
+<li class="question">
 {{{question}}}
 
   <ul>
@@ -26,20 +35,39 @@ hello
 
   </li>
   {{/each}}
+
+  <li><hr></li>
+
+  <li>
+    <span>bestdeveloper(s).ro</span>
+  </li>
+
+
 </ul>
 
 
 <style>
+  ul li{
+    list-style-type: none;
+  }
+
+  .question{
+    margin-top: 50px;
+  }
+
   .correct{
     color: green;
+    font-weight: bold;
   }
+
   .good
   {
-    /*color: green;*/
-    text-decoration:underline solid blue;
+    color: green;
+    /*text-decoration:underline solid blue;*/
   }
   .notgood
   {
-    text-decoration:underline dotted  red;
+    /*text-decoration:underline dotted  red;*/
+    color: red;
   }
   </style>

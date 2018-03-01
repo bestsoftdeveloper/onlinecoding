@@ -37,7 +37,8 @@
         "../node_modules/codemirror/addon/lint/lint.css",
         "../node_modules/codemirror-extension/addon/hint/show-hint-eclipse.css",
         "../node_modules/prismjs/themes/prism-okaidia.css",
-        "../node_modules/swiper/dist/css/swiper.css"
+        "../node_modules/swiper/dist/css/swiper.css",
+        "css/mdb.min.css"
       ],
       "scripts": [
         "../node_modules/jquery/dist/jquery.js",

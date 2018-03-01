@@ -6,6 +6,7 @@ import {HttpWrapperService} from "../../../../services/http/httpService";
 import {PubSubService} from "../../../../services/pubsub/pubsub";
 import {Router} from "@angular/router";
 import {isUndefined} from "util";
+import {LocalStorageService} from "angular-2-local-storage";
 
 @Component({
   selector: 'app-quiz-manager',
@@ -21,8 +22,13 @@ export class QuizManagerComponent implements OnInit {
     this.quizCriteria = data;
   }
   @ViewChild(TimerComponent) timerComponent: TimerComponent;
+  user: any = null;
+  canAddQuestion : boolean = false;
+  constructor(private httpService: HttpWrapperService, private router: Router, private pubSub: PubSubService, private localStorageService: LocalStorageService) {
+    this.user = localStorageService.get('user');
 
-  constructor(private httpService: HttpWrapperService, private router: Router, private pubSub: PubSubService) {
+    this.canAddQuestion = this.user && this.user.permission && this.user.permission == 1;
+
   }
 
   private pageCriteria = {
@@ -104,14 +110,16 @@ export class QuizManagerComponent implements OnInit {
             this.question.correctAswered = selectedOption == answerTypeObj.isCorrect;
 
             selectedAnswer.correctAswered = answerTypeObj.isCorrect == selectedAnswer.index;
+              selectedAnswer.css = selectedAnswer.correctAswered ? "good":"notgood";
 
             break;
           }
 
           case this.AnswerType.MultipleAswers: {
             let correctAswered = true;
-            for (var i = 0; i < this.question.answers.length; i++) {
+            const correctAnswers = this.question.answers.filter(it=> it.isCorrect);
 
+            for (var i = 0; i < this.question.answers.length; i++) {
               let ans = this.question.answers[i];
               if (this.question.userAnswer) {
                 const checkedAnswers = this.question.userAnswer.checkedAnswers;
@@ -119,13 +127,21 @@ export class QuizManagerComponent implements OnInit {
                 ans.rdValue = checked != null;
               }
 
+              if(ans.rdValue){
+                var existsInCorrectAnswers = correctAnswers.find(it=>it.index == ans.index);
+                ans.css = existsInCorrectAnswers ? "good":"notgood";
+              }
+
               if (!isUndefined(ans.isCorrect)) {
+                ans.css = "good";
                 if (ans.isCorrect && !ans.rdValue) {
                   correctAswered = false;
+                  ans.css = "goodnotclicked";
                 }
 
                 if (!ans.isCorrect && ans.rdValue) {
                   correctAswered = false;
+                  ans.css = "notgood";
                 }
               }
 
@@ -182,7 +198,7 @@ export class QuizManagerComponent implements OnInit {
     };
     body.data = {
       filter:{
-        categoryId:"5a6043ecb26e4c27c08f57de"
+        categoryId: this.quizCriteria.categoryId
       }
     };
     await this.httpService.postJson('api/question', body);
@@ -194,7 +210,13 @@ export class QuizManagerComponent implements OnInit {
     this.router.navigate(['/addquestions']);
   }
 
+  addquestion(){
+    this.pubSub.setKeyValue('q', this.question);
+    this.router.navigate(['/addquestions']);
+  }
+
   sendAnswerForQuestion() {
+    debugger;
     if (!this.question || !this.question._id) {
       return;
     }
@@ -211,10 +233,10 @@ export class QuizManagerComponent implements OnInit {
       }
     };
     req.data.body.checkedAnswers = this.question.answers.filter(el=>el.rdValue).map(el=>({index: el.index}));
+    this.question.userAnswer = {checkedAnswers:req.data.body.checkedAnswers}  ;
 
-    this.httpService.postJson('api/question', req);
+     this.httpService.postJson('api/question', req);
 
-    //this.next();
     this.checkAnswers();
   }
 
@@ -360,17 +382,30 @@ export class QuizManagerComponent implements OnInit {
     return this.questionIndex == 0;
   }
 
+  setIsLastQuestion(isLast){
+    if(!this.question){
+      return;
+    }
+    this.question.lastQuestion = isLast;
+  }
+
   isNextDisabled() {
-    if(this.pager.count ==0)
+    if(this.pager.count ==0) {
+      this.setIsLastQuestion(false);
+
       return false;
+    }
     //return this.questions.list.length === this.pager.count;
 
     // if (this.questionIndex < this.questions.list.length - 1) {
     //   return false;
     // }
     if (this.questionIndex < this.pager.count-1) {
+      this.setIsLastQuestion(false);
       return false;
     }
+
+    this.setIsLastQuestion(true);
     return true;
     // return this.questionIndex === this.questions.list.length-1;
   }
@@ -385,7 +420,36 @@ export class QuizManagerComponent implements OnInit {
         this.sendAnswerForQuestion();
         break;
       }
+      case "tryGoNext":
+      {
+        let isNextDisabled = this.isNextDisabled();
+        if(isNextDisabled){
+          this.finishQuiz();
+        }else{
+          this.next();
+        }
+        break;
+      }
+      case "sendReport":
+      {
+        this.sendSurveyAnswersToServer();
+        break;
+      }
     }
+  }
+
+  sendSurveyAnswersToServer(){
+    const body: any = {};
+    body.proxy = {
+      module: 'survey',
+      method: 'createReport',
+    };
+    body.data = {
+      filter:{categoryId:this.quizCriteria.categoryId}
+    };
+
+    const response = this.httpService.postJson("/api/reports", body);
+
   }
 
   pager = {

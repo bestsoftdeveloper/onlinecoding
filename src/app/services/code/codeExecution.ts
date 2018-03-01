@@ -38,7 +38,7 @@ export class CodeExecutionService {
     };
 
 
-    self.response.data.result = '2';
+    self.response.data.result = '';
     self.codeToBeExecuted = codeObj;
 
     try {
@@ -49,7 +49,7 @@ export class CodeExecutionService {
 
       self.response.data.result = funcResult;
       console.log = oldLog;
-      // return (self.response);
+      return (self.response);
     }
     catch (e) {
       self.response.success = false;

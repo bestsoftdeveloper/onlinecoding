@@ -1,3 +1,7 @@
+ul li{
+  list-style-type: none;
+}
+
 .event {
   width: 300px;
   height: 80px;
