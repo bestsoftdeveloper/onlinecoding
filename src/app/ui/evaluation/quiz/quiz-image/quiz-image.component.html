@@ -1,0 +1,16 @@
+<app-file-component [(obj)]="obj" prop={{prop}}></app-file-component>
+
+<label *ngIf="answerType.type === 1">
+  <input name="iscorrect"  type="radio" [value]="obj.index" [(ngModel)]="answerType.isCorrect">
+  <span>Is Correct</span>
+</label>
+
+<label *ngIf="answerType.type === 2">
+  <input [(ngModel)]="obj.isCorrect" type="checkbox"/>
+  <span>Is Correct</span>
+</label>
+
+
+
+<!--{{obj | json}}-->
+{{answerType | json}}

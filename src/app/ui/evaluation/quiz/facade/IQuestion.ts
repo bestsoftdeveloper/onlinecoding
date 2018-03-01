@@ -4,5 +4,11 @@
 
 export interface IQuestion
 {
-  question:string
+  _id:string,
+  question:string,
+  time:any,
+  questionType:number,
+  // timer:any,
+  rdValue:number,
+  testCases:any
 }

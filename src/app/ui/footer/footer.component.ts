@@ -19,7 +19,6 @@ export class FooterComponent {
 
   logout()
   {
-    debugger;
     if(this.user)
     {
       this.localStorageService.remove('user');

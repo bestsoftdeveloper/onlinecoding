@@ -26,7 +26,7 @@ export class CodeExecutionService {
     };
   }
 
-  executeCode(codeObj):Promise<any> {
+  executeCode(codeObj){
     //console.clear();
     this.response = this.createResponseObject();
 
@@ -38,26 +38,24 @@ export class CodeExecutionService {
     };
 
 
-    self.response.data.result = '2';
+    self.response.data.result = '';
     self.codeToBeExecuted = codeObj;
 
-    var promise = new Promise((resolve, reject) => {
-        //this.stop();
-      //debugger;
-      try {
-        var func = new Function(self.codeToBeExecuted.text);
-        const funcResult = func.apply(null);
-        self.response.data.result = funcResult;
-        console.log = oldLog;
-        resolve(self.response);
-      }
-      catch (e) {
-        self.response.success = false;
-        self.response.errorInfo = e;
-        console.log = oldLog;
-        resolve(self.response);
-      }
-    });
-    return promise;
+    try {
+      var func = new Function(self.codeToBeExecuted.text);
+
+      const funcResult = func.apply(null);
+      // const funcResult = func();
+
+      self.response.data.result = funcResult;
+      console.log = oldLog;
+      return (self.response);
+    }
+    catch (e) {
+      self.response.success = false;
+      self.response.errorInfo = e;
+      console.log = oldLog;
+      return (self.response);
+    }
   }
 }

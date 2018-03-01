@@ -4,6 +4,5 @@ export interface ITimerConfig {
   countUp: boolean;
   onStart?: ()=>{};
   onStop?: () => void
-  start: boolean;
-  stop: boolean;
+  running: boolean;
 }

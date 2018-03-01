@@ -14,7 +14,10 @@ export class CodingComponent implements OnInit {
   private  httpService: HttpWrapperService;
   private codeExecutionService: CodeExecutionService;
   public codeResult : any;
+  @Input() obj: any;
   @Input() code: string;
+  @Input() testCases: any;
+  @Input() prop: string;
 
   constructor(httpService: HttpWrapperService,codeExecutionService : CodeExecutionService)
   {
@@ -24,7 +27,8 @@ export class CodingComponent implements OnInit {
   }
 
   onChange(code) {
-    console.log('new code', code);
+    this.obj[this.prop] = code;
+    // console.log('new code', code);
   }
 
   getHttpService()
@@ -50,13 +54,43 @@ export class CodingComponent implements OnInit {
     this.codeResult = serverResponse;
   }
 
-  async executeCodeLocally(event)
+  executeCodeLocally(event)
   {
-    const resp = await this.codeExecutionService.executeCode(
+    if(this.testCases)
+    {
+      let testCode = this.text;
+
+      for(var i = 0;i<this.testCases.list.length;i++)
       {
-        text:this.text
-      });
-    this.codeResult = resp;
+        const testCase = this.testCases.list[i];
+
+        testCode = this.text + " return " + "run" + "(" + testCase.param  +");";
+        let resp = this.codeExecutionService.executeCode(
+          {
+            text:testCode
+          });
+        if(testCase.expected != undefined)
+        {
+          if(testCase.expected != resp.data.result)
+          {
+            resp.param = testCase.param;
+            resp.expected = testCase.expected;
+            resp.success = false;
+          }
+        }
+        this.codeResult = resp;
+        if(!resp.success)
+        {
+          break;
+        }
+      }
+    }else {
+      const resp = this.codeExecutionService.executeCode(
+        {
+          text:this.text
+        });
+      this.codeResult = resp;
+    }
 
 
     // const xxx = await this.httpService.postJson('http://localhost:3001/api/funcp',

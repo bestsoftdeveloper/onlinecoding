@@ -6,10 +6,21 @@ import { NotFoundComponent }    from '../not-found/notfound.component';
 import { AboutComponent }  from '../about/about.component';
 import { JavascriptComponent }  from '../cursuri/javascript/javascript.component';
 import { LoginComponent }  from '../login/login.component';
-import {SwipperComponent} from "../ui/swipper/swipper.component";
 import {ResetPasswordComponent} from "../login/resetpassword/resetpassword.component";
 import {AuthGuard} from "./auth-guard.service";
 import {EvaluationComponent} from "../ui/evaluation/evaluation.component";
+import {QuizAddComponent} from "../ui/evaluation/quiz/add/quiz.add.component";
+import {CourseRegistrationComponent} from "../ui/course-registration/course-registration.component";
+import {CoursesComponent} from "../ui/courses/courses.component";
+import {NewsManagementComponent} from "../ui/news-management/news-management.component";
+import {DailyNewsComponent} from "../ui/news-management/daily-news/daily-news.component";
+import {DailyChallengeComponent} from "../ui/daily-challenge/daily-challenge.component";
+import {CreateUserComponent} from "../ui/user/create-user/create-user.component";
+import {ForgotPasswordComponent} from "../ui/user/forgot-password/forgot-password.component";
+import {ChangePasswordComponent} from "../ui/user/change-password/change-password.component";
+import {EditUserComponent} from "../ui/user/edit-user/edit-user.component";
+import {ConfirmEmailComponent} from "../ui/user/confirm-email/confirm-email.component";
+import {UserListComponent} from "../ui/user/user-list/user-list.component";
 
 
 const appRoutes: Routes = [
@@ -17,6 +28,28 @@ const appRoutes: Routes = [
     path: 'home',
     component: HomeComponent
   },
+  {
+    path:'users',
+    component: UserListComponent,
+    canActivate:[AuthGuard]
+  },
+  {
+    path: 'forgotPassword',
+    component: ForgotPasswordComponent
+  },
+  {
+    path: 'edituser',
+    component: EditUserComponent
+  },
+  {
+    path: 'confirmemail',
+    component: ConfirmEmailComponent
+  },
+  {
+    path: 'resetpassword',
+    component: ChangePasswordComponent
+  },
+
   {
     path:'about',
     component:AboutComponent
@@ -36,19 +69,54 @@ const appRoutes: Routes = [
     // ]
   },
   {
+    path:'createUser',
+    component:CreateUserComponent
+  },
+
+  {
     path:'resetpassword',
     component:ResetPasswordComponent,
     canActivate:[AuthGuard]
   },
   {
-    path:'evaluation',
+    path:'survey',
     component:EvaluationComponent,
+    canActivate:[AuthGuard],
+    children:[
+      {
+        path: 'add',
+        component: QuizAddComponent
+
+      }
+    ]
   },
 
-  // {
-  //   path:'swipper',
-  //   component:SwipperComponent
-  // },
+  {
+    path:'addquestions',
+    component:QuizAddComponent
+  },
+  {
+    path:'addNews',
+    component:NewsManagementComponent
+  },
+  {
+    path:'dailyNews',
+    component:DailyNewsComponent
+  },
+  {
+    path:'dailyChallenge',
+    component:DailyChallengeComponent,
+    canActivate:[AuthGuard]
+  },
+  {
+    path:'registercourse',
+    component:CourseRegistrationComponent,
+    canActivate:[AuthGuard]
+  },
+  {
+    path:'courses',
+    component:CoursesComponent
+  },
   // {
   //   path: 'admin',
   //   loadChildren: 'app/admin/admin.module#AdminModule',
@@ -67,7 +135,7 @@ const appRoutes: Routes = [
     RouterModule.forRoot(
       appRoutes,
       {
-        enableTracing: true, // <-- debugging purposes only
+        enableTracing: false, // <-- debugging purposes only
         // preloadingStrategy: SelectivePreloadingStrategy,
 
       }

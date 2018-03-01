@@ -1,0 +1,14 @@
+<p>
+  user-list works!
+</p>
+
+<div class="container">
+  <pre>{{pager.items | json}}</pre>
+  <app-pager-wrapper [pager]="pager" (onPageChanged)="pageChanged($event)"></app-pager-wrapper>
+
+  <div class="row" *ngFor="let user of pager.items; let i = index">
+    Row {{i}} : {{user.name}} - {{user.email}}
+  </div>
+
+
+</div>

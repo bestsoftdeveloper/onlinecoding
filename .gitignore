@@ -5,8 +5,10 @@
 /tmp
 /out-tsc
 
+/server/uploads
 # dependencies
 /node_modules
+/server/node_modules
 
 # IDEs and editors
 /.idea

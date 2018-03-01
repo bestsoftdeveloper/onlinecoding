@@ -1,0 +1,64 @@
+
+
+<div class="row">
+  <div class="col-md-6 brd1">
+    <!--{{text}}-->
+    <app-codemirror-editor [code]="text"
+                           (onCodeChanged)="codeIsChanged($event)"
+                           [externalConfig]=externalConfig></app-codemirror-editor>
+    <button class="col-md-6 btn-primary test-button" (click)="executeCodeLocally($event)">Test</button>
+    <!--<button class="col-md-6 btn-success" (click)="executeCodeOnServer($event)">Send To Server</button>-->
+  </div>
+  <div class="col-md-6 bl">
+    <div class="row">
+      <ul>
+        <li>
+          <label>Rezultatul executiei</label>
+        </li>
+      </ul>
+
+    </div>
+    <div class="row">
+      <ul *ngIf="codeResult">
+
+        <!--<pre>{{codeResult | json}}</pre>-->
+
+        <li>
+          Success:{{codeResult.success}}
+          <span class="error">{{codeResult.errorInfo}}</span>
+        </li>
+        <li *ngIf="codeResult.param">
+          Input:{{codeResult.param}}
+          Expected:{{codeResult.expected}}
+        </li>
+        <li>
+          Result: {{codeResult.data.result}}
+        </li>
+
+
+        <li *ngIf="codeResult.data.console && codeResult.data.console.length>0">
+          <span> Console:</span>
+          <ul>
+            <li *ngFor="let comment of codeResult.data.console; let i = index">
+              <span>{{comment}}</span>
+            </li>
+          </ul>
+          {{comment}}
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="row">
+
+  </div>
+
+
+</div>
+
+
+
+
+
+
+
+

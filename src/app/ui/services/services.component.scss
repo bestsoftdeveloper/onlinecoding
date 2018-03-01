@@ -3,6 +3,8 @@
     home page -- services
     ====================================== */
 
+$color-hover: #1C1F8F;
+
 .services {
   padding-top: 55px;
 }
@@ -117,7 +119,7 @@
 
 .services .box-green-border .service-overlay ul li a:hover,
 .services .box-green-border .service-overlay ul li a:hover i {
-  color: #90c404;
+  color: $color-hover;
 }
 
 
@@ -154,7 +156,7 @@
 .box-green-border:hover a,
 .box-green-border a:focus,
 .box-green-border:hover span {
-  color: #90c404;
+  color: $color-hover;
   text-decoration: none;
 }
 

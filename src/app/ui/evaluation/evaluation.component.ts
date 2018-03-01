@@ -10,6 +10,9 @@ export class EvaluationComponent {
 
   private user: any;
 
+  private evaluationQuizCriteria: any  = {
+    categoryId: "5a6043ecb26e4c27c08f57de"
+  }
 
 
 
@@ -24,3 +27,5 @@ export class EvaluationComponent {
 
 
 }
+
+

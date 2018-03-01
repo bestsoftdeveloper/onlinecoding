@@ -1,0 +1,73 @@
+const koa = require('koa');
+const http = require('http');
+const https = require('https');
+// var forceSSL = require('koa-force-ssl');
+const lcPublicRoutes = require('./server/routes/public.routes');
+
+const lcRouter = require('koa-router')();
+
+const errorCatcher = require('./server/shared/error-handling/errorCatcher');
+
+const parse = require('co-body');
+const koaBody = require('koa-body');
+const co = require('co');
+const fs = require('fs');
+const colors = require('colors');
+const utils = require('./server/shared/utils');
+var io = require('socket.io');
+
+const logger = require('koa-logger');
+const ObjectID = require("mongodb").ObjectID;
+const BodyParser = require("koa-bodyparser");
+const  config =  require('./server/config/development');
+const serve = require('koa2-static-middleware');
+var serveFolder = require('koa-static-folder');
+
+const cors = require('koa-cors');
+const app = new koa();
+
+app.use(cors({
+  origin: function(ctx) {
+    if (ctx.url === '/test') {
+      return false;
+    }
+    return '*';
+  },
+  exposeHeaders: ['WWW-Authenticate', 'Server-Authorization'],
+  maxAge: 5,
+  credentials: true,
+  allowMethods: ['GET', 'POST', 'DELETE'],
+  allowHeaders: ['Content-Type', 'Authorization', 'Accept'],
+}));
+require("./server/mongo/mongo")(app);
+
+var originsWhitelist = [
+  'http://localhost:4200',      //this is my front-end url for development
+  'http://www.myproductionurl.com'
+];
+
+//here is the magic
+app.use(cors());
+app.use(logger());
+app.use(BodyParser());
+
+const mongoQuery = require('./server/utils/mongoQuery')();
+
+
+lcRouter.use(lcPublicRoutes.routes());
+app.use(lcRouter.routes()).use(lcRouter.allowedMethods());
+
+
+app.use(serveFolder('src'));
+app.use(serveFolder('node_modules'));
+app.use(serveFolder('src/js'));
+lcRouter.get('/', serve('./src', { index: 'index.html' }));
+
+console.log(lcRouter.stack.map(i => i.path));
+
+const port =  6002;
+const server = app.listen(port).on("error", err => {
+    console.error(err);
+});
+
+module.exports = server;

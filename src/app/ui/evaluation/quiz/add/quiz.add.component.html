@@ -1,3 +1,145 @@
-<p>
-  quiz.add works!
-</p>
+<div class="container">
+<!--{{categories | json}}-->
+  <div class="row">
+    <select [(ngModel)]="question.categoryId" (input)="onCategoryChange($event)">
+      <option *ngFor="let category of categories" value= {{category._id}}>{{category.name}}</option>
+    </select>
+  </div>
+
+
+
+  <div class="row pad">
+    <!--{{question | json}}-->
+    {{question.questionType}}
+    <div class="form-inline">
+      <div class="controls-row">
+        <label class="control-label">Some label</label>
+        <label class="radio inline" *ngFor="let it of QuestionType | keysToArray">
+          <input type="radio"
+                 name="options"
+                 class="custrdchk custradio"
+                 [value]=it.value
+                 [(ngModel)]=question.questionType
+          />
+          {{it.key}}
+        </label>
+      </div>
+    </div>
+  </div>
+
+  <div class="row pad">
+    <label>
+      <button type="button" class="btn" (click)="decreaseNumberOfAnswers()"
+              [disabled]="this.question.answers.length===0">-
+      </button>
+      <span>Answer Count</span>
+      <button type="button" class="btn" (click)="increaseNumberOfAnswers()">+</button>
+    </label>
+  </div>
+
+  <div class="row pad">
+    <!--{{question.answerType | json}}-->
+
+    <div class="form-inline">
+      <div class="controls-row">
+        <label class="control-label">Some label</label>
+
+        <label class="radio inline" *ngFor="let it of AnswerType | keysToArray">
+          <input type="radio"
+                 name="answerType"
+                 class="custrdchk custradio"
+                 [value]=it.value
+                 [(ngModel)]=question.answerType.type
+          />
+          {{it.key}}
+        </label>
+      </div>
+    </div>
+  </div>
+
+  <div class="row pad">
+    <app-quiz-timer [(obj)]="question.timer"></app-quiz-timer>
+
+  </div>
+
+  <div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12">
+      <p>
+        Enunt! {{question.question}} ---
+      </p>
+      <app-wys-editor [(obj)]="question" prop="question"></app-wys-editor>
+    </div>
+  </div>
+
+  <!--https://codepen.io/jcutrell/pen/owLvF-->
+  <div class="row">
+    <div class="col-xs-12 col-sm-6 col-md-6" *ngFor="let ddd of question.answers;let i = index">
+      <app-quiz-wys-editor *ngIf="question.questionType==1" [(obj)]="question.answers[i]" prop="content"
+                           [(answerType)]="question.answerType"></app-quiz-wys-editor>
+      <app-quiz-image *ngIf="question.questionType==2" [(obj)]="question.answers[i]" prop="content"
+                      [(answerType)]="question.answerType"></app-quiz-image>
+    </div>
+  </div>
+
+  <!--<div class="row">-->
+  <!--<div class="col-md-6">-->
+  <!--<app-quiz-wys-editor *ngIf="question.questionType==1" [(obj)]="question.answers[0]" prop="content" [(answerType)]="question.answerType"></app-quiz-wys-editor>-->
+  <!--<app-quiz-image *ngIf="question.questionType==2" [(obj)]="question.answers[0]" prop="content" [(answerType)]="question.answerType"></app-quiz-image>-->
+
+  <!--</div>-->
+  <!--<div class="col-md-6">-->
+  <!--<app-quiz-wys-editor *ngIf="question.questionType==1" [(obj)]="question.answers[1]" prop="content" [(answerType)]="question.answerType"></app-quiz-wys-editor>-->
+  <!--<app-quiz-image *ngIf="question.questionType==2" [(obj)]="question.answers[1]" prop="content" [(answerType)]="question.answerType"></app-quiz-image>-->
+
+  <!--</div>-->
+  <!--</div>-->
+
+
+  <!--<div class="row">-->
+  <!--<div class="col-md-6">-->
+  <!--<app-quiz-wys-editor *ngIf="question.questionType==1" [(obj)]="question.answers[2]" prop="content" [(answerType)]="question.answerType"></app-quiz-wys-editor>-->
+  <!--<app-quiz-image *ngIf="question.questionType==2" [(obj)]="question.answers[2]" prop="content" [(answerType)]="question.answerType"></app-quiz-image>-->
+
+  <!--</div>-->
+  <!--<div class="col-md-6">-->
+  <!--<app-quiz-wys-editor *ngIf="question.questionType==QuestionType.Text" [(obj)]="question.answers[3]" prop="content" [(answerType)]="question.answerType"></app-quiz-wys-editor>-->
+  <!--<app-quiz-image *ngIf="question.questionType==QuestionType.Image" [(obj)]="question.answers[3]" prop="content" [(answerType)]="question.answerType"></app-quiz-image>-->
+
+  <!--</div>-->
+  <!--</div>-->
+
+  <div class="row" *ngIf="question.questionType==QuestionType.Code">
+    <div class="col-md-6">
+      <div class="row">
+        <span>Code</span>
+      </div>
+      <div class="row">
+        <textarea cols="77" rows="20" [(ngModel)]="question.code"></textarea>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="row">
+        <span>Test cases</span>
+      </div>
+      <div class="row">
+        <textarea cols="77" rows="20" [(ngModel)]="question.testCasesStr"></textarea>
+      </div>
+    </div>
+
+
+  </div>
+
+  <div class="row">
+
+  </div>
+
+  <div class="row pad">
+    <button type="button" class="btn" (click)="saveQuestion()">Save</button>
+  </div>
+
+  <!--{{answerType | json}}-->
+
+</div>
+
+

@@ -32,7 +32,6 @@ import {CodeExecutionService} from "../../../services/code/codeExecution";
 
   titleClick(el)
   {
-    // debugger;
     el.expanded = !el.expanded;
   }
 

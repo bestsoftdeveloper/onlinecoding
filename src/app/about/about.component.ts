@@ -1,6 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { AceEditorComponent } from 'ng2-ace-editor';
-import { HttpWrapperService } from '../services/http/httpService'
+import {utils} from "protractor";
+import {Router} from "@angular/router";
+import {LocalStorageService} from "angular-2-local-storage";
+import Permissions from "../facade/permissions";
+import NewsType from "../facade/newsTypes";
+import {HttpWrapperService} from "../services/http/httpService";
+import {UtilsService} from "../services/utils/utilsService";
+import {PubSubService} from "../services/pubsub/pubsub";
+import {NewsService} from "../ui/news-management/services/newsService";
 
 @Component({
   selector: 'app-about',
@@ -9,46 +16,53 @@ import { HttpWrapperService } from '../services/http/httpService'
 })
   export class AboutComponent implements OnInit {
 
-  private text: string;
-  private  httpService: HttpWrapperService;
-  public codeResult : any;
+  constructor(private httpService: HttpWrapperService,
+              private utilsService: UtilsService,
+              private pubSub: PubSubService,
+              private router: Router,
+              private localStorageService: LocalStorageService,
+              private newsService: NewsService
+  ) {
+    this.user = localStorageService.get('user');
+  }
+  user: any = null;
 
-  constructor(httpService: HttpWrapperService)
+  canEditNews: boolean = false;
+
+  async ngOnInit() {
+    await this.getNews(new Date());
+    const userPermission : number = this.user.permission || 0;
+    this.canEditNews = ((userPermission & Permissions.Roles.EditNews) === Permissions.Roles.EditNews);
+  }
+
+  newsObject : any = {};
+
+  externalConfig: any = {
+    lineNumbers: false
+  };
+
+  async previewsNews()
   {
-    this.httpService = httpService;
-    this.text = 'console.log("start");';
+    let date: Date = new Date();
+    if(this.newsObject && this.newsObject.date)
+    {
+      date = new Date(this.newsObject.date.jsdate);
+    }
+    date.setSeconds(date.getSeconds() -1);
+    this.getNews(date);
   }
 
-  onChange(code) {
-    console.log('new code', code);
-  }
-
-  ngOnInit() {
-  }
-
-  async executeCodeOnServer(event)
+  async getNews(dateValue)
   {
-    const xxx = await this.httpService.postJson('http://localhost:3001/api/funcp',
-      {
-        code: this.text
-      });
-    this.codeResult = xxx;
-    console.log(xxx);
+    this.newsObject = await this.newsService.getNews(NewsType.newsType.about, dateValue);
   }
-  // ngAfterViewInit() {
-  //   this.editor.setTheme("eclipse");
 
-  //   this.editor.getEditor().setOptions({
-  //       enableBasicAutocompletion: true
-  //   });
 
-  //   this.editor.getEditor().commands.addCommand({
-  //       name: "showOtherCompletions",
-  //       bindKey: "Ctrl-.",
-  //       exec: function (editor) {
 
-  //       }
-  //   })
-//}
+  edit()
+  {
+    this.pubSub.setKeyValue('news', this.newsObject);
+    this.router.navigate(['/addNews']);
+  }
 
 }

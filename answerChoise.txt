@@ -1,0 +1,19 @@
+<div class="answer-choice  boxed radio"><label><input type="radio" name="survey-question-158" value="728"><span class="radio-label"><span class="answer-label">Some familiarity or related knowledge</span></span></label></div>
+
+.survey-dialog--survey-question__big--3XySj .answer-choice.radio {
+    width: 170px;
+    height: 150px;
+    display: inline-block;
+    position: relative;
+}
+
+.radio-inline:not(.radio-button).boxed, .radio:not(.radio-button).boxed {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border-radius: 4px;
+}
+
+.radio-inline:not(.radio-button), .radio:not(.radio-button) {
+    font-size: 15px;
+    padding-left: 0;
+}
