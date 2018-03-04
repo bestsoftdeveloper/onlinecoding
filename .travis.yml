@@ -10,10 +10,10 @@ before_script:
   - npm install -g @angular/cli
 
 script:
-  - ng build --prod
+  - ng build
 
 after_success:
- 
+
 
 notifications:
   email:
