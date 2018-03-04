@@ -7,7 +7,7 @@ const fs =require('fs');
 const bodyParser = require('body-parser');
 
 // Get our API routes
-const api = require('./server/routes/api');
+const api = require('./appserver/routes/api');
 
 const app = express();
 
@@ -73,7 +73,7 @@ app.get('/uploads/:id', function(req, res) {
 /**
  * Get port from environment and store in Express.
  */
-const port = process.env.PORT || '4200';
+const port = process.env.PORT || '80';
 app.set('port', port);
 
 /**
