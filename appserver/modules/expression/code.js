@@ -1,7 +1,7 @@
 // const safeEval = require('safe-eval')
 
 const Sandbox = require('sandbox');
-const q = require('Q');
+const q = require('q');
 const Promise = require('promise');
 
 
