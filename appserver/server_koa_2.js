@@ -31,22 +31,12 @@ const staticServe = require('koa-static');
 const  config =  require('./config/development');
 const serve = require('koa2-static-middleware');
 const cors = require('@koa/cors');
+
 const app = new koa();
+const mongoQuery = require('./utils/mongoQuery')(app);
 
-//import serve from 'koa-static-folder';
-var formidable = require('koa2-formidable');
-
-
-// require("./mongo/mongo")(app);
-
-var originsWhitelist = [
-  'http://localhost:4200',      //this is my front-end url for development
-  'http://www.myproductionurl.com'
-];
 
 app.use(cors());
-// app.use(logger());
-// app.use(errorCatcher);
 app.use(BodyParser());
 app.use(cors());
 
@@ -54,8 +44,6 @@ app.use(async (ctx, next) => {
   //middleware
   let response = null;
   try {
-    // console.log("ruta applicatie");
-
     response = await next() // next is now a function
     ctx.body = responseWrapper.success(response);
   } catch (err) {
@@ -66,7 +54,7 @@ app.use(async (ctx, next) => {
   }
 })
 
-const mongoQuery = require('./utils/mongoQuery')(app);
+
 
 lcRouter.use(lcPublicRoutes.routes());
 lcRouter.use(routesQuestion.routes());
@@ -77,11 +65,9 @@ lcRouter.use(routesRegister.routes());
 lcRouter.use(routesPrivate.routes());
 
 
-
-
 app.use(lcRouter.routes()).use(lcRouter.allowedMethods());
 
-lcRouter.get('/', serve('../src', { index: 'index.html' }));
+lcRouter.get('/', serve('../dist', { index: 'index.html' }));
 
 lcRouter.get("/uploads/:id", async function (ctx) {
   await send(ctx, ctx.path);

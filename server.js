@@ -1,9 +1,10 @@
 // Get dependencies
 const express = require('express');
 const path = require('path');
-const http = require('http');
+var http = require('http'),
+    httpProxy = require('http-proxy');
 const logger = require('logger');
-const fs =require('fs');
+const fs = require('fs');
 const bodyParser = require('body-parser');
 
 // Get our API routes
@@ -12,6 +13,7 @@ const api = require('./appserver/routes/api');
 const app = express();
 
 var request = require('request');
+
 
 // Parsers for POST data
 app.use(bodyParser.json());
@@ -51,12 +53,29 @@ app.get('*', (req, res) => {
   if (req.path.startsWith('/uploads')) {
     var url = proxiedURL + "/uploads/" + req.params.id;
     //logger.info('/fileThumbnail going to url', url);
-    url=proxiedURL+req.path;
+    url = proxiedURL + req.path;
     console.log(url);
 
     request.get(url).pipe(res);
   } else {
     res.sendFile(path.join(__dirname, 'dist/index.html'));
+  }
+});
+
+app.post('*', (req, res) => {
+  console.log(req.path);
+  if (req.path.startsWith('/api')) {
+    // var url = proxiedURL + "/uploads/" + req.params.id;
+    //logger.info('/fileThumbnail going to url', url);
+    url = proxiedURL;
+    console.log('XXXXXXXXXXXXXXXXXXXXXX');
+    console.log(url);
+
+    //forward the request
+    request({
+      uri: 'http://localhost:6002' + req.url,
+      headers: req.headers, body: req.body
+    }).pipe(res);
   }
 });
 
@@ -73,13 +92,20 @@ app.get('/uploads/:id', function(req, res) {
 /**
  * Get port from environment and store in Express.
  */
-const port = process.env.PORT || '80';
+const port = process.env.PORT || '4200';
 app.set('port', port);
 
 /**
  * Create HTTP server.
  */
-const server = http.createServer(app);
+
+var proxy = httpProxy.createProxyServer({});
+// const server = http.createServer(app);
+var server = http.createServer(function(req, res) {
+  // You can define here your custom logic to handle the request
+  // and then proxy the request.
+  proxy.web(req, res, { target: 'http://127.0.0.1:6002' });
+});
 
 /**
  * Listen on provided port, on all network interfaces.

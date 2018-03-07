@@ -6,15 +6,15 @@ branches:
   only:
     - master
 
-before_script:
-#  - npm install -g @angular/cli
+sudo: false # Allows Travis to run this project in container
+deploy:
+  provider: script
+  skip_cleanup: true
+  script: scripts/deploy.sh
+  on:
+    branch: master
 
-script:
-#  - ng build
- - git pull
 
-after_success:
- - node server.js
 
 notifications:
   email:

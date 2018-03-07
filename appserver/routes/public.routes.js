@@ -60,16 +60,6 @@ function formidablePromise (req, opts) {
 
 router
   .prefix('/api')
-// .use(async (ctx, next) => {
-//   try{
-//     const promise =  await next();
-// ctx.body = responseWrapper.success(promise);
-// }
-// catch(ex)
-// {
-//   ctx.body = responseWrapper.failure(ex);
-// }
-// })
   .get("/", async function (ctx) {
   console.log("ruta public");
 

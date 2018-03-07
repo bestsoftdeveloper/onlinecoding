@@ -29,6 +29,6 @@ export class AppComponent implements OnInit {
 
   constructor(private socket: SocketService)
   {
-    this.socket.connect();
+    // this.socket.connect();
   }
 }
