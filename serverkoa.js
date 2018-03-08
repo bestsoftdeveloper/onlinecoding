@@ -5,24 +5,47 @@ const Router = require("koa-router");
 
 const app = new koa();
 const router = new Router();
-
-const proxy = require('koa2-proxies')
-const proxyUrl = ['/v2'];
+const BodyParser = require("koa-bodyparser");
+let request = require('koa2-request');
 const send = require('koa-send');
+
+
+const {httpProxy} = require('koa-http-proxy-middleware');
+const httpsProxyAgent = require('https-proxy-agent');
+
+const microServicePath = "http://localhost:6002";
 
 path = require('path'),
 fs = require('fs');
 
 var staticRoot = __dirname + '/';  
 
-// app.use(serveStatic('./dist'));
+// app.use(router(app));
+// app.post('/api', proxy());
+
+// app.use(BodyParser());
+app.use(httpProxy('/api', {
+  target: microServicePath,
+  changeOrigin: true,
+  rewrite: path => path.replace(/^\/api(\/|\/\w+)?$/, '/api'),
+  logs: true
+}))
 
 app.use(async function  (ctx, next) {
-  console.log(ctx.path);
+  console.log(ctx);
 
   if (ctx.path.startsWith('/api')) {
-  	console.log('a');
-    await proxy({host: 'localhost:6002', ctx})
+    debugger;
+  	console.log('api ...................');
+    console.log(ctx.request.body);
+    //ctx.host = "localhost:6002";
+    // 
+    var desiredPath = "/6002/api";
+    ctx.path= microServicePath + ctx.url;
+    // ctx.path = "/test"+ ctx.path;
+    console.log("fffffffffffffffff " +microServicePath);
+    console.log(ctx.path + " --- " +ctx.url);
+    return await next();
   } else {
     if(ctx.path == '/'){
       return await next();
@@ -36,15 +59,19 @@ app.use(async function  (ctx, next) {
       await send(ctx, 'dist/'+ctx.path);
       // await next();
     }
-   //  return fs.createReadStream(staticRoot + 'index.html');//.pipe(res)
 
     //await next()
   }
 })
 
 
-router.get('/*', serve('./dist', { index: 'index.html' }));
+// router.post('/api', proxy());
+router.post("/test", async function (ctx) {
+    let name = ctx.request.body.name || "World";
+    ctx.body = {message: `Hello ${name}!`}
+});
 
+router.get('/*', serve('./dist', { index: 'index.html' }));
 app.use(router.routes()).use(router.allowedMethods());
 
 
