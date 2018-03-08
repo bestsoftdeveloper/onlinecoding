@@ -46,7 +46,7 @@
     "angular2-social-login": "^3.1.1",
     "angular2-swiper": "^0.8.1",
     "angular2-text-mask": "^8.0.4",
-    "angular2-useful-swiper": "git+https://github.com/tanoy009/angular4-swiper.git",
+    "angular2-useful-swiper": "^5.0.1",
     "angular2-uuid": "^1.1.1",
     "body-parser": "^1.18.2",
     "bootstrap": "^3.3.7",
