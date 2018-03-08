@@ -36,7 +36,6 @@
     "@types/codemirror": "0.0.46",
     "@types/hellojs": "^1.15.0",
     "@types/jquery": "^3.2.16",
-    "@types/moment": "^2.13.0",
     "angular-2-local-storage": "^1.0.1",
     "angular-froala-wysiwyg": "^2.7.3",
     "angular-localstorage": "^1.1.5",
@@ -121,7 +120,7 @@
     "zone.js": "^0.8.14"
   },
   "devDependencies": {
-    "@angular/cli": "1.4.5",
+    "@angular/cli": "1.7.2",
     "@angular/compiler-cli": "^5.0.2",
     "@angular/language-service": "^5.0.2",
     "@types/jasmine": "~2.5.53",
