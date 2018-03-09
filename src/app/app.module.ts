@@ -23,12 +23,12 @@ import { HeaderComponent } from './ui/header/header.component';
 import  { MainSliderComponent } from './ui/mainSlider/mainSlider.component';
 import  { TypoComponent } from './ui/type/typo.component';
 import  { HomePresentationComponent } from './ui/homePresentation/homePresentation.component';
-import { TooltipDirective } from 'ng2-tooltip-directive/components';
+
 
 import { ResetPasswordComponent } from './login/resetpassword/resetpassword.component';
 import { FooterComponent } from './ui/footer/footer.component';
 import { LocalStorageModule } from 'angular-2-local-storage';
-import { GravatarModule } from 'ng2-gravatar-directive';
+
 import {DropdownModule} from "ngx-dropdown";
 import { FacebookModule } from 'ngx-facebook';
 import {AuthGuard} from "./routes/auth-guard.service";
@@ -135,7 +135,6 @@ let providers = {
     // SwipperComponent,
     TypoComponent,
     HomePresentationComponent,
-    TooltipDirective,
     ResetPasswordComponent,
     FooterComponent,
     EvaluationComponent,
@@ -191,7 +190,7 @@ let providers = {
     FacebookModule.forRoot(),
     FormsModule,
     FroalaEditorModule.forRoot(), FroalaViewModule.forRoot(),
-    GravatarModule,
+
     LocalStorageModule.withConfig({
       prefix: 'my-app',
       storageType: 'localStorage'
@@ -200,6 +199,7 @@ let providers = {
     MyDatePickerModule,
     MomentModule,
     NgbModule.forRoot(),
+
     BsDropdownModule.forRoot(),
     PaginationModule.forRoot(),
     SimpleNotificationsModule.forRoot(),
