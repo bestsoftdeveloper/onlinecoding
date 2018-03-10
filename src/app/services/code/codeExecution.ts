@@ -11,7 +11,6 @@ export class CodeExecutionService {
   constructor()
   {
 
-    console.log("ggggggggggggggggg");
   }
 
   createResponseObject()

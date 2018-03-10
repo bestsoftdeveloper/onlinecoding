@@ -2571,7 +2571,7 @@ import { HttpWrapperService } from '../../services/http/httpService'
   }
 
   onChange(code) {
-    console.log('new code', code);
+    // console.log('new code', code);
   }
 
   ngOnInit() {
@@ -2584,7 +2584,6 @@ import { HttpWrapperService } from '../../services/http/httpService'
         code: this.text
       });
     this.codeResult = xxx;
-    console.log(xxx);
   }
 
 

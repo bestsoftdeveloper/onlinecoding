@@ -141,11 +141,8 @@ export class CodemirrorEditorComponent implements OnInit {
 
   public ngOnInit() {
 
-    console.log("asfasdf");
-    console.log(this._codeMirror.instance$);
 
     this._codeMirror.instance$.subscribe((editor) => {
-      console.log("DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD");
       // console.log(editor.state);
     });
 
@@ -165,8 +162,7 @@ export class CodemirrorEditorComponent implements OnInit {
   }
 
   ngAfterViewInit(): void {
-    console.log("asfasdf");
-    console.log(this._codeMirror.instance$);
+    // console.log(this._codeMirror.instance$);
     // let orig = this._codeMirror.instance$.javascript;
     // console.log(orig);
   }

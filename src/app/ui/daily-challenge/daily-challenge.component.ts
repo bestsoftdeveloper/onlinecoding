@@ -28,8 +28,8 @@ export class DailyChallengeComponent implements OnInit {
               private newsService: NewsService) {
     this.user = localStorageService.get('user');
     let now = moment(); // add this 2 of 4
-    console.log('hello world', now.format()); // add this 3 of 4
-    console.log(now.add(7, 'days').format()); // add this 4of 4
+    // console.log('hello world', now.format()); // add this 3 of 4
+    // console.log(now.add(7, 'days').format()); // add this 4of 4
   }
 
   user: any = null;
@@ -39,7 +39,10 @@ export class DailyChallengeComponent implements OnInit {
   async ngOnInit() {
     await this.getNews(new Date());
 
-    const userPermission: number = this.user.permission || 0;
+    let userPermission : number = 0;
+    if(this.user) {
+      userPermission = this.user.permission;
+    }
     this.canEditNews = ((userPermission & Permissions.Roles.EditNews) === Permissions.Roles.EditNews);
     if (this.newsObject && this.newsObject.items && this.newsObject.items.length > 0) {
       this.problem = this.newsObject.items[0];

@@ -24,7 +24,6 @@ import {CodeExecutionService} from "../../../services/code/codeExecution";
   }
 
   onChange(code) {
-    console.log('new code', code);
   }
 
   ngOnInit() {

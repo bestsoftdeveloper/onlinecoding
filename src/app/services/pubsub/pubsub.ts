@@ -12,7 +12,6 @@ export class PubSubService {
   static instance:PubSubService;
 
   constructor() {
-    console.log("CTOOOOOOOOOOOOOOOOOR");
   }
 
   static getInstance() {

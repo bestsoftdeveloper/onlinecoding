@@ -13,7 +13,6 @@ export class NewsService {
               private utilsService: UtilsService
   )
   {
-    console.log("ggggggggggggggggg");
   }
 
   async getNews(newsType, dateValue)
@@ -34,7 +33,6 @@ export class NewsService {
         mili:this.utilsService.date.dateToUtcMilliSecconds(dateValue)
       }
     };
-    console.log(body);
     const newsDbData =  await this.httpService.postJson('api/', body);
 
     if(!newsDbData.data)

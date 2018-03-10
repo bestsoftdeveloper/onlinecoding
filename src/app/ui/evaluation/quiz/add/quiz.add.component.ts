@@ -43,7 +43,6 @@ export class QuizAddComponent implements OnInit {
   onCategoryChange($event)
   {
     $event.preventDefault();
-    console.log('selected: ' + $event.target.value);
   }
 
   categories:  Array<any> = [];
@@ -213,7 +212,6 @@ export class QuizAddComponent implements OnInit {
 
 
     const resp = await this.httpService.postFormData("api/question/form", formData);
-    console.log(resp);
   }
 
   async ngOnInit() {

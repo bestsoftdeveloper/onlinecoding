@@ -101,7 +101,6 @@ export class ResetPasswordComponent implements OnDestroy  {
     this._auth.logout().subscribe(
       (data)=>
       {
-        console.log(data);
         this.user=null;
       }
     )

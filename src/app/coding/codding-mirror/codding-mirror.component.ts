@@ -127,7 +127,7 @@ export class CoddingMirrorComponent implements OnInit {
         _id:this.problemId,
         resp:resp
       };
-      console.log(body);
+      // console.log(body);
       const newsDbData =   this.httpService.postJson('api/news', body);
     }
   }

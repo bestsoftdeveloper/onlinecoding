@@ -119,7 +119,6 @@ export class LoginComponent implements OnDestroy  {
           }
           const loginResponsePromise  = this.httpService.postJson("api/security/loginfb",loginRequest);
           loginResponsePromise.then(function (resp) {
-            console.log(resp);
             self.loginOk(resp);
           });
     }
@@ -135,7 +134,6 @@ export class LoginComponent implements OnDestroy  {
     this._auth.logout().subscribe(
       (data)=>
       {
-        console.log(data);
         this.user=null;
       }
     )

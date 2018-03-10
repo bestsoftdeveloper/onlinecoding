@@ -22,7 +22,6 @@ export class MainSliderComponent implements OnInit {
     loop:true,
     on: {
       init: function () {
-        console.log('swiper initialized');
       },
     },
     effect:'coverflow',//"slide", "fade", "cube", "coverflow" or "flip"

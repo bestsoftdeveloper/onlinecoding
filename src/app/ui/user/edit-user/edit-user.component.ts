@@ -139,7 +139,7 @@ export class EditUserComponent implements OnInit {
       this.markAsDirty('allowLogo');
     }
 
-   
+
     if(!isOk){
       return;
     }
@@ -173,7 +173,6 @@ export class EditUserComponent implements OnInit {
 
 
     const resp = await this.httpService.postFormData("api/private/form", formData);
-    console.log(resp);
 
 
     const respData = resp.data;

@@ -51,7 +51,6 @@ export class CourseRegistrationComponent implements OnInit {
     };
     body.data = {};
 
-    console.log(body);
     const resp  = await this.httpService.postJson('api/register', body);
 
     this.registered(resp);

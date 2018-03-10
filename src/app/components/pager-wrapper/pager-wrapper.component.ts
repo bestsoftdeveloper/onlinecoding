@@ -21,9 +21,6 @@ export class PagerWrapperComponent implements OnInit {
   }
 
   pageChanged(event: any): void {
-    console.log('Page changed to: ' + event.page);
-    console.log('Number items per page: ' + event.itemsPerPage);
-
     if(this.onPageChanged){
       this.onPageChanged.emit(event);
     }

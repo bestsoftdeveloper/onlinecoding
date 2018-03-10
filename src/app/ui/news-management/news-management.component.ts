@@ -125,7 +125,6 @@ export class NewsManagementComponent implements OnInit {
     };
     body.data = dbNews;
 
-    console.log(body);
     await this.httpService.postJson('api/news', body);
 
     this.pubSub.setKeyValue('news',null);

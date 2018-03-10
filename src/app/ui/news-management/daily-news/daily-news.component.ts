@@ -32,7 +32,10 @@ export class DailyNewsComponent implements OnInit {
 
   async ngOnInit() {
     await this.getNews(new Date());
-    const userPermission : number = this.user.permission || 0;
+    let userPermission : number = 0;
+    if(this.user) {
+      userPermission = this.user.permission;
+    }
     this.canEditNews = ((userPermission & Permissions.Roles.EditNews) === Permissions.Roles.EditNews);
   }
 

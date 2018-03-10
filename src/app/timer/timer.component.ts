@@ -58,10 +58,10 @@ export class TimerComponent implements OnInit {
   }
 
   start() {
-    console.log('start 1');
+    // console.log('start 1');
     if (!this.config.running)
       return;
-    console.log('start OK');
+    // console.log('start OK');
 
     this.counter = 0;
     this.timerId = this.st.subscribe('1sec', this.timercallback.bind(this));
@@ -74,7 +74,6 @@ export class TimerComponent implements OnInit {
 
   reset(data:any) {
     // return;
-    console.log('reset');
     this.counter = 0;
     if(!data)
     {
@@ -106,7 +105,6 @@ export class TimerComponent implements OnInit {
     {
       return;
     }
-    console.log('stop');
 
     this.config.running = false;
 
@@ -128,7 +126,6 @@ export class TimerComponent implements OnInit {
     {
       return;
     }
-    console.log('stop');
 
     this.config.running = false;
 

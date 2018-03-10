@@ -46,7 +46,7 @@ import {
     loop:true,
     on: {
       init: function () {
-        console.log('swiper initialized');
+        // console.log('swiper initialized');
       },
     },
     effect:'coverflow',//"slide", "fade", "cube", "coverflow" or "flip"
@@ -85,7 +85,6 @@ import {
   }
 
   onChange(code) {
-    console.log('new code', code);
   }
 
   ngOnInit() {
@@ -101,7 +100,6 @@ import {
         code: this.text
       });
     this.codeResult = xxx;
-    console.log(xxx);
   }
   // ngAfterViewInit() {
   //   this.editor.setTheme("eclipse");

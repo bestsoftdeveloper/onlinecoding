@@ -18,7 +18,6 @@ export class QuizManagerComponent implements OnInit {
   private quizCriteria: any;
   @Input()
   set quizInfo(data: any) {
-    console.log('got name: ');
     this.quizCriteria = data;
   }
   @ViewChild(TimerComponent) timerComponent: TimerComponent;
@@ -266,8 +265,6 @@ export class QuizManagerComponent implements OnInit {
 
 
   onstop = ()=> {
-    console.log('dddddddddddddddddddd');
-
     this.next();
   }
 
@@ -475,7 +472,6 @@ export class QuizManagerComponent implements OnInit {
       }
     };
     let questionsResponsePromise = await this.httpService.postJson('api/question', data);
-    console.log(questionsResponsePromise);
     return questionsResponsePromise;
     // questionsResponsePromise.then(function (resp) {
     //   self.questions.list = resp.data.items;

@@ -20,7 +20,6 @@ export class HeaderComponent {
   {
     this.user = localStorageService.get('user');
     this.pubSubService.subscribe("login", (userData)=>{
-      console.log("LOGIN EVENT rECEIVED " + userData);
       this.user  = userData;
       if(this.user) {
         const userPermission: number = this.user.permission || 0;
@@ -30,7 +29,6 @@ export class HeaderComponent {
     });
 
     this.pubSubService.subscribe("logout", (userData)=>{
-      console.log("LOGOUT EVENT rECEIVED ");
       this.user  = null;
       this.localStorageService.remove('user');
 
