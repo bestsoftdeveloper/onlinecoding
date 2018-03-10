@@ -10,7 +10,7 @@ let request = require('koa2-request');
 const send = require('koa-send');
 
 
-const {httpProxy} = require('koa-http-proxy-middleware');
+const {httpProxy} = require('koa-http-proxy-middleware-fix');
 const httpsProxyAgent = require('https-proxy-agent');
 
 const microServicePath = "http://localhost:6002";

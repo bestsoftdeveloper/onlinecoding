@@ -65,7 +65,7 @@
     "koa-body": "^2.5.0",
     "koa-bodyparser": "^4.2.0",
     "koa-cors": "0.0.16",
-    "koa-http-proxy-middleware": "0.0.2",
+    "koa-http-proxy-middleware-fix": "0.0.3",
     "koa-jwt": "^3.3.0",
     "koa-logger": "^3.1.0",
     "koa-proxies": "^0.6.2",
