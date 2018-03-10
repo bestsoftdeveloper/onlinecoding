@@ -50,7 +50,7 @@ app.use(async function(ctx, next) {
 
 
 
-// router.get('/*', serve('./dist', { index: 'index.html' }));
+router.get('/', serve('./dist', { index: 'index.html' }));
 router.get('/home', serve('./dist', { index: 'index.html' }));
 router.get('/dailyNews', serve('./dist', { index: 'index.html' }));
 router.get('/login', serve('./dist', { index: 'index.html' }));
