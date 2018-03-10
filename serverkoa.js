@@ -27,7 +27,7 @@ var staticRoot = __dirname + '/';
 app.use(httpProxy('/api', {
   target: microServicePath,
   changeOrigin: true,
-  rewrite: path => path.replace(/^\/api(\/|\/\w+)?$/, '/api'),
+  // rewrite: path => path.replace(/^\/api(\/|\/\w+)?$/, '/api'),
   logs: true
 }))
 
