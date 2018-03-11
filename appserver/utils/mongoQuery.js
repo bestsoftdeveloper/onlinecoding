@@ -45,7 +45,7 @@ mongoose.connect(dbURI, {
 });
 
 
-mongoose.set('debug', true);
+mongoose.set('debug', false);
 
 mongoose.connection.on('connected', function() {
   console.log('Mongoose default connection open to ' + dbURI);

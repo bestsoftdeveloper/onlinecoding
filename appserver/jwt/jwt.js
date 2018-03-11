@@ -37,6 +37,7 @@ async function mainMiddleware(ctx, next) {
   debugger;
   let response = null;
   try {
+    console.log("mainMiddleware");
     response = await next(); // next is now a function
     ctx.body = responseWrapper.success(response);
   } catch (err) {
@@ -49,6 +50,7 @@ async function mainMiddleware(ctx, next) {
 
 async function mainPrivateMiddleware(ctx, next) {
   debugger;
+  console.log("mainPrivateMiddleware");
   var response = null;
   try {
     var authHeader = ctx.req.headers.authorization;
