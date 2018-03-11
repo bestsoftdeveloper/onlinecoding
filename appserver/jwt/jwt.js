@@ -1,5 +1,6 @@
 // Import jsonwebtoken
 const jsonwebtoken = require("jsonwebtoken");
+const responseWrapper = require('../utils/responseWrapper')();
 
 const jwt = require("koa-jwt");
 
@@ -31,6 +32,39 @@ async function routeJwtMiddleware(ctx, next) {
   });
 };
 
+
+async function mainMiddleware(ctx, next) {
+  debugger;
+  let response = null;
+  try {
+    response = await next(); // next is now a function
+    ctx.body = responseWrapper.success(response);
+  } catch (err) {
+    console.log("errrorrrrrrrrrrr");
+    console.log(err);
+    //ctx.status = 401;
+    ctx.body = responseWrapper.failure(err);
+  }
+};
+
+async function mainPrivateMiddleware(ctx, next) {
+  debugger;
+  var response = null;
+  try {
+    var authHeader = ctx.req.headers.authorization;
+    var r = await jsonwebtoken.verify(authHeader, config.tokenPassword);
+    ctx.request.body.tokenObj = r;
+
+    response = await next(); // next is now a function
+    ctx.body = responseWrapper.success(response);
+  } catch (err) {
+    console.log("errrorrrrrrrrrrr");
+    console.log(err);
+    //ctx.status = 401;
+    ctx.body = responseWrapper.failure(err);
+  }
+};
+
 // helper function
 module.exports.issue =  (payload) => {
   return jsonwebtoken.sign(payload, SECRET);
@@ -38,3 +72,6 @@ module.exports.issue =  (payload) => {
 module.exports.jwt = () => jwtInstance;
 module.exports.errorHandler = () => JWTErrorHandler;
 module.exports.routeJwtMiddleware = () => routeJwtMiddleware;
+module.exports.mainMiddleware = () => mainMiddleware;
+module.exports.mainPrivateMiddleware = () => mainPrivateMiddleware;
+

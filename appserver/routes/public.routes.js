@@ -15,6 +15,7 @@ var Mocha = require('mocha'),
     path = require('path');
 var formidable = require('formidable');
 const uuidv4 = require('uuid/v4');
+const jwtMiddleware = require("../jwt/jwt");
 
 function formidablePromise (req, opts) {
   return new Promise(function (resolve, reject) {
@@ -62,7 +63,8 @@ function formidablePromise (req, opts) {
 }
 
 router
-  .prefix('/api')
+  .prefix('/api/pub')
+  .use(jwtMiddleware.mainMiddleware())
   .get("/", async function (ctx) {
   console.log("ruta public");
 

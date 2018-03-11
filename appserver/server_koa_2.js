@@ -40,19 +40,15 @@ app.use(cors());
 app.use(BodyParser());
 app.use(cors());
 
-app.use(async (ctx, next) => {
-  //middleware
-  let response = null;
-  try {
-    response = await next(); // next is now a function
-    ctx.body = responseWrapper.success(response);
-  } catch (err) {
-    console.log("errrorrrrrrrrrrr");
-    console.log(err);
-    //ctx.status = 401;
-    ctx.body = responseWrapper.failure(err);
-  }
-})
+// app.use('/api',async (ctx, next) => {
+//   let response = null;
+//   try {
+//     response = await next(); // next is now a function
+//     ctx.body = responseWrapper.success(response);
+//   } catch (err) {
+//     ctx.body = responseWrapper.failure(err);
+//   }
+// })
 
 
 

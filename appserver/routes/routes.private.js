@@ -70,8 +70,10 @@ function formidablePromise (req, opts) {
 
 
 router
+
   .prefix('/api/private')
-  .use(jwtMiddleware.routeJwtMiddleware())
+  .use(jwtMiddleware.mainPrivateMiddleware())
+  // .use(jwtMiddleware.routeJwtMiddleware())
   .post("/", async function (ctx) {
    console.log("ruta private");
 

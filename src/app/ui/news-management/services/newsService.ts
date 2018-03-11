@@ -33,7 +33,7 @@ export class NewsService {
         mili:this.utilsService.date.dateToUtcMilliSecconds(dateValue)
       }
     };
-    const newsDbData =  await this.httpService.postJson('api/', body);
+    const newsDbData =  await this.httpService.postJson('api/pub/', body);
 
     if(!newsDbData.data)
     {
@@ -73,7 +73,7 @@ export class NewsService {
       }
     };
     // console.log(body);
-    const newsDbData =  await this.httpService.postJson('api/', body);
+    const newsDbData =  await this.httpService.postJson('api/pub', body);
 
     if(!newsDbData.data)
     {
@@ -110,7 +110,7 @@ export class NewsService {
     };
     body.data = option;
     // console.log(body);
-    const newsDbData =  await this.httpService.postJson('api/', body);
+    const newsDbData =  await this.httpService.postJson('api/pub', body);
 
 
 

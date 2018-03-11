@@ -8,7 +8,7 @@ const cmd = require('node-cmd');
 const testPipeline = require('pipeline-test-node');
 const mongoQuery = require('../utils/mongoQuery')();
 const categoryService = require('../modules/categories/categoryService')();
-
+const jwtMiddleware = require("../jwt/jwt");
 
 const uuidv4 = require('uuid/v4');
 
@@ -28,6 +28,7 @@ function getModule(name) {
 
 router
   .prefix('/api/category')
+  .use(jwtMiddleware.mainMiddleware())
   .use(async function (ctx, next) {
   console.log("category 000");
   // var authHeader = ctx.req.headers.authorization;

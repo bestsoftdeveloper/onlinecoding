@@ -72,9 +72,10 @@ function formidablePromise (req, opts) {
 
 router
   .prefix('/api/question')
-  .use(jwtMiddleware.routeJwtMiddleware())
+  .use(jwtMiddleware.mainPrivateMiddleware())
   .post("/", async function (ctx) {
    console.log("ruta question");
+  debugger;
 
     const body = ctx.request.body;
     // console.log(body);

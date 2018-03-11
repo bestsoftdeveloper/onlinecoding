@@ -56,7 +56,7 @@ export class ForgotPasswordComponent implements OnInit {
 
 
 
-    const respData = await this.httpService.postJson("api/", req);
+    const respData = await this.httpService.postJson("api/pub", req);
     // console.log(resp);
 
 

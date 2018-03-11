@@ -27,7 +27,7 @@ function getModule(name) {
 
 router
   .prefix('/api/reports')
-  .use(jwtMiddleware.routeJwtMiddleware())
+  .use(jwtMiddleware.mainPrivateMiddleware())
 
 .post("/", async function (ctx) {
   // console.log("OOOOOOOOOOOOOOOOOOOOO");

@@ -117,7 +117,7 @@ export class LoginComponent implements OnDestroy  {
           }catch (e){
 
           }
-          const loginResponsePromise  = this.httpService.postJson("api/security/loginfb",loginRequest);
+          const loginResponsePromise  = this.httpService.postJson("api/pub/security/loginfb",loginRequest);
           loginResponsePromise.then(function (resp) {
             self.loginOk(resp);
           });
@@ -156,7 +156,7 @@ export class LoginComponent implements OnDestroy  {
       password: this.password
     };
 
-    const loginResponse  = await this.httpService.postJson("api/security/login",loginRequest);
+    const loginResponse  = await this.httpService.postJson("api/pub/security/login",loginRequest);
 
     if(loginResponse.success === false)
     {

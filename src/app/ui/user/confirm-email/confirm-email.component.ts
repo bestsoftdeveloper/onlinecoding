@@ -27,7 +27,7 @@ export class ConfirmEmailComponent implements OnInit {
         code: this.code
       }
     };
-    const respData = await this.httpService.postJson("api/", req);
+    const respData = await this.httpService.postJson("api/pub", req);
     if(!respData.success){
       this.uiMessage = language.lang[respData.message];
       return;

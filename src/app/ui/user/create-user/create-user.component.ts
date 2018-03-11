@@ -175,7 +175,7 @@ export class CreateUserComponent implements OnInit {
 
 
 
-    const resp = await this.httpService.postFormData("api/form", formData);
+    const resp = await this.httpService.postFormData("api/pub/form", formData);
 
 
     const respData = resp.data;

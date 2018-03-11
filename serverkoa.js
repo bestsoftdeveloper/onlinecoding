@@ -9,7 +9,6 @@ const BodyParser = require("koa-bodyparser");
 let request = require('koa2-request');
 const send = require('koa-send');
 
-
 const { httpProxy } = require('koa-http-proxy-middleware-fix');
 const httpsProxyAgent = require('https-proxy-agent');
 
@@ -36,13 +35,13 @@ app.use(httpProxy('/uploads', {
 }))
 
 app.use(async function(ctx, next) {
-  console.log(ctx);
+  // console.log(ctx);
 
-  console.log(ctx.path);
+  // console.log(ctx.path);
   if (ctx.path == '/') {
       return await next();
     }
-    console.log('b');
+    // console.log('b');
     var ext = path.extname(ctx.path);
     console.log("ext = " + ext);
     if (ext !== '') {
@@ -50,8 +49,24 @@ app.use(async function(ctx, next) {
       await send(ctx, 'dist/' + ctx.path);
     }
 
-    console.log("ccccccccccccccccccccccccc");
-    return await next();
+    // console.log("ccccccccccccccccccccccccc");
+
+  let resp = null;
+  try {
+   resp = await  next();
+    console.log(resp);
+    return resp;
+  }
+  catch (exxx){
+    // console.log(exxx);
+
+    const root = path.resolve("./dist");
+    let requested = path.normalize("/index.html");
+
+    return await send(ctx, requested, { root });
+
+  }
+    // return await send(ctx, '/dist/index.html');
 })
 
 
@@ -70,8 +85,12 @@ router.get('/createUser', serve('./dist', { index: 'index.html' }));
 router.get('/forgotPassword', serve('./dist', { index: 'index.html' }));
 router.get('/resetpassword', serve('./dist', { index: 'index.html' }));
 router.get('/addquestions', serve('./dist', { index: 'index.html' }));
-// router.get('/createUser', serve('./dist', { index: 'index.html' }));
-
+router.get('/users', serve('./dist', { index: 'index.html' }));
+router.get('/edituser', serve('./dist', { index: 'index.html' }));
+router.get('/confirmemail', serve('./dist', { index: 'index.html' }));
+router.get('/js', serve('./dist', { index: 'index.html' }));
+router.get('/addNews', serve('./dist', { index: 'index.html' }));
+router.get('/*', serve('./dist', { index: 'index.html' }));
 
 
 app.use(router.routes()).use(router.allowedMethods());

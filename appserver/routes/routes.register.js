@@ -20,8 +20,7 @@ const config = require('../config/development');
 
 router
   .prefix('/api/register')
-
-.use(jwtMiddleware.routeJwtMiddleware())
+  .use(jwtMiddleware.mainPrivateMiddleware())
   .post("/", async function (ctx) {
    console.log("ruta news");
 

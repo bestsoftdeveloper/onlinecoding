@@ -81,7 +81,7 @@ export class ChangePasswordComponent implements OnInit {
 
 
 
-    const respData = await this.httpService.postJson("api/", req);
+    const respData = await this.httpService.postJson("api/pub", req);
     // console.log(resp);
 
 
