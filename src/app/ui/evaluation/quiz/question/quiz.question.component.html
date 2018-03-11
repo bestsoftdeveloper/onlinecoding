@@ -16,13 +16,13 @@
         Trimite raspunsul
       </button>
 
-      <button *ngIf="question.lastQuestion == false" class="btn  topbtn btn-info"
+      <button *ngIf="question.lastQuestion == false" class="btn1  topbtn btn-info"
               (click)="tryGoNext()">
         <i class="fa fa-paper-plane" aria-hidden="true"></i>
         Urmatoarea intrebare
       </button>
 
-      <button *ngIf="question.lastQuestion == true" class="btn  topbtn btn-warning"
+      <button *ngIf="question.lastQuestion == true" class="btn1  topbtn btn-warning"
               (click)="sendSurveyAnswersToServer()">
         <i class="fa fa-paper-plane" aria-hidden="true"></i>
         Trimite raspunsurile

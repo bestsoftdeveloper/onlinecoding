@@ -43,9 +43,9 @@ app.use(async function(ctx, next) {
     }
     // console.log('b');
     var ext = path.extname(ctx.path);
-    console.log("ext = " + ext);
+    // console.log("ext = " + ext);
     if (ext !== '') {
-      console.log('aaaaaaaaaaaaaaa');
+      // console.log('aaaaaaaaaaaaaaa');
       await send(ctx, 'dist/' + ctx.path);
     }
 
@@ -54,7 +54,7 @@ app.use(async function(ctx, next) {
   let resp = null;
   try {
    resp = await  next();
-    console.log(resp);
+    // console.log(resp);
     return resp;
   }
   catch (exxx){
