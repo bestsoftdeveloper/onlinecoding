@@ -44,7 +44,7 @@ app.use(async (ctx, next) => {
   //middleware
   let response = null;
   try {
-    response = await next() // next is now a function
+    response = await next(); // next is now a function
     ctx.body = responseWrapper.success(response);
   } catch (err) {
     console.log("errrorrrrrrrrrrr");

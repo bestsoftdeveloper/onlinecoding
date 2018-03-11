@@ -45,6 +45,9 @@ function formidablePromise (req, opts) {
     const uploadDirectory = "uploads";
 
     form.uploadDir = appDir + '/'+uploadDirectory;
+    if (!fs.existsSync(form.uploadDir)) {
+      fs.mkdirSync(form.uploadDir);
+    }
     form.keepExtensions = true;
 
     form.on('fileBegin', function(name, file) {
@@ -80,26 +83,8 @@ function formidablePromise (req, opts) {
 
 router
   .prefix('/api/news')
-// .use(async function(ctx, next){
-//   console.log("ruta question verificare token");
-//   // console.log("1111111111111111111111111111111");
-//   var authHeader = ctx.req.headers.authorization;
-//   // console.log(ctx.req.headers);
-//   var r = await jwt.verify(authHeader, config.tokenPassword);
-//   ctx.request.body.tokenObj = r;
-//
-//   return next().catch((err) => {
-//       // console.log(err);
-//       // console.log("3333333333333");
-//       if (401 == err.status) {
-//     ctx.status = 401;
-//     ctx.body = 'Protected resource, use Authorization header to get access\n';
-//   } else {
-//     throw err;
-//   }
-// });
-// })
-.use(jwtMiddleware.routeJwtMiddleware())
+
+  .use(jwtMiddleware.routeJwtMiddleware())
   .post("/", async function (ctx) {
    console.log("ruta news");
 

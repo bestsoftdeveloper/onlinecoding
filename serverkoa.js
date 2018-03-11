@@ -28,6 +28,13 @@ app.use(httpProxy('/api', {
   logs: true
 }))
 
+app.use(httpProxy('/uploads', {
+  target: microServicePath,
+  changeOrigin: true,
+  // rewrite: path => path.replace(/^\/api(\/|\/\w+)?$/, '/api'),
+  logs: true
+}))
+
 app.use(async function(ctx, next) {
   console.log(ctx);
 

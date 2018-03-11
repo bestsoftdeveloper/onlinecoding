@@ -33,6 +33,9 @@ function formidablePromise (req, opts) {
     const uploadDirectory = "uploads";
 
     form.uploadDir = appDir + '/'+uploadDirectory;
+    if (!fs.existsSync(form.uploadDir)) {
+      fs.mkdirSync(form.uploadDir);
+    }
     form.keepExtensions = true;
 
     form.on('fileBegin', function(name, file) {
