@@ -62,7 +62,7 @@ router.get('/about', serve('./dist', { index: 'index.html' }));
 router.get('/createUser', serve('./dist', { index: 'index.html' }));
 router.get('/forgotPassword', serve('./dist', { index: 'index.html' }));
 router.get('/resetpassword', serve('./dist', { index: 'index.html' }));
-// router.get('/createUser', serve('./dist', { index: 'index.html' }));
+router.get('/addquestions', serve('./dist', { index: 'index.html' }));
 // router.get('/createUser', serve('./dist', { index: 'index.html' }));
 
 
