@@ -186,7 +186,6 @@ module.exports = function() {
           // console.log(obj);
             this.transporter.sendMail(emailMessage, function(err, data, res) {
                 if (err) {
-                    console.log("error sending email");
                     logger.log(err);
                 }
             });

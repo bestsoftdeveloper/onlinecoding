@@ -30,7 +30,7 @@ export class HttpWrapperService {
     }
   }
 
-  serverUrl = '/';
+  serverUrl = 'http://localhost:6002/';
 
 
   //http://www.angulartypescript.com/angular-2-http-example-typescript/

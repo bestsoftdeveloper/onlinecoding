@@ -11,17 +11,27 @@ import {PubSubService} from "../../services/pubsub/pubsub";
 })
 export class CourseRegistrationComponent implements OnInit {
 
+  canRegisterCourse: boolean = true;
+  message:string= "";
+  showRegisterButton =true;
+  public user: any;
+
   constructor(private httpService: HttpWrapperService,
               private router: Router,
               private localStorageService: LocalStorageService,
               private pubSubService: PubSubService
-  ) { }
+  ) {
+    this.user = localStorageService.get('user');
+    if(this.user) {
+      this.canRegisterCourse = (!this.user.registered);
+      this.showRegisterButton = (!this.user.registered);
+    }
+  }
 
   ngOnInit() {
   }
 
-  message:string= "";
-  showRegisterButton =true;
+
 
   registered(resp)
   {

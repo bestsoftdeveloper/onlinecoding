@@ -30,7 +30,7 @@ router
   .prefix('/api/category')
   .use(jwtMiddleware.mainMiddleware())
   .use(async function (ctx, next) {
-  console.log("category 000");
+  // console.log("category 000");
   // var authHeader = ctx.req.headers.authorization;
   // var r = await jwt.verify(authHeader, config.tokenPassword);
   // ctx.request.body.tokenObj = r;
@@ -40,7 +40,7 @@ router
 });
 })
 .post("/", async function (ctx) {
-  console.log("category");
+  // console.log("category");
 
   // const body = ctx.request.body;
   //
@@ -48,7 +48,7 @@ router
   // return resp;
 
   const body = ctx.request.body;
-  console.log(body);
+  // console.log(body);
 
   const data = body.data;
   const method = body.proxy.method;

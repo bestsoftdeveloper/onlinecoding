@@ -86,7 +86,7 @@ router
 
   .use(jwtMiddleware.routeJwtMiddleware())
   .post("/", async function (ctx) {
-   console.log("ruta news");
+   // console.log("ruta news");
 
     const body = ctx.request.body;
     // console.log(body);

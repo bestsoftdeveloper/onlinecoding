@@ -3,6 +3,7 @@ import {HttpWrapperService} from "../../../../services/http/httpService";
 import {UUID} from 'angular2-uuid';
 import {ActivatedRoute} from "@angular/router";
 import {PubSubService} from "../../../../services/pubsub/pubsub";
+import QuizFacade from "../../../../facade/quizFacade";
 
 @Component({
   selector: 'app-quiz.add',
@@ -20,7 +21,7 @@ export class QuizAddComponent implements OnInit {
       q.timer.timeOptions = this.timeOptions;
       if(q.questionType === this.QuestionType.Image)
       {
-        if(q.answerType.type == this.AnswerType.MultipleAnswers)
+        if(q.answerType.type == QuizFacade.AnswerType.MultipleAnswers)
         {
           const correctAnswers = q.answerType.correctAnswers;
           for(var i=0;i<q.answers.length;i++)
@@ -52,18 +53,8 @@ export class QuizAddComponent implements OnInit {
   }
 
   defaultCode: any = "\n\n\nfunction run()\n{\n//write the code...\n}"
-  private QuestionType =
-  {
-    Text:1,
-    Image:2,
-    Code:3
-  };
-
-  private AnswerType =
-  {
-    SingleAnswer:1,
-    MultipleAnswers:2,
-  };
+  QuestionType = QuizFacade.QuestionType;
+  AnswerType = QuizFacade.AnswerType;
 
   defaultTestCase: any = {
     list: [

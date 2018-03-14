@@ -27,6 +27,7 @@ async function routeJwtMiddleware(ctx, next) {
   var r = await jsonwebtoken.verify(authHeader, config.tokenPassword);
   ctx.request.body.tokenObj = r;
 
+  
   return next().catch((err) => {
       throw err;
   });
@@ -37,11 +38,11 @@ async function mainMiddleware(ctx, next) {
   debugger;
   let response = null;
   try {
-    console.log("mainMiddleware");
+    // console.log("mainMiddleware");
     response = await next(); // next is now a function
     ctx.body = responseWrapper.success(response);
   } catch (err) {
-    console.log("errrorrrrrrrrrrr");
+    // console.log("errrorrrrrrrrrrr");
     console.log(err);
     //ctx.status = 401;
     ctx.body = responseWrapper.failure(err);
@@ -50,7 +51,6 @@ async function mainMiddleware(ctx, next) {
 
 async function mainPrivateMiddleware(ctx, next) {
   debugger;
-  console.log("mainPrivateMiddleware");
   var response = null;
   try {
     var authHeader = ctx.req.headers.authorization;
@@ -60,7 +60,6 @@ async function mainPrivateMiddleware(ctx, next) {
     response = await next(); // next is now a function
     ctx.body = responseWrapper.success(response);
   } catch (err) {
-    console.log("errrorrrrrrrrrrr");
     console.log(err);
     //ctx.status = 401;
     ctx.body = responseWrapper.failure(err);

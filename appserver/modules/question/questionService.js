@@ -1,17 +1,7 @@
 const mongoQuery = require('../../utils/mongoQuery')();
 const ObjectID = require("mongodb").ObjectID;
 
-QuestionType =
-{
-  Text: 1,
-  Image: 2,
-  Code: 3
-};
-AnswerType =
-{
-  SingleAnswer: 1,
-  MultipleAswers: 2,
-};
+
 class QuestionService {
 
   async add_edit(data, query = {}) {
@@ -49,7 +39,6 @@ class QuestionService {
 
   async addEditCategory(data) {
   // console.log("YEEEEEEEEEEEEEEEEEEE");
-  console.log(data);
 
   var findCriteria = {};
   if (data._id) {
@@ -221,7 +210,6 @@ class QuestionService {
   // console.log(data);
   // data.userId = tokenObj.id;
   // data.questionId
-  console.log("sdsdfsdfsdf");
 
   let  question = await this.getQuestion(data,tokenObj);
   let newQuestion = this.checkAnswers(question);
@@ -297,7 +285,7 @@ class QuestionService {
             break;
           }
 
-          case AnswerType.MultipleAswers: {
+          case AnswerType.MultipleAnswers: {
             let correctAswered = true;
             for (var i = 0; i < question.answers.length; i++) {
 
@@ -362,7 +350,7 @@ class QuestionService {
 
           break;
         }
-        case AnswerType.MultipleAswers: {
+        case AnswerType.MultipleAnswers: {
           break;
         }
       }

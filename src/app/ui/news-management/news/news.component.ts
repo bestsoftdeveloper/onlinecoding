@@ -8,7 +8,7 @@ import {Router} from "@angular/router";
   styleUrls: ['./news.component.scss']
 })
 export class NewsComponent implements OnInit {
-  @Input() newsObject: Object;
+  @Input() newsObject: any;
   @Input() canEditNews: boolean = false;
 
 

@@ -9,7 +9,7 @@ import {CodeExecutionService} from "../../services/code/codeExecution";
 })
 export class CoddingMirrorComponent implements OnInit {
 
-  private text: string;
+  public text: string;
   private  httpService: HttpWrapperService;
   private codeExecutionService: CodeExecutionService;
   public codeResult : any;
@@ -128,6 +128,7 @@ export class CoddingMirrorComponent implements OnInit {
         resp:resp
       };
       // console.log(body);
+      debugger;
       const newsDbData =   this.httpService.postJson('api/news', body);
     }
   }

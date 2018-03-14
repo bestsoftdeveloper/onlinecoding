@@ -11,11 +11,11 @@ import { HttpWrapperService } from '../../services/http/httpService'
   private text: string;
   private  httpService: HttpWrapperService;
   public codeResult : any;
-  private apps: any;
-  private variabile: any;
-  private statements:any;
-  private jsobj:any;
-  private dataTypes: any;
+  public apps: any;
+  public variabile: any;
+  public statements:any;
+  public jsobj:any;
+  public dataTypes: any;
   private timers : any;
 
   constructor(httpService: HttpWrapperService)

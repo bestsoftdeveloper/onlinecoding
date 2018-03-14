@@ -7,6 +7,7 @@ import {PubSubService} from "../../../../services/pubsub/pubsub";
 import {Router} from "@angular/router";
 import {isUndefined} from "util";
 import {LocalStorageService} from "angular-2-local-storage";
+import QuizFacade from "../../../../facade/quizFacade";
 
 @Component({
   selector: 'app-quiz-manager',
@@ -36,17 +37,6 @@ export class QuizManagerComponent implements OnInit {
     count: 0
   };
 
-  private QuestionType =
-  {
-    Text: 1,
-    Image: 2,
-    Code: 3
-  };
-  private AnswerType =
-  {
-    SingleAnswer: 1,
-    MultipleAswers: 2,
-  };
 
   onBtnMouseOver(q) {
     q.btnover = true;
@@ -73,8 +63,10 @@ export class QuizManagerComponent implements OnInit {
     if (!this.question) {
       return;
     }
-    if(!this.question.userAnswer)
+    this.question.isAnswerSent = true;
+    if(this.question.userAnswer == undefined && this.question.rdValue == undefined)
     {
+      this.question.isAnswerSent = false;
       return;
     }
 
@@ -84,12 +76,12 @@ export class QuizManagerComponent implements OnInit {
 
 
     switch (this.question.questionType) {
-      case this.QuestionType.Text:
-      case this.QuestionType.Image: {
+      case QuizFacade.QuestionType.Text:
+      case QuizFacade.QuestionType.Image: {
         this.question.answers.forEach(it=> delete it.correctAswered);
 
         switch (this.question.answerType.type) {
-          case this.AnswerType.SingleAnswer: {
+          case QuizFacade.AnswerType.SingleAnswer: {
             let selectedOption = this.question.rdValue;
             if (isUndefined(selectedOption) && this.question.userAnswer) {
               selectedOption = this.question.userAnswer.rdValue;
@@ -114,7 +106,7 @@ export class QuizManagerComponent implements OnInit {
             break;
           }
 
-          case this.AnswerType.MultipleAswers: {
+          case QuizFacade.AnswerType.MultipleAnswers: {
             let correctAswered = true;
             const correctAnswers = this.question.answers.filter(it=> it.isCorrect);
 
@@ -154,7 +146,7 @@ export class QuizManagerComponent implements OnInit {
 
         break;
       }
-      case this.QuestionType.Code: {
+      case QuizFacade.QuestionType.Code: {
         break;
       }
     }
@@ -162,13 +154,13 @@ export class QuizManagerComponent implements OnInit {
       let ans = this.question.answers[i];
 
       switch (this.question.answerType.type) {
-        case this.AnswerType.SingleAnswer: {
+        case QuizFacade.AnswerType.SingleAnswer: {
           const selectedOption = answerTypeObj.rdValue;
           this.question.correctAswered = selectedOption == answerTypeObj.isCorrect;
 
           break;
         }
-        case this.AnswerType.MultipleAswers: {
+        case QuizFacade.AnswerType.MultipleAnswers: {
           break;
         }
       }
@@ -233,6 +225,7 @@ export class QuizManagerComponent implements OnInit {
     };
     req.data.body.checkedAnswers = this.question.answers.filter(el=>el.rdValue).map(el=>({index: el.index}));
     this.question.userAnswer = {checkedAnswers:req.data.body.checkedAnswers}  ;
+    this.question.isAnswerSent = true;
 
      this.httpService.postJson('api/question', req);
 
@@ -274,7 +267,8 @@ export class QuizManagerComponent implements OnInit {
     countUp: true,
     onStart: null,
     onStop: this.onstop.bind(this),
-    running: false
+    running: false,
+    enabled: true
   };
 
 
@@ -446,6 +440,8 @@ export class QuizManagerComponent implements OnInit {
     };
 
     const response = this.httpService.postJson("/api/reports", body);
+
+    this.quizFinished = true;
 
   }
 

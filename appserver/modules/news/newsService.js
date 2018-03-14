@@ -6,7 +6,7 @@ class NewsService {
 
   async add_edit(data, query = {}) {
 
-  console.log(data);
+  // console.log(data);
   var findCriteria = {};
   if (data._id) {
     findCriteria._id = ObjectID(data._id);
@@ -37,7 +37,6 @@ class NewsService {
     upsert: true
   });
 
-  console.log(dbNews);
   return dbNews;
 }
 
@@ -52,7 +51,6 @@ class NewsService {
 }
 
   async getNews(data, tokenObj) {
-  console.log(data);
 
   const filterCriteria = {};
   if(data.filter)
@@ -81,7 +79,6 @@ class NewsService {
 }
 
   async getAllNews(data, tokenObj) {
-  console.log(data);
 
   const filterCriteria = {};
   if(data.filter)
@@ -111,7 +108,6 @@ class NewsService {
 
 
   async solveExercise(data, tokenObj) {
-  console.log(data);
   data.userId = tokenObj.id;
   data.date = new Date();
 
@@ -137,7 +133,6 @@ class NewsService {
 }
 
   async getSolvedUsersCount(data, tokenObj) {
-  console.log(tokenObj);
   data.userId = tokenObj.id;
   data.date = new Date();
 
@@ -155,7 +150,6 @@ class NewsService {
 }
 
   async getSolvedSolutionForAUser(data, tokenObj) {
-  console.log(tokenObj);
   data.userId = tokenObj.id;
   data.date = new Date();
 
@@ -174,7 +168,6 @@ class NewsService {
 }
 
   async getPagedSolutionsForAExercise(obj, tokenObj) {
-  console.log(obj);
   const filterCriteria = {
     problemId: obj.filter.problemId,
   };

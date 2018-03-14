@@ -29,7 +29,6 @@ module.exports = function() {
         socket.emit('welcome', { hello: 'new user', socket_id: socket.id, usersCount : 1 });
 
         socket.on('clientRequest', function (data) {
-          console.log("primim comenzi din browser");
           console.log(data);
           socket.emit('response', { clientRequestFromServer: data });
           connectedUsers[data.toUserId].emit({msg:"hello"});
@@ -41,7 +40,6 @@ module.exports = function() {
           console.log("disconnect");
           //console.log(socket);
           userCount--;
-          console.log(connectedUsers);
 
           delete connectedUsers[socket.id];
 

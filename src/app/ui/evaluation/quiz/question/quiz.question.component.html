@@ -7,9 +7,9 @@
       <div [innerHTML]="question.question | keepHtml"></div>
     </div>
     <div class="row center pd20">
-      <button *ngIf="question.lastQuestion == false"
-        class="btn  topbtn btn-primary"
-              [disabled]="isSendAnswerDisabled()"
+      <button
+        class="btn1  topbtn btn-primary"
+              [disabled]="!isAnswerSelected()"
               [ngClass]="sendAnswerButtonClass"
               (click)="sendAnswerForQuestion()">
         <i class="fa fa-paper-plane" aria-hidden="true"></i>
@@ -48,26 +48,26 @@
   <hr/>
   <div class="row quiz">
     <!--<pre>{{question | json}}</pre>-->
-    <div *ngIf="question.questionType === QuestionType.Text" class="col-md-12">
+    <div *ngIf="question.questionType === QuestionTypeLocal.Text" class="col-md-12">
       <div class="col-md-6 col-xs-12" *ngFor="let entry of question.answers">
 
         <!--<pre> {{entry | json}} </pre>-->
 
-        <div *ngIf="question.answerType.type === AnswerType.SingleAnswer" class="">
+        <div *ngIf="question.answerType.type === AnswerTypeLocal.SingleAnswer" class="">
           <div class="radio1 center1 card">
-            <label class="qlabel">
-              <span *ngIf="entry.isCorrect"> <i class="glyphicon glyphicon-ok"></i> </span>
+            <span class="qlabel">
+              <span *ngIf="question.isAnswerSent && entry.isCorrect"> <i class="glyphicon glyphicon-ok"></i> </span>
               <input type="radio" [value]="entry.index" name="radiogroup"
                      [(ngModel)]="question.rdValue"
                      class="btn-group1 qrd custradio "
-                     [disabled]="question.isDisabled">
+                     [disabled]="question.isAnswerSent">
               <span class="btn-group1 span {{entry.css}}" [innerHTML]="entry.content | keepHtml"></span>
 
-            </label>
+            </span>
           </div>
         </div>
 
-        <div *ngIf="question.answerType.type === AnswerType.MultipleAnswers" class="">
+        <div *ngIf="question.answerType.type === AnswerTypeLocal.MultipleAnswers" class="">
           <div class="checkbox1 center card">
             <label class="qlabel">
               <span *ngIf="entry.isCorrect && question.showAnswers"> <i class="glyphicon glyphicon-ok"></i> </span>
@@ -76,7 +76,7 @@
                      [value]="entry.index"
                      name="chkText"
                      [(ngModel)]="entry.rdValue"
-                     [disabled]="question.isDisabled"
+                     [disabled]="question.isAnswerSent"
                      (change)="chkChanged()">
               <span class="btn-group span {{entry.css}}" [innerHTML]="entry.content | keepHtml"></span>
 
@@ -87,7 +87,7 @@
       </div>
     </div>
 
-    <div *ngIf="question.questionType === QuestionType.Images" class="col-md-12">
+    <div *ngIf="question.questionType === QuestionTypeLocal.Images" class="col-md-12">
 
       <div class="col-md-6 col-xs-12" *ngFor="let entry of question.answers">
         <!--{{entry | json}}-->

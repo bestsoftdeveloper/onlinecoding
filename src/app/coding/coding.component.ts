@@ -10,7 +10,7 @@ import {CodeExecutionService} from "../services/code/codeExecution";
 })
 export class CodingComponent implements OnInit {
   //@ViewChild('editor') editor;
-  private text: string;
+  public text: string;
   private  httpService: HttpWrapperService;
   private codeExecutionService: CodeExecutionService;
   public codeResult : any;

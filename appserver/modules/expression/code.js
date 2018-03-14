@@ -37,19 +37,16 @@ const sandboxPromiseExecutor = {
 var executor = {
   test0: function (code) {
     //safe eval
-    console.log("sdf");
     var evaluated = safeEval(code);
     console.log(evaluated);
   },
 
 
   executeAsync: async function(code) {
-    console.log('dddddddddddddd');
     return await sandboxQExecutor.execute(code);
   },
 
   executeGenerator: function*(code) {
-    console.log('dddddddddddddd');
     const R = yield sandboxQExecutor.execute(code);
     return R;
   },
@@ -59,7 +56,6 @@ var executor = {
     var promise = new Promise((resolve, reject) => {
         var s = new Sandbox();
     s.run(code, function (output) {
-      console.log(output);
       resolve(output);
     });
   });

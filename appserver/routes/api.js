@@ -10,19 +10,19 @@ router.get('/', (req, res) => {
 
 
 router.post('/funca', async(req, res) => {
-  console.log(req.body);
+  // console.log(req.body);
   const body = req.body;
   const response = await code.executeAsync(body.code);
   //res.send(response);
 
-  console.log(response);
+  // console.log(response);
   res.json(response);
 });
 
 
 
 router.post('/funcg', (req, res) => {
-  console.log(req.body);
+  // console.log(req.body);
   const body = req.body;
 
   co(function*() {

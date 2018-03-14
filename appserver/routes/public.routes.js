@@ -66,7 +66,7 @@ router
   .prefix('/api/pub')
   .use(jwtMiddleware.mainMiddleware())
   .get("/", async function (ctx) {
-  console.log("ruta public");
+  // console.log("ruta public");
 
   const body = ctx.request.body;
   // console.log(body);
@@ -82,9 +82,9 @@ router
 })
 
 .post("/", async function (ctx) {
-  console.log("ruta public");
+  // console.log("ruta public");
   const body = ctx.request.body;
-   console.log(body);
+   // console.log(body);
   const data = body.data;
   const method = body.proxy.method;
   const module = moduleFactory.getModule(body.proxy.module);
@@ -99,18 +99,18 @@ router
 .post("/form", async function (ctx) {
   //https://stackoverflow.com/questions/8359902/how-to-rename-files-parsed-by-formidable
   const resp =  await formidablePromise(ctx.req,{});
-  console.log(resp);
+  // console.log(resp);
   const proxy = JSON.parse(resp.fields.proxy);
 
   const data= JSON.parse(resp.fields.data);
   const body = ctx.request.body;
 
-  console.log(body);
-  console.log('dssssssssssssssssssss');
+  // console.log(body);
+  // console.log('dssssssssssssssssssss');
   if(body.tokenObj) {
     data.userId = body.tokenObj.id;
   }
-  console.log(proxy);
+  // console.log(proxy);
 
   data.files = resp.newFileNames;
   // if(resp.newFileNames && resp.newFileNames.length>0){

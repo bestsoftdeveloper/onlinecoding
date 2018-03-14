@@ -78,7 +78,7 @@ router
   debugger;
 
     const body = ctx.request.body;
-    // console.log(body);
+     console.log(body);
     const data = body.data;
     const method = body.proxy.method;
 

@@ -8,7 +8,7 @@ import TimerSettings from "../../../../facade/timerSettings";
 })
 export class QuizTimerComponent implements OnInit {
 
-  @Input() obj: Object;
+  @Input() obj: any;
 
   constructor() { }
 

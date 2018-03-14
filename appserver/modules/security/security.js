@@ -40,7 +40,6 @@ module.exports = function() {
     //return responseWrapper.sendResponse(true, userResponse, "", "");
   },
          async login(obj) {
-             console.log(obj);
             if(!obj || !obj.login || !obj.password)
             {
                 throw {message:"invalid_password1"};
@@ -90,8 +89,7 @@ module.exports = function() {
 
   async getUsers(obj, tokenObj) {
 
-    console.log("GET USERS");
-    console.log(obj);
+    // console.log(obj);
     const filterCriteria = {
     };
 

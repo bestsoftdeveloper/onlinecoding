@@ -9,7 +9,7 @@ export class QuizImageComponent implements OnInit {
 
   @Input() obj: Object;
   @Input() prop: string;
-  @Input() answerType: number;
+  @Input() answerType: any;
 
   constructor() { }
 

@@ -11,7 +11,7 @@ import Permissions from "../../facade/permissions";
 })
 export class HeaderComponent {
 
-  private user: any;
+  public user: any;
   canEditNews:boolean =false;
   canRegisterCourse: boolean = true;
 

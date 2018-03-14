@@ -17,7 +17,6 @@ module.exports = function() {
       // data.categoryId
       // questionService
 // debugger;
-      console.log("create report");
       // console.log(filter);
       // console.log(tokenObj);
 
@@ -27,7 +26,6 @@ module.exports = function() {
       data.userInfo = await securityService.findOne({filter:{_id: ObjectID(tokenObj.id)}});
 
       // console.log("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
-      console.log(data.userInfo);
       data.userInfo.name = data.userInfo.firstName || data.userInfo.email;
 
 

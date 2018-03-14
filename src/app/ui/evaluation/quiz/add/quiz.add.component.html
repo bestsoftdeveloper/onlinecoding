@@ -29,11 +29,11 @@
 
   <div class="row pad">
     <label>
-      <button type="button" class="btn" (click)="decreaseNumberOfAnswers()"
+      <button type="button" class="btn1" (click)="decreaseNumberOfAnswers()"
               [disabled]="this.question.answers.length===0">-
       </button>
       <span>Answer Count</span>
-      <button type="button" class="btn" (click)="increaseNumberOfAnswers()">+</button>
+      <button type="button" class="btn1" (click)="increaseNumberOfAnswers()">+</button>
     </label>
   </div>
 
@@ -135,7 +135,7 @@
   </div>
 
   <div class="row pad">
-    <button type="button" class="btn" (click)="saveQuestion()">Save</button>
+    <button type="button" class="btn1" (click)="saveQuestion()">Save</button>
   </div>
 
   <!--{{answerType | json}}-->

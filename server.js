@@ -49,12 +49,12 @@ const proxiedURL = "http://localhost:6002";
 
 // Catch all other routes and return the index file
 app.get('*', (req, res) => {
-  console.log(req.path);
+  // console.log(req.path);
   if (req.path.startsWith('/uploads')) {
     var url = proxiedURL + "/uploads/" + req.params.id;
     //logger.info('/fileThumbnail going to url', url);
     url = proxiedURL + req.path;
-    console.log(url);
+    // console.log(url);
 
     request.get(url).pipe(res);
   } else {
@@ -63,13 +63,13 @@ app.get('*', (req, res) => {
 });
 
 app.post('*', (req, res) => {
-  console.log(req.path);
+  // console.log(req.path);
   if (req.path.startsWith('/api')) {
     // var url = proxiedURL + "/uploads/" + req.params.id;
     //logger.info('/fileThumbnail going to url', url);
     url = proxiedURL;
-    console.log('XXXXXXXXXXXXXXXXXXXXXX');
-    console.log(url);
+    // console.log('XXXXXXXXXXXXXXXXXXXXXX');
+    // console.log(url);
 
     //forward the request
     request({
@@ -84,7 +84,7 @@ app.get('/uploads/:id', function(req, res) {
   //console.log(req.params.id);
 
   var url = proxiedURL + "/uploads/" + req.params.id;
-  console.log(url);
+  // console.log(url);
   //logger.info('/fileThumbnail going to url', url);
   request.get(url).pipe(res);
 });

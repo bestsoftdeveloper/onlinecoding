@@ -1,8 +1,10 @@
 import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import {IQuestion} from "../facade/IQuestion";
 import {isUndefined} from "util";
-import {QuestionSettings} from "../question-settings";
 import {canChangeSeconds} from "ngx-bootstrap/timepicker/timepicker-controls.util";
+
+import {IAnswerType, IQuestionType} from "../../../../facade/quizFacade";
+import QuizFacade from "../../../../facade/quizFacade";
 
 @Component({
   selector: 'app-quiz-question',
@@ -15,16 +17,8 @@ export class QuizQuestionComponent implements OnInit {
   @Output() onMessageFromQuestionControl: EventEmitter<any> = new EventEmitter<any>();
   constructor() { }
 
-   QuestionType: any = {
-    Text:1,
-    Images:2,
-    Code:3
-  };
-
-  AnswerType: any = {
-    SingleAnswer:1,
-    MultipleAnswers:2
-  };
+  public QuestionTypeLocal : IQuestionType  = QuizFacade.QuestionType;
+  public AnswerTypeLocal: IAnswerType = QuizFacade.AnswerType;
 
   ngOnInit() {
 
@@ -43,24 +37,30 @@ export class QuizQuestionComponent implements OnInit {
 
   }
 
-  isSendAnswerDisabled() {
-    if(this.question.isDisabled)
-    {
-      return true;
+
+  isAnswerSelected() {
+    // aici
+    if(this.question.isAnswerSent){
+      return false;
     }
-    let isDisabled = true;
+
+    let isselected = false;
+
+
     switch (this.question.answerType.type) {
-      case this.AnswerType.SingleAnswer: {
-        isDisabled = this.question.rdValue == undefined;
+      case QuizFacade.AnswerType.SingleAnswer: {
+        isselected = this.question.rdValue != undefined;
         break;
       }
-      case this.AnswerType.MultipleAswers: {
-        isDisabled = this.question.userAnswer != null;
+      case QuizFacade.AnswerType.MultipleAnswers: {
+        var isAtLeastOneAnswerSelected = this.question.answers.find(it=>it.rdValue == true);
+        isselected = isAtLeastOneAnswerSelected != null;
         break;
       }
     }
 
-    return isDisabled;
+
+    return isselected;
   }
 
   tryGoNext()
@@ -92,7 +92,7 @@ export class QuizQuestionComponent implements OnInit {
   }
   sendAnswerForQuestion()
   {
-    this.question.userAnswer = [];
+    // this.question.userAnswer = [];
     this.onMessageFromQuestionControl.emit({command:'sendAnswer'});
   }
 

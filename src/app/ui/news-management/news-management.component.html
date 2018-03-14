@@ -2,7 +2,7 @@
 
 
   <!--<div class="btn-group" dropdown>-->
-    <!--<button dropdownToggle type="button" class="btn btn-primary dropdown-toggle">-->
+    <!--<button dropdownToggle type="button" class="btn1 btn-primary dropdown-toggle">-->
       <!--Button dropdown <span class="caret"></span>-->
     <!--</button>-->
     <!--<ul *dropdownMenu class="dropdown-menu" role="menu">-->
@@ -55,7 +55,7 @@ hhhhhhh
   </div>
 
   <div class="row">
-    <button class="btn" (click)="addNewsItem()">Add news Item</button>
+    <button class="btn1" (click)="addNewsItem()">Add news Item</button>
   </div>
 
   {{newsObject.selectedNewsItem | json}}
@@ -76,15 +76,15 @@ hhhhhhh
         <app-wys-editor [(obj)]="newsObject.items[i]" prop="content"></app-wys-editor>
       </div>
       <div class="row">
-        <!--<button class="btn" (click)="selectNewsItem(newsObject.items[i])">Select</button>-->
-        <button class="btn" (click)="deleteNewsItem(newsObject.items[i])">Delete</button>
+        <!--<button class="btn1" (click)="selectNewsItem(newsObject.items[i])">Select</button>-->
+        <button class="btn1" (click)="deleteNewsItem(newsObject.items[i])">Delete</button>
 
         <select [(ngModel)]="newsObject.items[i].ItemTypeValue">
           <option *ngFor="let itType of ItemTypes" value={{itType.id}}>{{itType.name}}</option>
         </select>
 
         class: <input type="text" [(ngModel)]="newsObject.items[i].class" class="form-control">
-        <button class="btn" (click)="addNewsItem()">Add news Item</button>
+        <button class="btn1" (click)="addNewsItem()">Add news Item</button>
 
       </div>
     </div>
@@ -95,13 +95,13 @@ hhhhhhh
       </div>
 
       <div class="row">
-        <!--<button class="btn" (click)="selectNewsItem(newsObject.items[i])">Select</button>-->
-        <button class="btn" (click)="deleteNewsItem(newsObject.items[i])">Delete</button>
+        <!--<button class="btn1" (click)="selectNewsItem(newsObject.items[i])">Select</button>-->
+        <button class="btn1" (click)="deleteNewsItem(newsObject.items[i])">Delete</button>
         <select [(ngModel)]="newsObject.items[i].ItemTypeValue">
           <option *ngFor="let itType of ItemTypes" value={{itType.id}}>{{itType.name}}</option>
         </select>
         class: <input type="text" [(ngModel)]="newsObject.items[i].class" class="form-control">
-        <button class="btn" (click)="addNewsItem()">Add news Item</button>
+        <button class="btn1" (click)="addNewsItem()">Add news Item</button>
       </div>
 
     </div>
@@ -114,7 +114,7 @@ hhhhhhh
   </div>
 
 
-  <button class="btn btn-primary" (click)="saveNews()">Save</button>
+  <button class="btn1 btn-primary" (click)="saveNews()">Save</button>
 
 </div>
 <!---->
