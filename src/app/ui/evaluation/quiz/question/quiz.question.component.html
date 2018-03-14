@@ -6,7 +6,7 @@
     <div class="row center question card">
       <div [innerHTML]="question.question | keepHtml"></div>
     </div>
-    <div class="row center pd20">
+    <div class="row center pd20" *ngIf="!question.isAnswerSent">
       <button
         class="btn1  topbtn btn-primary"
               [disabled]="!isAnswerSelected()"
@@ -51,11 +51,13 @@
     <div *ngIf="question.questionType === QuestionTypeLocal.Text" class="col-md-12">
       <div class="col-md-6 col-xs-12" *ngFor="let entry of question.answers">
 
-        <!--<pre> {{entry | json}} </pre>-->
+
+        {{question.rdValue}}
 
         <div *ngIf="question.answerType.type === AnswerTypeLocal.SingleAnswer" class="">
+          <!--<pre> {{entry | json}} </pre>-->
           <div class="radio1 center1 card">
-            <span class="qlabel">
+            <label class="qlabel">
               <span *ngIf="question.isAnswerSent && entry.isCorrect"> <i class="glyphicon glyphicon-ok"></i> </span>
               <input type="radio" [value]="entry.index" name="radiogroup"
                      [(ngModel)]="question.rdValue"
@@ -63,7 +65,7 @@
                      [disabled]="question.isAnswerSent">
               <span class="btn-group1 span {{entry.css}}" [innerHTML]="entry.content | keepHtml"></span>
 
-            </span>
+            </label>
           </div>
         </div>
 

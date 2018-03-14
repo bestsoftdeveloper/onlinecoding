@@ -268,7 +268,7 @@ export class QuizManagerComponent implements OnInit {
     onStart: null,
     onStop: this.onstop.bind(this),
     running: false,
-    enabled: true
+    enabled: false
   };
 
 
