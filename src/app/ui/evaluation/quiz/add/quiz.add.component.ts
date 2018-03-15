@@ -4,6 +4,8 @@ import {UUID} from 'angular2-uuid';
 import {ActivatedRoute} from "@angular/router";
 import {PubSubService} from "../../../../services/pubsub/pubsub";
 import QuizFacade from "../../../../facade/quizFacade";
+import {IQuestionType} from "../../../../facade/quizFacade";
+import {IAnswerType} from "../../../../facade/quizFacade";
 
 @Component({
   selector: 'app-quiz.add',
@@ -53,8 +55,8 @@ export class QuizAddComponent implements OnInit {
   }
 
   defaultCode: any = "\n\n\nfunction run()\n{\n//write the code...\n}"
-  QuestionType = QuizFacade.QuestionType;
-  AnswerType = QuizFacade.AnswerType;
+  QuestionType: IQuestionType = QuizFacade.QuestionType;
+  AnswerType: IAnswerType = QuizFacade.AnswerType;
 
   defaultTestCase: any = {
     list: [
@@ -77,27 +79,28 @@ export class QuizAddComponent implements OnInit {
     {time: 30, desc: "30 min"},
     {time: 60, desc: "1 h"}
     ];
-  question: any = {
-    question: 'ddd',
+
+  question: any = { // was question
+    question: '',
     questionType:1,
     answerCount:4,
     categoryId:"",
     answers: [
       {
         index: 0,
-        content: "unu"
+        content: ""
       },
       {
         index: 1,
-        content: "doi"
+        content: ""
       },
       {
         index: 2,
-        content: "trei"
+        content: ""
       },
       {
         index: 3,
-        content: "patru"
+        content: ""
       }
     ],
     timer: {

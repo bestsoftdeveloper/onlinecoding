@@ -202,12 +202,11 @@ export class QuizManagerComponent implements OnInit {
   }
 
   addquestion(){
-    this.pubSub.setKeyValue('q', this.question);
+    this.pubSub.setKeyValue('q', null);
     this.router.navigate(['/addquestions']);
   }
 
   sendAnswerForQuestion() {
-    debugger;
     if (!this.question || !this.question._id) {
       return;
     }

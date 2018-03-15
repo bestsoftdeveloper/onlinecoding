@@ -33,6 +33,7 @@
           >{{q.index+1}}</button>
           <button class="btn1 topbtn" (click)="next()" [disabled]="isNextDisabled()"><i class="fa fa-arrow-right" aria-hidden="true"></i></button>
           <button class="btn1 topbtn" (click)="nextPage()" [disabled]="isNextPageDisabled()"><i class="fa fa fa-angle-double-right" aria-hidden="true"></i></button>
+          <label class=""> {{pager.count}} elemente</label>
         </div>
       </div>
     </div>

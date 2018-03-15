@@ -51,9 +51,6 @@
     <div *ngIf="question.questionType === QuestionTypeLocal.Text" class="col-md-12">
       <div class="col-md-6 col-xs-12" *ngFor="let entry of question.answers">
 
-
-        {{question.rdValue}}
-
         <div *ngIf="question.answerType.type === AnswerTypeLocal.SingleAnswer" class="">
           <!--<pre> {{entry | json}} </pre>-->
           <div class="radio1 center1 card">
