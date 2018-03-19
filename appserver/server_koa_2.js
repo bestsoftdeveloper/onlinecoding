@@ -69,6 +69,9 @@ lcRouter.get("/uploads/:id", async function (ctx) {
   await send(ctx, ctx.path);
 });
 
+lcRouter.get("/angular/:id", async function (ctx) {
+  await send(ctx, ctx.path);
+});
 
 console.log(lcRouter.stack.map(i => i.path));
 

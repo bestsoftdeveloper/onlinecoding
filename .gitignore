@@ -9,6 +9,7 @@
 # dependencies
 /node_modules
 /appserver/node_modules
+/appserver/angular
 
 # IDEs and editors
 /.idea
