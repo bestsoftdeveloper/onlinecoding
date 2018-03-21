@@ -13,7 +13,7 @@ import {LocalizationService} from "../../../services/localization/localization.s
 export class ForgotPasswordComponent implements OnInit {
 
   constructor(private  httpService: HttpWrapperService, private router: Router,
-              private localizationService: LocalizationService) { }
+              public localizationService: LocalizationService) { }
 
   ui: any = {
     email:''

@@ -53,7 +53,7 @@ export class CreateUserComponent implements OnInit {
               private router: Router,
               private localStorageService: LocalStorageService,
               private pubSubService: PubSubService,
-  private localizationService: LocalizationService
+  public localizationService: LocalizationService
   )
   {
     this.httpService = httpService;

@@ -38,7 +38,7 @@ export class LoginComponent implements OnDestroy  {
               private router: Router,
               private localStorageService: LocalStorageService,
               private pubSubService: PubSubService,
-              private localizationService: LocalizationService
+              public localizationService: LocalizationService
               //private fb: FacebookService
   )
   {

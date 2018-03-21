@@ -11,7 +11,7 @@ import {LocalizationService} from "../../../services/localization/localization.s
 })
 export class ChangePasswordComponent implements OnInit {
 
-  constructor(private  httpService: HttpWrapperService, private router: Router, private activatedRoute: ActivatedRoute, private localizationService: LocalizationService) { }
+  constructor(private  httpService: HttpWrapperService, private router: Router, private activatedRoute: ActivatedRoute, public localizationService: LocalizationService) { }
 
   ui: any = {
     password:'',

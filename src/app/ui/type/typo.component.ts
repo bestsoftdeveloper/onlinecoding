@@ -13,7 +13,7 @@ export class TypoComponent implements OnInit {
 
   typed: Typed =null;
 
-  constructor( private pubSubService: PubSubService, private localizationService: LocalizationService) {
+  constructor( private pubSubService: PubSubService, public localizationService: LocalizationService) {
 
     pubSubService.subscribe('change-language', (val)=>{
       if(this.typed !== undefined){

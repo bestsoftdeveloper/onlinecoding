@@ -32,7 +32,7 @@ export class HeaderComponent {
 
   constructor (private localStorageService: LocalStorageService,
                private pubSubService: PubSubService,
-               private localizationService: LocalizationService,
+               public localizationService: LocalizationService,
                private router: Router
   )
   {

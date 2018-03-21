@@ -50,7 +50,7 @@ export class HomePresentationComponent implements OnInit {
   imageIndex = 1;
   counter=0;
 
-  constructor(private localizationService: LocalizationService)
+  constructor(public localizationService: LocalizationService)
   {
     this.timeoutId = setInterval(() => {
       // console.log('hello');

@@ -73,7 +73,7 @@ import {LocalizationService} from "../services/localization/localization.service
   private  httpService: HttpWrapperService;
   public codeResult : any;
 
-  constructor(httpService: HttpWrapperService, private localizationService: LocalizationService)
+  constructor(httpService: HttpWrapperService, public localizationService: LocalizationService)
   {
     this.httpService = httpService;
     this.text = 'console.log("start");';

@@ -9,7 +9,7 @@ import {LocalizationService} from "../../services/localization/localization.serv
 
 export class MainSliderComponent implements OnInit {
 
-  constructor( private localizationService: LocalizationService){
+  constructor( public localizationService: LocalizationService){
 
   }
 

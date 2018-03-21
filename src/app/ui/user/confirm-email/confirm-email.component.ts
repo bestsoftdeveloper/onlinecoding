@@ -12,7 +12,7 @@ import {LocalizationService} from "../../../services/localization/localization.s
 })
 export class ConfirmEmailComponent implements OnInit {
 
-  constructor(private  httpService: HttpWrapperService, private router: Router, private activatedRoute: ActivatedRoute, private localizationService: LocalizationService) { }
+  constructor(private  httpService: HttpWrapperService, private router: Router, private activatedRoute: ActivatedRoute, public localizationService: LocalizationService) { }
 
   code:string;
   uiMessage:string;
