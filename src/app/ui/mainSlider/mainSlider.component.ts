@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {LocalizationService} from "../../services/localization/localization.service";
 
 @Component({
   selector: 'app-mainslider',
@@ -7,6 +8,10 @@ import { Component, OnInit } from '@angular/core';
 })
 
 export class MainSliderComponent implements OnInit {
+
+  constructor( private localizationService: LocalizationService){
+
+  }
 
   selectedHero: any = {
     name: 'ds'

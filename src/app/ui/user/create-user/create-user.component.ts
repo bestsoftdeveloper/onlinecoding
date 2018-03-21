@@ -7,6 +7,7 @@ import {PubSubService} from "../../../services/pubsub/pubsub";
 import {Router} from "@angular/router";
 
 import language from '../../../facade/language';
+import {LocalizationService} from "../../../services/localization/localization.service";
 
 @Component({
   selector: 'app-create-user',
@@ -51,8 +52,8 @@ export class CreateUserComponent implements OnInit {
   constructor(public _auth: AuthService, httpService: HttpWrapperService,
               private router: Router,
               private localStorageService: LocalStorageService,
-              private pubSubService: PubSubService
-              //private fb: FacebookService
+              private pubSubService: PubSubService,
+  private localizationService: LocalizationService
   )
   {
     this.httpService = httpService;
@@ -181,7 +182,7 @@ export class CreateUserComponent implements OnInit {
     const respData = resp.data;
     if(!respData.success){
 
-      this.uiMessage = language.lang[respData.message];
+      this.uiMessage = this.localizationService.language[respData.message];
       return;
     }
 

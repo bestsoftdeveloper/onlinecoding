@@ -7,6 +7,7 @@ import {
   animate,
   transition, query, stagger
 } from '@angular/animations';
+import {LocalizationService} from "../services/localization/localization.service";
 
 @Component({
   selector: 'app-home',
@@ -72,7 +73,7 @@ import {
   private  httpService: HttpWrapperService;
   public codeResult : any;
 
-  constructor(httpService: HttpWrapperService)
+  constructor(httpService: HttpWrapperService, private localizationService: LocalizationService)
   {
     this.httpService = httpService;
     this.text = 'console.log("start");';

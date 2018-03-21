@@ -4,6 +4,19 @@ header{
   margin-bottom: 0;
   /*background-color: #fcfcfc;*/
 }
+.navli select{
+  border:0px;
+  outline:0px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  text-indent: 1px;
+  text-overflow: '';
+}
+
+.navli select::-ms-expand {
+  display: none;
+}
+
 .ulcust
 {
   padding: 0px;

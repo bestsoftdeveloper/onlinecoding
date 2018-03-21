@@ -12,7 +12,7 @@
 
         <div class="text-center">
           <div class="icon-object border-slate-300 text-slate-300"><i class="icon-reading"></i></div>
-          <h5 class="content-group">Creare Utilizator
+          <h5 class="content-group">{{localizationService.language.create_user.title}}
             <!--<small class="display-block">Your credentials</small>-->
           </h5>
         </div>
@@ -23,7 +23,7 @@
           <div class="row">
             <div class="col-md-6">
               <div class="form-group">
-                <label for="firstName">Nume</label>
+                <label for="firstName">{{localizationService.language.create_user.fname}}</label>
                 <input type="text"
                        class="form-control"
                        placeholder="Nume" autofocus required
@@ -50,7 +50,7 @@
 
             <div class="col-md-6">
               <div class="form-group">
-                <label for="lastName">Prenume</label>
+                <label for="lastName">{{localizationService.language.create_user.lName}}</label>
                 <input type="text"
                        class="form-control"
                        placeholder="Prenume" required
@@ -79,7 +79,7 @@
 
 
           <div class="form-group">
-            <label for="phone">Telefon</label>
+            <label for="phone">{{localizationService.language.create_user.phone}}</label>
             <input type="text"
                    class="form-control"
                      name="phone"

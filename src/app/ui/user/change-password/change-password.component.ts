@@ -2,7 +2,7 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {NgForm} from "@angular/forms";
 import {HttpWrapperService} from "../../../services/http/httpService";
 import {Router, ActivatedRoute, Params} from "@angular/router";
-import language from '../../../facade/language';
+import {LocalizationService} from "../../../services/localization/localization.service";
 
 @Component({
   selector: 'app-change-password',
@@ -11,7 +11,7 @@ import language from '../../../facade/language';
 })
 export class ChangePasswordComponent implements OnInit {
 
-  constructor(private  httpService: HttpWrapperService, private router: Router, private activatedRoute: ActivatedRoute) { }
+  constructor(private  httpService: HttpWrapperService, private router: Router, private activatedRoute: ActivatedRoute, private localizationService: LocalizationService) { }
 
   ui: any = {
     password:'',
@@ -36,7 +36,7 @@ export class ChangePasswordComponent implements OnInit {
   passwordReseted(resp)
   {
 
-    this.uiMessage = language.lang[resp.data.message];
+    this.uiMessage = this.localizationService.language[resp.data.message];
     // this.router.navigate(['/login']);
     // this.router.navigate(['/home'], { queryParams: { returnUrl: 'sd' }});
   }
@@ -88,7 +88,7 @@ export class ChangePasswordComponent implements OnInit {
     if(!respData.success){
       //http://localhost:4200/resetpassword?reset=222dea52-8dbf-411c-8d5a-31b37fa31e3d
       const uiText = respData.message || respData.data.message;
-      this.uiMessage = language.lang[uiText];
+      this.uiMessage = this.localizationService.language[uiText];
       return;
     }
 

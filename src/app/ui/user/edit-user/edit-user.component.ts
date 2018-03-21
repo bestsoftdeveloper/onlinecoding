@@ -6,6 +6,7 @@ import {AuthService} from "angular2-social-login";
 import {Router} from "@angular/router";
 import {LocalStorageService} from "angular-2-local-storage";
 import {PubSubService} from "../../../services/pubsub/pubsub";
+import {LocalizationService} from "../../../services/localization/localization.service";
 @Component({
   selector: 'app-edit-user',
   templateUrl: './edit-user.component.html',
@@ -52,8 +53,8 @@ export class EditUserComponent implements OnInit {
   constructor(public _auth: AuthService, httpService: HttpWrapperService,
               private router: Router,
               private localStorageService: LocalStorageService,
-              private pubSubService: PubSubService
-              //private fb: FacebookService
+              private pubSubService: PubSubService,
+  private localizationService: LocalizationService
   )
   {
     this.httpService = httpService;
@@ -178,7 +179,7 @@ export class EditUserComponent implements OnInit {
     const respData = resp.data;
     if(!respData.success){
 
-      this.uiMessage = language.lang[respData.message];
+      this.uiMessage = this.localizationService.language[respData.message];
       return;
     }
 

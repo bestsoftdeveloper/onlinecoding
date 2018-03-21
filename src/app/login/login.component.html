@@ -1,114 +1,92 @@
-﻿
-<div class="container1">
+﻿<div class="container1">
 
-<div class="row">
-<div class="col-md-4">
+  <div class="row">
+    <div class="col-md-4">
 
-</div>
-<div class="col-md-4">
-  <!---->
-
-
-
-  <form class="form-signin mg-btm" #myForm="ngForm" (ngSubmit)="submitForm()">
-
-    <div class="text-center">
-      <div class="icon-object border-slate-300 text-slate-300"><i class="icon-reading"></i></div>
-      <h5 class="content-group">Intrare in cont <small class="display-block"></small></h5>
     </div>
+    <div class="col-md-4">
+      <!---->
+      <form class="form-signin mg-btm" #myForm="ngForm" (ngSubmit)="submitForm()">
 
-    <div class="social-box">
-      <div class="row mg-btm">
-        <div class="col-md-12">
+        <div class="text-center">
+          <div class="icon-object border-slate-300 text-slate-300"><i class="icon-reading"></i></div>
+          <h5 class="content-group"> {{localizationService.language.login_desc}}
+            <small class="display-block"></small>
+          </h5>
+        </div>
+
+        <div class="social-box">
+          <div class="row mg-btm">
+            <div class="col-md-12">
           <span class="btn btn-primary btn-block" (click)="loginWithFB()">
-            <i class="icon-facebook"></i>Logare cu Facebook</span>
-        </div>
-      </div>
-      <!--<div class="row">-->
-        <!--<div class="col-md-12">-->
+            <i class="icon-facebook"></i>{{localizationService.language.fb_login}}</span>
+            </div>
+          </div>
+          <!--<div class="row">-->
+          <!--<div class="col-md-12">-->
           <!--<a href="#" class="btn1 btn-info btn-block" >-->
-            <!--<i class="icon-twitter"></i>    Login with Twitter-->
+          <!--<i class="icon-twitter"></i>    Login with Twitter-->
           <!--</a>-->
-        <!--</div>-->
-      <!--</div>-->
-    </div>
-    <div class="main">
-      <div class="form-group has-feedback has-feedback-left">
-        <input type="text" class="form-control" placeholder="Email" autofocus email required name="email" id="email" [(ngModel)]="email"
-               (input)="validateEmail($event.target.value)" >
-        <div class="form-control-feedback">
-          <i class="icon-user text-muted"></i>
-        </div>
-        <div class="row">
-          <span class="error"  [hidden]="!formErrors.email" *ngIf="myForm.form.controls.email && myForm.form.controls.email.dirty" for="email">{{formErrors.email}}</span>
-        </div>
-      </div>
-
-      <div class="form-group has-feedback has-feedback-left">
-        <input type="password" class="form-control" placeholder="Password" required name="password" id="password" [(ngModel)]="password" (input)="validatePassword($event.target.value)">
-        <div class="form-control-feedback">
-          <i class="fa fa-key text-muted" aria-hidden="true"></i>
-          <!--<i class="icon-lock2 text-muted"></i>-->
-        </div>
-        <div class="row">
-        <span class="error" [hidden]="!formErrors.password" *ngIf="myForm.form.controls.password && myForm.form.controls.password.dirty" for="password">{{formErrors.password}}</span>
-        </div>
-      </div>
-
-      <div class="form-group login-options">
-        <div class="row">
-          <div class="col-sm-6">
-            <a [routerLink]="['/createUser']">Creaza utilizator</a>
-            <!--<label class="checkbox-inline">-->
-              <!--<div class="checker"><span class="checked"><input type="checkbox" class="styled" checked="checked"></span></div>-->
-              <!--Remember-->
-            <!--</label>-->
-          </div>
-
-          <div class="col-sm-6 text-right">
-            <!--<a href="#" (click)="gotoResetPassword()">Resetare parola?</a>-->
-            <a [routerLink]="['/forgotPassword']">Resetare parola</a>
-          </div>
-        </div>
-      </div>
-
-
-      <div class="form-group">
-        <button type="submit" class="btn1 bg-blue btn-block">Login <i class="icon-arrow-right14 position-right"></i></button>
-        <span> {{uiMessage}}</span>
-      </div>
-
-      <!--#######################################-->
-
-
-
-
-      <!--<span class="clearfix"></span>-->
-      <!--Are you a business? <a href=""> Get started here</a>-->
-      <!--<span class="clearfix"></span>-->
-    </div>
-    <!--<div class="login-footer">-->
-      <!--<div class="row">-->
-        <!--<div class="col-xs-7 col-md-7">-->
-          <!--<div class="left-section">-->
-            <!--<a href="#" (click)="gotoResetPassword()">Resetare parola?</a>-->
-            <!--<span class="clearfix"></span>-->
-            <!--&lt;!&ndash;<a href="">Sign up now</a>&ndash;&gt;-->
           <!--</div>-->
-        <!--</div>-->
-        <!--<div class="col-xs-5 col-md-5 pull-right">-->
-          <!--<button type="submit" class="btn1 btn-large btn-danger pull-right">Login</button>-->
-        <!--</div>-->
-      <!--</div>-->
+          <!--</div>-->
+        </div>
+        <div class="main">
+          <div class="form-group has-feedback has-feedback-left">
+            <input type="text" class="form-control" placeholder="Email" autofocus email required name="email" id="email"
+                   [(ngModel)]="email"
+                   (input)="validateEmail($event.target.value)">
+            <div class="form-control-feedback">
+              <i class="icon-user text-muted"></i>
+            </div>
+            <div class="row">
+              <span class="error" [hidden]="!formErrors.email"
+                    *ngIf="myForm.form.controls.email && myForm.form.controls.email.dirty" for="email">{{formErrors.email}}</span>
+            </div>
+          </div>
 
-    <!--</div>-->
-  </form>
-</div>
+          <div class="form-group has-feedback has-feedback-left">
+            <input type="password" class="form-control" placeholder="Password" required name="password" id="password"
+                   [(ngModel)]="password" (input)="validatePassword($event.target.value)">
+            <div class="form-control-feedback">
+              <i class="fa fa-key text-muted" aria-hidden="true"></i>
+              <!--<i class="icon-lock2 text-muted"></i>-->
+            </div>
+            <div class="row">
+              <span class="error" [hidden]="!formErrors.password"
+                    *ngIf="myForm.form.controls.password && myForm.form.controls.password.dirty" for="password">{{formErrors.password}}</span>
+            </div>
+          </div>
 
-<div class="col-md-4">
-</div>
-</div>
+          <div class="form-group login-options">
+            <div class="row">
+              <div class="col-sm-6">
+                <a [routerLink]="['/createUser']">{{localizationService.language.create_user_screen.title}}</a>
+                <!--<label class="checkbox-inline">-->
+                <!--<div class="checker"><span class="checked"><input type="checkbox" class="styled" checked="checked"></span></div>-->
+                <!--Remember-->
+                <!--</label>-->
+              </div>
 
+              <div class="col-sm-6 text-right">
+                <!--<a href="#" (click)="gotoResetPassword()">Resetare parola?</a>-->
+                <a [routerLink]="['/forgotPassword']">{{localizationService.language.resetPass}}</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <button type="submit" class="mat-raised-button mat-primary bg-blue btn-block">{{localizationService.language.login}} <i
+              class="icon-arrow-right14 position-right"></i></button>
+            <span class="error"> {{uiMessage}}</span>
+          </div>
+
+        </div>
+      </form>
+    </div>
+
+    <div class="col-md-4">
+    </div>
+  </div>
 
 
 </div>

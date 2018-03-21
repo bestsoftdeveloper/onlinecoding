@@ -55,34 +55,35 @@
         </a>
       </div>
       <!--Collect the nav links, and other content for toggling-->
-      <ul class="collapse navbar-collapse" id="navbar-collapse-1" [ngbCollapse]="isCollapsed">
+      <ul class="collapse navbar-collapse" id="navbar-collapse-1" [ngbCollapse]="isCollapsed" >
         <ul class="nav navbar-nav navbar-right">
           <li class="navli">
-            <a routerLink="/home" routerLinkActive="active"><span><i class="ficon fa fa-home" aria-hidden="true"></i>Home</span></a>
+            <a routerLink="/home" routerLinkActive="active"><span><i class="ficon fa fa-home" aria-hidden="true"></i>{{localizationService.language.menu.home}}</span></a>
           </li>
 
 
           <li class="navli">
             <a routerLink="/dailyNews" routerLinkActive="active"><i class="ficon fa fa-newspaper-o"
-                                                                    aria-hidden="true"></i>Stirea zilei</a>
+                                                                    aria-hidden="true"></i>{{localizationService.language.menu.news}}</a>
           </li>
           <li class="navli">
             <a routerLink="/dailyChallenge" routerLinkActive="active"><i class="ficon fa fa-trophy"
-                                                                         aria-hidden="true"></i>Exercitiu</a>
+                                                                         aria-hidden="true"></i>{{localizationService.language.menu.exercise}}</a>
           </li>
           <li class="navli">
             <a routerLink="/survey" routerLinkActive="active"><i class="ficon fa fa-pencil-square-o"
-                                                                 aria-hidden="true"></i>Sondaj</a>
+                                                                 aria-hidden="true"></i>{{localizationService.language.menu.sondaj}}</a>
           </li>
           <li class="navli">
-            <a routerLink="/courses" routerLinkActive="active"><i class="ficon fa fa-book" aria-hidden="true"></i>Cursuri</a>
+            <a routerLink="/courses" routerLinkActive="active"><i class="ficon fa fa-book" aria-hidden="true"></i>{{localizationService.language.menu.cursuri}}</a>
           </li>
           <li class="navli" *ngIf="canRegisterCourse">
             <a routerLink="/registercourse" routerLinkActive="active"><i class="ficon fa fa-handshake-o"
-                                                                         aria-hidden="true"></i>Inscriere</a>
+                                                                         aria-hidden="true"></i>{{localizationService.language.menu.inscriere}}
+            </a>
           </li>
           <li class="navli">
-            <a routerLink="/about" routerLinkActive="active"><i class="ficon fa fa-file-text" aria-hidden="true"></i>Despre</a>
+            <a routerLink="/about" routerLinkActive="active"><i class="ficon fa fa-file-text" aria-hidden="true"></i>{{localizationService.language.menu.despre}}</a>
           </li>
           <li class="navli" *ngIf="canEditNews">
             <a routerLink="/addNews" routerLinkActive="active"><i class="ficon fa fa-file-text" aria-hidden="true"></i>add
@@ -104,7 +105,8 @@
           <li class="menu-btn navli" data-toggle="modal">
             <!--<span *ngIf="user">{{user.name}}</span>-->
             <a *ngIf="!user" routerLink="/login" routerLinkActive="active"><i class="ficon fa fa-sign-in"
-                                                                              aria-hidden="true"></i>Login</a>
+                                                                              aria-hidden="true"></i>{{localizationService.language.menu.login}}
+            </a>
           </li>
           <li class="menu-btn1 navli" *ngIf="user">
             <!--<div class="dropdown" dropdown>-->
@@ -117,20 +119,20 @@
             <!--</div>-->
             <a ngbDropdown class="d-inline-block1 dropdown1">
               <a class="btn1 btn-outline-primary1 cp" id="dropdownBasic1" ngbDropdownToggle><i class="ficon fa fa-cog"
-                                                                                               aria-hidden="true"></i>Setari</a>
+                                                                                               aria-hidden="true"></i>{{localizationService.language.menu.setari}}</a>
               <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
                 <ul class="nob ulcust">
                   <li class="navli">
                     <button type="button" class="btn1 btn-link" (click)="logout()">
                       <i class="fa fa-sign-out" aria-hidden="true"></i>
-                      Logout
+                      {{localizationService.language.menu.logout}}
                     </button>
                   </li>
 
                   <li class="navli">
                     <button class="btn1 btn-link" routerLink="/edituser" routerLinkActive="active">
                       <i class="ficon fa fa-question"  aria-hidden="true"></i>
-                      Datele mele
+                      {{localizationService.language.menu.personaldata}}
                     </button>
 
                     <!--<button type="button" class="btn1 btn-link" (click)="logout()">-->
@@ -150,6 +152,14 @@
               </div>
 
             </a>
+          </li>
+
+          <li class="navli">
+            <select (change)="onLanguageChanged($event.target.value)" class="d-inline-block1 dropdown1 dropdown">
+              <option *ngFor="let country of countries" value={{country.name}}>
+                {{country.name}}
+              </option>
+            </select>
           </li>
 
         </ul>

@@ -3,6 +3,7 @@ import {NgForm} from "@angular/forms";
 import {HttpWrapperService} from "../../../services/http/httpService";
 import language from '../../../facade/language';
 import {Router} from "@angular/router";
+import {LocalizationService} from "../../../services/localization/localization.service";
 
 @Component({
   selector: 'app-forgot-password',
@@ -11,7 +12,8 @@ import {Router} from "@angular/router";
 })
 export class ForgotPasswordComponent implements OnInit {
 
-  constructor(private  httpService: HttpWrapperService, private router: Router) { }
+  constructor(private  httpService: HttpWrapperService, private router: Router,
+              private localizationService: LocalizationService) { }
 
   ui: any = {
     email:''
@@ -29,7 +31,7 @@ export class ForgotPasswordComponent implements OnInit {
   passwordReseted(resp)
   {
 
-    this.uiMessage = language.lang['check_forgot_password'];
+    this.uiMessage = this.localizationService.language['check_forgot_password'];
     // this.router.navigate(['/login']);
     // this.router.navigate(['/home'], { queryParams: { returnUrl: 'sd' }});
   }
@@ -62,7 +64,7 @@ export class ForgotPasswordComponent implements OnInit {
 
     if(!respData.success){
 
-      this.uiMessage = language.lang[respData.message];
+      this.uiMessage = this.localizationService.language[respData.message];
       return;
     }
 

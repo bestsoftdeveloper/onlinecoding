@@ -3,6 +3,7 @@ import {ActivatedRoute, Router, Params} from "@angular/router";
 import {HttpWrapperService} from "../../../services/http/httpService";
 
 import language from '../../../facade/language';
+import {LocalizationService} from "../../../services/localization/localization.service";
 
 @Component({
   selector: 'app-confirm-email',
@@ -11,7 +12,7 @@ import language from '../../../facade/language';
 })
 export class ConfirmEmailComponent implements OnInit {
 
-  constructor(private  httpService: HttpWrapperService, private router: Router, private activatedRoute: ActivatedRoute) { }
+  constructor(private  httpService: HttpWrapperService, private router: Router, private activatedRoute: ActivatedRoute, private localizationService: LocalizationService) { }
 
   code:string;
   uiMessage:string;
@@ -29,11 +30,11 @@ export class ConfirmEmailComponent implements OnInit {
     };
     const respData = await this.httpService.postJson("api/pub", req);
     if(!respData.success){
-      this.uiMessage = language.lang[respData.message];
+      this.uiMessage = this.localizationService.language[respData.message];
       return;
     }
     const data = respData.data;
-    this.uiMessage = language.lang[data.message];
+    this.uiMessage = this.localizationService.language[data.message];
   }
 
   async ngOnInit() {

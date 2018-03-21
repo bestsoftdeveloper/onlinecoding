@@ -6,6 +6,7 @@ import { AuthService } from "angular2-social-login";
 import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { LocalStorageService } from 'angular-2-local-storage';
 import {PubSubService} from "../services/pubsub/pubsub";
+import {LocalizationService} from "../services/localization/localization.service";
 // import { FacebookService, LoginResponse, LoginOptions, UIResponse, UIParams, FBVideoComponent } from 'ngx-facebook';
 
 @Component({
@@ -36,7 +37,8 @@ export class LoginComponent implements OnDestroy  {
   constructor(public _auth: AuthService, httpService: HttpWrapperService,
               private router: Router,
               private localStorageService: LocalStorageService,
-              private pubSubService: PubSubService
+              private pubSubService: PubSubService,
+              private localizationService: LocalizationService
               //private fb: FacebookService
   )
   {

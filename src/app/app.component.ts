@@ -3,13 +3,16 @@ import {SocketService} from "./services/socket/socketService";
 import markdownIt from 'markdown-it'
 import markdownItMermaid from 'markdown-it-mermaid'
 import mermaid from 'mermaid';
+import {PubSubService} from "./services/pubsub/pubsub";
+import {LocalizationService} from "./services/localization/localization.service";
 
 // declare const mermaid;
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
+  providers: [ PubSubService, LocalizationService ],
 })
 export class AppComponent implements OnInit {
   // mdi = markdownIt();

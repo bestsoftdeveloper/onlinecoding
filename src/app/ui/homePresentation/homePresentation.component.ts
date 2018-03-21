@@ -6,6 +6,7 @@ import {
   animate,
   transition, query, stagger
 } from '@angular/animations';
+import {LocalizationService} from "../../services/localization/localization.service";
 
 @Component({
   selector: 'app-home-presentation',
@@ -49,7 +50,7 @@ export class HomePresentationComponent implements OnInit {
   imageIndex = 1;
   counter=0;
 
-  constructor()
+  constructor(private localizationService: LocalizationService)
   {
     this.timeoutId = setInterval(() => {
       // console.log('hello');

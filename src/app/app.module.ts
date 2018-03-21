@@ -105,6 +105,7 @@ import { EditUserComponent } from './ui/user/edit-user/edit-user.component';
 import { ConfirmEmailComponent } from './ui/user/confirm-email/confirm-email.component';
 import { BdRadioComponent } from './components/input/bd-radio/bd-radio.component';
 import { UserListComponent } from './ui/user/user-list/user-list.component';
+import {LocalizationService} from "./services/localization/localization.service";
 
 let providers = {
   // "google": {
@@ -214,7 +215,7 @@ let providers = {
     MatIconModule
 
   ],
-  providers: [HttpWrapperService,CodeExecutionService, AuthGuard, SimpleTimer,PubSubService, SocketService, UtilsService,NewsService ],
+  providers: [HttpWrapperService,CodeExecutionService, AuthGuard, SimpleTimer,PubSubService, SocketService, UtilsService,NewsService, LocalizationService ],
   bootstrap: [AppComponent]
 })
 
