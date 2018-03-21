@@ -11,14 +11,21 @@ import {PubSubService} from "../../services/pubsub/pubsub";
 
 export class TypoComponent implements OnInit {
 
-  typed: null;
+  typed: Typed =null;
 
   constructor( private pubSubService: PubSubService, private localizationService: LocalizationService) {
 
     pubSubService.subscribe('change-language', (val)=>{
-      if(this.typed){
-        this.typed.stop();
-        this.typed.destroy();
+      if(this.typed !== undefined){
+          try {
+            this.typed.stop();
+            this.typed.destroy();
+            this.typed = null;
+          }
+          catch(ex){
+
+          }
+
       }
 
       setTimeout(() => {

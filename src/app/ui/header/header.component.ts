@@ -46,8 +46,9 @@ export class HeaderComponent {
       }
     });
 
-    this.router.events.subscribe( (event: Event) => {
-      if (event instanceof NavigationEnd) {
+    this.router.events.subscribe( (event) => {
+
+      if (event && event instanceof NavigationEnd) {
         // Hide loading indicator
 
         setTimeout(() => {
