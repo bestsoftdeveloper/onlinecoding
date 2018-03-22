@@ -1,37 +1,33 @@
+<div *ngIf="newsObject && newsObject.items" class="list-group-item card">
 
-<div *ngIf="newsObject && newsObject.items"
-     class="list-group-item card">
-  <!--(mouseenter)="onBtnMouseOver($event)"-->
-  <!--(mouseleave)="onBtnMouseOut($event)"-->
-  <!--[ngClass]= "{newsItem:true,btnOver:btnover}"-->
+  <div class="flexbox-item fill-area content flexbox-item-grow">
+    <div class="fill-area-content1 flexbox-item-grow">
+      <div class="row">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <div class="newsObject.titleClass" [innerHTML]="newsObject.title | keepHtml"></div>
+            <button *ngIf="canEditNews" class="btn1 btn-link" (click)="edit()">edit</button>
+          </div>
 
+          <div class="panel-body">
+            <div class="" *ngFor="let it of newsObject.items;let i = index">
+              <div class="" *ngIf="newsObject.items[i].ItemTypeValue == 1">
+                <span class="" [innerHTML]="newsObject.items[i].content | keepHtml"></span>
+              </div>
 
-  <!--[ngClass]="newsObject.btnoverclass + ' ' + newsObject.selectedClass"-->
-     <!--(mouseenter)="onBtnMouseOver($event)"-->
-     <!--(mouseleave)="onBtnMouseOut($event)"-->
-     <!--[ngClass]="newsObject.btnoverclass + ' ' + newsObject.selectedClass"-->
-
-  <!--{{newsObject.p}}-->
-  <div class="{newsObject.titleClass}">
-    <div class="newsObject.titleClass" [innerHTML]="newsObject.title | keepHtml"></div>
-    <button *ngIf="canEditNews" class="btn1 btn-link" (click)="edit()">edit</button>
-    <!--{{newsObject.btnoverclass}}-->
-  </div>
-
-
-  <div class="" *ngFor="let it of newsObject.items;let i = index">
-    <div class="" *ngIf="newsObject.items[i].ItemTypeValue == 1">
-      <span class="" [innerHTML]="newsObject.items[i].content | keepHtml"></span>
-    </div>
-
-    <div class="" *ngIf="newsObject.items[i].ItemTypeValue == 2">
-      <div>
-        <app-codemirror-editor [code]="newsObject.items[i].content"
-                               [externalConfig]=externalConfig></app-codemirror-editor>
+              <div class="" *ngIf="newsObject.items[i].ItemTypeValue == 2">
+                <div>
+                  <app-codemirror-editor [code]="newsObject.items[i].content"
+                                         [externalConfig]=externalConfig></app-codemirror-editor>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!--<footer class="panel-footer">Footer</footer>-->
+        </div>
       </div>
     </div>
-
-
   </div>
+
 
 </div>

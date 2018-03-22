@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
 import { FormsModule }   from '@angular/forms';
-import { MatInputModule, MatButtonModule, MatSelectModule, MatIconModule } from '@angular/material';
+import { MatInputModule, MatButtonModule, MatSelectModule, MatIconModule, MatCardModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AceEditorModule } from 'ng2-ace-editor';
 import { AppComponent } from './app.component';
@@ -212,7 +212,8 @@ let providers = {
     MatInputModule,
     MatButtonModule,
     MatSelectModule,
-    MatIconModule
+    MatIconModule,
+    MatCardModule
 
   ],
   providers: [HttpWrapperService,CodeExecutionService, AuthGuard, SimpleTimer,PubSubService, SocketService, UtilsService,NewsService, LocalizationService ],
