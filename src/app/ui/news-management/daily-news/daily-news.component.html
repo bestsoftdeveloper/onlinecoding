@@ -1,12 +1,13 @@
 
-<div class="row center title">
-  <label class="">&nbsp;</label>
-</div>
+<!--<div class="row center title">-->
+  <!--<label class="">&nbsp;</label>-->
+<!--</div>-->
 
 <!--<pre>{{newsObject | json}}</pre>-->
 <div class="container">
+  <button class="btn1 center" (click)="previewsNews()">Stirea precedenta</button>
   <app-news [newsObject]="newsObject" [canEditNews]="canEditNews"></app-news>
-  <button class="btn1" (click)="previewsNews()">Stirea precedenta</button>
+
 </div>
 
 
