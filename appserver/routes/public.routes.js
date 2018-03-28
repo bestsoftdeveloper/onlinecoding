@@ -128,7 +128,7 @@ router
   .post("/ping-me", async function (ctx) {
   email.sendEmail(
     {
-      to:"claudiu9379@gmail.com",
+      to:"claudiu9379@yahoo.com",
       subject: "test email " + new Date(),
       body:"<label>hey</label>"
   });
