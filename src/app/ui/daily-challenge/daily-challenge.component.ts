@@ -92,7 +92,7 @@ export class DailyChallengeComponent implements OnInit {
     this.pager.pageNo = data.page;
     this.getPagedSolutionsForAExercise();
   }
-  async getPagedSolutionsForAExercise() {
+  async getPagedSolutionsForAExercise(): Promise<any> {
     if (!this.newsObject) {
       return;
     }

@@ -10,6 +10,8 @@ const jasmineNode = require('jasmine-node');
 var newman = require('newman');
 const mongoQuery = require('../utils/mongoQuery')();
 
+const email = require('../modules/email/email')();
+
 const moduleFactory = require('./moduleFactory');
 var Mocha = require('mocha'),
     path = require('path');
@@ -124,6 +126,12 @@ router
 })
 
   .post("/ping-me", async function (ctx) {
+  email.sendEmail(
+    {
+      to:"claudiu9379@gmail.com",
+      subject: "test email " + new Date(),
+      body:"<label>hey</label>"
+  });
     return  {message: "ping"};
   })
   .post('/ping', async function(ctx) {

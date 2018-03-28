@@ -14,7 +14,9 @@ script:
 
 after_success:
  
-
+deploy:
+  skip_cleanup: true
+  
 notifications:
   email:
     on_failure: change
