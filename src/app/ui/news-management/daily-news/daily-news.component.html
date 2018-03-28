@@ -5,9 +5,14 @@
 
 <!--<pre>{{newsObject | json}}</pre>-->
 <div class="container">
-  <button class="btn1 center" (click)="previewsNews()">Stirea precedenta</button>
-  <app-news [newsObject]="newsObject" [canEditNews]="canEditNews"></app-news>
+    <div class="row center">
+      <button class="btn1 btn-link center" (click)="previewsNews()">Stirea precedenta</button>
+    </div>
 
+  <div class="row1">
+  <!--<button class="btn1 btn-link center" (click)="previewsNews()">Stirea precedenta</button>-->
+    <app-news [newsObject]="newsObject" [canEditNews]="canEditNews"></app-news>
+  </div>
 </div>
 
 

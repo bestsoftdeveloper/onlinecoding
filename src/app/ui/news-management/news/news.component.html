@@ -1,12 +1,12 @@
 
 <div class="newsObject" *ngIf="newsObject && newsObject.items">
-  <div class="row card1 {{newsObject.titleClass}}">
+  <div class="row card1 m10 {{newsObject.titleClass}}">
     <div class="newsObject.titleClass" [innerHTML]="newsObject.title | keepHtml"></div>
     <button *ngIf="canEditNews" class="btn1 btn-link" (click)="edit()">edit</button>
   </div>
 
 
-  <div class="row" *ngFor="let it of newsObject.items;let i = index">
+  <div class="row1 m10" *ngFor="let it of newsObject.items;let i = index">
     <div class="row" *ngIf="newsObject.items[i].ItemTypeValue == 1">
       <span class="" [innerHTML]="newsObject.items[i].content | keepHtml"></span>
     </div>

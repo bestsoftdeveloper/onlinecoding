@@ -34,7 +34,7 @@ const cors = require('@koa/cors');
 
 const app = new koa();
 const mongoQuery = require('./utils/mongoQuery')(app);
-
+// require("./mongo/mongo")(app);
 
 app.use(cors());
 app.use(BodyParser());

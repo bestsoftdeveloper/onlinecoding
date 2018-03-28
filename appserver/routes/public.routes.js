@@ -133,6 +133,9 @@ router
   })
   .post('/testadd', async function(ctx) {
     // console.log("hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh");
+  // console.log(ctx.app.db);
+  //   const r = await ctx.app.people.find().toArray();
+  // return r;
     let body = ctx.request.body;
     const ppl  = await ctx.app.people.insert(body);
     // console.log(ppl.ops);
