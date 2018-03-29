@@ -5,6 +5,7 @@ import Permissions from "../../facade/permissions";
 import {Country} from "./Country";
 import {LocalizationService} from "../../services/localization/localization.service";
 import {Router, NavigationEnd} from "@angular/router";
+import {SocketService} from "../../services/socket/socketService";
 
 
 @Component({
@@ -12,9 +13,10 @@ import {Router, NavigationEnd} from "@angular/router";
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit{
 
   public user: any;
+  userCount : number = 0;
   canEditNews:boolean =false;
   canRegisterCourse: boolean = true;
 
@@ -24,16 +26,11 @@ export class HeaderComponent {
     new Country(2, 'RO' )
   ];
 
-  onLanguageChanged(val){
-    this.selectedCountry = val;
-    this.pubSubService.publish('change-language', val);
-  }
-
-
   constructor (private localStorageService: LocalStorageService,
                private pubSubService: PubSubService,
                public localizationService: LocalizationService,
-               private router: Router
+               private router: Router,
+               private socketService:SocketService
   )
   {
     this.user = localStorageService.get('user');
@@ -69,6 +66,40 @@ export class HeaderComponent {
       this.canRegisterCourse = (!this.user.registered);
     }
   }
+
+  msgReceive(msg){
+
+    debugger;
+    this.userCount = msg.usersCount;
+  }
+
+  ngOnInit(): void {
+    this.socketService.connect();
+
+    const evt : ISocketEvent = {
+      evtName: "welcome",
+      ctrlName:'header',
+      executeFunction: this.msgReceive.bind(this)
+    };
+
+
+    this.socketService.subscribe(evt);
+
+    this.user = this.localStorageService.get('user');
+
+    this.pubSubService.subscribe('login', (val)=>{
+      this.user = val;
+
+    });
+  }
+
+  onLanguageChanged(val){
+    this.selectedCountry = val;
+    this.pubSubService.publish('change-language', val);
+  }
+
+
+
 
   title:"asfasf";
   isCollapsed = true;

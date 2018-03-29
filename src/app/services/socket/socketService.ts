@@ -20,13 +20,27 @@ export class SocketService {
     this.socket.on('serverMessage', (data) => {
 
       const subscribers = this.subscribers[data.evtName];
-
+      if(!subscribers){
+        return;
+      }
       for(var i=0;i<subscribers.length; i++)
       {
         subscribers[i].executeFunction(data);
       }
     });
 
+    this.socket.on('welcome', (data) => {
+
+      const subscribers = this.subscribers[data.evtName];
+      if(!subscribers){
+        return;
+      }
+
+      for(var i=0;i<subscribers.length; i++)
+      {
+        subscribers[i].executeFunction(data);
+      }
+    });
   }
 
   disconnect()

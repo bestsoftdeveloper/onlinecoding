@@ -32,16 +32,15 @@ export class HomePresentationComponent implements OnInit {
 
   images = [
     'images/slider-1.jpg',
-    //'images/slider-2.jpg',
     'images/slider-3.png',
-    'images/c1.jpeg',
-    'images/c2.jpeg',
-    'images/c3.jpeg',
-    'images/c4.jpeg',
-    'images/c5.jpeg',
-    'images/c6.jpeg',
-    'images/c7.jpeg',
-    'images/c8.jpeg',
+    // 'images/c1.jpeg',
+    // 'images/c2.jpeg',
+    // 'images/c3.jpeg',
+    // 'images/c4.jpeg',
+    // 'images/c5.jpeg',
+    // 'images/c6.jpeg',
+    // 'images/c7.jpeg',
+    // 'images/c8.jpeg',se poate si asta ?
     // 'images/big-data-banner.jpg',
   ];
 

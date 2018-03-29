@@ -11,6 +11,7 @@ export default new class Language {
       t3: "Colaborare la realizarea proiectelor",
       t4: "Ar ajuta sa vedem nivelul cunostintelor folosind linkul de mai jos.",
       t5: "Verificare cunostinte",
+      t6:"Tehnologii",
       typoText: [
         "Limbajul principal este  <strong>JavaScript</strong>.",
         "Se va invata <strong>javascript</strong>",
@@ -172,6 +173,7 @@ export default new class Language {
       t3: "Collaboration on project implementation",
       t4: "It would help to see the level of knowledge using the below link.",
       t5: "Checking knowledge",
+      t6:"Technology",
       typoText: [
         "The primary language is <strong>JavaScript</strong>.",
         "Will learn <strong>javascript</strong>",
