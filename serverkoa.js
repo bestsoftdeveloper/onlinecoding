@@ -41,6 +41,13 @@ app.use(httpProxy('/angular', {
   logs: true
 }))
 
+app.use(httpProxy('/socket.io', {
+  target: microServicePath,
+  changeOrigin: true,
+  // rewrite: path => path.replace(/^\/api(\/|\/\w+)?$/, '/api'),
+  logs: true
+}))
+
 app.use(async function(ctx, next) {
   // console.log(ctx);
 
