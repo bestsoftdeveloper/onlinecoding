@@ -42,9 +42,9 @@ app.use(httpProxy('/angular', {
 }))
 
 app.use(httpProxy('/socket.io', {
-  target: microServicePath + "/socket.js",
+  target: microServicePath,
   changeOrigin: true,
-  // rewrite: path => path.replace(/^\/api(\/|\/\w+)?$/, '/api'),
+  rewrite: path => path  + "/socket.js",
   logs: true
 }))
 
