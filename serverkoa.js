@@ -13,6 +13,7 @@ const { httpProxy } = require('koa-http-proxy-middleware-fix');
 const httpsProxyAgent = require('https-proxy-agent');
 
 const microServicePath = "http://localhost:6002";
+const wsMicroServicePath = "ws://localhost:6002";
 
 path = require('path'),
   fs = require('fs');
@@ -42,7 +43,7 @@ app.use(httpProxy('/angular', {
 }))
 
 app.use(httpProxy('/socket.io', {
-  target: microServicePath,
+  target: wsMicroServicePath,
   changeOrigin: true,
   // rewrite: path => path  + "/socket.js",
   logs: true
