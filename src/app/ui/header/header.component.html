@@ -77,7 +77,8 @@
           <li class="navli">
             <a routerLink="/courses" routerLinkActive="active"><i class="ficon fa fa-book" aria-hidden="true"></i>{{localizationService.language.menu.cursuri}}</a>
           </li>
-          <li class="navli" *ngIf="canRegisterCourse">
+          <!--*ngIf="canRegisterCourse"-->
+          <li class="navli">
             <a routerLink="/registercourse" routerLinkActive="active"><i class="ficon fa fa-handshake-o"
                                                                          aria-hidden="true"></i>{{localizationService.language.menu.inscriere}}
             </a>

@@ -25,6 +25,9 @@ export class CourseRegistrationComponent implements OnInit {
     if(this.user) {
       this.canRegisterCourse = (!this.user.registered);
       this.showRegisterButton = (!this.user.registered);
+      if(this.user.registered) {
+        this.message = "Sunteti inregistrati";
+      }
     }
   }
 
