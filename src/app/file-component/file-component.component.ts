@@ -116,6 +116,15 @@ export class FileComponentComponent  {
     // if(this.isDisabled){
     //   this.fileClass = `uploader isDisabled ${this.extraClass}`;
     // }
+    try {
+      if (this.obj && this.prop) {
+        this.imageSrc = this.obj[this.prop];
+      }
+    }
+    catch (ex)
+    {
+      console.log(ex);
+    }
   }
 
 }

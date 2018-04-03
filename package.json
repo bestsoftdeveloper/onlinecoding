@@ -83,6 +83,7 @@
     "lz-string": "^1.4.4",
     "markdown-it": "^8.4.1",
     "markdown-it-mermaid": "^0.2.5",
+    "markdown-it-mermaid-pro": "^2.2.3",
     "markdown2html-pro": "^1.0.5",
     "match-path-plus": "0.0.3",
     "md5": "^2.2.1",
