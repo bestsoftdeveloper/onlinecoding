@@ -111,7 +111,7 @@ const appRoutes: Routes = [
   {
     path:'registercourse',
     component:CourseRegistrationComponent,
-    canActivate:[AuthGuard]
+    // canActivate:[AuthGuard]
   },
   {
     path:'courses',

@@ -68,6 +68,27 @@ async function mainPrivateMiddleware(ctx, next) {
   }
 };
 
+async function probablyMiddleware(ctx, next) {
+  // debugger;
+  // console.log("mainPrivateMiddleware");
+  var response = null;
+  try {
+    try {
+      var authHeader = ctx.req.headers.authorization;
+      var r = await
+      jsonwebtoken.verify(authHeader, config.tokenPassword);
+      ctx.request.body.tokenObj = r;
+    }
+    catch(xxx){}
+    response = await next(); // next is now a function
+    ctx.body = responseWrapper.success(response);
+  } catch (err) {
+    console.log(err);
+    //ctx.status = 401;
+    ctx.body = responseWrapper.failure(err);
+  }
+};
+
 // helper function
 module.exports.issue =  (payload) => {
   return jsonwebtoken.sign(payload, SECRET);
@@ -77,4 +98,5 @@ module.exports.errorHandler = () => JWTErrorHandler;
 module.exports.routeJwtMiddleware = () => routeJwtMiddleware;
 module.exports.mainMiddleware = () => mainMiddleware;
 module.exports.mainPrivateMiddleware = () => mainPrivateMiddleware;
+module.exports.probablyMiddleware = () => probablyMiddleware;
 

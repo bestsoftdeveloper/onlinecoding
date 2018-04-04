@@ -204,7 +204,7 @@ module.exports = function() {
     //   password: obj.password
     // });
   },
-         async createUser(obj) {
+    async createUser(obj) {
             if(!obj || !obj.email)
             {
               throw {message:"no_email"};
@@ -263,6 +263,58 @@ module.exports = function() {
                 password: obj.password
             });
         },
+    async createRegisterUser(obj) {
+    if(!obj || !obj.email)
+    {
+      throw {message:"no_email"};
+    }
+    if(!obj.password)
+    {
+      throw {message:"no_password"};
+    }
+    obj.email = obj.email.toLowerCase();
+
+    var existentUserCriteria = mongoQuery.userSchemas.Users.findOne({
+      'email': obj.email
+    });
+
+    let dbUser = await  mongoQuery.executeQuery(existentUserCriteria);
+    if (dbUser) {
+      return models.createUserResponse(dbUser);
+    }
+
+    var salt = encryption.salt();
+    var encryptedPassword = encryption.encrypt(obj.password, salt);
+
+    dbUser = new mongoQuery.userSchemas.Users({
+      name: obj.login,
+      email: obj.email,
+      password: encryptedPassword,
+      salt: salt,
+      //guid: encryption.guid(),
+      langId: obj.langId,
+      confirmed: false,
+      reset: encryption.guid(),
+      firstName:obj.firstName,
+      lastName:obj.lastName,
+      userOrCompany:0,
+      allowLogo:false,
+
+      amount: {
+        value: 10
+      }
+    });
+
+
+    await dbUser.save();
+
+    if(obj.sendEmail == undefined)
+    {
+      email.emailCreateUser(dbUser);
+    }
+    return models.createUserResponse(dbUser);
+  },
+
    async find(obj){
     const query =  mongoQuery.userSchemas.Users.find(obj.filter);
     const resp = await mongoQuery.executeQuery(query);

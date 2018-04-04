@@ -4,7 +4,7 @@ import language from '../../facade/language';
 
 @Injectable()
 export class LocalizationService {
-  public language = language.EN;
+  public language = language.RO;
 
   constructor( private pubSubService: PubSubService) {
     pubSubService.subscribe('change-language', (val)=>{

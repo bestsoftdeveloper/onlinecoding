@@ -14,13 +14,12 @@ var Mocha = require('mocha'),
 
 const uuidv4 = require('uuid/v4');
 const registerService = require('../modules/register/registerService');
-
 const config = require('../config/development');
 
 
 router
   .prefix('/api/register')
-  .use(jwtMiddleware.mainPrivateMiddleware())
+  .use(jwtMiddleware.probablyMiddleware())
   .post("/", async function (ctx) {
    console.log("ruta news");
 
@@ -28,6 +27,10 @@ router
     // console.log(body);
     const data = body.data;
     const method = body.proxy.method;
+
+    if(!body.tokenObj) {
+      body.tokenObj = await securityModule.createRegisterUser(body.data);
+    }
 
 
     const resp = await registerService[method](data, body.tokenObj);
