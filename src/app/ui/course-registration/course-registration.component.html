@@ -49,8 +49,10 @@
         </div>
       </div>
 
+      <form class="" #subForm="ngForm" autocomplete="false">
       <div *ngIf="!user" class="row">
-        <div class="row">
+
+          <div class="row">
           <div class="col-md-6">
             <div class="form-group">
               <label for="firstName">{{localizationService.language.create_user.fname}}</label>
@@ -69,8 +71,8 @@
                      *ngIf="currentForm && currentForm.form.controls.firstName && currentForm.form.controls.firstName.errors &&
               (currentForm.form.controls.firstName.dirty)">
 
-                  <p *ngIf="currentForm.form.controls.firstName.errors.required">Introduceti numele</p>
-                  <p *ngIf="currentForm.form.controls.firstName.errors.maxLength">Lungimea numelui este prea mare</p>
+                  <p class="error" *ngIf="currentForm.form.controls.firstName.errors.required">Introduceti numele</p>
+                  <p class="error" *ngIf="currentForm.form.controls.firstName.errors.maxLength">Lungimea numelui este prea mare</p>
                 </div>
               </div>
 
@@ -94,15 +96,15 @@
                 <div class="form-control-feedback1"  *ngIf="currentForm && currentForm.form.controls.lastName && currentForm.form.controls.lastName.errors &&
               (currentForm.form.controls.lastName.dirty)">
 
-                  <p *ngIf="currentForm.form.controls.lastName.errors.required">Introduceti prenumele</p>
-                  <p *ngIf="currentForm.form.controls.lastName.errors.maxLength">Lungimea numelui este prea mare</p>
+                  <p class="error" *ngIf="currentForm.form.controls.lastName.errors.required">Introduceti prenumele</p>
+                  <p class="error" *ngIf="currentForm.form.controls.lastName.errors.maxLength">Lungimea numelui este prea mare</p>
                 </div>
               </div>
             </div>
           </div>
 
         </div>
-        <div class="row">
+          <div class="row">
           <div class="col-md-6">
             <div class="form-group">
               <label for="email">{{localizationService.language.email}}</label>
@@ -120,8 +122,8 @@
                 <div class="form-control-feedback1"  *ngIf="currentForm && currentForm.form.controls.email && currentForm.form.controls.email.errors &&
               (currentForm.form.controls.email.dirty)">
 
-                  <p *ngIf="currentForm.form.controls.email.errors.required">Introduceti email-ul</p>
-                  <p *ngIf="currentForm.form.controls.email.errors.maxLength">Lungimea numelui este prea mare</p>
+                  <p class="error" *ngIf="currentForm.form.controls.email.errors.required">Introduceti email-ul</p>
+                  <p class="error" *ngIf="currentForm.form.controls.email.errors.maxLength">Lungimea numelui este prea mare</p>
                 </div>
               </div>
 
@@ -137,15 +139,17 @@
                      required
                      [(ngModel)]="ui.password" >
 
-              <div class="row" *ngIf="currentForm && currentForm.controls.password && currentForm.controls.password.errors &&
+              <div class="row1" *ngIf="currentForm && currentForm.controls.password && currentForm.controls.password.errors &&
               (currentForm.controls.password.dirty)">
-                <p *ngIf="currentForm.form.controls.password.errors.required">Introduceti parola</p>
-                <p *ngIf="currentForm.form.controls.password.errors.maxLength">Lungimea parolei este prea mare</p>
+                <p class="error" *ngIf="currentForm.form.controls.password.errors.required">Introduceti parola</p>
+                <p class="error" *ngIf="currentForm.form.controls.password.errors.maxLength">Lungimea parolei este prea mare</p>
               </div>
             </div>
           </div>
         </div>
+
       </div>
+      </form>
 
       <div class="row">
         <div class="register">

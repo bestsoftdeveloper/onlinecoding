@@ -3,6 +3,10 @@
   /*pointer-events: none;*/
 /*}*/
 
+.error{
+  color: red;
+}
+
 .title
 {
   padding: 25px;
