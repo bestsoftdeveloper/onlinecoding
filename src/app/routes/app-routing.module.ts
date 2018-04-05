@@ -55,7 +55,7 @@ const appRoutes: Routes = [
     component:AboutComponent
   },
   {
-    path:'js',
+    path:'javascript',
     component:JavascriptComponent
   },
   {
