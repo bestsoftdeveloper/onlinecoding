@@ -105,6 +105,9 @@ module.exports = function() {
       obj.pager.pageNo--;
       filter = filter.limit(obj.pager.itemsOnPage)
         .skip(obj.pager.itemsOnPage * obj.pager.pageNo)
+        .sort({
+            created: -1
+          });
       // query = query.sort({
       //   dateAdded: -1
       // });

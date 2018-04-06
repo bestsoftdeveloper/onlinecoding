@@ -176,7 +176,7 @@ class NewsService {
   const fields = {problemId:1,'userId.email':1};
   var filter = mongoQuery.exercisesSchema.Exercises
     .find(filterCriteria)
-    .populate('items.userId', 'email')
+    .populate('items.userId', 'firstName')
     // .select(fields);
 
 
