@@ -241,6 +241,7 @@ module.exports = function() {
               lastName:obj.lastName,
               userOrCompany:obj.userOrCompany,
               allowLogo:obj.allowLogo,
+              created: new Date(),
 
               amount: {
                     value: 10
@@ -300,7 +301,7 @@ module.exports = function() {
       userOrCompany:0,
       allowLogo:false,
       phone: obj.phone,
-
+      created: new Date(),
       amount: {
         value: 10
       }

@@ -4,6 +4,7 @@ module.exports = function(mongoose) {
             type: String,
             index: true
         },
+        created:Date,
         nick: String,
         password: String,
         email: String,
