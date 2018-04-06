@@ -42,10 +42,10 @@ function formidablePromise (req, opts) {
       //file.path = __dirname + '/uploads/';
       // console.log('begin' );
       const fileExt = file.name.split('.').pop();
-      const newFileName = uploadDirectory + "/" + uuidv4()+"."+fileExt;
+      const newFileName = uuidv4()+"."+fileExt;
       const index = newFileNames.length;
 
-      newFileNames.push({index ,originalFileName:file.name, newFileName:newFileName, filePath: `${uploadDirectory}/${newFileName}` });
+      newFileNames.push({index ,originalFileName:file.name, newFileName:uploadDirectory + "/" + newFileName, filePath: `${uploadDirectory}/${newFileName}` });
 
       file.path = form.uploadDir + "/" + newFileName;
       // var file_name = file.name;
