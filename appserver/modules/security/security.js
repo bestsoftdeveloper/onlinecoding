@@ -299,6 +299,7 @@ module.exports = function() {
       lastName:obj.lastName,
       userOrCompany:0,
       allowLogo:false,
+      phone: obj.phone,
 
       amount: {
         value: 10

@@ -17,6 +17,7 @@ export class CourseRegistrationComponent implements OnInit {
   message:string= "";
   showRegisterButton =true;
   public user: any = null;
+  public mask = ['(', /[0-9]/, /\d/, /\d/, /\d/,')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/,  /\d/];
 
   ui:any ={
     firstName:'',
@@ -91,6 +92,9 @@ export class CourseRegistrationComponent implements OnInit {
       isCtrlValid = this.validateInput('password');
       if(!isCtrlValid){isFormOk = false;}
 
+      isCtrlValid = this.validateInput('phone');
+      if(!isCtrlValid){isFormOk = false;}
+
       if(!isFormOk) {
         return;
       }
@@ -99,7 +103,8 @@ export class CourseRegistrationComponent implements OnInit {
         firstName: this.ui.firstName,
         lastName: this.ui.lastName,
         email: this.ui.email,
-        password: this.ui.password
+        password: this.ui.password,
+        phone: this.ui.phone
       };
     }
 

@@ -181,6 +181,7 @@
                        name="email"
                        id="email"
                        [(ngModel)]="ui.email"
+                       pattern="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$"
                        maxlength="50"
                 >
 
@@ -191,6 +192,7 @@
 
                     <p *ngIf="currentForm.form.controls.email.errors.required">Introduceti email-ul</p>
                     <p *ngIf="currentForm.form.controls.email.errors.maxLength">Lungimea numelui este prea mare</p>
+                    <small [hidden]="!currentForm.form.controls.email.errors.pattern">Emailul este incorect</small>
                   </div>
                 </div>
 
