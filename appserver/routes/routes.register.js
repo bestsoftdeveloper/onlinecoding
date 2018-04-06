@@ -34,6 +34,7 @@ router
 
 
     const resp = await registerService[method](data, body.tokenObj);
+    resp.tokenObj = body.tokenObj;
     return resp;
 
     // ctx.body = responseWrapper.success(resp);

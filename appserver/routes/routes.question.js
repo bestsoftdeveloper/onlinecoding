@@ -43,7 +43,7 @@ function formidablePromise (req, opts) {
       //file.path = __dirname + '/uploads/';
       // console.log('begin' );
       const fileExt = file.name.split('.').pop();
-      const newFileName = uuidv4()+"."+fileExt;
+      const newFileName = uploadDirectory + "/" + uuidv4()+"."+fileExt;
       const index = newFileNames.length;
 
       newFileNames.push({index ,originalFileName:file.name, newFileName:newFileName, filePath: `${uploadDirectory}/${newFileName}` });

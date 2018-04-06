@@ -39,7 +39,7 @@ module.exports = function() {
           {
             to: data.userInfo.email,
             bcc: "office@bestdeveloper.ro",
-            subject:"Survey",
+            subject:"Inregistrare",
             body:htmlResult
           }
         );
