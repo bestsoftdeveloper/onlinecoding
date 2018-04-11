@@ -334,7 +334,18 @@ module.exports = function() {
   },
 
   async registerToCourse(obj){
-    const query =  mongoQuery.userSchemas.Users.update({_id:obj.userId},{$set:{registered:1}});
+    var setCriteria = {
+      $set:
+      {
+        registered:1
+      }
+    };
+
+    if(obj.phone){
+      setCriteria.$set.phone = obj.phone;
+    }
+
+    const query =  mongoQuery.userSchemas.Users.update({_id:obj.userId},setCriteria);
     await mongoQuery.executeQuery(query);
     const resp = models.createToken(obj);
     return resp;

@@ -1,5 +1,10 @@
+<!--[ngStyle]="fileClass"-->
+<!--class="uploader small"-->
 
-<label class="{{fileClass}}" ondragover="return false;"
+<!--{{fileClass}}-->
+<label
+       class="uploader small"
+       ondragover="return false;"
        [class.loaded]="loaded"
        [style.outlineColor]="dragging ? activeColor : baseColor"
        (dragenter)="handleDragEnter()"

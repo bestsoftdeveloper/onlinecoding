@@ -13,7 +13,7 @@ export class FileComponentComponent  {
   @Input() isDisabled: any;
 
 
-  fileClass: string ='uploader';
+  public fileClass: string ='uploader';
 
   constructor() { }
 

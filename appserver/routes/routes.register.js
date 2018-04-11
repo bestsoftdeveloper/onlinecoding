@@ -29,7 +29,7 @@ router
     const method = body.proxy.method;
 
     if(!body.tokenObj) {
-      body.tokenObj = await securityModule.createRegisterUser(body.data);
+      body.tokenObj = await securityModule.createRegisterUser(data);
     }
 
 

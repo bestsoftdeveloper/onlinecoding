@@ -32,24 +32,39 @@ export class AppComponent implements OnInit {
     // this.socket.connect();
   }
 
-  ngOnInit(): void {
+  async ngOnInit() {
 
-    (async () => {
-      const req = {
-        data:{},
-        proxy: {
-          method: "checkToken",
-          module: "security"
-        }
-      };
-      const resp = await this.httpService.postJson('api/private/', req);
+    // (async () => {
+    //   const req = {
+    //     data:{},
+    //     proxy: {
+    //       method: "checkToken",
+    //       module: "security"
+    //     }
+    //   };
+    //   const resp = await this.httpService.postJson('api/private/', req);
+    //
+    //   if(resp.success) {
+    //     // console.log(resp);
+    //     this.localStorageService.add('user',resp.data);
+    //     // this.pubSubService.publish("login", resp.data);
+    //   }
+    // })();
 
-      if(resp.success) {
-        // console.log(resp);
-        this.localStorageService.add('user',resp.data);
-        // this.pubSubService.publish("login", resp.data);
+    const req = {
+      data:{},
+      proxy: {
+        method: "checkToken",
+        module: "security"
       }
-    })();
+    };
+    const resp = await this.httpService.postJson('api/private/', req);
+
+    if(resp.success) {
+      // console.log(resp);
+      this.localStorageService.add('user',resp.data);
+      // this.pubSubService.publish("login", resp.data);
+    }
 
 
 //     mermaid.initialize({startOnLoad:true});

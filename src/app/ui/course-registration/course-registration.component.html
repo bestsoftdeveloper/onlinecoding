@@ -50,7 +50,7 @@
       </div>
 
       <form class="" #subForm="ngForm" autocomplete="false">
-        <div *ngIf="!user" class="row">
+        <div *ngIf="!registered" class="row">
 
           <div class="row">
             <div class="col-md-6">
@@ -107,7 +107,7 @@
             </div>
 
           </div>
-          <div class="row">
+          <div class="row" *ngIf="showEmailPassword">
             <div class="col-md-6">
               <div class="form-group">
                 <label for="email">{{localizationService.language.email}}</label>
@@ -187,7 +187,7 @@
       <div class="row">
         <div class="register">
           <span class="center center-block bg-info info ">{{message}}</span>
-          <button *ngIf="showRegisterButton" type="button"
+          <button *ngIf="!registered" type="button"
                   class="btn1 full center-block title center btn-success inregistrarebtn " (click)="registerToCourse()">
             Inregistare
           </button>

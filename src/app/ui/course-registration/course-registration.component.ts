@@ -15,7 +15,8 @@ export class CourseRegistrationComponent implements OnInit {
 
   canRegisterCourse: boolean = true;
   message:string= "";
-  showRegisterButton =true;
+  registered: boolean = false;
+  showEmailPassword: boolean = true;
   public user: any = null;
   public mask = ['(', /[0-9]/, /\d/, /\d/, /\d/,')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/,  /\d/];
 
@@ -23,7 +24,8 @@ export class CourseRegistrationComponent implements OnInit {
     firstName:'',
     lastName:'',
     email:'',
-    password:''
+    password:'',
+    phone:''
   };
   @ViewChild('subForm') currentForm: NgForm;
   constructor(private httpService: HttpWrapperService,
@@ -34,9 +36,17 @@ export class CourseRegistrationComponent implements OnInit {
   ) {
     this.user = localStorageService.get('user');
     if(this.user) {
-      this.showRegisterButton = (!this.user.registered);
+      this.registered = this.user.registered;
+
       if(this.user.registered) {
         this.message = "Sunteti inregistrati";
+      }else{
+        this.ui.firstName = this.user.firstName;
+        this.ui.lastName = this.user.lastName;
+        this.ui.email = this.user.email;
+        this.ui.firstName = this.user.firstName;
+        this.ui.phone = this.user.phone;
+        this.showEmailPassword = !this.user.email;
       }
     }
   }
@@ -53,12 +63,12 @@ export class CourseRegistrationComponent implements OnInit {
     this.currentForm.controls[ctrlName].markAsDirty();
     return this.currentForm.controls[ctrlName].valid;
   }
-  registered(resp)
+  userWasRegistered(resp)
   {
     if(!resp.success){
       return;
     }
-    this.showRegisterButton = false;
+    this.registered = false;
     this.message = "Inregistrarea a fost efctuata cu succes";
 
     this.localStorageService.add('user',resp.data);
@@ -81,17 +91,22 @@ export class CourseRegistrationComponent implements OnInit {
     };
     body.data = {};
     let isFormOk  = true;
-    if(!this.user){
+
       let isCtrlValid = this.validateInput('firstName');
       if(!isCtrlValid){isFormOk = false;}
       isCtrlValid = this.validateInput('lastName');
       if(!isCtrlValid){isFormOk = false;}
 
+    if(this.showEmailPassword) {
       isCtrlValid = this.validateInput('email');
-      if(!isCtrlValid){isFormOk = false;}
+      if (!isCtrlValid) {
+        isFormOk = false;
+      }
       isCtrlValid = this.validateInput('password');
-      if(!isCtrlValid){isFormOk = false;}
-
+      if (!isCtrlValid) {
+        isFormOk = false;
+      }
+    }
       isCtrlValid = this.validateInput('phone');
       if(!isCtrlValid){isFormOk = false;}
 
@@ -106,12 +121,12 @@ export class CourseRegistrationComponent implements OnInit {
         password: this.ui.password,
         phone: this.ui.phone
       };
-    }
+
 
 
     const resp  = await this.httpService.postJson('api/register', body);
 
-    this.registered(resp);
+    this.userWasRegistered(resp);
 
   }
 
