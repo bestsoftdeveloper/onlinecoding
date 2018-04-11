@@ -5,6 +5,8 @@ import markdownItMermaid from 'markdown-it-mermaid'
 import mermaid from 'mermaid';
 import {PubSubService} from "./services/pubsub/pubsub";
 import {LocalizationService} from "./services/localization/localization.service";
+import {HttpWrapperService} from "./services/http/httpService";
+import {LocalStorageService} from "angular-2-local-storage";
 
 // declare const mermaid;
 
@@ -19,7 +21,32 @@ export class AppComponent implements OnInit {
   // mdi.use(markdownItMermaid)
 
    rrr: any = null;
-  ngOnInit(): void {
+
+  title = 'app';
+
+  constructor(private socket: SocketService,
+              private httpService: HttpWrapperService,
+              private localStorageService: LocalStorageService,
+              private pubSubService: PubSubService)
+  {
+    // this.socket.connect();
+  }
+
+  async ngOnInit(): void {
+    const req = {
+      data:{},
+      proxy: {
+        method: "checkToken",
+        module: "security"
+      }
+    };
+    const resp = await this.httpService.postJson('api/private/', req);
+
+    if(resp.success) {
+      // console.log(resp);
+      this.localStorageService.add('user',resp.data);
+      // this.pubSubService.publish("login", resp.data);
+    }
 //     mermaid.initialize({startOnLoad:true});
 //     var that = this;
 // //     var aaa = "";
@@ -28,10 +55,5 @@ export class AppComponent implements OnInit {
 //     });
 
   }
-  title = 'app';
 
-  constructor(private socket: SocketService)
-  {
-    // this.socket.connect();
-  }
 }

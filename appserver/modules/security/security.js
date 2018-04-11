@@ -637,10 +637,10 @@ module.exports = function() {
             // return resp;
         },
 
-         checkToken(obj) {
+         async checkToken(obj) {
             // console.log(obj);
             if (!obj.tokenObj) {
-              return "";
+              throw "no token";
                 // return responseWrapper.sendResponse(true, null, "", "");
             }
 
@@ -653,8 +653,14 @@ module.exports = function() {
                     multi: false
                 }
             );
+            var dbUser = await mongoQuery.userSchemas.Users.findOne({
+              '_id': obj.tokenObj.id
+            });
+            // console.log('3');
 
-    return recordset;
+
+            return models.createUserResponse(dbUser);
+
             // return responseWrapper.sendResponse(true, recordset, "amt", "");
 
         },
