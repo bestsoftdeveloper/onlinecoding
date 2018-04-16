@@ -207,6 +207,20 @@ module.exports = function() {
     //   password: obj.password
     // });
   },
+  async delUser(obj) {
+
+    obj.email = obj.email.toLowerCase();
+
+    var criteria = mongoQuery.userSchemas.Users.remove(
+      {
+        email: obj.email
+      }
+    );
+
+    return await  mongoQuery.executeQuery(criteria);
+
+  },
+
     async createUser(obj) {
             if(!obj || !obj.email)
             {

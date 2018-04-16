@@ -8,6 +8,7 @@
 
   <div class="row" *ngFor="let user of pager.items; let i = index">
     Row {{i}} : {{user.name}} - {{user.email}}
+    <button (click)="deleteUser(user)">Delete</button>
   </div>
 
 

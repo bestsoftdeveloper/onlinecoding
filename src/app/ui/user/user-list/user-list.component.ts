@@ -51,6 +51,19 @@ export class UserListComponent implements OnInit {
     this.pager.items = resp.data.items;
   }
 
+  async deleteUser(user) {
+    const body :any = {};
+    body.proxy = {
+      module: 'security',
+      method: 'delUser',
+    };
+    body.data = {
+      email: user.email
+    };
+
+    const resp = await  this.httpService.postJson('api/private', body);
+  }
+
   async pageChanged(data)
   {
     this.pager.pageNo = data.page;
