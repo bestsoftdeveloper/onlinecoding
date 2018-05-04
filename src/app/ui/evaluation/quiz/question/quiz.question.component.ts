@@ -27,9 +27,9 @@ export class QuizQuestionComponent implements OnInit {
   panelClick($event){
     $event.stopPropagation();
 
-    let label = $($event.currentTarget).find('.qlabel');
-    label.click();
-    debugger;
+    // let label = $($event.currentTarget).find('.qlabel');
+    // label.click();
+    // debugger;
   }
 
   onSelectionChange(entry)

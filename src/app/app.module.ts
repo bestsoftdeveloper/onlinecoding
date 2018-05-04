@@ -55,8 +55,6 @@ import { QuizWysEditorComponent } from './ui/evaluation/quiz/quiz-wys-editor/qui
 import { QuizTimerComponent } from './ui/evaluation/quiz/quiz-timer/quiz-timer.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { CourseRegistrationComponent } from './ui/course-registration/course-registration.component';
-import { CodemirrorModule } from '@nomadreservations/ngx-codemirror';
-import { CodemirrorEditorComponent } from './coding/editors/codemirror-editor/codemirror-editor.component';
 import { CoursesComponent } from './ui/courses/courses.component';
 import {SocketService} from "./services/socket/socketService";
 import { NewsManagementComponent } from './ui/news-management/news-management.component';
@@ -71,7 +69,6 @@ import { NewsComponent } from './ui/news-management/news/news.component';
 import {NewsService} from "./ui/news-management/services/newsService";
 import { DailyChallengeComponent } from './ui/daily-challenge/daily-challenge.component';
 import { CollapsibleNewsComponent } from './ui/news-management/collapsible-news/collapsible-news.component';
-import { CoddingMirrorComponent } from './coding/codding-mirror/codding-mirror.component';
 import { PagerWrapperComponent } from './components/pager-wrapper/pager-wrapper.component';
 import { PaginationModule } from 'ngx-bootstrap';
 import { NotificationWrapperComponent } from './components/notification-wrapper/notification-wrapper.component';
@@ -151,7 +148,6 @@ let providers = {
     QuizWysEditorComponent,
     QuizTimerComponent,
     CourseRegistrationComponent,
-    CodemirrorEditorComponent,
     CoursesComponent,
     NewsManagementComponent,
     ConsoleComponetComponent,
@@ -160,7 +156,6 @@ let providers = {
     NewsComponent,
     DailyChallengeComponent,
     CollapsibleNewsComponent,
-    CoddingMirrorComponent,
     PagerWrapperComponent,
     NotificationWrapperComponent,
     CreateUserComponent,
@@ -185,7 +180,6 @@ let providers = {
     BrowserModule,
     BrowserAnimationsModule,
 
-    CodemirrorModule,
     DropdownModule,
     FacebookModule.forRoot(),
     FormsModule,
