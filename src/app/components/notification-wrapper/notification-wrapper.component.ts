@@ -1,5 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import {NotificationsService} from 'angular2-notifications';
 import {PubSubService} from '../../services/pubsub/pubsub';
 
 @Component({
@@ -9,8 +8,7 @@ import {PubSubService} from '../../services/pubsub/pubsub';
 })
 export class NotificationWrapperComponent implements OnInit {
 
-  constructor(private _notificationsService: NotificationsService, private pubSub: PubSubService) {
-  }
+
 
   public options = {
     position: ["bottom", "left"],
@@ -20,19 +18,7 @@ export class NotificationWrapperComponent implements OnInit {
 
 
   ngOnInit() {
-    this.pubSub.subscribe('notification', (notif) => {
-      this._notificationsService.success(
-        'Some Title',
-        'Some Content',
-        {
-          timeOut: 5000,
-          showProgressBar: true,
-          pauseOnHover: false,
-          clickToClose: false,
-          maxLength: 10
-        }
-      )
-    })
+
   }
 
 }
