@@ -57,8 +57,8 @@
               <!--<app-codding-mirror [obj]=currentSolution [code]="currentSolution.items[0].resp.code" [problemId]=""-->
                                   <!--[testCases]=newsObject.testCases></app-codding-mirror>-->
 
-              <app-codemirror-editor [code]="currentSolution.items[0].resp.code"
-                                     ></app-codemirror-editor>
+              <app-coding [code]="currentSolution.items[0].resp.code"
+                                     ></app-coding>
             </div>
           </div>
 
@@ -81,7 +81,7 @@
     <div class="col-md-12">
 
       <!--<pre>{{problem | json}}</pre>-->
-      <app-coding [obj]=newsObject [code]="newsObject.items[0].content" [problemId]="newsObject._id"
+      <app-coding [obj]=newsObject [code]="newsObject.items[0].content"
                           [testCases]=newsObject.testCases></app-coding>
     </div>
     <!--<app-codemirror-editor [code]="newsObject.title"-->

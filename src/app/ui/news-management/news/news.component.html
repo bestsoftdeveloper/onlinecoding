@@ -13,8 +13,8 @@
 
     <div class="row" *ngIf="newsObject.items[i].ItemTypeValue == 2">
       <div>
-        <app-codemirror-editor [code]="newsObject.items[i].content"
-                               [externalConfig]=externalConfig></app-codemirror-editor>
+        <app-coding [code]="newsObject.items[i].content"
+                              ></app-coding>
       </div>
     </div>
 
