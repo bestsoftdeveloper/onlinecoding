@@ -1,22 +1,30 @@
+sudo: false
+dist: trusty
 language: node_js
+
+cache:
+  directories:
+    - node_modules
+
+addons:
+  chrome: stable
+
 node_js:
-  - "9.6"
+  - "6"
+  - "7"
+  - "8"
 
-branches:
-  only:
-    - master
+matrix:
+  fast_finish: true
 
-sudo: false # Allows Travis to run this project in container
-deploy:
-  provider: script
-  skip_cleanup: true
-  script: scripts/deploy.sh
-  on:
-    branch: master
+before_install:
+  - npm install npm@5 -g
+  - npm cache verify
+  - npm prune
+  - npm update
 
+install:
+  - npm install
 
-
-notifications:
-  email:
-    on_failure: change
-    on_success: change
+script:
+  - npm run ci:travis
