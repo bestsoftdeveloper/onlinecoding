@@ -74,8 +74,6 @@ import { CollapsibleNewsComponent } from './ui/news-management/collapsible-news/
 import { CoddingMirrorComponent } from './coding/codding-mirror/codding-mirror.component';
 import { PagerWrapperComponent } from './components/pager-wrapper/pager-wrapper.component';
 import { PaginationModule } from 'ngx-bootstrap';
-import { NotificationWrapperComponent } from './components/notification-wrapper/notification-wrapper.component';
-import { SimpleNotificationsModule } from 'angular2-notifications';
 import { CreateUserComponent } from './ui/user/create-user/create-user.component';
 import { ForgotPasswordComponent } from './ui/user/forgot-password/forgot-password.component';
 import { SetNewPasswordComponent } from './ui/user/set-new-password/set-new-password.component';
@@ -163,7 +161,6 @@ let providers = {
     CollapsibleNewsComponent,
     CoddingMirrorComponent,
     PagerWrapperComponent,
-    NotificationWrapperComponent,
     CreateUserComponent,
     ForgotPasswordComponent,
     SetNewPasswordComponent,
@@ -203,7 +200,6 @@ let providers = {
 
     BsDropdownModule.forRoot(),
     PaginationModule.forRoot(),
-    SimpleNotificationsModule.forRoot(),
     TabsModule.forRoot(),
     MarkdownModule.forRoot(),
 
