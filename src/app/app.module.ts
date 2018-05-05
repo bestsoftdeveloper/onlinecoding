@@ -2,7 +2,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
 import { FormsModule }   from '@angular/forms';
-import { MatInputModule, MatButtonModule, MatSelectModule, MatIconModule, MatCardModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AceEditorModule } from 'ng2-ace-editor';
 import { AppComponent } from './app.component';
@@ -29,8 +28,6 @@ import { ResetPasswordComponent } from './login/resetpassword/resetpassword.comp
 import { FooterComponent } from './ui/footer/footer.component';
 import { LocalStorageModule } from 'angular-2-local-storage';
 
-import {DropdownModule} from "ngx-dropdown";
-import { FacebookModule } from 'ngx-facebook';
 import {AuthGuard} from "./routes/auth-guard.service";
 import { EvaluationComponent } from './ui/evaluation/evaluation.component';
 import { QuizAddComponent } from './ui/evaluation/quiz/add/quiz.add.component';
@@ -55,7 +52,6 @@ import { QuizWysEditorComponent } from './ui/evaluation/quiz/quiz-wys-editor/qui
 import { QuizTimerComponent } from './ui/evaluation/quiz/quiz-timer/quiz-timer.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { CourseRegistrationComponent } from './ui/course-registration/course-registration.component';
-import { CodemirrorModule } from '@nomadreservations/ngx-codemirror';
 import { CodemirrorEditorComponent } from './coding/editors/codemirror-editor/codemirror-editor.component';
 import { CoursesComponent } from './ui/courses/courses.component';
 import {SocketService} from "./services/socket/socketService";
@@ -74,8 +70,6 @@ import { CollapsibleNewsComponent } from './ui/news-management/collapsible-news/
 import { CoddingMirrorComponent } from './coding/codding-mirror/codding-mirror.component';
 import { PagerWrapperComponent } from './components/pager-wrapper/pager-wrapper.component';
 import { PaginationModule } from 'ngx-bootstrap';
-import { NotificationWrapperComponent } from './components/notification-wrapper/notification-wrapper.component';
-import { SimpleNotificationsModule } from 'angular2-notifications';
 import { CreateUserComponent } from './ui/user/create-user/create-user.component';
 import { ForgotPasswordComponent } from './ui/user/forgot-password/forgot-password.component';
 import { SetNewPasswordComponent } from './ui/user/set-new-password/set-new-password.component';
@@ -163,7 +157,6 @@ let providers = {
     CollapsibleNewsComponent,
     CoddingMirrorComponent,
     PagerWrapperComponent,
-    NotificationWrapperComponent,
     CreateUserComponent,
     ForgotPasswordComponent,
     SetNewPasswordComponent,
@@ -186,9 +179,6 @@ let providers = {
     BrowserModule,
     BrowserAnimationsModule,
 
-    CodemirrorModule,
-    DropdownModule,
-    FacebookModule.forRoot(),
     FormsModule,
     FroalaEditorModule.forRoot(), FroalaViewModule.forRoot(),
 
@@ -203,17 +193,11 @@ let providers = {
 
     BsDropdownModule.forRoot(),
     PaginationModule.forRoot(),
-    SimpleNotificationsModule.forRoot(),
     TabsModule.forRoot(),
     MarkdownModule.forRoot(),
 
     SwiperModule,
-    TextMaskModule,
-    MatInputModule,
-    MatButtonModule,
-    MatSelectModule,
-    MatIconModule,
-    MatCardModule
+    TextMaskModule
 
   ],
   providers: [HttpWrapperService,CodeExecutionService, AuthGuard, SimpleTimer,PubSubService, SocketService, UtilsService,NewsService, LocalizationService ],

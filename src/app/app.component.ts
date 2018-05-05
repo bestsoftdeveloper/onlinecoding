@@ -1,7 +1,5 @@
 import {Component, OnInit, ViewChild, ElementRef} from '@angular/core';
 import {SocketService} from "./services/socket/socketService";
-import markdownIt from 'markdown-it'
-import markdownItMermaid from 'markdown-it-mermaid'
 import mermaid from 'mermaid';
 import {PubSubService} from "./services/pubsub/pubsub";
 import {LocalizationService} from "./services/localization/localization.service";

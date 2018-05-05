@@ -1,9 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import mermaid from 'mermaid';
 import {UUID} from 'angular2-uuid';
-import markdownIt from 'markdown-it';
-import markdownItMermaid from 'markdown-it-mermaid';
-// import markdownItMermaidPro from 'markdown-it-mermaid-pro';
 declare const mermaid;
 
 @Component({

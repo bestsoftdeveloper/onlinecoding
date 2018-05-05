@@ -54,7 +54,7 @@ import "codemirror/addon/tern/tern.js";
 
 
 import * as CodeMirror from "codemirror";
-import { CodemirrorService } from '@nomadreservations/ngx-codemirror';
+// import { CodemirrorService } from '@nomadreservations/ngx-codemirror';
 
 
 @Component({
@@ -71,9 +71,8 @@ export class CodemirrorEditorComponent implements OnInit {
 
   @Output() onCodeChanged: EventEmitter<any> = new EventEmitter<any>();
 
-  constructor(private _codeMirror: CodemirrorService) {
-    // CodeMirror.ter
-  }
+  // constructor(private _codeMirror: CodemirrorService) {
+  // }
 
   onChange(event) {
     if (typeof(event) !== 'string')
@@ -142,9 +141,8 @@ export class CodemirrorEditorComponent implements OnInit {
   public ngOnInit() {
 
 
-    this._codeMirror.instance$.subscribe((editor) => {
-      // console.log(editor.state);
-    });
+    // this._codeMirror.instance$.subscribe((editor) => {
+    // });
 
     if(this.externalConfig)
     {
