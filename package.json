@@ -73,8 +73,6 @@
     "ngx-hellojs": "0.0.4",
     "ngx-mask": "^2.2.2",
     "ngx-swiper-wrapper": "^5.3.6",
-    "node-cmd": "^3.0.0",
-    "node-cryptojs-aes": "^0.4.0",
     "nodemailer": "^4.4.1",
     "parse-glob": "^3.0.4",
     "pipeline-test-node": "^1.1.1",
@@ -90,7 +88,6 @@
     "zone.js": "^0.8.19"
   },
   "devDependencies": {
-    "@angular/cli": "~1.7.3",
     "@angular/compiler-cli": "^5.2.0",
     "@angular/language-service": "^5.2.0",
     "@types/jasmine": "~2.8.3",
