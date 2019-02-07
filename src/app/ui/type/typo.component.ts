@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+// import { Typed } from 'typed.js/src/typed.js';
 import * as Typed from 'typed.js';
 import {LocalizationService} from "../../services/localization/localization.service";
 import {PubSubService} from "../../services/pubsub/pubsub";
@@ -11,7 +12,16 @@ import {PubSubService} from "../../services/pubsub/pubsub";
 
 export class TypoComponent implements OnInit {
 
-  typed: Typed =null;
+  typed=null;
+  options = {
+    strings: ['Innovation.', 'Discovery.'],
+    typeSpeed: 100,
+    backSpeed: 100,
+    showCursor: true,
+    cursorChar: '|',
+    loop: true
+  };
+
 
   constructor( private pubSubService: PubSubService, public localizationService: LocalizationService) {
 
@@ -48,6 +58,9 @@ export class TypoComponent implements OnInit {
   }
 
   ngAfterViewInit(){
+    debugger;
+    // this.typed = new Typed(".element", this.options);
+
     this.typed = new Typed(".element", {
       stringsElement: '#typed-strings',
       //smartBackspace: true, // Default value

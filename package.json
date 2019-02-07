@@ -84,7 +84,7 @@
     "swiper": "^3.4.2",
     "tern": "^0.21.0",
     "tern-guess-types": "^0.10.0",
-    "typed.js": "^2.0.6",
+    "typed.js": "^2.0.10",
     "zone.js": "^0.8.19"
   },
   "devDependencies": {
