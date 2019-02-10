@@ -34,8 +34,15 @@
 
   <div class="container">
     <div class="col-md-12">
-      <div>Ne intalnim luni, 23 aprilie 2018, ora 18:30 la adresa Cluj, Str. Bucuresti nr. 74 (Spatii intensa).
-      Primul curs (care nu s-a incheiat - mai avem 2 luni) merge bine.</div>
+      <div>
+        <div>Incepem in 27 februarie 2019.
+        ucode.ro in colaborare cu bestdeveloper.ro organizeaza cursuri complete de programare.
+        </div>
+
+        <div>
+          Pentru informatii suplimentare puteti suna la nr. 0773 812 857 (ucode) sau contact@ucode.ro
+        </div>
+
       <div>Haide sa ne cunoastem, sa vedem care ar fi obiectivele acestui curs si daca e ceea ce s-ar potrivii cel mai bine </div>
     </div>
 
@@ -43,17 +50,17 @@
       <div class="row">
         <span class="full center-block title center">Full Stack Developer</span>
       </div>
-      <div class="row">
-        <div class="list-group">
-          <div class="list-group-item title center">Sfaturi</div>
-          <div class="list-group-item">Analizeaza cursurile</div>
-          <div class="list-group-item">Cere parerea unei persoane din domeniul IT daca aceste cursuri ar fi potrivite
-            pentru tine
-          </div>
-          <div class="list-group-item">Scrie-ne sau contacteaza-ne pentru orice nelamuriri</div>
-          <div class="list-group-item">Completeaza rubrica 'Sondaj'</div>
-        </div>
-      </div>
+      <!--<div class="row">-->
+        <!--<div class="list-group">-->
+          <!--<div class="list-group-item title center">Sfaturi</div>-->
+          <!--<div class="list-group-item">Analizeaza cursurile</div>-->
+          <!--<div class="list-group-item">Cere parerea unei persoane din domeniul IT daca aceste cursuri ar fi potrivite-->
+            <!--pentru tine-->
+          <!--</div>-->
+          <!--<div class="list-group-item">Scrie-ne sau contacteaza-ne pentru orice nelamuriri</div>-->
+          <!--<div class="list-group-item">Completeaza rubrica 'Sondaj'</div>-->
+        <!--</div>-->
+      <!--</div>-->
 
       <form class="" #subForm="ngForm" autocomplete="false">
         <div *ngIf="!registered" class="row">
@@ -200,7 +207,7 @@
         <div class="register">
           <span class="center center-block bg-info info ">{{message}}</span>
           <button *ngIf="!registered" type="button"
-                  class="btn1 full center-block title center btn-success inregistrarebtn " (click)="registerToCourse()">
+                  class=" center btn-success " (click)="registerToCourse()">
             Inregistrare
           </button>
         </div>
