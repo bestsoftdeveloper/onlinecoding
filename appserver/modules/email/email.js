@@ -179,7 +179,7 @@ module.exports = function() {
             subject: obj.subject,
             html: obj.body
           };
-          obj.bcc= "claudiu9379@gmail.com";
+          obj.bcc= "office@bestdeveloper.ro";
           if(obj.bcc){
             emailMessage.bcc = obj.bcc;
           }
